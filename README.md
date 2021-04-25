@@ -1,14 +1,24 @@
-# Project
+## Python Reasoning Challenges
 
-> This repo has been populated by an initial template to help get you started. Please
-> make sure to update the content to build a great experience for community-building.
+This repo contains a dataset of python reasoning challenges which can be used to teach an AI python and evaluate an AI's ability to understand and write python programs. Each challenge takes the form of a python function that takes an answer as an argument. The goal is to find an answer which makes the function return `True`.
 
-As the maintainer of this project, please make a few updates:
+```python
+def sat(s: str):
+    return s + "world" == "Hello world"
+```
 
-- Improving this README.MD file to provide a great experience
-- Updating SUPPORT.MD with content about this project's support experience
-- Understanding the security reporting process in SECURITY.MD
-- Remove this section from the README
+The answer to the above challenge is the string `"Hello "` because `sat("Hell ")` returns `True`. The challenges range from trivial problems like this, to classic puzzles, to algorithms problems and problems from the [International Mathematical Olympiad](https://en.wikipedia.org/wiki/International_Mathematical_Olympiad) and open problems in mathematics. For instance, the classic [Towers of Hanoi](https://en.wikipedia.org/wiki/Tower_of_Hanoi) puzzle can be written as follows:
+
+```python
+def sat(moves: List[List[int]], num_disks=8):  # moves is list of [from, to] pairs
+    state = (list(range(num_disks)), [], [])
+    for [i, j] in moves:
+        state[j].append(state[i].pop())
+        assert state[j] == sorted(state[j]), "larger disk on top of smaller disk"
+    return state[0] == state[1] == []
+
+```
+
 
 ## Contributing
 
