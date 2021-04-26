@@ -672,7 +672,7 @@ def get_func_name(src):
 
 
 def save_readme(problem_sets, filename=os.path.join(PATH, "README.md")):
-    top = """# The AI-SAT dataset summary
+    top = """# The Python Reasoning Challenge dataset summary
 This document summarizes the dataset stored in .json files.
 Each .json file contains a number of related problems with one or more instances each.
 
