@@ -1,0 +1,444 @@
+"""Adapted from the
+[International Mathematical Olympiad](https://en.wikipedia.org/wiki/International_Mathematical_Olympiad)
+[problems](https://www.imo-official.org/problems.aspx)"""
+
+from problems import Problem, register, get_problems
+from typing import List
+
+@register
+class IMO_2010_5(Problem):
+    """This problem has *long* solutions.
+
+    There are five boxes each having one coin initially. Two types of moves are allowed:
+    * (advance) remove `k > 0` coins from box `i` and add `2k` coins to box `i + 1`
+    * (swap) remove a coin from box `i` and swap the contents of boxes `i+1` and `i+2`
+    Given `0 <= n <= 16385`, find a sequence of states that result in 2^n coins in the last box.
+    Note that `n` can be as large as 2^14+1 yielding 2^(2^14+1) coins (a number with 4,933 digits) in the last
+    box. Encode each state as a list of the numbers of coins in the five boxes.
+
+    Sample Input:
+    `n = 2`
+
+    Sample Output:
+    `[[1, 1, 1, 1, 1], [0, 3, 1, 1, 1], [0, 1, 5, 1, 1], [0, 1, 4, 1, 1], [0, 0, 1, 4, 1], [0, 0, 0, 1, 4]]`
+
+    The last box now has 2^2 coins. This is a sequence of two advances followed by three swaps.
+
+    The version above uses only 5 boxes (unlike the IMO problem with 6 boxes since 2010^2010^2010 is too big
+    for computers) but the solution is quite similar to the solution to the IMO problem. Because the solution
+    requires exponential many moves, our representation allows combining multiple Type-1 (advance) operations
+    into a single step.
+
+    Based on [IMO 2010 Problem 5](https://www.imo-official.org/problems.aspx)"""
+
+    timeout = 10 # sat can run 10 times longer than normal
+
+    @staticmethod
+    def sat(states: List[List[int]], n=10):  # list of 5-tuple states
+        assert states[0] == [1] * 5 and all(len(li) == 5 for li in states) and all(i >= 0 for li in states for i in li)
+        for prev, cur in zip(states, states[1:]):
+            for i in range(5):
+                if cur[i] != prev[i]:
+                    break
+            assert cur[i] < prev[i]
+            assert (
+                    cur[i + 1] - prev[i + 1] == 2 * (prev[i] - cur[i]) and cur[i + 2:] == prev[i + 2:]  # k decrements
+                    or
+                    cur[i:i + 3] == [prev[i] - 1, prev[i + 2], prev[i + 1]] and cur[i + 3:] == prev[i + 3:]  # swap
+            )
+
+        return states[-1][-1] == 2 ** n
+
+    @staticmethod
+    def sol(n):
+        assert n >= 1
+        ans = [[1] * 5, [0, 3, 1, 1, 1], [0, 2, 3, 1, 1], [0, 2, 2, 3, 1], [0, 2, 2, 0, 7], [0, 2, 1, 7, 0],
+               [0, 2, 1, 0, 14], [0, 2, 0, 14, 0], [0, 1, 14, 0, 0]]
+
+        def exp_move():  # shifts last 3 [..., a, 0, 0] to [..., 0, 2^a, 0] for a>0
+            state = ans[-1][:]
+            state[2] -= 1
+            state[3] += 2
+            ans.append(state[:])
+            while state[2]:
+                state[3], state[4] = 0, 2 * state[3]
+                ans.append(state[:])
+                state[2:] = [state[2] - 1, state[4], 0]
+                ans.append(state[:])
+
+        exp_move()
+        assert ans[-1] == [0, 1, 0, 2 ** 14, 0]
+        ans.append([0, 0, 2 ** 14, 0, 0])
+        if n <= 16:
+            ans.append([0, 0, 0, 2 ** 15, 0])
+        else:
+            exp_move()
+            assert ans[-1] == [0, 0, 0, 2 ** (2 ** 14), 0]
+        state = ans[-1][:]
+        state[-2] -= 2 ** (n - 1)
+        state[-1] = 2 ** n
+        ans.append(state)
+        return ans
+
+    def gen(self, target_num_problems):
+        self.add(dict(n=2 ** 14 + 1))
+        for i in range(10):
+            n = 2**i
+            self.add(dict(n=n))
+            if len(self.instances) >= target_num_problems:
+                return
+
+
+
+@register
+class IMO_2016_4(Problem):
+    """Let P(n) = n^2 + n + 1.
+
+    Given b>=6 and m>=1, find m non-negative integers for which the set {P(a+1), P(a+2), ..., P(a+b)} has
+    the property that there is no element that is relatively prime to every other element. (Q: Is there a more
+    efficient solution than the brute-force one we give, perhaps using the Chinese remainder theorem?)
+
+    Sample input:
+    b = 6
+    m = 2
+
+    Sample output:
+    [195, 196]
+
+    Based on [IMO 2016 Problem 4](https://www.imo-official.org/problems.aspx)"""
+
+    @staticmethod
+    def sat(nums: List[int], b=6, m=2):
+        assert len(nums) == len(set(nums)) == m and min(nums) >= 0
+
+        def gcd(i, j):
+            r, s = max(i, j), min(i, j)
+            while s >= 1:
+                r, s = s, (r % s)
+            return r
+
+        for a in nums:
+            nums = [(a + i + 1) ** 2 + (a + i + 1) + 1 for i in range(b)]
+            assert all(any(i != j and gcd(i, j) > 1 for j in nums) for i in nums)
+
+        return True
+
+    @staticmethod
+    def sol(b, m):
+        ans = []
+
+        seen = set()
+        deltas = set()
+
+        def go(a):
+            if a < 0 or a in seen or len(ans) == m:
+                return
+            seen.add(a)
+            nums = [(a + i + 1) ** 2 + (a + i + 1) + 1 for i in range(b)]
+            if all(any(i != j and gcd(i, j) > 1 for j in nums) for i in nums):
+                new_deltas = [abs(a - a2) for a2 in ans if a != a2 and abs(a - a2) not in deltas]
+                ans.append(a)
+                for delta in new_deltas:
+                    for a2 in ans:
+                        go(a2 + delta)
+                        go(a2 - delta)
+                deltas.update(new_deltas)
+                for delta in sorted(deltas):
+                    go(a + delta)
+
+        def gcd(i, j):
+            r, s = max(i, j), min(i, j)
+            while s >= 1:
+                r, s = s, (r % s)
+            return r
+
+        a = 0
+
+        while len(ans) < m:
+            go(a)
+            a += 1
+
+        return ans
+
+    def gen_random(self):
+        b = self.random.randrange(6, 20)
+        m = self.random.randrange(1, 100)
+        # print(self.__class__, b, m, tick())
+        self.add(dict(b=b, m=m), test=(b < 10))
+
+
+@register
+class IMO_2017_1(Problem):
+    """Find a repeating integer in an infinite sequence of integers, specifically the indices for which the same value
+    occurs 1000 times. The sequence is defined by a starting value a_0 and each subsequent term is:
+    a_{n+1} = the square root of a_n if the a_n is a perfect square, and a_n + 3 otherwise.
+
+    For a given a_0 (that is a multiple of 3), the goal is to find 1000 indices where the a_i's are all equal.
+
+    Sample input:
+    9
+
+    Sample output:
+    [0, 3, 6, ..., 2997]
+
+    The sequence starting with a0=9 is [9, 3, 6, 9, 3, 6, 9, ...] thus a_n at where n is a multiple of 3 are
+    all equal in this case.
+
+    Note: This problem is much easier than the IMO problem which also required a proof that it is impossible
+    for a_0 not divisible by 3.
+
+    Based on [IMO 2017 Problem 1](https://www.imo-official.org/problems.aspx)"""
+
+    @staticmethod
+    def sat(indices: List[int], a0=123):
+        assert a0 >= 0 and a0 % 3 == 0, "Hint: a_0 is a multiple of 3."
+        s = [a0]
+        for i in range(max(indices)):
+            s.append(int(s[-1] ** 0.5) if int(s[-1] ** 0.5) ** 2 == s[-1] else s[-1] + 3)
+        return len(indices) == len(set(indices)) == 1000 and min(indices) >= 0 and len({s[i] for i in indices}) == 1
+
+    @staticmethod
+    def sol(a0):
+        n = a0
+        ans = []
+        i = 0
+        while len(ans) < 1000:
+            if n == 3:  # use the fact that 3 will repeat infinitely often
+                ans.append(i)
+            n = int(n ** 0.5) if int(n ** 0.5) ** 2 == n else n + 3
+            i += 1
+        return ans
+
+    def gen_random(self):
+        a0 = 3 * self.random.randrange(1, 10 ** 6)
+        # print(self.__class__, a0, tick())
+        self.add(dict(a0=a0))
+
+
+@register
+class IMO_2017_5(Problem):
+    """Given a permutation of the integers up to n(n+1) as a list, choose 2n numbers to keep (in the same order)
+    so that the remaining list of numbers satisfies:
+    * its largest number is next to its second largest number
+    * its third largest number is next to its fourth largest number
+    ...
+    * its second smallest number is next to its smallest number
+
+    Sample input:
+    [4, 0, 5, 3, 1, 2]
+    n = 2
+
+    Sample output:
+    [True, False, True, False, True, True]
+
+    Keeping these indices results in the sublist [4, 5, 1, 2] where 4 and 5 are adjacent as are 1 and 2.
+
+    The solution encodes the judge's solution.
+    Based on [IMO 2017 Problem 5](https://www.imo-official.org/problems.aspx)"""
+
+    @staticmethod
+    def sat(keep: List[bool], heights=[4, 0, 5, 3, 1, 2]):
+        n = int(len(heights) ** 0.5)
+        assert sorted(heights) == list(range(n * n + n)), "hint: heights is a permutation of range(n * n + n)"
+        kept = [i for i, k in zip(heights, keep) if k]
+        assert len(kept) == 2 * n, "must keep 2n items"
+        pi = sorted(range(2 * n), key=lambda i: kept[i])  # the sort indices
+        return all(abs(pi[2 * i] - pi[2 * i + 1]) == 1 for i in range(n))
+
+    @staticmethod
+    def sol(heights):
+        n = int(len(heights) ** 0.5)
+        assert sorted(heights) == list(range(n * (n + 1)))
+        groups = [h // (n + 1) for h in heights]
+        ans = [False] * len(heights)
+        a = 0
+        used_groups = set()
+        while sum(ans) < 2 * n:
+            group_tracker = {}
+            b = a
+            while groups[b] not in group_tracker or groups[b] in used_groups:
+                group_tracker[groups[b]] = b
+                b += 1
+            ans[group_tracker[groups[b]]] = True
+            ans[b] = True
+            used_groups.add(groups[b])
+            a = b + 1
+        return ans
+
+    def gen_random(self):
+        n = self.random.randrange(1, 10)
+        heights = list(range(n * (n + 1)))
+        # print(self.__class__, n, tick())
+        self.random.shuffle(heights)
+        self.add(dict(heights=heights))
+
+
+@register
+class IMO_2018_2(Problem):
+    """Given n, find n integers such that li[i] * li[i+1] + 1 == li[i+2], for i = 0, 1, ..., n-1
+    where indices >= n "wrap around". Note: only n multiples of 3 are given since this is only possible for n
+    that are multiples of 3 (as proven in the IMO problem).
+
+    Sample input:
+    6
+
+    Sample output:
+    [_, _, _, _, _, _]
+
+    (Sample output hidden because showing sample output would give away too much information.)
+
+    Note: This problem is easier than the IMO problem because the hard part is proving that sequences do not
+    exists for non-multiples of 3.
+
+    Based on [IMO 2010 Problem 5](https://www.imo-official.org/problems.aspx)"""
+
+    @staticmethod
+    def sat(li: List[int], n=6):
+        assert n % 3 == 0, "Hint: n is a multiple of 3"
+        return len(li) == n and all(li[(i + 2) % n] == 1 + li[(i + 1) % n] * li[i] for i in range(n))
+
+    @staticmethod
+    def sol(n):
+        return [-1, -1, 2] * (n // 3)
+
+    def gen(self, target_num_problems):
+        for n in range(3, 3 * target_num_problems + 3, 3):
+            # print(self.__class__, n, tick())
+            self.add(dict(n=n))
+
+
+@register
+class IMO_2020_3(Problem):
+    """The input colors is a list of 4n colors each in range(n) with each color occurring 4 times.
+    The goal is to find a subset (list) li of half the indices such that:
+    * The sum of the indices equals the sum of the sum of the missing indices.
+    * The colors of the chosen indices contains exactly each number in range(n) twice.
+
+    Sample input:
+    n = 3
+    colors = [0, 1, 2, 0, 0, 1, 1, 1, 2, 2, 0, 2]
+
+    Sample output:
+    [0, 3, 5, 6, 8, 11]
+
+    Note the sum of the output is 33 = (0+1+2+...+11)/2 and the selected colors are [0, 0, 1, 1, 2, 2]
+
+    Based on [IMO 2020 Problem 3](https://www.imo-official.org/problems.aspx)"""
+
+    @staticmethod
+    def sat(li: List[int], n=3, colors=[0, 1, 2, 0, 0, 1, 1, 1, 2, 2, 0, 2]):
+        assert sorted(colors) == sorted(list(range(n)) * 4), "hint: each color occurs exactly four times"
+        assert len(li) == len(set(li)) and min(li) >= 0
+        return sum(li) * 2 == sum(range(4 * n)) and sorted([colors[i] for i in li]) == [i // 2 for i in range(2 * n)]
+
+    @staticmethod
+    def sol(n, colors):
+        pairs = {(i, 4 * n - i - 1) for i in range(2 * n)}
+        by_color = {color: [] for color in range(n)}
+        for p in pairs:
+            a, b = [colors[i] for i in p]
+            by_color[a].append(p)
+            by_color[b].append(p)
+        cycles = []
+        cycle = []
+        while pairs:
+            if not cycle:  # start new cycle
+                p = pairs.pop()
+                pairs.add(p)  # just to pick a color
+                color = colors[p[0]]
+                # print("Starting cycle with color", color)
+            p = by_color[color].pop()
+            a, b = [colors[i] for i in p]
+            # print(p, a, b)
+            color = a if a != color else b
+            by_color[color].remove(p)
+            cycle.append(p if color == b else p[::-1])
+            pairs.remove(p)
+            if not by_color[color]:
+                cycles.append(cycle)
+                cycle = []
+
+        while any(len(c) % 2 for c in cycles):
+            cycle_colors = [{colors[k] for p in c for k in p} for c in cycles]
+            merged = False
+            for i in range(len(cycles)):
+                for j in range(i):
+                    intersection = cycle_colors[i].intersection(cycle_colors[j])
+                    if intersection:
+                        c = intersection.pop()
+                        # print(f"Merging cycle {i} and cycle {j} at color {c}", cycles)
+                        cycle_i = cycles.pop(i)
+                        for i1, p in enumerate(cycle_i):
+                            if colors[p[0]] == c:
+                                break
+                        for j1, p in enumerate(cycles[j]):
+                            if colors[p[0]] == c:
+                                break
+                        cycles[j][j1:j1] = cycle_i[i1:] + cycle_i[:i1]
+                        merged = True
+                        break
+                if merged:
+                    break
+
+        ans = []
+        for c in cycles:
+            for i, p in enumerate(c):
+                if i % 2:
+                    ans += p
+
+        return ans
+
+    def gen_random(self):
+        n = self.random.randrange(1, 10)
+        colors = [i // 4 for i in range(4 * n)]
+        self.random.shuffle(colors)
+        # print(self.__class__, n, tick())
+        self.add(dict(n=n, colors=colors))
+
+
+# Based on IMO 2017 Problem 6:
+# # An ordered pair (x, y) of integers is a primitive point if the greatest common divisor
+# # of x and y is 1. Given a finite set S of primitive points, prove that there exist a positive integer n
+# # and integers a0, a1, . . . , an such that, for each (x, y) in S, we have:
+# # a_0 x^n + a_1 x^{n-1} y + a_2 x^{n-2} y^2 + ... + a_n y^n = 1:
+#
+#
+# NAME = "2017 problem 5", "imo_2017_5"
+# SRC = "https://www.imo-official.org/problems.aspx"
+# DESC = """
+# Based on IMO 2017 Problem 6. See https://www.imo-official.org/problems.aspx
+# ----
+# The problem asks for the n+1 coefficients given the relatively prime pairs. The solution seems involved
+# and has not yet been implemented.
+# """
+#
+# pairs = [[4, 1], [5, 3], [8, 21]]
+#
+#
+# def sat(li: List[int]):
+#     n = len(li) - 1
+#     return n > 0 and all(sum(c * x ** (n - i) * y ** i for i, c in enumerate(li)) == 1 for x, y in pairs)
+#
+#
+# def gcd(a, b):
+#     if a > b:
+#         a, b = b, a
+#     if a == 0:
+#         return b
+#     return gcd(b % a, a)
+#
+#
+# ps = ProblemSet()
+#     pb = ps.new_problem_builder(problem, solution, DESC)
+#
+#     while len(pb) < DEFAULT_N_PROBLEMS:
+#         n = ps.random.randrange(1, 20)
+#         pairs = [[ps.random.randrange(1, 1000) for _ in range(2)] for i in range(n)]
+#         pairs = [[a, b // gcd(a, b)] for a, b in pairs]
+#         pb.add(Vars(problem, solution=None, pairs=pairs)
+#
+#     ps.save()
+
+if __name__ == "__main__":
+    for problem in get_problems(globals()):
+        problem.test(100)

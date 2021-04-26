@@ -1,6 +1,12 @@
-## Python Reasoning Challenges
+# Python Reasoning Challenges
 
-This repo contains a dataset of python reasoning challenges which can be used to teach an AI python and evaluate an AI's ability to understand and write python programs. Each challenge takes the form of a python function that takes an answer as an argument. The goal is to find an answer which makes the function return `True`.
+This repo contains a dataset of python reasoning challenges which can be used to teach an AI python and evaluate an AI's ability to understand and write python programs. 
+
+# [Click here to browse the challenges](/problems/README.md)
+
+## What is a python reasoning challenge?
+
+Each challenge takes the form of a python function that takes an answer as an argument. The goal is to find an answer which makes the function return `True`.
 
 ```python
 def sat(s: str):
