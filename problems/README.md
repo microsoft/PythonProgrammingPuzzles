@@ -1,4 +1,4 @@
-# The AI-SAT dataset summary
+# The Python Reasoning Challenge dataset summary
 This document summarizes the dataset stored in .json files.
 Each .json file contains a number of related problems with one or more instances each.
 
