@@ -6,7 +6,7 @@ import problems
 import utils
 import templates  # This loads all the problem templates
 
-TARGET_NUM_PER_PROBLEM = 1000
+TARGET_NUM_PER_PROBLEM = 100
 
 
 parser = argparse.ArgumentParser(

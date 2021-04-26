@@ -4,17 +4,17 @@ Each .json file contains a number of related problems with one or more instances
 
 ## Files:
 
-- [algebra (4 problems, 4,000 instances)](#algebra)
-- [basic (10 problems, 10,000 instances)](#basic)
-- [chess (5 problems, 4,858 instances)](#chess)
-- [codeforces (16 problems, 15,023 instances)](#codeforces)
-- [game_theory (2 problems, 2,000 instances)](#game_theory)
-- [graphs (10 problems, 8,002 instances)](#graphs)
-- [ICPC (2 problems, 2,000 instances)](#icpc)
-- [IMO (6 problems, 5,011 instances)](#imo)
-- [puzzles (18 problems, 8,367 instances)](#puzzles)
+- [algebra (4 problems, 400 instances)](#algebra)
+- [basic (10 problems, 1,000 instances)](#basic)
+- [chess (5 problems, 500 instances)](#chess)
+- [codeforces (16 problems, 1,523 instances)](#codeforces)
+- [game_theory (2 problems, 200 instances)](#game_theory)
+- [graphs (10 problems, 802 instances)](#graphs)
+- [ICPC (2 problems, 200 instances)](#icpc)
+- [IMO (6 problems, 511 instances)](#imo)
+- [puzzles (18 problems, 906 instances)](#puzzles)
 
-Total (73 problems, 59,261 instances)
+Total (73 problems, 6,042 instances)
 
 
 ----
