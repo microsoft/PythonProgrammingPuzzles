@@ -1,17 +1,22 @@
-# Python Reasoning Challenges
+# Python Programming Puzzles
+# (Name Approvers: We would like to rename the repo to Python Programming Puzzles but we can keep it at  Python Reasoning Challenges if you prefer)
+
+
 
 This repo contains a dataset of python reasoning challenges which can be used to teach an AI python and evaluate an AI's ability to understand and write python programs. 
 
-## What is a python reasoning challenge?
+## What is a python programming puzzle?
 
-Each challenge takes the form of a python function that takes an answer as an argument. The goal is to find an answer which makes the function return `True`.
+Each puzzle takes the form of a python function that takes an answer as an argument. 
+The goal is to find an answer which makes the function return `True`. 
+This is called *satisfying* the puzzle, and that is why the puzzles are all named `sat`.
 
 ```python
 def sat(s: str):
     return s + "world" == "Hello world"
 ```
 
-The answer to the above challenge is the string `"Hello "` because `sat("Hell ")` returns `True`. The challenges range from trivial problems like this, to classic puzzles, to algorithms problems and problems from the [International Mathematical Olympiad](https://en.wikipedia.org/wiki/International_Mathematical_Olympiad) and open problems in mathematics. For instance, the classic [Towers of Hanoi](https://en.wikipedia.org/wiki/Tower_of_Hanoi) puzzle can be written as follows:
+The answer to the above puzzle is the string `"Hello "` because `sat("Hell ")` returns `True`. The puzzles range from trivial problems like this, to classic puzzles, to algorithms problems and problems from the [International Mathematical Olympiad](https://en.wikipedia.org/wiki/International_Mathematical_Olympiad) and open problems in mathematics. For instance, the classic [Towers of Hanoi](https://en.wikipedia.org/wiki/Tower_of_Hanoi) puzzle can be written as follows:
 
 ```python
 def sat(moves: List[List[int]], num_disks=8):  # moves is list of [from, to] pairs
@@ -23,15 +28,16 @@ def sat(moves: List[List[int]], num_disks=8):  # moves is list of [from, to] pai
 
 ```
 
-## Problem sources
+## Puzzle sources
 
 The problems in this repo draw inspiration from:
-* Wikipedia articles about algorithms and puzzles
+* Wikipedia articles about [algorithms](https://en.wikipedia.org/wiki/List_of_algorithms), [puzzles](https://en.wikipedia.org/wiki/Category:Logic_puzzles),
+and [math problems](https://en.wikipedia.org/wiki/List_of_unsolved_problems_in_mathematics).
 * The website [codeforces.com](https://codeforces.com), a popular website for programming competition problems
 * The [International Collegiate Programming Contest](https://icpc.global) (ICPC) 
 * The [International Mathematical Olympiad](https://en.wikipedia.org/wiki/International_Mathematical_Olympiad) (IMO)
 
-# [Click here to browse the challenges](/problems/README.md)
+# [Click here to browse the puzzles](/problems/README.md)
 
 ## Summary of the dataset
 * Numerous trivial puzzles like `hello world` and reversing a list, useful for learning to program 
@@ -49,13 +55,13 @@ The problems in this repo draw inspiration from:
     * International Mathematical Olympiad (IMO) problems 
     * International Collegiate Programming Contest (ICPC) problems
     * Competitive programming problems from codeforces.com 
-* Graph theory algorithmic challenges
+* Graph theory algorithmic puzzles
     * Shortest path
     * Planted clique (open)
 * Elementary algebra 
     * Solving equations
     * Solving quadratic, cubic, and quartic equations
-* Number theory algorithmic challenges:
+* Number theory algorithmic puzzles:
     * Finding common divisors (e.g., using Euclid's algorithm)
     * Factoring numbers (easy for small factors, over $100k in prizes have been awarded and **open** 
     for large numbers)
