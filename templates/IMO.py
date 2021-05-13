@@ -1,12 +1,13 @@
-"""Adapted from the
-[International Mathematical Olympiad](https://en.wikipedia.org/wiki/International_Mathematical_Olympiad)
+"""Problems inspired by the
+[International Mathematical Olympiad](https://en.wikipedia.org/wiki/International_Mathematical_Olympiad) (IMO)
 [problems](https://www.imo-official.org/problems.aspx)"""
 
 from problems import Problem, register, get_problems
 from typing import List
 
+
 @register
-class IMO_2010_5(Problem):
+class ExponentialCoinMoves(Problem):
     """This problem has *long* solutions.
 
     There are five boxes each having one coin initially. Two types of moves are allowed:
@@ -29,9 +30,9 @@ class IMO_2010_5(Problem):
     requires exponential many moves, our representation allows combining multiple Type-1 (advance) operations
     into a single step.
 
-    Based on [IMO 2010 Problem 5](https://www.imo-official.org/problems.aspx)"""
+    Inspired by [IMO 2010 Problem 5](https://www.imo-official.org/problems.aspx)"""
 
-    timeout = 10 # sat can run 10 times longer than normal
+    timeout = 10  # sat can run 10 times longer than normal
 
     @staticmethod
     def sat(states: List[List[int]], n=10):  # list of 5-tuple states
@@ -83,15 +84,14 @@ class IMO_2010_5(Problem):
     def gen(self, target_num_problems):
         self.add(dict(n=2 ** 14 + 1))
         for i in range(10):
-            n = 2**i
+            n = 2 ** i
             self.add(dict(n=n))
             if len(self.instances) >= target_num_problems:
                 return
 
 
-
 @register
-class IMO_2016_4(Problem):
+class NoRelativePrimes(Problem):
     """Let P(n) = n^2 + n + 1.
 
     Given b>=6 and m>=1, find m non-negative integers for which the set {P(a+1), P(a+2), ..., P(a+b)} has
@@ -105,7 +105,7 @@ class IMO_2016_4(Problem):
     Sample output:
     [195, 196]
 
-    Based on [IMO 2016 Problem 4](https://www.imo-official.org/problems.aspx)"""
+    Inspired by [IMO 2016 Problem 4](https://www.imo-official.org/problems.aspx)"""
 
     @staticmethod
     def sat(nums: List[int], b=6, m=2):
@@ -168,7 +168,7 @@ class IMO_2016_4(Problem):
 
 
 @register
-class IMO_2017_1(Problem):
+class FindRepeats(Problem):
     """Find a repeating integer in an infinite sequence of integers, specifically the indices for which the same value
     occurs 1000 times. The sequence is defined by a starting value a_0 and each subsequent term is:
     a_{n+1} = the square root of a_n if the a_n is a perfect square, and a_n + 3 otherwise.
@@ -187,7 +187,7 @@ class IMO_2017_1(Problem):
     Note: This problem is much easier than the IMO problem which also required a proof that it is impossible
     for a_0 not divisible by 3.
 
-    Based on [IMO 2017 Problem 1](https://www.imo-official.org/problems.aspx)"""
+    Inspired by [IMO 2017 Problem 1](https://www.imo-official.org/problems.aspx)"""
 
     @staticmethod
     def sat(indices: List[int], a0=123):
@@ -216,7 +216,7 @@ class IMO_2017_1(Problem):
 
 
 @register
-class IMO_2017_5(Problem):
+class PickNearNeighbors(Problem):
     """Given a permutation of the integers up to n(n+1) as a list, choose 2n numbers to keep (in the same order)
     so that the remaining list of numbers satisfies:
     * its largest number is next to its second largest number
@@ -233,11 +233,10 @@ class IMO_2017_5(Problem):
 
     Keeping these indices results in the sublist [4, 5, 1, 2] where 4 and 5 are adjacent as are 1 and 2.
 
-    The solution encodes the judge's solution.
-    Based on [IMO 2017 Problem 5](https://www.imo-official.org/problems.aspx)"""
+    Inspired by [IMO 2017 Problem 5](https://www.imo-official.org/problems.aspx)"""
 
     @staticmethod
-    def sat(keep: List[bool], heights=[4, 0, 5, 3, 1, 2]):
+    def sat(keep: List[bool], heights=[10, 2, 14, 1, 8, 19, 16, 6, 12, 3, 17, 0, 9, 18, 5, 7, 11, 13, 15, 4]):
         n = int(len(heights) ** 0.5)
         assert sorted(heights) == list(range(n * n + n)), "hint: heights is a permutation of range(n * n + n)"
         kept = [i for i, k in zip(heights, keep) if k]
@@ -246,7 +245,7 @@ class IMO_2017_5(Problem):
         return all(abs(pi[2 * i] - pi[2 * i + 1]) == 1 for i in range(n))
 
     @staticmethod
-    def sol(heights):
+    def sol(heights): # Based on the judge's solution.
         n = int(len(heights) ** 0.5)
         assert sorted(heights) == list(range(n * (n + 1)))
         groups = [h // (n + 1) for h in heights]
@@ -274,7 +273,7 @@ class IMO_2017_5(Problem):
 
 
 @register
-class IMO_2018_2(Problem):
+class FindProductiveList(Problem):
     """Given n, find n integers such that li[i] * li[i+1] + 1 == li[i+2], for i = 0, 1, ..., n-1
     where indices >= n "wrap around". Note: only n multiples of 3 are given since this is only possible for n
     that are multiples of 3 (as proven in the IMO problem).
@@ -290,7 +289,7 @@ class IMO_2018_2(Problem):
     Note: This problem is easier than the IMO problem because the hard part is proving that sequences do not
     exists for non-multiples of 3.
 
-    Based on [IMO 2010 Problem 5](https://www.imo-official.org/problems.aspx)"""
+    Inspired by [IMO 2010 Problem 5](https://www.imo-official.org/problems.aspx)"""
 
     @staticmethod
     def sat(li: List[int], n=6):
@@ -308,71 +307,71 @@ class IMO_2018_2(Problem):
 
 
 @register
-class IMO_2020_3(Problem):
-    """The input colors is a list of 4n colors each in range(n) with each color occurring 4 times.
+class HalfTag(Problem):
+    """The input tags is a list of 4n integer tags each in range(n) with each tag occurring 4 times.
     The goal is to find a subset (list) li of half the indices such that:
     * The sum of the indices equals the sum of the sum of the missing indices.
-    * The colors of the chosen indices contains exactly each number in range(n) twice.
+    * The tags of the chosen indices contains exactly each number in range(n) twice.
 
     Sample input:
     n = 3
-    colors = [0, 1, 2, 0, 0, 1, 1, 1, 2, 2, 0, 2]
+    tags = [0, 1, 2, 0, 0, 1, 1, 1, 2, 2, 0, 2]
 
     Sample output:
     [0, 3, 5, 6, 8, 11]
 
-    Note the sum of the output is 33 = (0+1+2+...+11)/2 and the selected colors are [0, 0, 1, 1, 2, 2]
+    Note the sum of the output is 33 = (0+1+2+...+11)/2 and the selected tags are [0, 0, 1, 1, 2, 2]
 
-    Based on [IMO 2020 Problem 3](https://www.imo-official.org/problems.aspx)"""
+    Inspired by [IMO 2020 Problem 3](https://www.imo-official.org/problems.aspx)"""
 
     @staticmethod
-    def sat(li: List[int], n=3, colors=[0, 1, 2, 0, 0, 1, 1, 1, 2, 2, 0, 2]):
-        assert sorted(colors) == sorted(list(range(n)) * 4), "hint: each color occurs exactly four times"
+    def sat(li: List[int], n=3, tags=[0, 1, 2, 0, 0, 1, 1, 1, 2, 2, 0, 2]):
+        assert sorted(tags) == sorted(list(range(n)) * 4), "hint: each tag occurs exactly four times"
         assert len(li) == len(set(li)) and min(li) >= 0
-        return sum(li) * 2 == sum(range(4 * n)) and sorted([colors[i] for i in li]) == [i // 2 for i in range(2 * n)]
+        return sum(li) * 2 == sum(range(4 * n)) and sorted([tags[i] for i in li]) == [i // 2 for i in range(2 * n)]
 
     @staticmethod
-    def sol(n, colors):
+    def sol(n, tags):
         pairs = {(i, 4 * n - i - 1) for i in range(2 * n)}
-        by_color = {color: [] for color in range(n)}
+        by_tag = {tag: [] for tag in range(n)}
         for p in pairs:
-            a, b = [colors[i] for i in p]
-            by_color[a].append(p)
-            by_color[b].append(p)
+            a, b = [tags[i] for i in p]
+            by_tag[a].append(p)
+            by_tag[b].append(p)
         cycles = []
         cycle = []
         while pairs:
             if not cycle:  # start new cycle
                 p = pairs.pop()
-                pairs.add(p)  # just to pick a color
-                color = colors[p[0]]
-                # print("Starting cycle with color", color)
-            p = by_color[color].pop()
-            a, b = [colors[i] for i in p]
+                pairs.add(p)  # just to pick a tag
+                tag = tags[p[0]]
+                # print("Starting cycle with tag", tag)
+            p = by_tag[tag].pop()
+            a, b = [tags[i] for i in p]
             # print(p, a, b)
-            color = a if a != color else b
-            by_color[color].remove(p)
-            cycle.append(p if color == b else p[::-1])
+            tag = a if a != tag else b
+            by_tag[tag].remove(p)
+            cycle.append(p if tag == b else p[::-1])
             pairs.remove(p)
-            if not by_color[color]:
+            if not by_tag[tag]:
                 cycles.append(cycle)
                 cycle = []
 
         while any(len(c) % 2 for c in cycles):
-            cycle_colors = [{colors[k] for p in c for k in p} for c in cycles]
+            cycle_tags = [{tags[k] for p in c for k in p} for c in cycles]
             merged = False
             for i in range(len(cycles)):
                 for j in range(i):
-                    intersection = cycle_colors[i].intersection(cycle_colors[j])
+                    intersection = cycle_tags[i].intersection(cycle_tags[j])
                     if intersection:
                         c = intersection.pop()
-                        # print(f"Merging cycle {i} and cycle {j} at color {c}", cycles)
+                        # print(f"Merging cycle {i} and cycle {j} at tag {c}", cycles)
                         cycle_i = cycles.pop(i)
                         for i1, p in enumerate(cycle_i):
-                            if colors[p[0]] == c:
+                            if tags[p[0]] == c:
                                 break
                         for j1, p in enumerate(cycles[j]):
-                            if colors[p[0]] == c:
+                            if tags[p[0]] == c:
                                 break
                         cycles[j][j1:j1] = cycle_i[i1:] + cycle_i[:i1]
                         merged = True
@@ -390,23 +389,13 @@ class IMO_2020_3(Problem):
 
     def gen_random(self):
         n = self.random.randrange(1, 10)
-        colors = [i // 4 for i in range(4 * n)]
-        self.random.shuffle(colors)
+        tags = [i // 4 for i in range(4 * n)]
+        self.random.shuffle(tags)
         # print(self.__class__, n, tick())
-        self.add(dict(n=n, colors=colors))
+        self.add(dict(n=n, tags=tags))
 
 
-# Based on IMO 2017 Problem 6:
-# # An ordered pair (x, y) of integers is a primitive point if the greatest common divisor
-# # of x and y is 1. Given a finite set S of primitive points, prove that there exist a positive integer n
-# # and integers a0, a1, . . . , an such that, for each (x, y) in S, we have:
-# # a_0 x^n + a_1 x^{n-1} y + a_2 x^{n-2} y^2 + ... + a_n y^n = 1:
-#
-#
-# NAME = "2017 problem 5", "imo_2017_5"
-# SRC = "https://www.imo-official.org/problems.aspx"
-# DESC = """
-# Based on IMO 2017 Problem 6. See https://www.imo-official.org/problems.aspx
+# Inspired by IMO 2017 Problem 6. See https://www.imo-official.org/problems.aspx
 # ----
 # The problem asks for the n+1 coefficients given the relatively prime pairs. The solution seems involved
 # and has not yet been implemented.

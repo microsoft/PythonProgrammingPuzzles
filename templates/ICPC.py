@@ -1,5 +1,5 @@
 """
-Problems inspired by the International Collegiate Programming Contest (ICPC).
+Problems inspired by the [International Collegiate Programming Contest](https://icpc.global) (ICPC).
 """
 
 from problems import Problem, register, get_problems
@@ -7,22 +7,20 @@ from typing import List
 
 
 @register
-class ICPC2019A(Problem):
-    """ICPC 2019 Problem A
-
-    There are two rows of objects. Given the length-n integer arrays of prices and heights of objects in each
+class BiPermutations(Problem):
+    """There are two rows of objects. Given the length-n integer arrays of prices and heights of objects in each
     row, find a permutation of both rows so that the permuted prices are non-decreasing in each row and
     so that the first row is taller than the second row.
 
-    See ICPC 2019 Problem A:
-    [Azulejos](https://icpc.global/newcms/worldfinals/problems/2019%20ACM-ICPC%20World%20Finals/icpc2019.pdf)."""
+    Inspired by
+    [ICPC 2019 Problem A: Azulejos](https://icpc.global/newcms/worldfinals/problems/2019%20ACM-ICPC%20World%20Finals/icpc2019.pdf)."""
 
     @staticmethod
     def sat(perms: List[List[int]],
-            prices0=[3, 2, 1, 2],
-            prices1=[2, 1, 2, 1],
-            heights0=[2, 3, 4, 3],
-            heights1=[2, 2, 1, 3]):
+            prices0=[7, 7, 9, 5, 3, 7, 1, 2],
+            prices1=[5, 5, 5, 4, 2, 5, 1, 1],
+            heights0=[2, 4, 9, 3, 8, 5, 5, 4],
+            heights1=[1, 3, 8, 1, 5, 4, 4, 2]):
         n = len(prices0)
         perm0, perm1 = perms
         assert sorted(perm0) == sorted(perm1) == list(range(n)), "Solution must be two permutations"
@@ -32,10 +30,10 @@ class ICPC2019A(Problem):
         return all(heights0[i] > heights1[j] for i, j in zip(perm0, perm1))
 
     @staticmethod
-    def sol(prices0=[3, 2, 1, 2],
-            prices1=[2, 1, 2, 1],
-            heights0=[2, 3, 4, 3],
-            heights1=[2, 2, 1, 3]):
+    def sol(prices0=[7, 7, 9, 5, 3, 7, 1, 2],
+            prices1=[5, 5, 5, 4, 2, 5, 1, 1],
+            heights0=[2, 4, 9, 3, 8, 5, 5, 4],
+            heights1=[1, 3, 8, 1, 5, 4, 4, 2]):
         n = len(prices0)
         prices = [prices0, prices1]
         orders = [sorted(range(n), key=lambda i: (prices0[i], heights0[i])),
@@ -73,21 +71,30 @@ class ICPC2019A(Problem):
 
 
 @register
-class ICPC2019B(Problem):
-    """ICPC 2019 Problem B
+class OptimalBridges(Problem):
+    """
+    You are to choose locations for bridge bases from among a given set of mountain peaks located at
+    `xs, ys`, where `xs` and `ys` are lists of n integers of the same length. Your answer should be a sorted
+    list of indices starting at 0 and ending at n-1. The goal is to minimize building costs such that the bridges
+    are feasible. The bridges are all semicircles placed on top of the pillars. The feasibility constraints are that:
+    * The bridges may not extend above a given height `H`. Mathematically, if the distance between the two xs
+    of adjacent pillars is d, then the semicircle will have radius `d/2` and therefore the heights of the
+    selected mountain peaks must both be at most `H - d/2`.
+    *  The bridges must clear all the mountain peaks, which means that the semicircle must lie above the tops of the
+    peak. See the code for how this is determined mathematically.
+    * The total cost of all the bridges must be at most `thresh`, where the cost is parameter alpha * (the sum of
+    all pillar heights) + beta * (the sum of the squared diameters)
 
-    This problem requires choosing the locations of a sequence of connecting bridges to minimize cost.
-
-    See ICPC 2019 Problem B:
-    [Bridges](https://icpc.global/newcms/worldfinals/problems/2019%20ACM-ICPC%20World%20Finals/icpc2019.pdf)"""
+    Inspired by
+    [ICPC 2019 Problem B: Bridges](https://icpc.global/newcms/worldfinals/problems/2019%20ACM-ICPC%20World%20Finals/icpc2019.pdf)"""
 
     def sat(indices: List[int],
             H=60,
             alpha=18,
             beta=2,
-            xs=[0, 20, 30, 50, 70],
-            ys=[0, 20, 10, 30, 20],
-            thresh=6460):
+            xs=[0, 10, 20, 30, 50, 80, 100, 120, 160, 190, 200],
+            ys=[0, 30, 10, 30, 50, 40, 10, 20, 20, 55, 10],
+            thresh=26020):
         assert sorted({0, len(xs) - 1, *indices}) == indices, f"Ans. should be sorted list [0, ..., {len(xs) - 1}]"
         cost = alpha * (H - ys[0])
         for i, j in zip(indices, indices[1:]):
@@ -99,7 +106,7 @@ class ICPC2019B(Problem):
         return cost <= thresh
 
     # adapted from https://github.com/SnapDragon64/ACMFinalsSolutions/blob/master/finals2019/beautifulbridgesDK.cc
-    def sol(H, alpha, beta, xs, ys, thresh): # thresh is ignored
+    def sol(H, alpha, beta, xs, ys, thresh):  # thresh is ignored
         n = len(xs)
         cost = [-1] * n
         prior = [n] * n
@@ -157,7 +164,7 @@ class ICPC2019B(Problem):
                 y = self.random.randint(0, int(H - r + (r ** 2 - (x - c) ** 2) ** 0.5))
                 ys.append(y)
 
-        indices = ICPC2019B.sol(H, alpha, beta, xs, ys, None) # compute min-cost, thresh is ignored
+        indices = OptimalBridges.sol(H, alpha, beta, xs, ys, None)  # compute min-cost, thresh is ignored
         cost = alpha * (H - ys[0])
         for i, j in zip(indices, indices[1:]):
             a, b, r = xs[i], xs[j], (xs[j] - xs[i]) / 2

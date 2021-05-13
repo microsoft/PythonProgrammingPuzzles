@@ -2,8 +2,6 @@
 
 This repo contains a dataset of python reasoning challenges which can be used to teach an AI python and evaluate an AI's ability to understand and write python programs. 
 
-# [Click here to browse the challenges](/problems/README.md)
-
 ## What is a python reasoning challenge?
 
 Each challenge takes the form of a python function that takes an answer as an argument. The goal is to find an answer which makes the function return `True`.
@@ -24,6 +22,56 @@ def sat(moves: List[List[int]], num_disks=8):  # moves is list of [from, to] pai
     return state[0] == state[1] == []
 
 ```
+
+## Problem sources
+
+The problems in this repo draw inspiration from:
+* Wikipedia articles about algorithms and puzzles
+* The website [codeforces.com](https://codeforces.com), a popular website for programming competition problems
+* The [International Collegiate Programming Contest](https://icpc.global) (ICPC) 
+* The [International Mathematical Olympiad](https://en.wikipedia.org/wiki/International_Mathematical_Olympiad) (IMO)
+
+# [Click here to browse the challenges](/problems/README.md)
+
+## Summary of the dataset
+* Numerous trivial puzzles like `hello world` and reversing a list, useful for learning to program 
+* Classic puzzles like:
+    * Towers of Hanoi
+    * Verbal Arithmetic (solve digit-substitutions like SEND + MORE = MONEY)
+    * The Game of Life (e.g., finding oscillators of a given period, some **open**) 
+    * Chess puzzles (e.g., knight's tour and n-queen problem variants)    
+    * (to add: Sliding puzzles, Sudoku?) 
+* Two-player games
+    * Finding optimal strategies for Tic-Tac-Toe, Rock-Paper-Scissors, Mastermind (to add: connect four?)
+    * Finding minimax strategies for zero-sum bimatrix games, which is equivalent to linear programming
+    * Finding Nash equilibria of general-sum games (**open**, PPAD complete)
+* Math and programming competitions
+    * International Mathematical Olympiad (IMO) problems 
+    * International Collegiate Programming Contest (ICPC) problems
+    * Competitive programming problems from codeforces.com 
+* Graph theory algorithmic challenges
+    * Shortest path
+    * Planted clique (open)
+* Elementary algebra 
+    * Solving equations
+    * Solving quadratic, cubic, and quartic equations
+* Number theory algorithmic challenges:
+    * Finding common divisors (e.g., using Euclid's algorithm)
+    * Factoring numbers (easy for small factors, over $100k in prizes have been awarded and **open** 
+    for large numbers)
+    * Discrete log (again **open** in general, easy for some)
+    * (to add, bitcoin mining?)
+* Lattices
+    * Learning parity (typically solved using Gaussian elimination)
+    * Learning parity with noise (**open**)
+* (to add: random SAT?)
+* Compression
+    * Compress a given string given the decompression algorithm (but not the compression algorithm), or decompress a given 
+    compressed string given only the compression algorithm
+    * (to add: compute huffman tree)
+* Hard math problems
+    * Conway's 99-graph problem (**open**)
+    * Finding a cycle in the Collatz process (**open**)
 
 
 ## Contributing

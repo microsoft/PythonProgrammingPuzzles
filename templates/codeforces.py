@@ -1,16 +1,14 @@
-"""Problems inspired by problems available on [codeforces](https://codeforces.com)
-ordered by the number of people who solved the problem on codeforces."""
+"""Problems inspired by [codeforces](https://codeforces.com)."""
 
 from problems import Problem, register, get_problems
 from typing import List
 
 
 @register
-class CF4A(Problem):
+class IsEven(Problem):
     """Determine if n can be evenly divided into two equal numbers. (Easy)
 
-    Inspired by [Watermelon problem](https://codeforces.com/problemset/problem/4/A)
-    (180k solved, 800 difficulty)
+    Inspired by [Codeforces Problem 4 A](https://codeforces.com/problemset/problem/4/A)
     """
 
     @staticmethod
@@ -27,20 +25,22 @@ class CF4A(Problem):
         return n % 2 == 0
 
     def gen(self, target_num_problems):
-        for n in range(1, target_num_problems + 1):
+        n = 0
+        while len(self.instances) < target_num_problems:
             self.add(dict(n=n))
+            n += 1
 
 
 @register
-class CF71A(Problem):
-    """Abbreviate strings longer than a given length
+class Abbreviate(Problem):
+    """Abbreviate strings longer than a given length by replacing everything but the first and last characters by
+    an integer indicating how many characters there were in between them.
 
-    Inspired by https://codeforces.com/problemset/problem/71/A
-    (130k solved, 800 difficulty)
+    Inspired by [Codeforces Problem 71 A](https://codeforces.com/problemset/problem/71/A)
     """
 
     @staticmethod
-    def sat(s: str, word="localization", max_len=10):
+    def sat(s: str, word="antidisestablishmentarianism", max_len=10):
         if len(word) <= max_len:
             return word == s
         return int(s[1:-1]) == len(word[1:-1]) and word[0] == s[0] and word[-1] == s[-1]
@@ -57,7 +57,7 @@ class CF71A(Problem):
 
 
 @register
-class CF1A(Problem):
+class SquareTiles(Problem):
     """Find a minimal list of corner locations for a×a tiles that covers [0, m] × [0, n] 
     and does not double-cover squares.    
     
@@ -70,8 +70,7 @@ class CF1A(Problem):
     Sample Output:
     [[0, 0], [0, 5], [5, 0], [5, 5]]
     
-    Inspired by [Theater Square](https://codeforces.com/problemset/problem/1/A)
-    (125k solved, 1000 difficulty)
+    Inspired by [Codeforces Problem 1 A](https://codeforces.com/problemset/problem/1/A)
     """
 
     @staticmethod
@@ -86,39 +85,45 @@ class CF1A(Problem):
 
     def gen_random(self):
         a = self.random.randrange(1, 11)
-        m = self.random.randrange(1, 1000)
-        n = self.random.randrange(1, 1000)
+        m = self.random.randrange(1, self.random.choice([10, 100, 1000]))
+        n = self.random.randrange(1, self.random.choice([10, 100, 1000]))
         target = len(self.sol(m, n, a, None)) + self.random.randrange(5)  # give a little slack
         self.add(dict(a=a, m=m, n=n, target=target))
 
 
 @register
-class CF231A(Problem):
-    """Inspired by [Team problem](https://codeforces.com/problemset/problem/231/A)
-    (102k solved, 800 difficulty)"""
+class EasyTwos(Problem):
+    """
+    Given a list of lists of triples of integers, return True for each list with a total of at least 2 and False
+    for each other list.
+
+    Inspired by [Codeforces Problem 231 A](https://codeforces.com/problemset/problem/231/A)"""
 
     @staticmethod
-    def sat(lb: List[bool], solvable=[[1, 1, 0], [1, 1, 1], [1, 0, 0]]):
-        return len(lb) == len(solvable) and all(
-            (b is True) if sum(s) >= 2 else (b is False) for b, s in zip(lb, solvable))
+    def sat(lb: List[bool], trips=[[1, 1, 0], [1, 0, 0], [0, 0, 0], [0, 1, 1], [0, 1, 1], [1, 1, 1], [1, 0, 1]]):
+        return len(lb) == len(trips) and all(
+            (b is True) if sum(s) >= 2 else (b is False) for b, s in zip(lb, trips))
 
     @staticmethod
-    def sol(solvable):
-        return [sum(s) >= 2 for s in solvable]
+    def sol(trips):
+        return [sum(s) >= 2 for s in trips]
 
     def gen_random(self):
-        solvable = [[self.random.randrange(2) for _ in range(3)] for _ in range(self.random.randrange(20))]
-        self.add(dict(solvable=solvable))
+        trips = [[self.random.randrange(2) for _ in range(3)] for _ in range(self.random.randrange(20))]
+        self.add(dict(trips=trips))
 
 
 @register
-class CF158A(Problem):
-    """Inspired by [Next Round](https://codeforces.com/problemset/problem/158/A)
-    (95k solved, 800 difficulty)"""
+class DecreasingCountComparison(Problem):
+    """
+    Given a list of non-increasing integers and given an integer k, determine how many positive integers in the list
+    are at least as large as the kth.
+
+    Inspired by [Codeforces Problem 158 A](https://codeforces.com/problemset/problem/158/A)"""
 
     @staticmethod
-    def sat(n: int, scores=[10, 9, 8, 7, 7, 7, 5, 5], k=5):
-        assert all(scores[i] >= scores[i + 1] for i in range(len(scores) - 1))
+    def sat(n: int, scores=[100, 95, 80, 70, 65, 9, 9, 9, 4, 2, 1], k=6):
+        assert all(scores[i] >= scores[i + 1] for i in range(len(scores) - 1)), "Hint: scores are non-decreasing"
         return all(s >= scores[k] and s > 0 for s in scores[:n]) and all(s < scores[k] or s <= 0 for s in scores[n:])
 
     @staticmethod
@@ -134,7 +139,7 @@ class CF158A(Problem):
         self.add(dict(scores=scores, k=k))
 
 
-class CF118A(Problem):
+class VowelDrop(Problem):
     """Given an alphabetic string s, remove all vowels (aeiouy/AEIOUY), insert a "." before each remaining letter
     (consonant), and make everything lowercase.
 
@@ -144,8 +149,7 @@ class CF118A(Problem):
     Sample Output:
     .p.r.b.l.m.s
 
-    Inspired by [String Task](https://codeforces.com/problemset/problem/118/A)
-    (87k solved, 1000 difficulty)"""
+    Inspired by [Codeforces Problem 118 A](https://codeforces.com/problemset/problem/118/A)"""
 
     @staticmethod
     def sat(t: str, s="Problems"):
@@ -169,13 +173,11 @@ class CF118A(Problem):
 
 
 @register
-class CF50A(Problem):
+class DominoTile(Problem):
     """Tile an m x n checkerboard with 2 x 1 tiles. The solution is a list of fourtuples [i1, j1, i2, j2]
     with i2 == i1 and j2 == j1 + 1 or i2 == i1 + 1 and j2 == j1 with no overlap.
 
-    Inspired by Codeforce's [Domino Piling](https://codeforces.com/problemset/problem/50/A)
-    (86k solved, 800 difficulty)
-    """
+    Inspired by [Codeforces Problem 50 A](https://codeforces.com/problemset/problem/50/A)"""
 
     @staticmethod
     def sat(squares: List[List[int]], m=10, n=5, target=50):
@@ -203,8 +205,9 @@ class CF50A(Problem):
 
 
 @register
-class CF282A(Problem):
-    """We make it a bit harder, though the problem is very straightforward. Given a sequence of operations "++x",
+class IncDec(Problem):
+    """This straightforward problem is a little harder than the Codeforces one.
+    Given a sequence of operations "++x",
     "x++", "--x", "x--", and a target value, find initial value so that the final value is the target value.
 
     Sample Input:
@@ -214,9 +217,7 @@ class CF282A(Problem):
     Sample Output:
     13
 
-    Inspired by [Bit++ problem](https://codeforces.com/problemset/problem/282/A)
-    (83k solved, 800 difficulty)
-    """
+    Inspired by [Codeforces Problem 282 A](https://codeforces.com/problemset/problem/282/A)"""
 
     @staticmethod
     def sat(n: int, ops=["x++", "--x", "--x"], target=12):
@@ -241,12 +242,10 @@ class CF282A(Problem):
 
 
 @register
-class CF112A(Problem):
+class CompareInAnyCase(Problem):
     """Ignoring case, compare s, t lexicographically. Output 0 if they are =, -1 if s < t, 1 if s > t.
 
-    Inspired by [Petya and strings problem](https://codeforces.com/problemset/problem/112/A)
-    (80k solved, 800 difficulty)
-    """
+    Inspired by [Codeforces Problem 112 A](https://codeforces.com/problemset/problem/112/A)"""
 
     @staticmethod
     def sat(n: int, s="aaAab", t="aAaaB"):
@@ -279,8 +278,8 @@ class CF112A(Problem):
 
 
 @register
-class CF263A(Problem):
-    """We are given a 5x5 bi with a single 1 like:
+class SlidingOne(Problem):
+    """We are given a 5x5 bimatrix with a single 1 like:
     0 0 0 0 0
     0 0 0 0 1
     0 0 0 0 0
@@ -290,9 +289,7 @@ class CF263A(Problem):
     Find a (minimal) sequence of row and column swaps to move the 1 to the center. A move is a string
     in "0"-"4" indicating a row swap and "a"-"e" indicating a column swap
 
-    Inspired by [Beautiful Matrix](https://codeforces.com/problemset/problem/263/A)
-    (80k solved, 800 difficulty)
-    """
+    Inspired by [Codeforces Problem 263 A](https://codeforces.com/problemset/problem/263/A)"""
 
     @staticmethod
     def sat(s: str,
@@ -340,15 +337,13 @@ class CF263A(Problem):
 
 
 @register
-class CF339A(Problem):
+class SortPlusPlus(Problem):
     """Sort numbers in a sum of digits, e.g., 1+3+2+1 -> 1+1+2+3
 
-    Inspired by [Helpful Maths](https://codeforces.com/problemset/problem/339/A)
-    (76k solved, 800 difficulty)
-    """
+    Inspired by [Codeforces Problem 339 A](https://codeforces.com/problemset/problem/339/A)"""
 
     @staticmethod
-    def sat(s: str, inp="1+1+3+1+3"):
+    def sat(s: str, inp="1+1+3+1+3+2+2+1+3+1+2"):
         return all(s.count(c) == inp.count(c) for c in inp + s) and all(s[i - 2] <= s[i] for i in range(2, len(s), 2))
 
     @staticmethod
@@ -361,12 +356,10 @@ class CF339A(Problem):
 
 
 @register
-class CF281A(Problem):
+class CapitalizeFirstLetter(Problem):
     """Capitalize first letter of word
 
-    Inspired by [Word Capitalization](https://codeforces.com/problemset/problem/281/A)
-    (73k solved, 800 difficulty)
-    """
+    Inspired by [Codeforces Problem 281 A](https://codeforces.com/problemset/problem/281/A)"""
 
     @staticmethod
     def sat(s: str, word="konjac"):
@@ -389,7 +382,7 @@ class CF281A(Problem):
 
 
 @register
-class CF266A(Problem):
+class LongestSubsetString(Problem):
     """You are given a string consisting of a's, b's and c's, find any longest substring containing no
     repeated consecutive characters.
 
@@ -399,9 +392,7 @@ class CF266A(Problem):
     Sample Output:
     abc
 
-    Inspired by [Stones on the Table](https://codeforces.com/problemset/problem/266/A)
-    (69k solved, 800 difficulty)
-    """
+    Inspired by [Codeforces Problem 266 A](https://codeforces.com/problemset/problem/266/A)"""
 
     @staticmethod
     def sat(t: str, s="abbbcabbac", target=7):
@@ -424,7 +415,7 @@ class CF266A(Problem):
 
 
 @register
-class CF96A(Problem):
+class FindHomogeneousSubstring(Problem):
     """You are given a string consisting of 0's and 1's. Find an index after which the subsequent k characters are
     all 0's or all 1's.
 
@@ -435,9 +426,7 @@ class CF96A(Problem):
     4
     (or 5 or 6 or 11)
 
-    Inspired by [Football problem](https://codeforces.com/problemset/problem/96/A)
-    (67k solved 900 difficulty)
-    """
+    Inspired by [Codeforces Problem 96 A](https://codeforces.com/problemset/problem/96/A)"""
 
     @staticmethod
     def sat(n: int, s="0000111111100000", k=5):
@@ -477,14 +466,10 @@ class CF96A(Problem):
 
 
 @register
-class CF630A(Problem):
-    """Hundreds of 5^n
+class FivePowers(Problem):
+    """What are the last two digits of 5^n?
 
-    What are the last two digits of 5^n?
-
-    Inspired by Codeforce's [Twenty Five](https://codeforces.com/problemset/problem/630/A)
-    (21k solved, 800 difficulty)
-    """
+    Inspired by [Codeforces Problem 630 A](https://codeforces.com/problemset/problem/630/A)"""
 
     @staticmethod
     def sat(s: str, n=7):
@@ -500,7 +485,7 @@ class CF630A(Problem):
 
 
 @register
-class CF540A(Problem):
+class CombinationLock(Problem):
     """Shortest Combination Lock Path
 
     Given a starting a final lock position, find the (minimal) intermediate states, where each transition
@@ -511,8 +496,7 @@ class CF540A(Problem):
 
     output: ['112', '212', '312', '322', '321', '320']
 
-    Inspired by [Combination Lock](https://codeforces.com/problemset/problem/540/A)
-    (21k solved, 800 difficulty)"""
+    Inspired by [Codeforces Problem 540 A](https://codeforces.com/problemset/problem/540/A)"""
 
     @staticmethod
     def sat(states: List[str], start="012", combo="329", target_len=6):
@@ -544,14 +528,33 @@ class CF540A(Problem):
 
 
 @register
-class CF540A_obfuscated(CF540A):
+class CombinationLockObfuscated(CombinationLock):
     """An obfuscated version of CombinationLock above"""
 
     @staticmethod
-    def problem(states: List[str], start="012", combo="329", target_len=6):
-        return all(sum((int(a[i]) - int(b[i])) ** 2 % 10 for i in range(n)) == 1
+    def sat(states: List[str], start="012", combo="329", target_len=6):
+        return all(sum((int(a[i]) - int(b[i])) ** 2 % 10 for i in range(len(start))) == 1
                    for a, b in zip([start] + states, states[:target_len] + [combo]))
 
+
+@register
+class InvertPermutation(Problem):
+    """Find a string that, when a given permutation of characters is applied, has a given result.
+
+    Inspired by [Codeforces Problem 474 A](https://codeforces.com/problemset/problem/474/A)"""
+
+    @staticmethod
+    def sat(s: str, perm="qwertyuiopasdfghjklzxcvbnm", target="hello are you there?"):
+        return "".join((perm[(perm.index(c)+1) % len(perm)] if c in perm else c) for c in s) == target
+
+    @staticmethod
+    def sol(perm, target):
+        return "".join((perm[(perm.index(c) - 1) % len(perm)] if c in perm else c) for c in target)
+
+    def gen_random(self):
+        perm = "qwertyuiopasdfghjklzxcvbnm"
+        target = " ".join(self.random.pseudo_word() for _ in range(self.random.randrange(1, 10)))
+        self.add(dict(perm=perm, target=target))
 
 if __name__ == "__main__":
     for problem in get_problems(globals()):

@@ -7,14 +7,14 @@ Each .json file contains a number of related problems with one or more instances
 - [algebra (4 problems, 400 instances)](#algebra)
 - [basic (10 problems, 1,000 instances)](#basic)
 - [chess (5 problems, 500 instances)](#chess)
-- [codeforces (16 problems, 1,523 instances)](#codeforces)
+- [codeforces (17 problems, 1,623 instances)](#codeforces)
 - [game_theory (2 problems, 200 instances)](#game_theory)
 - [graphs (10 problems, 802 instances)](#graphs)
 - [ICPC (2 problems, 200 instances)](#icpc)
 - [IMO (6 problems, 511 instances)](#imo)
 - [puzzles (18 problems, 906 instances)](#puzzles)
 
-Total (73 problems, 6,042 instances)
+Total (74 problems, 6,142 instances)
 
 
 ----
@@ -656,18 +656,16 @@ def sat(path: List[List[int]], m: int=8, n: int=8, target: int=35):
 [^^ Top](#files)
 ## codeforces
 
-Problems inspired by problems available on [codeforces](https://codeforces.com)
-ordered by the number of people who solved the problem on codeforces.
+Problems inspired by [codeforces](https://codeforces.com).
 
 [^ Top](#files)
 
-### CF4A ([codeforces](#codeforces) 1/16)
+### IsEven ([codeforces](#codeforces) 1/17)
 
 **Description:**
 Determine if n can be evenly divided into two equal numbers. (Easy)
 
-Inspired by [Watermelon problem](https://codeforces.com/problemset/problem/4/A)
-(180k solved, 800 difficulty)
+Inspired by [Codeforces Problem 4 A](https://codeforces.com/problemset/problem/4/A)
 
 **Problem:**
 
@@ -690,18 +688,18 @@ def sol(n=10):
 
 </details>
 
-### CF71A ([codeforces](#codeforces) 2/16)
+### Abbreviate ([codeforces](#codeforces) 2/17)
 
 **Description:**
-Abbreviate strings longer than a given length
+Abbreviate strings longer than a given length by replacing everything but the first and last characters by
+an integer indicating how many characters there were in between them.
 
-Inspired by https://codeforces.com/problemset/problem/71/A
-(130k solved, 800 difficulty)
+Inspired by [Codeforces Problem 71 A](https://codeforces.com/problemset/problem/71/A)
 
 **Problem:**
 
 ```python
-def sat(s: str, word: str="localization", max_len: int=10):
+def sat(s: str, word: str="antidisestablishmentarianism", max_len: int=10):
     assert type(s) is str, 's must be of type str'
     if len(word) <= max_len:
         return word == s
@@ -710,7 +708,7 @@ def sat(s: str, word: str="localization", max_len: int=10):
 <details><summary><strong>Reveal solution(s):</strong></summary>
 
 ```python
-def sol(word="localization", max_len=10):
+def sol(word="antidisestablishmentarianism", max_len=10):
     if len(word) <= max_len:
         return word
     return f"{word[0]}{len(word) - 2}{word[-1]}"
@@ -718,7 +716,7 @@ def sol(word="localization", max_len=10):
 
 </details>
 
-### CF1A ([codeforces](#codeforces) 3/16)
+### SquareTiles ([codeforces](#codeforces) 3/17)
 
 **Description:**
 Find a minimal list of corner locations for a×a tiles that covers [0, m] × [0, n] 
@@ -733,8 +731,7 @@ target = 4
 Sample Output:
 [[0, 0], [0, 5], [5, 0], [5, 5]]
     
-Inspired by [Theater Square](https://codeforces.com/problemset/problem/1/A)
-(125k solved, 1000 difficulty)
+Inspired by [Codeforces Problem 1 A](https://codeforces.com/problemset/problem/1/A)
 
 **Problem:**
 
@@ -754,61 +751,64 @@ def sol(m=10, n=9, a=5, target=4):
 
 </details>
 
-### CF231A ([codeforces](#codeforces) 4/16)
+### EasyTwos ([codeforces](#codeforces) 4/17)
 
 **Description:**
-Inspired by [Team problem](https://codeforces.com/problemset/problem/231/A)
-(102k solved, 800 difficulty)
+Given a list of lists of triples of integers, return True for each list with a total of at least 2 and False
+for each other list.
+
+Inspired by [Codeforces Problem 231 A](https://codeforces.com/problemset/problem/231/A)
 
 **Problem:**
 
 ```python
-def sat(lb: List[bool], solvable: List[List[int]]=[[1, 1, 0], [1, 1, 1], [1, 0, 0]]):
+def sat(lb: List[bool], trips: List[List[int]]=[[1, 1, 0], [1, 0, 0], [0, 0, 0], [0, 1, 1], [0, 1, 1], [1, 1, 1], [1, 0, 1]]):
     assert type(lb) is list and all(type(a) is bool for a in lb), 'lb must be of type List[bool]'
-    return len(lb) == len(solvable) and all(
-        (b is True) if sum(s) >= 2 else (b is False) for b, s in zip(lb, solvable))
+    return len(lb) == len(trips) and all(
+        (b is True) if sum(s) >= 2 else (b is False) for b, s in zip(lb, trips))
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
 
 ```python
-def sol(solvable=[[1, 1, 0], [1, 1, 1], [1, 0, 0]]):
-    return [sum(s) >= 2 for s in solvable]
+def sol(trips=[[1, 1, 0], [1, 0, 0], [0, 0, 0], [0, 1, 1], [0, 1, 1], [1, 1, 1], [1, 0, 1]]):
+    return [sum(s) >= 2 for s in trips]
 ```
 
 </details>
 
-### CF158A ([codeforces](#codeforces) 5/16)
+### DecreasingCountComparison ([codeforces](#codeforces) 5/17)
 
 **Description:**
-Inspired by [Next Round](https://codeforces.com/problemset/problem/158/A)
-(95k solved, 800 difficulty)
+Given a list of non-increasing integers and given an integer k, determine how many positive integers in the list
+are at least as large as the kth.
+
+Inspired by [Codeforces Problem 158 A](https://codeforces.com/problemset/problem/158/A)
 
 **Problem:**
 
 ```python
-def sat(n: int, scores: List[int]=[10, 9, 8, 7, 7, 7, 5, 5], k: int=5):
+def sat(n: int, scores: List[int]=[100, 95, 80, 70, 65, 9, 9, 9, 4, 2, 1], k: int=6):
     assert type(n) is int, 'n must be of type int'
-    assert all(scores[i] >= scores[i + 1] for i in range(len(scores) - 1))
+    assert all(scores[i] >= scores[i + 1] for i in range(len(scores) - 1)), "Hint: scores are non-decreasing"
     return all(s >= scores[k] and s > 0 for s in scores[:n]) and all(s < scores[k] or s <= 0 for s in scores[n:])
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
 
 ```python
-def sol(scores=[10, 9, 8, 7, 7, 7, 5, 5], k=5):
+def sol(scores=[100, 95, 80, 70, 65, 9, 9, 9, 4, 2, 1], k=6):
     threshold = max(scores[k], 1)
     return sum(s >= threshold for s in scores)
 ```
 
 </details>
 
-### CF50A ([codeforces](#codeforces) 6/16)
+### DominoTile ([codeforces](#codeforces) 6/17)
 
 **Description:**
 Tile an m x n checkerboard with 2 x 1 tiles. The solution is a list of fourtuples [i1, j1, i2, j2]
 with i2 == i1 and j2 == j1 + 1 or i2 == i1 + 1 and j2 == j1 with no overlap.
 
-Inspired by Codeforce's [Domino Piling](https://codeforces.com/problemset/problem/50/A)
-(86k solved, 800 difficulty)
+Inspired by [Codeforces Problem 50 A](https://codeforces.com/problemset/problem/50/A)
 
 **Problem:**
 
@@ -837,10 +837,11 @@ def sol(m=10, n=5, target=50):
 
 </details>
 
-### CF282A ([codeforces](#codeforces) 7/16)
+### IncDec ([codeforces](#codeforces) 7/17)
 
 **Description:**
-We make it a bit harder, though the problem is very straightforward. Given a sequence of operations "++x",
+This straightforward problem is a little harder than the Codeforces one.
+Given a sequence of operations "++x",
 "x++", "--x", "x--", and a target value, find initial value so that the final value is the target value.
 
 Sample Input:
@@ -850,8 +851,7 @@ target = 12
 Sample Output:
 13
 
-Inspired by [Bit++ problem](https://codeforces.com/problemset/problem/282/A)
-(83k solved, 800 difficulty)
+Inspired by [Codeforces Problem 282 A](https://codeforces.com/problemset/problem/282/A)
 
 **Problem:**
 
@@ -875,13 +875,12 @@ def sol(ops=['x++', '--x', '--x'], target=12):
 
 </details>
 
-### CF112A ([codeforces](#codeforces) 8/16)
+### CompareInAnyCase ([codeforces](#codeforces) 8/17)
 
 **Description:**
 Ignoring case, compare s, t lexicographically. Output 0 if they are =, -1 if s < t, 1 if s > t.
 
-Inspired by [Petya and strings problem](https://codeforces.com/problemset/problem/112/A)
-(80k solved, 800 difficulty)
+Inspired by [Codeforces Problem 112 A](https://codeforces.com/problemset/problem/112/A)
 
 **Problem:**
 
@@ -909,10 +908,10 @@ def sol(s="aaAab", t="aAaaB"):
 
 </details>
 
-### CF263A ([codeforces](#codeforces) 9/16)
+### SlidingOne ([codeforces](#codeforces) 9/17)
 
 **Description:**
-We are given a 5x5 bi with a single 1 like:
+We are given a 5x5 bimatrix with a single 1 like:
 0 0 0 0 0
 0 0 0 0 1
 0 0 0 0 0
@@ -922,8 +921,7 @@ We are given a 5x5 bi with a single 1 like:
 Find a (minimal) sequence of row and column swaps to move the 1 to the center. A move is a string
 in "0"-"4" indicating a row swap and "a"-"e" indicating a column swap
 
-Inspired by [Beautiful Matrix](https://codeforces.com/problemset/problem/263/A)
-(80k solved, 800 difficulty)
+Inspired by [Codeforces Problem 263 A](https://codeforces.com/problemset/problem/263/A)
 
 **Problem:**
 
@@ -965,37 +963,35 @@ def sol(matrix=[[0, 0, 0, 0, 0], [0, 0, 0, 0, 1], [0, 0, 0, 0, 0], [0, 0, 0, 0, 
 
 </details>
 
-### CF339A ([codeforces](#codeforces) 10/16)
+### SortPlusPlus ([codeforces](#codeforces) 10/17)
 
 **Description:**
 Sort numbers in a sum of digits, e.g., 1+3+2+1 -> 1+1+2+3
 
-Inspired by [Helpful Maths](https://codeforces.com/problemset/problem/339/A)
-(76k solved, 800 difficulty)
+Inspired by [Codeforces Problem 339 A](https://codeforces.com/problemset/problem/339/A)
 
 **Problem:**
 
 ```python
-def sat(s: str, inp: str="1+1+3+1+3"):
+def sat(s: str, inp: str="1+1+3+1+3+2+2+1+3+1+2"):
     assert type(s) is str, 's must be of type str'
     return all(s.count(c) == inp.count(c) for c in inp + s) and all(s[i - 2] <= s[i] for i in range(2, len(s), 2))
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
 
 ```python
-def sol(inp="1+1+3+1+3"):
+def sol(inp="1+1+3+1+3+2+2+1+3+1+2"):
     return "+".join(sorted(inp.split("+")))
 ```
 
 </details>
 
-### CF281A ([codeforces](#codeforces) 11/16)
+### CapitalizeFirstLetter ([codeforces](#codeforces) 11/17)
 
 **Description:**
 Capitalize first letter of word
 
-Inspired by [Word Capitalization](https://codeforces.com/problemset/problem/281/A)
-(73k solved, 800 difficulty)
+Inspired by [Codeforces Problem 281 A](https://codeforces.com/problemset/problem/281/A)
 
 **Problem:**
 
@@ -1020,7 +1016,7 @@ def sol(word="konjac"):
 
 </details>
 
-### CF266A ([codeforces](#codeforces) 12/16)
+### LongestSubsetString ([codeforces](#codeforces) 12/17)
 
 **Description:**
 You are given a string consisting of a's, b's and c's, find any longest substring containing no
@@ -1032,8 +1028,7 @@ abbbc
 Sample Output:
 abc
 
-Inspired by [Stones on the Table](https://codeforces.com/problemset/problem/266/A)
-(69k solved, 800 difficulty)
+Inspired by [Codeforces Problem 266 A](https://codeforces.com/problemset/problem/266/A)
 
 **Problem:**
 
@@ -1056,7 +1051,7 @@ def sol(s="abbbcabbac", target=7): # target is ignored
 
 </details>
 
-### CF96A ([codeforces](#codeforces) 13/16)
+### FindHomogeneousSubstring ([codeforces](#codeforces) 13/17)
 
 **Description:**
 You are given a string consisting of 0's and 1's. Find an index after which the subsequent k characters are
@@ -1069,8 +1064,7 @@ Sample Output:
 4
 (or 5 or 6 or 11)
 
-Inspired by [Football problem](https://codeforces.com/problemset/problem/96/A)
-(67k solved 900 difficulty)
+Inspired by [Codeforces Problem 96 A](https://codeforces.com/problemset/problem/96/A)
 
 **Problem:**
 
@@ -1110,15 +1104,12 @@ def sol(s="0000111111100000", k=5):
 
 </details>
 
-### CF630A ([codeforces](#codeforces) 14/16)
+### FivePowers ([codeforces](#codeforces) 14/17)
 
 **Description:**
-Hundreds of 5^n
-
 What are the last two digits of 5^n?
 
-Inspired by Codeforce's [Twenty Five](https://codeforces.com/problemset/problem/630/A)
-(21k solved, 800 difficulty)
+Inspired by [Codeforces Problem 630 A](https://codeforces.com/problemset/problem/630/A)
 
 **Problem:**
 
@@ -1136,7 +1127,7 @@ def sol(n=7):
 
 </details>
 
-### CF540A ([codeforces](#codeforces) 15/16)
+### CombinationLock ([codeforces](#codeforces) 15/17)
 
 **Description:**
 Shortest Combination Lock Path
@@ -1149,8 +1140,7 @@ combo = "329"
 
 output: ['112', '212', '312', '322', '321', '320']
 
-Inspired by [Combination Lock](https://codeforces.com/problemset/problem/540/A)
-(21k solved, 800 difficulty)
+Inspired by [Codeforces Problem 540 A](https://codeforces.com/problemset/problem/540/A)
 
 **Problem:**
 
@@ -1181,7 +1171,7 @@ def sol(start="012", combo="329", target_len=6):
 
 </details>
 
-### CF540A_obfuscated ([codeforces](#codeforces) 16/16)
+### CombinationLockObfuscated ([codeforces](#codeforces) 16/17)
 
 **Description:**
 An obfuscated version of CombinationLock above
@@ -1191,12 +1181,8 @@ An obfuscated version of CombinationLock above
 ```python
 def sat(states: List[str], start: str="012", combo: str="329", target_len: int=6):
     assert type(states) is list and all(type(a) is str for a in states), 'states must be of type List[str]'
-    assert all(len(s) == len(start) for s in states) and all(c in "0123456789" for s in states for c in s)
-    for a, b in zip([start] + states, states + [combo]):
-        assert sum(i != j for i, j in zip(a, b)) == 1
-        assert all(abs(int(i) - int(j)) in {0, 1, 9} for i, j in zip(a, b))
-
-    return len(states) <= target_len
+    return all(sum((int(a[i]) - int(b[i])) ** 2 % 10 for i in range(len(start))) == 1
+               for a, b in zip([start] + states, states[:target_len] + [combo]))
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
 
@@ -1211,6 +1197,29 @@ def sol(start="012", combo="329", target_len=6):
             if a != b:
                 ans.append("".join(str(i) for i in a))
     return ans
+```
+
+</details>
+
+### InvertPermutation ([codeforces](#codeforces) 17/17)
+
+**Description:**
+Find a string that, when a given permutation of characters is applied, has a given result.
+
+Inspired by [Codeforces Problem 474 A](https://codeforces.com/problemset/problem/474/A)
+
+**Problem:**
+
+```python
+def sat(s: str, perm: str="qwertyuiopasdfghjklzxcvbnm", target: str="hello are you there?"):
+    assert type(s) is str, 's must be of type str'
+    return "".join((perm[(perm.index(c)+1) % len(perm)] if c in perm else c) for c in s) == target
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(perm="qwertyuiopasdfghjklzxcvbnm", target="hello are you there?"):
+    return "".join((perm[(perm.index(c) - 1) % len(perm)] if c in perm else c) for c in target)
 ```
 
 </details>
@@ -1698,27 +1707,25 @@ def sol():
 ## ICPC
 
 
-Problems inspired by the International Collegiate Programming Contest (ICPC).
+Problems inspired by the [International Collegiate Programming Contest](https://icpc.global) (ICPC).
 
 
 [^ Top](#files)
 
-### ICPC2019A ([ICPC](#icpc) 1/2)
+### BiPermutations ([ICPC](#icpc) 1/2)
 
 **Description:**
-ICPC 2019 Problem A
-
 There are two rows of objects. Given the length-n integer arrays of prices and heights of objects in each
 row, find a permutation of both rows so that the permuted prices are non-decreasing in each row and
 so that the first row is taller than the second row.
 
-See ICPC 2019 Problem A:
-[Azulejos](https://icpc.global/newcms/worldfinals/problems/2019%20ACM-ICPC%20World%20Finals/icpc2019.pdf).
+Inspired by
+[ICPC 2019 Problem A: Azulejos](https://icpc.global/newcms/worldfinals/problems/2019%20ACM-ICPC%20World%20Finals/icpc2019.pdf).
 
 **Problem:**
 
 ```python
-def sat(perms: List[List[int]], prices0: List[int]=[3, 2, 1, 2], prices1: List[int]=[2, 1, 2, 1], heights0: List[int]=[2, 3, 4, 3], heights1: List[int]=[2, 2, 1, 3]):
+def sat(perms: List[List[int]], prices0: List[int]=[7, 7, 9, 5, 3, 7, 1, 2], prices1: List[int]=[5, 5, 5, 4, 2, 5, 1, 1], heights0: List[int]=[2, 4, 9, 3, 8, 5, 5, 4], heights1: List[int]=[1, 3, 8, 1, 5, 4, 4, 2]):
     assert type(perms) is list and all(type(a) is list and all(type(b) is int for b in a) for a in perms), 'perms must be of type List[List[int]]'
     n = len(prices0)
     perm0, perm1 = perms
@@ -1731,7 +1738,7 @@ def sat(perms: List[List[int]], prices0: List[int]=[3, 2, 1, 2], prices1: List[i
 <details><summary><strong>Reveal solution(s):</strong></summary>
 
 ```python
-def sol(prices0=[3, 2, 1, 2], prices1=[2, 1, 2, 1], heights0=[2, 3, 4, 3], heights1=[2, 2, 1, 3]):
+def sol(prices0=[7, 7, 9, 5, 3, 7, 1, 2], prices1=[5, 5, 5, 4, 2, 5, 1, 1], heights0=[2, 4, 9, 3, 8, 5, 5, 4], heights1=[1, 3, 8, 1, 5, 4, 4, 2]):
     n = len(prices0)
     prices = [prices0, prices1]
     orders = [sorted(range(n), key=lambda i: (prices0[i], heights0[i])),
@@ -1753,20 +1760,28 @@ def sol(prices0=[3, 2, 1, 2], prices1=[2, 1, 2, 1], heights0=[2, 3, 4, 3], heigh
 
 </details>
 
-### ICPC2019B ([ICPC](#icpc) 2/2)
+### OptimalBridges ([ICPC](#icpc) 2/2)
 
 **Description:**
-ICPC 2019 Problem B
+You are to choose locations for bridge bases from among a given set of mountain peaks located at
+`xs, ys`, where `xs` and `ys` are lists of n integers of the same length. Your answer should be a sorted
+list of indices starting at 0 and ending at n-1. The goal is to minimize building costs such that the bridges
+are feasible. The bridges are all semicircles placed on top of the pillars. The feasibility constraints are that:
+* The bridges may not extend above a given height `H`. Mathematically, if the distance between the two xs
+of adjacent pillars is d, then the semicircle will have radius `d/2` and therefore the heights of the
+selected mountain peaks must both be at most `H - d/2`.
+*  The bridges must clear all the mountain peaks, which means that the semicircle must lie above the tops of the
+peak. See the code for how this is determined mathematically.
+* The total cost of all the bridges must be at most `thresh`, where the cost is parameter alpha * (the sum of
+all pillar heights) + beta * (the sum of the squared diameters)
 
-This problem requires choosing the locations of a sequence of connecting bridges to minimize cost.
-
-See ICPC 2019 Problem B:
-[Bridges](https://icpc.global/newcms/worldfinals/problems/2019%20ACM-ICPC%20World%20Finals/icpc2019.pdf)
+Inspired by
+[ICPC 2019 Problem B: Bridges](https://icpc.global/newcms/worldfinals/problems/2019%20ACM-ICPC%20World%20Finals/icpc2019.pdf)
 
 **Problem:**
 
 ```python
-def sat(indices: List[int], H: int=60, alpha: int=18, beta: int=2, xs: List[int]=[0, 20, 30, 50, 70], ys: List[int]=[0, 20, 10, 30, 20], thresh: int=6460):
+def sat(indices: List[int], H: int=60, alpha: int=18, beta: int=2, xs: List[int]=[0, 10, 20, 30, 50, 80, 100, 120, 160, 190, 200], ys: List[int]=[0, 30, 10, 30, 50, 40, 10, 20, 20, 55, 10], thresh: int=26020):
     assert type(indices) is list and all(type(a) is int for a in indices), 'indices must be of type List[int]'
     assert sorted({0, len(xs) - 1, *indices}) == indices, f"Ans. should be sorted list [0, ..., {len(xs) - 1}]"
     cost = alpha * (H - ys[0])
@@ -1781,7 +1796,7 @@ def sat(indices: List[int], H: int=60, alpha: int=18, beta: int=2, xs: List[int]
 <details><summary><strong>Reveal solution(s):</strong></summary>
 
 ```python
-def sol(H=60, alpha=18, beta=2, xs=[0, 20, 30, 50, 70], ys=[0, 20, 10, 30, 20], thresh=6460): # thresh is ignored
+def sol(H=60, alpha=18, beta=2, xs=[0, 10, 20, 30, 50, 80, 100, 120, 160, 190, 200], ys=[0, 30, 10, 30, 50, 40, 10, 20, 20, 55, 10], thresh=26020):  # thresh is ignored
     n = len(xs)
     cost = [-1] * n
     prior = [n] * n
@@ -1817,13 +1832,13 @@ def sol(H=60, alpha=18, beta=2, xs=[0, 20, 30, 50, 70], ys=[0, 20, 10, 30, 20], 
 [^^ Top](#files)
 ## IMO
 
-Adapted from the
-[International Mathematical Olympiad](https://en.wikipedia.org/wiki/International_Mathematical_Olympiad)
+Problems inspired by the
+[International Mathematical Olympiad](https://en.wikipedia.org/wiki/International_Mathematical_Olympiad) (IMO)
 [problems](https://www.imo-official.org/problems.aspx)
 
 [^ Top](#files)
 
-### IMO_2010_5 ([IMO](#imo) 1/6)
+### ExponentialCoinMoves ([IMO](#imo) 1/6)
 
 **Description:**
 This problem has *long* solutions.
@@ -1848,7 +1863,7 @@ for computers) but the solution is quite similar to the solution to the IMO prob
 requires exponential many moves, our representation allows combining multiple Type-1 (advance) operations
 into a single step.
 
-Based on [IMO 2010 Problem 5](https://www.imo-official.org/problems.aspx)
+Inspired by [IMO 2010 Problem 5](https://www.imo-official.org/problems.aspx)
 
 **Problem:**
 
@@ -1905,7 +1920,7 @@ def sol(n=10):
 
 </details>
 
-### IMO_2016_4 ([IMO](#imo) 2/6)
+### NoRelativePrimes ([IMO](#imo) 2/6)
 
 **Description:**
 Let P(n) = n^2 + n + 1.
@@ -1921,7 +1936,7 @@ m = 2
 Sample output:
 [195, 196]
 
-Based on [IMO 2016 Problem 4](https://www.imo-official.org/problems.aspx)
+Inspired by [IMO 2016 Problem 4](https://www.imo-official.org/problems.aspx)
 
 **Problem:**
 
@@ -1984,7 +1999,7 @@ def sol(b=6, m=2):
 
 </details>
 
-### IMO_2017_1 ([IMO](#imo) 3/6)
+### FindRepeats ([IMO](#imo) 3/6)
 
 **Description:**
 Find a repeating integer in an infinite sequence of integers, specifically the indices for which the same value
@@ -2005,7 +2020,7 @@ all equal in this case.
 Note: This problem is much easier than the IMO problem which also required a proof that it is impossible
 for a_0 not divisible by 3.
 
-Based on [IMO 2017 Problem 1](https://www.imo-official.org/problems.aspx)
+Inspired by [IMO 2017 Problem 1](https://www.imo-official.org/problems.aspx)
 
 **Problem:**
 
@@ -2035,7 +2050,7 @@ def sol(a0=123):
 
 </details>
 
-### IMO_2017_5 ([IMO](#imo) 4/6)
+### PickNearNeighbors ([IMO](#imo) 4/6)
 
 **Description:**
 Given a permutation of the integers up to n(n+1) as a list, choose 2n numbers to keep (in the same order)
@@ -2054,13 +2069,12 @@ Sample output:
 
 Keeping these indices results in the sublist [4, 5, 1, 2] where 4 and 5 are adjacent as are 1 and 2.
 
-The solution encodes the judge's solution.
-Based on [IMO 2017 Problem 5](https://www.imo-official.org/problems.aspx)
+Inspired by [IMO 2017 Problem 5](https://www.imo-official.org/problems.aspx)
 
 **Problem:**
 
 ```python
-def sat(keep: List[bool], heights: List[int]=[4, 0, 5, 3, 1, 2]):
+def sat(keep: List[bool], heights: List[int]=[10, 2, 14, 1, 8, 19, 16, 6, 12, 3, 17, 0, 9, 18, 5, 7, 11, 13, 15, 4]):
     assert type(keep) is list and all(type(a) is bool for a in keep), 'keep must be of type List[bool]'
     n = int(len(heights) ** 0.5)
     assert sorted(heights) == list(range(n * n + n)), "hint: heights is a permutation of range(n * n + n)"
@@ -2072,7 +2086,7 @@ def sat(keep: List[bool], heights: List[int]=[4, 0, 5, 3, 1, 2]):
 <details><summary><strong>Reveal solution(s):</strong></summary>
 
 ```python
-def sol(heights=[4, 0, 5, 3, 1, 2]):
+def sol(heights=[10, 2, 14, 1, 8, 19, 16, 6, 12, 3, 17, 0, 9, 18, 5, 7, 11, 13, 15, 4]): # Based on the judge's solution.
     n = int(len(heights) ** 0.5)
     assert sorted(heights) == list(range(n * (n + 1)))
     groups = [h // (n + 1) for h in heights]
@@ -2094,7 +2108,7 @@ def sol(heights=[4, 0, 5, 3, 1, 2]):
 
 </details>
 
-### IMO_2018_2 ([IMO](#imo) 5/6)
+### FindProductiveList ([IMO](#imo) 5/6)
 
 **Description:**
 Given n, find n integers such that li[i] * li[i+1] + 1 == li[i+2], for i = 0, 1, ..., n-1
@@ -2112,7 +2126,7 @@ Sample output:
 Note: This problem is easier than the IMO problem because the hard part is proving that sequences do not
 exists for non-multiples of 3.
 
-Based on [IMO 2010 Problem 5](https://www.imo-official.org/problems.aspx)
+Inspired by [IMO 2010 Problem 5](https://www.imo-official.org/problems.aspx)
 
 **Problem:**
 
@@ -2131,78 +2145,78 @@ def sol(n=6):
 
 </details>
 
-### IMO_2020_3 ([IMO](#imo) 6/6)
+### HalfTag ([IMO](#imo) 6/6)
 
 **Description:**
-The input colors is a list of 4n colors each in range(n) with each color occurring 4 times.
+The input tags is a list of 4n integer tags each in range(n) with each tag occurring 4 times.
 The goal is to find a subset (list) li of half the indices such that:
 * The sum of the indices equals the sum of the sum of the missing indices.
-* The colors of the chosen indices contains exactly each number in range(n) twice.
+* The tags of the chosen indices contains exactly each number in range(n) twice.
 
 Sample input:
 n = 3
-colors = [0, 1, 2, 0, 0, 1, 1, 1, 2, 2, 0, 2]
+tags = [0, 1, 2, 0, 0, 1, 1, 1, 2, 2, 0, 2]
 
 Sample output:
 [0, 3, 5, 6, 8, 11]
 
-Note the sum of the output is 33 = (0+1+2+...+11)/2 and the selected colors are [0, 0, 1, 1, 2, 2]
+Note the sum of the output is 33 = (0+1+2+...+11)/2 and the selected tags are [0, 0, 1, 1, 2, 2]
 
-Based on [IMO 2020 Problem 3](https://www.imo-official.org/problems.aspx)
+Inspired by [IMO 2020 Problem 3](https://www.imo-official.org/problems.aspx)
 
 **Problem:**
 
 ```python
-def sat(li: List[int], n: int=3, colors: List[int]=[0, 1, 2, 0, 0, 1, 1, 1, 2, 2, 0, 2]):
+def sat(li: List[int], n: int=3, tags: List[int]=[0, 1, 2, 0, 0, 1, 1, 1, 2, 2, 0, 2]):
     assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'
-    assert sorted(colors) == sorted(list(range(n)) * 4), "hint: each color occurs exactly four times"
+    assert sorted(tags) == sorted(list(range(n)) * 4), "hint: each tag occurs exactly four times"
     assert len(li) == len(set(li)) and min(li) >= 0
-    return sum(li) * 2 == sum(range(4 * n)) and sorted([colors[i] for i in li]) == [i // 2 for i in range(2 * n)]
+    return sum(li) * 2 == sum(range(4 * n)) and sorted([tags[i] for i in li]) == [i // 2 for i in range(2 * n)]
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
 
 ```python
-def sol(n=3, colors=[0, 1, 2, 0, 0, 1, 1, 1, 2, 2, 0, 2]):
+def sol(n=3, tags=[0, 1, 2, 0, 0, 1, 1, 1, 2, 2, 0, 2]):
     pairs = {(i, 4 * n - i - 1) for i in range(2 * n)}
-    by_color = {color: [] for color in range(n)}
+    by_tag = {tag: [] for tag in range(n)}
     for p in pairs:
-        a, b = [colors[i] for i in p]
-        by_color[a].append(p)
-        by_color[b].append(p)
+        a, b = [tags[i] for i in p]
+        by_tag[a].append(p)
+        by_tag[b].append(p)
     cycles = []
     cycle = []
     while pairs:
         if not cycle:  # start new cycle
             p = pairs.pop()
-            pairs.add(p)  # just to pick a color
-            color = colors[p[0]]
-            # print("Starting cycle with color", color)
-        p = by_color[color].pop()
-        a, b = [colors[i] for i in p]
+            pairs.add(p)  # just to pick a tag
+            tag = tags[p[0]]
+            # print("Starting cycle with tag", tag)
+        p = by_tag[tag].pop()
+        a, b = [tags[i] for i in p]
         # print(p, a, b)
-        color = a if a != color else b
-        by_color[color].remove(p)
-        cycle.append(p if color == b else p[::-1])
+        tag = a if a != tag else b
+        by_tag[tag].remove(p)
+        cycle.append(p if tag == b else p[::-1])
         pairs.remove(p)
-        if not by_color[color]:
+        if not by_tag[tag]:
             cycles.append(cycle)
             cycle = []
 
     while any(len(c) % 2 for c in cycles):
-        cycle_colors = [{colors[k] for p in c for k in p} for c in cycles]
+        cycle_tags = [{tags[k] for p in c for k in p} for c in cycles]
         merged = False
         for i in range(len(cycles)):
             for j in range(i):
-                intersection = cycle_colors[i].intersection(cycle_colors[j])
+                intersection = cycle_tags[i].intersection(cycle_tags[j])
                 if intersection:
                     c = intersection.pop()
-                    # print(f"Merging cycle {i} and cycle {j} at color {c}", cycles)
+                    # print(f"Merging cycle {i} and cycle {j} at tag {c}", cycles)
                     cycle_i = cycles.pop(i)
                     for i1, p in enumerate(cycle_i):
-                        if colors[p[0]] == c:
+                        if tags[p[0]] == c:
                             break
                     for j1, p in enumerate(cycles[j]):
-                        if colors[p[0]] == c:
+                        if tags[p[0]] == c:
                             break
                     cycles[j][j1:j1] = cycle_i[i1:] + cycle_i[:i1]
                     merged = True
