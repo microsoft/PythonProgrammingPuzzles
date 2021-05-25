@@ -1,9 +1,9 @@
 # Python Programming Puzzles
-# (Name Approvers: We would like to rename the repo to Python Programming Puzzles but we can keep it at  Python Reasoning Challenges if you prefer)
 
-
-
-This repo contains a dataset of python reasoning challenges which can be used to teach an AI python and evaluate an AI's ability to understand and write python programs. 
+This repo contains a dataset of python programming puzzles which can be used to teach and evaluate
+an AI's programming proficiency. The dataset is comprehensive in terms of problem difficult, domain, 
+and algorithmic tools needed to solve the problems. 
+ 
 
 ## What is a python programming puzzle?
 
@@ -13,40 +13,53 @@ This is called *satisfying* the puzzle, and that is why the puzzles are all name
 
 ```python
 def sat(s: str):
-    return s + "world" == "Hello world"
+    return "Hello " + s == "Hello world"
 ```
 
-The answer to the above puzzle is the string `"Hello "` because `sat("Hell ")` returns `True`. The puzzles range from trivial problems like this, to classic puzzles, to algorithms problems and problems from the [International Mathematical Olympiad](https://en.wikipedia.org/wiki/International_Mathematical_Olympiad) and open problems in mathematics. For instance, the classic [Towers of Hanoi](https://en.wikipedia.org/wiki/Tower_of_Hanoi) puzzle can be written as follows:
-
+The answer to the above puzzle is the string `"world"` because `sat("world")` returns `True`. The puzzles range from trivial problems like this, to classic puzzles, 
+to programming competition problems, all the way through open problems in algorithms and mathematics. 
+A slightly harder example is:
 ```python
-def sat(moves: List[List[int]], num_disks=8):  # moves is list of [from, to] pairs
-    state = (list(range(num_disks)), [], [])
-    for [i, j] in moves:
-        state[j].append(state[i].pop())
-        assert state[j] == sorted(state[j]), "larger disk on top of smaller disk"
-    return state[0] == state[1] == []
-
+def sat(s: str):  
+    """find a string with 1000 o's but no consecutive o's."""
+    return s.count("o") == 1000 and s.count("oo") == 0
 ```
 
-## Puzzle sources
+A more challenging puzzle that requires [dynamic programming](https://en.wikipedia.org/wiki/Dynamic_programming) is the 
+[longest increasing subsequence](https://en.wikipedia.org/wiki/Longest_increasing_subsequence) problem
+which we can also describe with strings:
+```python
+from typing import List
 
-The problems in this repo draw inspiration from:
-* Wikipedia articles about [algorithms](https://en.wikipedia.org/wiki/List_of_algorithms), [puzzles](https://en.wikipedia.org/wiki/Category:Logic_puzzles),
-and [math problems](https://en.wikipedia.org/wiki/List_of_unsolved_problems_in_mathematics).
-* The website [codeforces.com](https://codeforces.com), a popular website for programming competition problems
-* The [International Collegiate Programming Contest](https://icpc.global) (ICPC) 
-* The [International Mathematical Olympiad](https://en.wikipedia.org/wiki/International_Mathematical_Olympiad) (IMO)
+def sat(x: List[int], s="Dynamic programming solves this classic job-interview puzzle!!!"): 
+    """Find the indexes (possibly negative!) of the longest monotonic subsequence"""    
+    return all(s[x[i]] <= s[x[i+1]] and x[i+1] > x[i] for i in range(25))
+```
+
+The classic [Towers of Hanoi](https://en.wikipedia.org/wiki/Tower_of_Hanoi) puzzle can be written as follows:
+```python
+def sat(moves: List[List[int]]):  
+    """moves is list of [from, to] pairs"""
+    t = ([8, 7, 6, 5, 4, 3, 2, 1], [], [])  # towers state
+    return all(t[j].append(t[i].pop()) or t[j][-1] == min(t[j]) for i, j in moves) and t[0] == t[1]
+
+```
 
 # [Click here to browse the puzzles](/problems/README.md)
 
-## Summary of the dataset
-* Numerous trivial puzzles like `hello world` and reversing a list, useful for learning to program 
+The problems in this repo are based on:
+* Wikipedia articles about [algorithms](https://en.wikipedia.org/wiki/List_of_algorithms), [puzzles](https://en.wikipedia.org/wiki/Category:Logic_puzzles),
+and [math problems](https://en.wikipedia.org/wiki/List_of_unsolved_problems_in_mathematics).
+* The website [codeforces.com](https://codeforces.com), a popular website for programming competition problems
+* Olympiad problems from the [International Collegiate Programming Contest](https://icpc.global) and [International Mathematical Olympiad](https://en.wikipedia.org/wiki/International_Mathematical_Olympiad).
+
+## Highlights
+* Numerous trivial puzzles like reversing a list, useful for learning to program 
 * Classic puzzles like:
     * Towers of Hanoi
     * Verbal Arithmetic (solve digit-substitutions like SEND + MORE = MONEY)
     * The Game of Life (e.g., finding oscillators of a given period, some **open**) 
-    * Chess puzzles (e.g., knight's tour and n-queen problem variants)    
-    * (to add: Sliding puzzles, Sudoku?) 
+    * Chess puzzles (e.g., knight's tour and n-queen problem variants)         
 * Two-player games
     * Finding optimal strategies for Tic-Tac-Toe, Rock-Paper-Scissors, Mastermind (to add: connect four?)
     * Finding minimax strategies for zero-sum bimatrix games, which is equivalent to linear programming
@@ -66,11 +79,9 @@ and [math problems](https://en.wikipedia.org/wiki/List_of_unsolved_problems_in_m
     * Factoring numbers (easy for small factors, over $100k in prizes have been awarded and **open** 
     for large numbers)
     * Discrete log (again **open** in general, easy for some)
-    * (to add, bitcoin mining?)
 * Lattices
     * Learning parity (typically solved using Gaussian elimination)
     * Learning parity with noise (**open**)
-* (to add: random SAT?)
 * Compression
     * Compress a given string given the decompression algorithm (but not the compression algorithm), or decompress a given 
     compressed string given only the compression algorithm
@@ -82,7 +93,12 @@ and [math problems](https://en.wikipedia.org/wiki/List_of_unsolved_problems_in_m
 
 ## Contributing
 
-This project welcomes contributions and suggestions.  Most contributions require you to agree to a
+This project welcomes contributions and suggestions. Use your creativity to help teach 
+AI's to program! To allow for solutions
+in multiple languages, the answer to a puzzle has to be a single input that is a basic type 
+such as `str`, `int`, `float`, `bool`, or a `List` or `Set` (or list of lists, etc.) of them.  
+
+Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
 the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
 
