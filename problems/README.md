@@ -7,7 +7,7 @@ Each .json file contains a number of related problems with one or more instances
 - [algebra (4 problems, 400 instances)](#algebra)
 - [basic (10 problems, 1,000 instances)](#basic)
 - [chess (5 problems, 500 instances)](#chess)
-- [codeforces (17 problems, 1,623 instances)](#codeforces)
+- [codeforces (24 problems, 2,323 instances)](#codeforces)
 - [game_theory (2 problems, 200 instances)](#game_theory)
 - [graphs (10 problems, 802 instances)](#graphs)
 - [ICPC (2 problems, 200 instances)](#icpc)
@@ -15,7 +15,7 @@ Each .json file contains a number of related problems with one or more instances
 - [puzzles (18 problems, 906 instances)](#puzzles)
 - [trivial (25 problems, 2,301 instances)](#trivial)
 
-Total (99 problems, 8,443 instances)
+Total (106 problems, 9,143 instances)
 
 
 ----
@@ -661,7 +661,7 @@ Problems inspired by [codeforces](https://codeforces.com).
 
 [^ Top](#files)
 
-### IsEven ([codeforces](#codeforces) 1/17)
+### IsEven ([codeforces](#codeforces) 1/24)
 
 **Description:**
 Determine if n can be evenly divided into two equal numbers. (Easy)
@@ -689,7 +689,7 @@ def sol(n=10):
 
 </details>
 
-### Abbreviate ([codeforces](#codeforces) 2/17)
+### Abbreviate ([codeforces](#codeforces) 2/24)
 
 **Description:**
 Abbreviate strings longer than a given length by replacing everything but the first and last characters by
@@ -717,21 +717,21 @@ def sol(word="antidisestablishmentarianism", max_len=10):
 
 </details>
 
-### SquareTiles ([codeforces](#codeforces) 3/17)
+### SquareTiles ([codeforces](#codeforces) 3/24)
 
 **Description:**
-Find a minimal list of corner locations for a×a tiles that covers [0, m] × [0, n] 
-and does not double-cover squares.    
-    
+Find a minimal list of corner locations for a×a tiles that covers [0, m] × [0, n]
+and does not double-cover squares.
+
 Sample Input:
 m = 10
 n = 9
 a = 5
 target = 4
-    
+
 Sample Output:
 [[0, 0], [0, 5], [5, 0], [5, 5]]
-    
+
 Inspired by [Codeforces Problem 1 A](https://codeforces.com/problemset/problem/1/A)
 
 **Problem:**
@@ -752,7 +752,7 @@ def sol(m=10, n=9, a=5, target=4):
 
 </details>
 
-### EasyTwos ([codeforces](#codeforces) 4/17)
+### EasyTwos ([codeforces](#codeforces) 4/24)
 
 **Description:**
 Given a list of lists of triples of integers, return True for each list with a total of at least 2 and False
@@ -777,7 +777,7 @@ def sol(trips=[[1, 1, 0], [1, 0, 0], [0, 0, 0], [0, 1, 1], [0, 1, 1], [1, 1, 1],
 
 </details>
 
-### DecreasingCountComparison ([codeforces](#codeforces) 5/17)
+### DecreasingCountComparison ([codeforces](#codeforces) 5/24)
 
 **Description:**
 Given a list of non-increasing integers and given an integer k, determine how many positive integers in the list
@@ -803,7 +803,7 @@ def sol(scores=[100, 95, 80, 70, 65, 9, 9, 9, 4, 2, 1], k=6):
 
 </details>
 
-### DominoTile ([codeforces](#codeforces) 6/17)
+### DominoTile ([codeforces](#codeforces) 6/24)
 
 **Description:**
 Tile an m x n checkerboard with 2 x 1 tiles. The solution is a list of fourtuples [i1, j1, i2, j2]
@@ -838,7 +838,7 @@ def sol(m=10, n=5, target=50):
 
 </details>
 
-### IncDec ([codeforces](#codeforces) 7/17)
+### IncDec ([codeforces](#codeforces) 7/24)
 
 **Description:**
 This straightforward problem is a little harder than the Codeforces one.
@@ -857,7 +857,7 @@ Inspired by [Codeforces Problem 282 A](https://codeforces.com/problemset/problem
 **Problem:**
 
 ```python
-def sat(n: int, ops: List[str]=['x++', '--x', '--x'], target: int=12):
+def sat(n: int, ops: List[str]=['x++', '--x', '--x'], target: int=19143212):
     assert type(n) is int, 'n must be of type int'
     for op in ops:
         if op in ["++x", "x++"]:
@@ -870,13 +870,13 @@ def sat(n: int, ops: List[str]=['x++', '--x', '--x'], target: int=12):
 <details><summary><strong>Reveal solution(s):</strong></summary>
 
 ```python
-def sol(ops=['x++', '--x', '--x'], target=12):
+def sol(ops=['x++', '--x', '--x'], target=19143212):
     return target - ops.count("++x") - ops.count("x++") + ops.count("--x") + ops.count("x--")
 ```
 
 </details>
 
-### CompareInAnyCase ([codeforces](#codeforces) 8/17)
+### CompareInAnyCase ([codeforces](#codeforces) 8/24)
 
 **Description:**
 Ignoring case, compare s, t lexicographically. Output 0 if they are =, -1 if s < t, 1 if s > t.
@@ -909,7 +909,7 @@ def sol(s="aaAab", t="aAaaB"):
 
 </details>
 
-### SlidingOne ([codeforces](#codeforces) 9/17)
+### SlidingOne ([codeforces](#codeforces) 9/24)
 
 **Description:**
 We are given a 5x5 bimatrix with a single 1 like:
@@ -964,7 +964,7 @@ def sol(matrix=[[0, 0, 0, 0, 0], [0, 0, 0, 0, 1], [0, 0, 0, 0, 0], [0, 0, 0, 0, 
 
 </details>
 
-### SortPlusPlus ([codeforces](#codeforces) 10/17)
+### SortPlusPlus ([codeforces](#codeforces) 10/24)
 
 **Description:**
 Sort numbers in a sum of digits, e.g., 1+3+2+1 -> 1+1+2+3
@@ -987,7 +987,7 @@ def sol(inp="1+1+3+1+3+2+2+1+3+1+2"):
 
 </details>
 
-### CapitalizeFirstLetter ([codeforces](#codeforces) 11/17)
+### CapitalizeFirstLetter ([codeforces](#codeforces) 11/24)
 
 **Description:**
 Capitalize first letter of word
@@ -999,7 +999,7 @@ Inspired by [Codeforces Problem 281 A](https://codeforces.com/problemset/problem
 ```python
 def sat(s: str, word: str="konjac"):
     assert type(s) is str, 's must be of type str'
-    for i in range(len(s)):
+    for i in range(len(word)):
         if i == 0:
             if s[i] != word[i].upper():
                 return False
@@ -1017,7 +1017,7 @@ def sol(word="konjac"):
 
 </details>
 
-### LongestSubsetString ([codeforces](#codeforces) 12/17)
+### LongestSubsetString ([codeforces](#codeforces) 12/24)
 
 **Description:**
 You are given a string consisting of a's, b's and c's, find any longest substring containing no
@@ -1046,13 +1046,13 @@ def sat(t: str, s: str="abbbcabbac", target: int=7):
 <details><summary><strong>Reveal solution(s):</strong></summary>
 
 ```python
-def sol(s="abbbcabbac", target=7): # target is ignored
+def sol(s="abbbcabbac", target=7):  # target is ignored
     return s[:1] + "".join([b for a, b in zip(s, s[1:]) if b != a])
 ```
 
 </details>
 
-### FindHomogeneousSubstring ([codeforces](#codeforces) 13/17)
+### FindHomogeneousSubstring ([codeforces](#codeforces) 13/24)
 
 **Description:**
 You are given a string consisting of 0's and 1's. Find an index after which the subsequent k characters are
@@ -1105,7 +1105,7 @@ def sol(s="0000111111100000", k=5):
 
 </details>
 
-### FivePowers ([codeforces](#codeforces) 14/17)
+### FivePowers ([codeforces](#codeforces) 14/24)
 
 **Description:**
 What are the last two digits of 5^n?
@@ -1128,7 +1128,7 @@ def sol(n=7):
 
 </details>
 
-### CombinationLock ([codeforces](#codeforces) 15/17)
+### CombinationLock ([codeforces](#codeforces) 15/24)
 
 **Description:**
 Shortest Combination Lock Path
@@ -1172,7 +1172,7 @@ def sol(start="012", combo="329", target_len=6):
 
 </details>
 
-### CombinationLockObfuscated ([codeforces](#codeforces) 16/17)
+### CombinationLockObfuscated ([codeforces](#codeforces) 16/24)
 
 **Description:**
 An obfuscated version of CombinationLock above
@@ -1202,7 +1202,7 @@ def sol(start="012", combo="329", target_len=6):
 
 </details>
 
-### InvertPermutation ([codeforces](#codeforces) 17/17)
+### InvertPermutation ([codeforces](#codeforces) 17/24)
 
 **Description:**
 Find a string that, when a given permutation of characters is applied, has a given result.
@@ -1214,13 +1214,214 @@ Inspired by [Codeforces Problem 474 A](https://codeforces.com/problemset/problem
 ```python
 def sat(s: str, perm: str="qwertyuiopasdfghjklzxcvbnm", target: str="hello are you there?"):
     assert type(s) is str, 's must be of type str'
-    return "".join((perm[(perm.index(c)+1) % len(perm)] if c in perm else c) for c in s) == target
+    return "".join((perm[(perm.index(c) + 1) % len(perm)] if c in perm else c) for c in s) == target
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
 
 ```python
 def sol(perm="qwertyuiopasdfghjklzxcvbnm", target="hello are you there?"):
     return "".join((perm[(perm.index(c) - 1) % len(perm)] if c in perm else c) for c in target)
+```
+
+</details>
+
+### SameDifferent ([codeforces](#codeforces) 18/24)
+
+**Description:**
+Given a list of integers and a target length, create of the given length such that:
+*The first list must be all the same numbers.
+* The second must be all different.
+* The two lists together comprise a sublist of all the list items
+
+Inspired by [Codeforces Problem 1335 C](https://codeforces.com/problemset/problem/1335/C)
+
+**Problem:**
+
+```python
+def sat(lists: List[List[int]], items: List[int]=[5, 4, 9, 4, 5, 5, 5, 1, 5, 5], length: int=4):
+    assert type(lists) is list and all(type(a) is list and all(type(b) is int for b in a) for a in lists), 'lists must be of type List[List[int]]'
+    a, b = lists
+    assert len(set(a)) == len(a) == len(b) == length and len(set(b)) == 1 and set(a + b) <= set(items)
+    i = b[0]
+    return (a + b).count(i) <= items.count(i)
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(items=[5, 4, 9, 4, 5, 5, 5, 1, 5, 5], length=4):
+    from collections import Counter
+    [[a, count]] = Counter(items).most_common(1)
+    assert count >= length
+    seen = {a}
+    dedup = [i for i in items if i not in seen and not seen.add(i)]
+    return [(dedup + [a])[:length], [a] * length]
+```
+
+</details>
+
+### OnesAndTwos ([codeforces](#codeforces) 19/24)
+
+**Description:**
+Find a sequence of 1's and 2's of a given length that that adds up to n
+
+Inspired by [Codeforces Problem 476 A](https://codeforces.com/problemset/problem/476/A)
+
+**Problem:**
+
+```python
+def sat(seq: List[int], n: int=10000, length: int=5017):
+    assert type(seq) is list and all(type(a) is int for a in seq), 'seq must be of type List[int]'
+    return set(seq) <= {1, 2} and sum(seq) == n and len(seq) == length
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(n=10000, length=5017):
+    return [2] * (n - length) + [1] * (2 * length - n)
+```
+
+</details>
+
+### MinConsecutiveSum ([codeforces](#codeforces) 20/24)
+
+**Description:**
+Find a sequence of k consecutive indices whose sum is minimal
+
+Inspired by [Codeforces Problem 363 B](https://codeforces.com/problemset/problem/363/B)
+
+**Problem:**
+
+```python
+def sat(start: int, k: int=3, upper: int=6, seq: List[int]=[17, 1, 2, 65, 18, 91, -30, 100, 3, 1, 2]):
+    assert type(start) is int, 'start must be of type int'
+    return 0 <= start <= len(seq) - k and sum(seq[start:start + k]) <= upper
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(k=3, upper=6, seq=[17, 1, 2, 65, 18, 91, -30, 100, 3, 1, 2]):
+    return min(range(len(seq) - k + 1), key=lambda start: sum(seq[start:start + k]))
+```
+
+</details>
+
+### MaxConsecutiveSum ([codeforces](#codeforces) 21/24)
+
+**Description:**
+Find a sequence of k consecutive indices whose sum is maximal
+
+Inspired by [Codeforces Problem 363 B](https://codeforces.com/problemset/problem/363/B)
+
+**Problem:**
+
+```python
+def sat(start: int, k: int=3, lower: int=150, seq: List[int]=[3, 1, 2, 65, 18, 91, -30, 100, 0, 19, 52]):
+    assert type(start) is int, 'start must be of type int'
+    return 0 <= start <= len(seq) - k and sum(seq[start:start + k]) >= lower
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(k=3, lower=150, seq=[3, 1, 2, 65, 18, 91, -30, 100, 0, 19, 52]):
+    return max(range(len(seq) - k + 1), key=lambda start: sum(seq[start:start + k]))
+```
+
+</details>
+
+### MaxConsecutiveProduct ([codeforces](#codeforces) 22/24)
+
+**Description:**
+Find a sequence of k consecutive indices whose product is maximal, possibly looping around
+
+Inspired by [Codeforces Problem 363 B](https://codeforces.com/problemset/problem/363/B)
+
+**Problem:**
+
+```python
+def sat(start: int, k: int=3, lower: int=100000, seq: List[int]=[91, 1, 2, 64, 18, 91, -30, 100, 3, 65, 18]):
+    assert type(start) is int, 'start must be of type int'
+    prod = 1
+    for i in range(start, start + k):
+        prod *= seq[i]
+    return prod >= lower
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(k=3, lower=100000, seq=[91, 1, 2, 64, 18, 91, -30, 100, 3, 65, 18]):
+    def prod(start):
+        ans = 1
+        for i in range(start, start + k):
+            ans *= seq[i]
+        return ans
+
+    return max(range(-len(seq), len(seq) - k + 1), key=prod)
+```
+
+</details>
+
+### DistinctOddSum ([codeforces](#codeforces) 23/24)
+
+**Description:**
+Find n distinct positive odd integers that sum to tot
+
+Inspired by [Codeforces Problem 1327 A](https://codeforces.com/problemset/problem/1327/A)
+
+**Problem:**
+
+```python
+def sat(nums: List[int], tot: int=12345, n: int=5):
+    assert type(nums) is list and all(type(a) is int for a in nums), 'nums must be of type List[int]'
+    return len(nums) == len(set(nums)) == n and sum(nums) == tot and all(i >= i % 2 > 0 for i in nums)
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(tot=12345, n=5):
+    return list(range(1, 2 * n - 1, 2)) + [tot - sum(range(1, 2 * n - 1, 2))]
+```
+
+</details>
+
+### MinRotations ([codeforces](#codeforces) 24/24)
+
+**Description:**
+We begin with the string `"a...z"`
+
+An `r`-rotation of a string means shifting it to the right (positive) or left (negative) by `r` characters and
+cycling around. Given a target string of length n, find the n rotations that put the consecutive characters
+of that string at the beginning of the r-rotation, with minimal sum of absolute values of the `r`'s.
+
+For example if the string was `'dad'`, the minimal rotations would be `[3, -3, 3]` with a total of `9`.
+
+Inspired by [Codeforces Problem 731 A](https://codeforces.com/problemset/problem/731/A)
+
+**Problem:**
+
+```python
+def sat(rotations: List[int], target: str="dad", upper: int=9):
+    assert type(rotations) is list and all(type(a) is int for a in rotations), 'rotations must be of type List[int]'
+    s = "abcdefghijklmnopqrstuvwxyz"
+    assert len(rotations) == len(target)
+    for r, c in zip(rotations, target):
+        s = s[r:] + s[:r]
+        assert s[0] == c
+
+    return sum(abs(r) for r in rotations) <= upper
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(target="dad", upper=9):
+    s = "abcdefghijklmnopqrstuvwxyz"
+    ans = []
+    for c in target:
+        i = s.index(c)
+        r = min([i, i - len(s)], key=abs)
+        ans.append(r)
+        s = s[r:] + s[:r]
+        assert s[0] == c
+    return ans
 ```
 
 </details>

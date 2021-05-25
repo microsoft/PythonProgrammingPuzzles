@@ -58,18 +58,18 @@ class Abbreviate(Problem):
 
 @register
 class SquareTiles(Problem):
-    """Find a minimal list of corner locations for a×a tiles that covers [0, m] × [0, n] 
-    and does not double-cover squares.    
-    
+    """Find a minimal list of corner locations for a×a tiles that covers [0, m] × [0, n]
+    and does not double-cover squares.
+
     Sample Input:
     m = 10
     n = 9
     a = 5
     target = 4
-    
+
     Sample Output:
     [[0, 0], [0, 5], [5, 0], [5, 5]]
-    
+
     Inspired by [Codeforces Problem 1 A](https://codeforces.com/problemset/problem/1/A)
     """
 
@@ -119,7 +119,8 @@ class DecreasingCountComparison(Problem):
     Given a list of non-increasing integers and given an integer k, determine how many positive integers in the list
     are at least as large as the kth.
 
-    Inspired by [Codeforces Problem 158 A](https://codeforces.com/problemset/problem/158/A)"""
+    Inspired by [Codeforces Problem 158 A](https://codeforces.com/problemset/problem/158/A)
+    """
 
     @staticmethod
     def sat(n: int, scores=[100, 95, 80, 70, 65, 9, 9, 9, 4, 2, 1], k=6):
@@ -149,7 +150,8 @@ class VowelDrop(Problem):
     Sample Output:
     .p.r.b.l.m.s
 
-    Inspired by [Codeforces Problem 118 A](https://codeforces.com/problemset/problem/118/A)"""
+    Inspired by [Codeforces Problem 118 A](https://codeforces.com/problemset/problem/118/A)
+    """
 
     @staticmethod
     def sat(t: str, s="Problems"):
@@ -177,7 +179,8 @@ class DominoTile(Problem):
     """Tile an m x n checkerboard with 2 x 1 tiles. The solution is a list of fourtuples [i1, j1, i2, j2]
     with i2 == i1 and j2 == j1 + 1 or i2 == i1 + 1 and j2 == j1 with no overlap.
 
-    Inspired by [Codeforces Problem 50 A](https://codeforces.com/problemset/problem/50/A)"""
+    Inspired by [Codeforces Problem 50 A](https://codeforces.com/problemset/problem/50/A)
+    """
 
     @staticmethod
     def sat(squares: List[List[int]], m=10, n=5, target=50):
@@ -217,10 +220,11 @@ class IncDec(Problem):
     Sample Output:
     13
 
-    Inspired by [Codeforces Problem 282 A](https://codeforces.com/problemset/problem/282/A)"""
+    Inspired by [Codeforces Problem 282 A](https://codeforces.com/problemset/problem/282/A)
+    """
 
     @staticmethod
-    def sat(n: int, ops=["x++", "--x", "--x"], target=12):
+    def sat(n: int, ops=["x++", "--x", "--x"], target=19143212):
         for op in ops:
             if op in ["++x", "x++"]:
                 n += 1
@@ -245,7 +249,8 @@ class IncDec(Problem):
 class CompareInAnyCase(Problem):
     """Ignoring case, compare s, t lexicographically. Output 0 if they are =, -1 if s < t, 1 if s > t.
 
-    Inspired by [Codeforces Problem 112 A](https://codeforces.com/problemset/problem/112/A)"""
+    Inspired by [Codeforces Problem 112 A](https://codeforces.com/problemset/problem/112/A)
+    """
 
     @staticmethod
     def sat(n: int, s="aaAab", t="aAaaB"):
@@ -289,7 +294,8 @@ class SlidingOne(Problem):
     Find a (minimal) sequence of row and column swaps to move the 1 to the center. A move is a string
     in "0"-"4" indicating a row swap and "a"-"e" indicating a column swap
 
-    Inspired by [Codeforces Problem 263 A](https://codeforces.com/problemset/problem/263/A)"""
+    Inspired by [Codeforces Problem 263 A](https://codeforces.com/problemset/problem/263/A)
+    """
 
     @staticmethod
     def sat(s: str,
@@ -340,7 +346,8 @@ class SlidingOne(Problem):
 class SortPlusPlus(Problem):
     """Sort numbers in a sum of digits, e.g., 1+3+2+1 -> 1+1+2+3
 
-    Inspired by [Codeforces Problem 339 A](https://codeforces.com/problemset/problem/339/A)"""
+    Inspired by [Codeforces Problem 339 A](https://codeforces.com/problemset/problem/339/A)
+    """
 
     @staticmethod
     def sat(s: str, inp="1+1+3+1+3+2+2+1+3+1+2"):
@@ -359,11 +366,12 @@ class SortPlusPlus(Problem):
 class CapitalizeFirstLetter(Problem):
     """Capitalize first letter of word
 
-    Inspired by [Codeforces Problem 281 A](https://codeforces.com/problemset/problem/281/A)"""
+    Inspired by [Codeforces Problem 281 A](https://codeforces.com/problemset/problem/281/A)
+    """
 
     @staticmethod
     def sat(s: str, word="konjac"):
-        for i in range(len(s)):
+        for i in range(len(word)):
             if i == 0:
                 if s[i] != word[i].upper():
                     return False
@@ -392,7 +400,8 @@ class LongestSubsetString(Problem):
     Sample Output:
     abc
 
-    Inspired by [Codeforces Problem 266 A](https://codeforces.com/problemset/problem/266/A)"""
+    Inspired by [Codeforces Problem 266 A](https://codeforces.com/problemset/problem/266/A)
+    """
 
     @staticmethod
     def sat(t: str, s="abbbcabbac", target=7):
@@ -404,7 +413,7 @@ class LongestSubsetString(Problem):
         return len(t) >= target
 
     @staticmethod
-    def sol(s, target): # target is ignored
+    def sol(s, target):  # target is ignored
         return s[:1] + "".join([b for a, b in zip(s, s[1:]) if b != a])
 
     def gen_random(self):
@@ -426,7 +435,8 @@ class FindHomogeneousSubstring(Problem):
     4
     (or 5 or 6 or 11)
 
-    Inspired by [Codeforces Problem 96 A](https://codeforces.com/problemset/problem/96/A)"""
+    Inspired by [Codeforces Problem 96 A](https://codeforces.com/problemset/problem/96/A)
+    """
 
     @staticmethod
     def sat(n: int, s="0000111111100000", k=5):
@@ -469,7 +479,8 @@ class FindHomogeneousSubstring(Problem):
 class FivePowers(Problem):
     """What are the last two digits of 5^n?
 
-    Inspired by [Codeforces Problem 630 A](https://codeforces.com/problemset/problem/630/A)"""
+    Inspired by [Codeforces Problem 630 A](https://codeforces.com/problemset/problem/630/A)
+    """
 
     @staticmethod
     def sat(s: str, n=7):
@@ -496,7 +507,8 @@ class CombinationLock(Problem):
 
     output: ['112', '212', '312', '322', '321', '320']
 
-    Inspired by [Codeforces Problem 540 A](https://codeforces.com/problemset/problem/540/A)"""
+    Inspired by [Codeforces Problem 540 A](https://codeforces.com/problemset/problem/540/A)
+    """
 
     @staticmethod
     def sat(states: List[str], start="012", combo="329", target_len=6):
@@ -541,11 +553,12 @@ class CombinationLockObfuscated(CombinationLock):
 class InvertPermutation(Problem):
     """Find a string that, when a given permutation of characters is applied, has a given result.
 
-    Inspired by [Codeforces Problem 474 A](https://codeforces.com/problemset/problem/474/A)"""
+    Inspired by [Codeforces Problem 474 A](https://codeforces.com/problemset/problem/474/A)
+    """
 
     @staticmethod
     def sat(s: str, perm="qwertyuiopasdfghjklzxcvbnm", target="hello are you there?"):
-        return "".join((perm[(perm.index(c)+1) % len(perm)] if c in perm else c) for c in s) == target
+        return "".join((perm[(perm.index(c) + 1) % len(perm)] if c in perm else c) for c in s) == target
 
     @staticmethod
     def sol(perm, target):
@@ -555,6 +568,208 @@ class InvertPermutation(Problem):
         perm = "qwertyuiopasdfghjklzxcvbnm"
         target = " ".join(self.random.pseudo_word() for _ in range(self.random.randrange(1, 10)))
         self.add(dict(perm=perm, target=target))
+
+
+@register
+class SameDifferent(Problem):
+    """
+    Given a list of integers and a target length, create of the given length such that:
+    *The first list must be all the same numbers.
+    * The second must be all different.
+    * The two lists together comprise a sublist of all the list items
+
+    Inspired by [Codeforces Problem 1335 C](https://codeforces.com/problemset/problem/1335/C)
+    """
+
+    @staticmethod
+    def sat(lists: List[List[int]], items=[5, 4, 9, 4, 5, 5, 5, 1, 5, 5], length=4):
+        a, b = lists
+        assert len(set(a)) == len(a) == len(b) == length and len(set(b)) == 1 and set(a + b) <= set(items)
+        i = b[0]
+        return (a + b).count(i) <= items.count(i)
+
+    @staticmethod
+    def sol(items, length):
+        from collections import Counter
+        [[a, count]] = Counter(items).most_common(1)
+        assert count >= length
+        seen = {a}
+        dedup = [i for i in items if i not in seen and not seen.add(i)]
+        return [(dedup + [a])[:length], [a] * length]
+
+    def gen_random(self):
+        items = [self.random.randrange(10) for _ in range(self.random.randrange(5, 100))]
+        from collections import Counter
+        count = Counter(items).most_common(1)[0][1]
+        n = len(set(items))
+        length = (count - 1) if count == n else min(count, n)
+        self.add(dict(items=items, length=length))
+
+
+@register
+class OnesAndTwos(Problem):
+    """Find a sequence of 1's and 2's of a given length that that adds up to n
+
+    Inspired by [Codeforces Problem 476 A](https://codeforces.com/problemset/problem/476/A)"""
+
+    @staticmethod
+    def sat(seq: List[int], n=10000, length=5017):
+        return set(seq) <= {1, 2} and sum(seq) == n and len(seq) == length
+
+    @staticmethod
+    def sol(n, length):
+        return [2] * (n - length) + [1] * (2 * length - n)
+
+    def gen_random(self):
+        n = self.random.randrange(10 ** self.random.randrange(5))
+        length = self.random.randrange((n + 1) // 2, n + 1)
+        self.add(dict(n=n, length=length))
+
+
+@register
+class MinConsecutiveSum(Problem):
+    """Find a sequence of k consecutive indices whose sum is minimal
+
+    Inspired by [Codeforces Problem 363 B](https://codeforces.com/problemset/problem/363/B)"""
+
+    @staticmethod
+    def sat(start: int, k=3, upper=6, seq=[17, 1, 2, 65, 18, 91, -30, 100, 3, 1, 2]):
+        return 0 <= start <= len(seq) - k and sum(seq[start:start + k]) <= upper
+
+    @staticmethod
+    def sol(k, upper, seq):
+        return min(range(len(seq) - k + 1), key=lambda start: sum(seq[start:start + k]))
+
+    def gen_random(self):
+        k = self.random.randrange(1, 11)
+        n = self.random.randrange(k, k + 10 ** self.random.randrange(3))
+        seq = [self.random.randrange(-100, 100) for _ in range(n)]
+        upper = min(sum(seq[start:start + k]) for start in range(n - k + 1))
+        self.add(dict(k=k, upper=upper, seq=seq))
+
+
+@register
+class MaxConsecutiveSum(Problem):
+    """Find a sequence of k consecutive indices whose sum is maximal
+
+    Inspired by [Codeforces Problem 363 B](https://codeforces.com/problemset/problem/363/B)"""
+
+    @staticmethod
+    def sat(start: int, k=3, lower=150, seq=[3, 1, 2, 65, 18, 91, -30, 100, 0, 19, 52]):
+        return 0 <= start <= len(seq) - k and sum(seq[start:start + k]) >= lower
+
+    @staticmethod
+    def sol(k, lower, seq):
+        return max(range(len(seq) - k + 1), key=lambda start: sum(seq[start:start + k]))
+
+    def gen_random(self):
+        k = self.random.randrange(1, 11)
+        n = self.random.randrange(k, k + 10 ** self.random.randrange(3))
+        seq = [self.random.randrange(-100, 100) for _ in range(n)]
+        lower = max(sum(seq[start:start + k]) for start in range(n - k + 1))
+        self.add(dict(k=k, lower=lower, seq=seq))
+
+
+@register
+class MaxConsecutiveProduct(Problem):
+    """Find a sequence of k consecutive indices whose product is maximal, possibly looping around
+
+    Inspired by [Codeforces Problem 363 B](https://codeforces.com/problemset/problem/363/B)"""
+
+    @staticmethod
+    def sat(start: int, k=3, lower=100000, seq=[91, 1, 2, 64, 18, 91, -30, 100, 3, 65, 18]):
+        prod = 1
+        for i in range(start, start + k):
+            prod *= seq[i]
+        return prod >= lower
+
+    @staticmethod
+    def sol(k, lower, seq):
+        def prod(start):
+            ans = 1
+            for i in range(start, start + k):
+                ans *= seq[i]
+            return ans
+
+        return max(range(-len(seq), len(seq) - k + 1), key=prod)
+
+    def gen_random(self):
+        k = self.random.randrange(1, 11)
+        n = self.random.randrange(k, k + 10 ** self.random.randrange(3))
+        seq = [self.random.randrange(-100, 100) for _ in range(n)]
+
+        def prod(start):
+            ans = 1
+            for i in range(start, start + k):
+                ans *= seq[i]
+            return ans
+
+        lower = max(prod(i) for i in range(-len(seq), len(seq) - k + 1))
+
+        self.add(dict(k=k, lower=lower, seq=seq))
+
+
+@register
+class DistinctOddSum(Problem):
+    """Find n distinct positive odd integers that sum to tot
+
+    Inspired by [Codeforces Problem 1327 A](https://codeforces.com/problemset/problem/1327/A)"""
+
+    @staticmethod
+    def sat(nums: List[int], tot=12345, n=5):
+        return len(nums) == len(set(nums)) == n and sum(nums) == tot and all(i >= i % 2 > 0 for i in nums)
+
+    @staticmethod
+    def sol(tot, n):
+        return list(range(1, 2 * n - 1, 2)) + [tot - sum(range(1, 2 * n - 1, 2))]
+
+    def gen_random(self):
+        n = self.random.randrange(1, 100)
+        tot = sum(self.random.sample(range(1, max(2 * n + 2, 1000), 2), n))
+
+        self.add(dict(tot=tot, n=n))
+
+
+@register
+class MinRotations(Problem):
+    """
+    We begin with the string `"a...z"`
+
+    An `r`-rotation of a string means shifting it to the right (positive) or left (negative) by `r` characters and
+    cycling around. Given a target string of length n, find the n rotations that put the consecutive characters
+    of that string at the beginning of the r-rotation, with minimal sum of absolute values of the `r`'s.
+
+    For example if the string was `'dad'`, the minimal rotations would be `[3, -3, 3]` with a total of `9`.
+
+    Inspired by [Codeforces Problem 731 A](https://codeforces.com/problemset/problem/731/A)"""
+
+    @staticmethod
+    def sat(rotations: List[int], target='dad', upper=9):
+        s = "abcdefghijklmnopqrstuvwxyz"
+        assert len(rotations) == len(target)
+        for r, c in zip(rotations, target):
+            s = s[r:] + s[:r]
+            assert s[0] == c
+
+        return sum(abs(r) for r in rotations) <= upper
+
+    @staticmethod
+    def sol(target, upper):
+        s = "abcdefghijklmnopqrstuvwxyz"
+        ans = []
+        for c in target:
+            i = s.index(c)
+            r = min([i, i - len(s)], key=abs)
+            ans.append(r)
+            s = s[r:] + s[:r]
+            assert s[0] == c
+        return ans
+
+    def gen_random(self):
+        target = self.random.pseudo_word()
+        upper = sum(abs(r) for r in self.sol(target, None))
+        self.add(dict(target=target, upper=upper))
+
 
 if __name__ == "__main__":
     for problem in get_problems(globals()):
