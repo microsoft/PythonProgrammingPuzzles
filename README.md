@@ -1,8 +1,9 @@
 # Python Programming Puzzles
 
 This repo contains a dataset of python programming puzzles which can be used to teach and evaluate
-an AI's programming proficiency. The dataset is comprehensive in terms of problem difficult, domain, 
-and algorithmic tools needed to solve the problems. 
+an AI's programming proficiency. We hope this dataset with **grow rapidly**, and it is already diverse in 
+terms of problem difficult, domain, 
+and algorithmic tools needed to solve the problems. Please [contribute](#contributing)! 
  
 
 ## What is a python programming puzzle?
