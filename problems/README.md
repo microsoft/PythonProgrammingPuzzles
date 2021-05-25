@@ -13,8 +13,9 @@ Each .json file contains a number of related problems with one or more instances
 - [ICPC (2 problems, 200 instances)](#icpc)
 - [IMO (6 problems, 511 instances)](#imo)
 - [puzzles (18 problems, 906 instances)](#puzzles)
+- [trivial (25 problems, 2,301 instances)](#trivial)
 
-Total (74 problems, 6,142 instances)
+Total (99 problems, 8,443 instances)
 
 
 ----
@@ -2958,6 +2959,562 @@ def sol(words=['SEND', 'MORE', 'MONEY']):
 
     assert helper(0, 0)
     return [int("".join(str(pi[order[c]]) for c in w)) for w in words]
+```
+
+</details>
+
+[^^ Top](#files)
+## trivial
+
+Trivial problems. Typically for any function, you can construct a trivial example.
+For instance, for the len function you can ask for a string of len(s)==100 etc.
+
+
+[^ Top](#files)
+
+### HelloWorld ([trivial](#trivial) 1/25)
+
+**Description:**
+Trivial example, no solutions provided
+
+**Problem:**
+
+```python
+def sat(s: str):
+    assert type(s) is str, 's must be of type str'
+    return s + 'world' == 'Hello world'
+```
+### BackWorlds ([trivial](#trivial) 2/25)
+
+**Description:**
+Two solutions, no inputs
+
+**Problem:**
+
+```python
+def sat(s: str):
+    assert type(s) is str, 's must be of type str'
+    return s[::-1] + 'world' == 'Hello world'
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol():
+    return ' olleH'
+```
+
+```python
+def sol():  # solution methods must begin with 'sol'
+    return 'Hello '[::-1]
+```
+
+</details>
+
+### StrAdd ([trivial](#trivial) 3/25)
+
+**Description:**
+Solve simple string addition problem.
+
+**Problem:**
+
+```python
+def sat(st: str, a: str="world", b: str="Hello world"):
+    assert type(st) is str, 'st must be of type str'
+    return st + a == b
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(a="world", b="Hello world"):
+    return b[:len(b) - len(a)]
+```
+
+</details>
+
+### StrSetLen ([trivial](#trivial) 4/25)
+
+**Description:**
+Find a string with a certain number of duplicate chars
+
+**Problem:**
+
+```python
+def sat(s: str, dups: int=1000):
+    assert type(s) is str, 's must be of type str'
+    return len(set(s)) == len(s) - dups
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(dups=1000):
+    return "a" * (dups + 1)
+```
+
+</details>
+
+### StrMul ([trivial](#trivial) 5/25)
+
+**Description:**
+Solve string multiplication problem
+
+**Problem:**
+
+```python
+def sat(s: str, target: str="foofoofoofoo", n: int=2):
+    assert type(s) is str, 's must be of type str'
+    return s * n == target
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(target="foofoofoofoo", n=2):
+    if n == 0:
+        return ''
+    return target[:len(target) // n]
+```
+
+</details>
+
+### StrMul2 ([trivial](#trivial) 6/25)
+
+**Description:**
+Solve string multiplication problem
+
+**Problem:**
+
+```python
+def sat(n: int, target: str="foofoofoofoo", s: str="foofoo"):
+    assert type(n) is int, 'n must be of type int'
+    return s * n == target
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(target="foofoofoofoo", s="foofoo"):
+    if len(s) == 0:
+        return 1
+    return len(target) // len(s)
+```
+
+</details>
+
+### StrLen ([trivial](#trivial) 7/25)
+
+**Description:**
+Solve string length problem
+
+**Problem:**
+
+```python
+def sat(s: str, n: int=1000):
+    assert type(s) is str, 's must be of type str'
+    return len(s) == n
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(n=1000):
+    return 'a' * n
+```
+
+</details>
+
+### StrAt ([trivial](#trivial) 8/25)
+
+**Description:**
+Solve str[i] problem
+
+**Problem:**
+
+```python
+def sat(i: int, s: str="cat", target: str="a"):
+    assert type(i) is int, 'i must be of type int'
+    return s[i] == target
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(s="cat", target="a"):
+    return s.index(target)
+```
+
+</details>
+
+### StrNegAt ([trivial](#trivial) 9/25)
+
+**Description:**
+Solve str[-i] problem
+
+**Problem:**
+
+```python
+def sat(i: int, s: str="cat", target: str="a"):
+    assert type(i) is int, 'i must be of type int'
+    return s[i] == target and i < 0
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(s="cat", target="a"):
+    return - (len(s) - s.index(target))
+```
+
+</details>
+
+### StrSlice ([trivial](#trivial) 10/25)
+
+**Description:**
+Solve string slice problem
+
+**Problem:**
+
+```python
+def sat(inds: List[int], s: str="hello world", target: str="do"):
+    assert type(inds) is list and all(type(a) is int for a in inds), 'inds must be of type List[int]'
+    i, j, k = inds
+    return s[i:j:k] == target
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(s="hello world", target="do"):
+    from itertools import product
+    for i, j, k in product(range(-len(s) - 1, len(s) + 1), repeat=3):
+        try:
+            if s[i:j:k] == target:
+                return [i, j, k]
+        except (IndexError, ValueError):
+            pass
+```
+
+</details>
+
+### StrIndex ([trivial](#trivial) 11/25)
+
+**Description:**
+Solve str.index problem
+
+**Problem:**
+
+```python
+def sat(s: str, big_str: str="foobar", index: int=2):
+    assert type(s) is str, 's must be of type str'
+    return big_str.index(s) == index
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(big_str="foobar", index=2):
+    return big_str[index:]
+```
+
+</details>
+
+### StrIndex2 ([trivial](#trivial) 12/25)
+
+**Description:**
+Solve str.index problem
+
+**Problem:**
+
+```python
+def sat(big_str: str, sub_str: str="foobar", index: int=2):
+    assert type(big_str) is str, 'big_str must be of type str'
+    return big_str.index(sub_str) == index
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(sub_str="foobar", index=2):
+    i = ord('A')
+    while chr(i) in sub_str:
+        i += 1
+    return chr(i)*index + sub_str
+```
+
+</details>
+
+### StrIn ([trivial](#trivial) 13/25)
+
+**Description:**
+Solve str in problem
+
+**Problem:**
+
+```python
+def sat(s: str, a: str="hello", b: str="yellow", length: int=4):
+    assert type(s) is str, 's must be of type str'
+    return len(s) == length and s in a and s in b
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(a="hello", b="yellow", length=4):
+    for i in range(len(a)-length+1):
+        if a[i:i+length] in b:
+            return a[i:i+length]
+```
+
+</details>
+
+### StrIn2 ([trivial](#trivial) 14/25)
+
+**Description:**
+Solve str in problem
+
+**Problem:**
+
+```python
+def sat(substrings: List[str], s: str="hello", count: int=15):
+    assert type(substrings) is list and all(type(a) is str for a in substrings), 'substrings must be of type List[str]'
+    return len(substrings) == len(set(substrings)) >= count and all(sub in s for sub in substrings)
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(s="hello", count=15):
+    return [""] + sorted({s[j:i] for i in range(len(s)+1) for j in range(i)})
+```
+
+</details>
+
+### IntNeg ([trivial](#trivial) 15/25)
+
+**Description:**
+Solve unary negation problem
+
+**Problem:**
+
+```python
+def sat(x: int, a: int=93252338):
+    assert type(x) is int, 'x must be of type int'
+    return -x == a
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(a=93252338):
+    return - a
+```
+
+</details>
+
+### IntSum ([trivial](#trivial) 16/25)
+
+**Description:**
+Solve sum problem
+
+**Problem:**
+
+```python
+def sat(x: int, a: int=1073258, b: int=72352549):
+    assert type(x) is int, 'x must be of type int'
+    return a + x == b
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(a=1073258, b=72352549):
+    return b - a
+```
+
+</details>
+
+### IntSub ([trivial](#trivial) 17/25)
+
+**Description:**
+Solve subtraction problem
+
+**Problem:**
+
+```python
+def sat(x: int, a: int=-382, b: int=14546310):
+    assert type(x) is int, 'x must be of type int'
+    return x - a == b
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(a=-382, b=14546310):
+    return a + b
+```
+
+</details>
+
+### IntSub2 ([trivial](#trivial) 18/25)
+
+**Description:**
+Solve subtraction problem
+
+**Problem:**
+
+```python
+def sat(x: int, a: int=8665464, b: int=-93206):
+    assert type(x) is int, 'x must be of type int'
+    return a - x == b
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(a=8665464, b=-93206):
+    return a - b
+```
+
+</details>
+
+### IntMul ([trivial](#trivial) 19/25)
+
+**Description:**
+Solve multiplication problem
+
+**Problem:**
+
+```python
+def sat(n: int, a: int=14302, b: int=5):
+    assert type(n) is int, 'n must be of type int'
+    return b * n + (a % b) == a
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(a=14302, b=5):
+    return a // b
+```
+
+</details>
+
+### IntDiv ([trivial](#trivial) 20/25)
+
+**Description:**
+Solve division problem
+
+**Problem:**
+
+```python
+def sat(n: int, a: int=3, b: int=23463462):
+    assert type(n) is int, 'n must be of type int'
+    return b // n == a
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(a=3, b=23463462):
+    if a == 0:
+        return 2 * b
+    for n in [b // a, b // a - 1, b // a + 1]:
+        if b // n == a:
+            return n
+```
+
+</details>
+
+### IntDiv2 ([trivial](#trivial) 21/25)
+
+**Description:**
+Solve division problem
+
+**Problem:**
+
+```python
+def sat(n: int, a: int=345346363, b: int=10):
+    assert type(n) is int, 'n must be of type int'
+    return n // b == a
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(a=345346363, b=10):
+    return a * b
+```
+
+</details>
+
+### SquareRoot ([trivial](#trivial) 22/25)
+
+**Description:**
+Compute square root of number.
+The target has a round (integer) square root.
+
+**Problem:**
+
+```python
+def sat(x: int, a: int=10201202001):
+    assert type(x) is int, 'x must be of type int'
+    return x ** 2 == a
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(a=10201202001):
+    return int(a ** 0.5)
+```
+
+</details>
+
+### NegSquareRoot ([trivial](#trivial) 23/25)
+
+**Description:**
+Compute negative square root of number.
+The target has a round (integer) square root.
+
+**Problem:**
+
+```python
+def sat(n: int, a: int=10000200001):
+    assert type(n) is int, 'n must be of type int'
+    return a == n * n and n < 0
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(a=10000200001):
+    return -int(a ** 0.5)
+```
+
+</details>
+
+### SquareRootFloat ([trivial](#trivial) 24/25)
+
+**Description:**
+Compute square root of number.
+The target might not have a round solution.
+Accuracy of third decimal digit is required.
+
+**Problem:**
+
+```python
+def sat(x: float, a: int=1020):
+    assert type(x) is float, 'x must be of type float'
+    return abs(x ** 2 - a) < 10 ** -3
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(a=1020):
+    return a ** 0.5
+```
+
+</details>
+
+### NegSquareRootFloat ([trivial](#trivial) 25/25)
+
+**Description:**
+Compute (negative) square root of number.
+The target might not have a round solution.
+Accuracy of third decimal digit is required.
+
+**Problem:**
+
+```python
+def sat(x: float, a: int=1020):
+    assert type(x) is float, 'x must be of type float'
+    return abs(x ** 2 - a) < 10 ** -3 and x < 0
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(a=1020):
+    return -a ** 0.5
 ```
 
 </details>
