@@ -84,10 +84,86 @@ class TowersOfHanoiArbitrary(Problem):
 
 
 @register
+class LongestMonotonicSubstring(Problem):
+    """Find the indices of the longest substring with characters in sorted order."""
+
+    @staticmethod
+    def sat(x: List[int], length=13, s="Dynamic programming solves this puzzle!!!"):
+        return all(s[x[i]] <= s[x[i + 1]] and x[i + 1] > x[i] >= 0 for i in range(length - 1))
+
+    @staticmethod
+    def sol(length, s):  # O(N^2) method. Todo: add binary search solution which is O(n log n)
+        if s == "":
+            return []
+        n = len(s)
+        dyn = []  # list of (seq length, seq end, prev index)
+        for i in range(n):
+            try:
+                dyn.append(max((length + 1, i, e) for length, e, _ in dyn if s[e] <= s[i]))
+            except ValueError:
+                dyn.append((1, i, -1))  # sequence ends at i
+        _length, i, _ = max(dyn)
+        backwards = [i]
+        while dyn[i][2] != -1:
+            i = dyn[i][2]
+            backwards.append(i)
+        return backwards[::-1]
+
+    def gen_random(self):
+        n = self.random.randrange(self.random.choice([10, 100, 1000]))  # a length between 1-10 or 1-100 or 1-1000
+        m = self.random.randrange(n + 1)
+        rand_chars = [chr(self.random.randrange(32, 124)) for _ in range(n)]
+        li = sorted(rand_chars[:m])
+        for i in range(m, n):
+            li.insert(self.random.randrange(i + 1), rand_chars[i])
+        s = "".join(li)
+        length = len(self.sol(-1, s))
+        self.add(dict(length=length, s=s))
+
+
+@register
+class LongestMonotonicSubstringTricky(Problem):
+    """Find the indices of the longest substring with characters in sorted order, with a twist!"""
+
+    @staticmethod
+    def sat(x: List[int], length=20, s="Dynamic programming solves this puzzle!!!"):
+        return all(s[x[i]] <= s[x[i + 1]] and x[i + 1] > x[i] for i in range(length - 1))
+
+    @staticmethod
+    def sol(length, s):  # O(N^2) method. Todo: add binary search solution which is O(n log n)
+        if s == "":
+            return []
+        n = len(s)
+        dyn = []  # list of (seq length, seq end, prev index)
+        for i in range(-n, n):
+            try:
+                dyn.append(max((length + 1, i, e) for length, e, _ in dyn if s[e] <= s[i]))
+            except ValueError:
+                dyn.append((1, i, None))  # sequence ends at i
+        _length, i, _ = max(dyn)
+        backwards = [i]
+        while dyn[n + i][2] is not None:
+            i = dyn[n + i][2]
+            backwards.append(i)
+        return backwards[::-1]
+
+    def gen_random(self):
+        n = self.random.randrange(self.random.choice([10, 100, 1000]))  # a length between 1-10 or 1-100 or 1-1000
+        m = self.random.randrange(n + 1)
+        rand_chars = [chr(self.random.randrange(32, 124)) for _ in range(n)]
+        li = sorted(rand_chars[:m])
+        for i in range(m, n):
+            li.insert(self.random.randrange(i + 1), rand_chars[i])
+        s = "".join(li)
+        length = len(self.sol(-1, s))
+        self.add(dict(length=length, s=s))
+
+
+@register
 class Quine(Problem):
     """[Quine](https://en.wikipedia.org/wiki/Quine_%28computing%29)
 
-    Find an expression whose evaluation is the same as itself.
+    Find a string that when evaluated as a Python expression is that string itself.
     """
 
     @staticmethod
@@ -98,11 +174,33 @@ class Quine(Problem):
     def sol():
         return "(lambda x: f'({x})({chr(34)}{x}{chr(34)})')(\"lambda x: f'({x})({chr(34)}{x}{chr(34)})'\")"
 
+    @staticmethod
+    def sol2():  # thanks for this simple solution, GPT-3!
+        return 'quine'
+
+
+@register
+class RevQuine(Problem):
+    """Reverse [Quine](https://en.wikipedia.org/wiki/Quine_%28computing%29)
+
+    Find a string that, when reversed and evaluated gives you back that same string. The solution we found
+    is from GPT3.
+    """
+
+    @staticmethod
+    def sat(rev_quine: str):
+        return eval(rev_quine[::-1]) == rev_quine
+
+    @staticmethod
+    def sol():
+        return "rev_quine"[::-1]  # thanks GPT-3!
+
+
 
 @register
 class BooleanPythagoreanTriples(Problem):
     """[Boolean Pythagorean Triples Problem](https://en.wikipedia.org/wiki/Boolean_Pythagorean_triples_problem)
-    
+
     Color the first n integers with one of two colors so that there is no monochromatic Pythagorean triple.
     """
 
@@ -320,7 +418,6 @@ class Kirkman(Problem):
                 if len(todos) == 0:
                     return [[pi[k:k + 3] for k in range(0, 15, 3)] for pi, _inv in days]
 
-
         # return [[[0, 5, 10], [1, 6, 11], [2, 7, 12], [3, 8, 13], [4, 9, 14]], # wikipedia solution
         #         [[0, 1, 4], [2, 3, 6], [7, 8, 11], [9, 10, 13], [12, 14, 5]],
         #         [[1, 2, 5], [3, 4, 7], [8, 9, 12], [10, 11, 14], [13, 0, 6]],
@@ -333,7 +430,7 @@ class Kirkman(Problem):
 @register
 class MonkeyAndCoconuts(Problem):
     """[The Monkey and the Coconuts](https://en.wikipedia.org/wiki/The_monkey_and_the_coconuts)
-    
+
     Find the number of coconuts to solve the following riddle quoted from
     [Wikipedia article](https://en.wikipedia.org/wiki/The_monkey_and_the_coconuts):
         There is a pile of coconuts, owned by five men.
@@ -366,16 +463,6 @@ class MonkeyAndCoconuts(Problem):
             m += 5
 
 
-#
-#
-# assert monkey_and_coconuts_prob(monkey_and_coconuts_sol())
-#
-#
-# ########################################################################################################################
-#
-# # monty hall problem?
-#
-#
 # ########################################################################################################################
 # # https://en.wikipedia.org/wiki/Mountain_climbing_problem (Mathematical Problems category)
 # # two mountain climbers starting at opposite ends of a mountain range must climb up and down to keep their heights
@@ -528,10 +615,6 @@ class No3Colinear(Problem):
                     self.add(dict(side=side, num_points=num_points), test=test)
 
 
-#
-# assert no_three_in_a_line_prob(no_three_in_a_line_sol())
-#
-#
 # ########################################################################################################################
 # # https://en.wikipedia.org/wiki/Orchard-planting_problem (Mathematical Problems category)
 # # Find n points in the plane that maximize the number of three-in-a-line (opposite of above no_three_in_a_line_prob)
@@ -619,7 +702,7 @@ class NecklaceSplit(Problem):
     """
 
     @staticmethod
-    def sat(n: int, lace="rrbbbbrrbrbrbbrr"):
+    def sat(n: int, lace="bbbbrrbrbrbbrrrr"):
         sub = lace[n: n + len(lace) // 2]
         return n >= 0 and lace.count("r") == 2 * sub.count("r") and lace.count("b") == 2 * sub.count("b")
 
@@ -767,9 +850,6 @@ class AllPandigitalSquares(Problem):
     @staticmethod
     def sol():
         return [i for i in range(-10 ** 5, 10 ** 5) if sorted([int(s) for s in str(i * i)]) == list(range(10))]
-
-
-
 
 
 # MAYBE: add a version of TowersOfHanoiArbitrary where one has to find the fewest moves (maybe with more than 3 pegs)
@@ -1041,7 +1121,115 @@ class VerbalArithmetic(Problem):
         words = ["".join(alpha[int(d)] for d in str(i)) for i in nums]
         self.add(dict(words=words))  # , test=False)
 
+@register
+class SlidingPuzzle(Problem):
+    """[Sliding puzzle](https://en.wikipedia.org/wiki/15_puzzle)
+
+    Classic example of A* search. NP-hard but the puzzles can all be solved with A* and an efficient representation
+
+    3-, 8-, and 15-sliding puzzles
+    """
+
+    @staticmethod
+    def sat(moves: List[int], start=[[5, 0, 2, 3], [1, 9, 6, 7], [4, 14, 8, 11], [12, 13, 10, 15]]):
+        locs = {i: [x, y] for y, row in enumerate(start) for x, i in enumerate(row)}  # locations, 0 stands for blank
+        for i in moves:
+            assert abs(locs[0][0] - locs[i][0]) + abs(locs[0][1] - locs[i][1]) == 1
+            locs[0], locs[i] = locs[i], locs[0]
+        return all(locs[i] == [i % len(start[0]), i // len(start)] for i in locs)
+
+    @staticmethod
+    def sol(start):
+        from collections import defaultdict
+        import math
+        d = len(start)
+        N = d * d
+        assert all(len(row) == d for row in start)
+
+        def get_state(
+                li):  # state is an integer with 4 bits for each slot and the last 4 bits indicate where the blank is
+            ans = 0
+            for i in li[::-1] + [li.index(0)]:
+                ans = (ans << 4) + i
+            return ans
+
+        start = get_state([i for row in start for i in row])
+        target = get_state(list(range(N)))
+
+        def h(state):  # manhattan distance
+            ans = 0
+            for i in range(N):
+                state = (state >> 4)
+                n = state & 15
+                if n != 0:
+                    ans += abs(i % d - n % d) + abs(i // d - n // d)
+            return ans
+
+        g = defaultdict(lambda: math.inf)
+        g[start] = 0  # shortest p ath lengths
+        f = {start: h(start)}  # f[s] = g[s] + h(s)
+        backtrack = {}
+
+        todo = {start}
+        import heapq
+        heap = [(f[start], start)]
+
+        neighbors = [[i for i in [b - 1, b + 1, b + d, b - d] if i in range(N) and (b // d == i // d or b % d == i % d)]
+                     for b in range(N)]
+
+        def next_state(s, blank, i):
+            assert blank == (s & 15)
+            v = (s >> (4 * i + 4)) & 15
+            return s + (i - blank) + (v << (4 * blank + 4)) - (v << (4 * i + 4))
+
+        while todo:
+            (dist, s) = heapq.heappop(heap)
+            if f[s] < dist:
+                continue
+            if s == target:
+                # compute path
+                ans = []
+                while s != start:
+                    s, i = backtrack[s]
+                    ans.append((s >> (4 * i + 4)) & 15)
+                return ans[::-1]
+
+            todo.remove(s)
+
+            blank = s & 15
+            score = g[s] + 1
+            for i in neighbors[blank]:
+                s2 = next_state(s, blank, i)
+
+                if score < g[s2]:
+                    # paths[s2] = paths[s] + [s[i]]
+                    g[s2] = score
+                    backtrack[s2] = (s, i)
+                    score2 = score + h(s2)
+                    f[s2] = score2
+                    todo.add(s2)
+                    heapq.heappush(heap, (score2, s2))
+
+
+    def gen_random(self):
+        d = self.random.randint(2, 4)
+        N = d * d
+        state = list(range(N))
+        num_moves = self.random.randrange(100)
+        for _ in range(num_moves):
+            blank = state.index(0)
+            delta = self.random.choice([-1, 1, d, -d])
+
+            i = blank + delta
+            if i not in range(N) or delta == 1 and i % d == 0 or delta == -1 and blank % d == 0:
+                continue
+
+            state[i], state[blank] = state[blank], state[i]
+        start = [list(state[i:i + d]) for i in range(0, N, d)]
+        self.add(dict(start=start))
+
 
 if __name__ == "__main__":
+    # SlidingPuzzle.sol(**SlidingPuzzle.get_example())
     for problem in get_problems(globals()):
         problem.test()
