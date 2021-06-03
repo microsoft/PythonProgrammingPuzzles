@@ -107,12 +107,11 @@ class AllCubicRoots(Problem):
 
     @staticmethod
     def sat(roots: List[float],
-            coeffs = [1.0, -2.0, -1.0] # x^3 + x^2 - 2*x - x = 0
+            coeffs=[1.0, -2.0, -1.0]  # x^3 + x^2 - 2*x - x = 0
             ):
         r1, r2, r3 = roots
         a, b, c = coeffs
         return abs(r1 + r2 + r3 + a) + abs(r1 * r2 + r1 * r3 + r2 * r3 - b) + abs(r1 * r2 * r3 + c) < 1e-6
-
 
     @staticmethod
     def sol(coeffs):
@@ -125,14 +124,13 @@ class AllCubicRoots(Problem):
         for cube in [(q + delta) / 2, (q - delta) / 2]:
             v = cube ** (1 / 3)
             for w in [v, v * omega, v * omega.conjugate()]:
-                if w!=0.0:
+                if w != 0.0:
                     x = complex(w - p / (3 * w) - a / 3).real
                     if abs(x ** 3 + a * x ** 2 + b * x + c) < 1e-4:
                         if not ans or min(abs(z - x) for z in ans) > 1e-6:
                             ans.append(x)
-        if len(ans)==3:
+        if len(ans) == 3:
             return ans
-
 
     def gen_random(self):
         r1, r2, r3 = [self.random.heavy_tail_float() for _ in range(3)]

@@ -7,4 +7,7 @@ from . import game_theory
 from . import graphs
 from . import ICPC
 from . import IMO
+from . import probability
+from . import study
 from . import trivial_inverse
+from . import tutorial

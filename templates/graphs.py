@@ -11,7 +11,7 @@ class Conway99(Problem):
 
     Conway's 99-graph problem is an unsolved problem in graph theory. It asks whether there exists an
     undirected graph with 99 vertices, in which each two adjacent vertices have exactly one common neighbor,
-    and in which each two non-adjacent vertices have exactly two common neighbors."
+    and in which each two non-adjacent vertices have exactly two common neighbors.
     Or in Conway's terminology, from [Five $1,000 Problems (Update 2017)](https://oeis.org/A248380/a248380.pdf)
     "Is there a graph with 99 vertices in which every edge (i.e. pair of joined vertices) belongs to a unique
     triangle and every nonedge (pair of unjoined vertices) to a unique quadrilateral?"
@@ -36,7 +36,7 @@ class AnyEdge(Problem):
     "Find any edge in a given [graph](https://en.wikipedia.org/w/index.php?title=Graph_(discrete_mathematics))."
 
     @staticmethod
-    def sat(e: List[int], edges=[[0, 1], [0, 2], [1, 2], [1, 3], [2, 3]]):
+    def sat(e: List[int], edges=[[0, 217], [40, 11], [17, 29], [11, 12], [31, 51]]):
         return e in edges
 
     @staticmethod
@@ -57,7 +57,7 @@ class AnyTriangle(Problem):
 
 
     @staticmethod
-    def sat(tri: List[int], edges=[[0, 1], [0, 2], [1, 2], [1, 3], [2, 3], [3, 1]]):
+    def sat(tri: List[int], edges=[[0, 17], [0, 22], [17, 22], [17, 31], [22, 31], [31, 17]]):
         a, b, c = tri
         return [a, b] in edges and [b, c] in edges and [c, a] in edges and a != b != c != a
 
@@ -96,10 +96,11 @@ class AnyTriangle(Problem):
 @register
 class PlantedClique(Problem):
     """Find a [planted clique](https://en.wikipedia.org/w/index.php?title=Planted_clique) of a given size
-    in an undirected graph."""
+    in an undirected graph. Finding a polynomial-time algorithm for this problem has been *unsolved* for
+    some time."""
 
     @staticmethod
-    def sat(nodes: List[int], size=3, edges=[[0, 1], [0, 2], [1, 2], [1, 3], [2, 3]]):
+    def sat(nodes: List[int], size=3, edges=[[0, 17], [0, 22], [17, 22], [17, 31], [22, 31], [31, 17]]):
         assert len(nodes) == len(set(nodes)) >= size
         edge_set = {(a, b) for (a, b) in edges}
         for a in nodes:
@@ -214,9 +215,9 @@ class UnweightedShortestPath(Problem):
 
     @staticmethod
     def sat(path: List[int],
-            edges=[[0, 1], [0, 2], [1, 2], [1, 3], [2, 3]],
+            edges=[[0, 11], [0, 22], [11, 22], [11, 33], [22, 33]],
             u=0,
-            v=3,
+            v=33,
             bound=3):
         assert path[0] == u and path[-1] == v and all([i, j] in edges for i, j in zip(path, path[1:]))
         return len(path) <= bound
@@ -304,7 +305,7 @@ class EvenPath(Problem):
     """
 
     @staticmethod
-    def sat(path: List[int], edges=[[0, 1], [0, 2], [1, 2], [1, 3], [2, 3]]):
+    def sat(path: List[int], edges=[[0, 2], [0, 1], [2, 1], [2, 3], [1, 3]]):
         assert path[0] == 0 and path[-1] == max(max(e) for e in edges)
         assert all([[a, b] in edges for a, b in zip(path, path[1:])])
         return len(path) % 2 == 0
@@ -387,10 +388,44 @@ class Zarankiewicz(Problem):
     def sol():
         return [[i, j] for i in range(4) for j in range(4) if i != j or i == 0]
 
+@register
+class GraphIsomorphism(Problem):
+    """
+    In the classic [Graph Isomorphism](https://en.wikipedia.org/wiki/Graph_isomorphism) problem,
+    one is given two graphs which are permutations of one another and
+    the goal is to find the permutation. It is unknown wheter or not there exists a polynomial-time algorithm
+    for this problem, though an unpublished quasi-polynomial-time algorithm has been announced by Babai.
 
+    Each graph is specified by a list of edges where each edge is a pair of integer vertex numbers.
+    """
+
+    @staticmethod
+    def sat(bi: List[int], g1=[[0, 1], [1, 2], [2, 3], [3, 4]], g2=[[0, 4], [4, 1], [1, 2], [2, 3]]):
+        return len(bi) == len(set(bi)) and {(i, j) for i, j in g1} == {(bi[i], bi[j]) for i, j in g2}
+
+    @staticmethod
+    def sol(g1, g2):  # exponentially slow
+        from itertools import permutations
+        n = max(i for g in [g1, g2] for e in g for i in e) + 1
+        g1_set = {(i, j) for i, j in g1}
+        for pi in permutations(range(n)):
+            if all((pi[i], pi[j]) in g1_set for i, j in g2):
+                return list(pi)
+        assert False, f"Graphs are not isomorphic {g1}, {g2}"
+
+    def gen_random(self):
+        n = self.random.randrange(20)
+        g1 = sorted({(self.random.randrange(n), self.random.randrange(n)) for _ in range((n * n) // 2)})
+        if not g1:
+            return
+        pi = list(range(n))
+        self.random.shuffle(pi)
+        g1 = [[i, j] for i, j in g1]
+        g2 = [[pi[i], pi[j]] for i, j in g1]
+        self.random.shuffle(g2)
+        self.add(dict(g1=g1, g2=g2), test=n < 10) # only test for small n
 
 
 if __name__ == "__main__":
     for problem in get_problems(globals()):
         problem.test()
-

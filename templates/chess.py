@@ -170,9 +170,9 @@ class UncrossedKnightsPath(Problem):
 
     def gen(self, target_num_problems):
         for count, n in enumerate(self.nxn_records):
-            self.add(dict(m=n, n=n, target=self.nxn_records[n]))
-            if count == target_num_problems:
+            if len(self.instances) >= target_num_problems:
                 return
+            self.add(dict(m=n, n=n, target=self.nxn_records[n]))
 
     def gen_random(self):
         m, n = [self.random.randrange(3, self.random.choice([10, 100])) for _ in range(2)]
@@ -198,10 +198,9 @@ class UNSOLVED_UncrossedKnightsPath(UncrossedKnightsPath):
 
     def gen(self, target_num_problems):
         for count, n in enumerate(self.nxn_records):
-            self.add(dict(m=n, n=n, target=self.nxn_records[n] + 1))  # Note the +1 means breaking the record!
-            if count == target_num_problems:
+            if len(self.instances) >= target_num_problems:
                 return
-
+            self.add(dict(m=n, n=n, target=self.nxn_records[n] + 1))  # Note the +1 means breaking the record!
 
 if __name__ == "__main__":
     for problem in get_problems(globals()):

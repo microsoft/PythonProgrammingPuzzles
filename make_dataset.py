@@ -6,7 +6,7 @@ import problems
 import utils
 import templates  # This loads all the problem templates
 
-TARGET_NUM_PER_PROBLEM = 100
+TARGET_NUM_PER_PROBLEM = 1000
 
 
 parser = argparse.ArgumentParser(
@@ -23,9 +23,6 @@ parser.add_argument('--templates',
                     type=str,
                     default='*',
                     help='Glob phrase to select the template files to generate from.')
-
-
-
 
 
 def main(args):
