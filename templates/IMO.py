@@ -408,25 +408,7 @@ class HalfTag(Problem):
 #     n = len(li) - 1
 #     return n > 0 and all(sum(c * x ** (n - i) * y ** i for i, c in enumerate(li)) == 1 for x, y in pairs)
 #
-#
-# def gcd(a, b):
-#     if a > b:
-#         a, b = b, a
-#     if a == 0:
-#         return b
-#     return gcd(b % a, a)
-#
-#
-# ps = ProblemSet()
-#     pb = ps.new_problem_builder(problem, solution, DESC)
-#
-#     while len(pb) < DEFAULT_N_PROBLEMS:
-#         n = ps.random.randrange(1, 20)
-#         pairs = [[ps.random.randrange(1, 1000) for _ in range(2)] for i in range(n)]
-#         pairs = [[a, b // gcd(a, b)] for a, b in pairs]
-#         pb.add(Vars(problem, solution=None, pairs=pairs)
-#
-#     ps.save()
+
 
 if __name__ == "__main__":
     for problem in get_problems(globals()):

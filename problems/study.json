@@ -1,0 +1,213 @@
+[
+  {
+    "name": "Study_1_0",
+    "sat": "def sat(s: str):\n    assert type(s) is str, 's must be of type str'\n    return s.count('o') == 1000 and s.count('oo') == 0",
+    "sols": [
+      "def sol():\n    return ('h' + 'o') * 1000"
+    ]
+  },
+  {
+    "name": "Study_2_0",
+    "sat": "def sat(s: str):\n    assert type(s) is str, 's must be of type str'\n    return s.count('o') == 1000 and s.count('oo') == 100 and s.count('ho') == 801",
+    "sols": [
+      "def sol():\n    return 'ho' * (800 + 1) + 'o' * (100 * 2 - 1)"
+    ]
+  },
+  {
+    "name": "Study_3_0",
+    "sat": "def sat(li: List[int]):\n    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'\n    return sorted(li) == list(range(999)) and all(li[i] != i for i in range(len(li)))",
+    "sols": [
+      "def sol():\n    return [((i + 1) % 999) for i in range(999)]"
+    ]
+  },
+  {
+    "name": "Study_4_0",
+    "sat": "def sat(li: List[int]):\n    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'\n    return len(li) == 10 and li.count(li[3]) == 2",
+    "sols": [
+      "def sol():\n    return list(range(10 // 2)) * 2"
+    ]
+  },
+  {
+    "name": "Study_5_0",
+    "sat": "def sat(li: List[int]):\n    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'\n    return all([li.count(i) == i for i in range(10)])",
+    "sols": [
+      "def sol():\n    return [i for i in range(10) for j in range(i)]"
+    ]
+  },
+  {
+    "name": "Study_6_0",
+    "sat": "def sat(i: int):\n    assert type(i) is int, 'i must be of type int'\n    return i % 123 == 4 and i > 10 ** 10",
+    "sols": [
+      "def sol():\n    return 4 + 10 ** 10 + 123 - 10 ** 10 % 123"
+    ]
+  },
+  {
+    "name": "Study_7_0",
+    "sat": "def sat(s: str):\n    assert type(s) is str, 's must be of type str'\n    return str(8 ** 2888).count(s) > 8 and len(s) == 3",
+    "sols": [
+      "def sol():\n    s = str(8 ** 2888)\n    return max({s[i: i + 3] for i in range(len(s) - 2)}, key=lambda t: s.count(t))"
+    ]
+  },
+  {
+    "name": "Study_8_0",
+    "sat": "def sat(ls: List[str]):\n    assert type(ls) is list and all(type(a) is str for a in ls), 'ls must be of type List[str]'\n    return ls[1234] in ls[1235] and ls[1234] != ls[1235]",
+    "sols": [
+      "def sol():\n    return [''] * 1235 + ['a']"
+    ]
+  },
+  {
+    "name": "Study_9_0",
+    "sat": "def sat(li: List[int]):\n    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'\n    return [\"The quick brown fox jumps over the lazy dog\"[i] for i in li] == list(\n        \"The five boxing wizards jump quickly\")",
+    "sols": [
+      "def sol():\n    return ['The quick brown fox jumps over the lazy dog'.index(t) for t in 'The five boxing wizards jump quickly']"
+    ]
+  },
+  {
+    "name": "Study_10_0",
+    "sat": "def sat(s: str):\n    assert type(s) is str, 's must be of type str'\n    return s in str(8 ** 1818) and s == s[::-1] and len(s) > 11",
+    "sols": [
+      "def sol():\n    s = str(8 ** 1818)\n    return next(s[i: i + le]\n                for le in range(12, len(s) + 1)\n                for i in range(len(s) - le + 1)\n                if s[i: i + le] == s[i: i + le][::-1]\n                )"
+    ]
+  },
+  {
+    "name": "Study_11_0",
+    "sat": "def sat(ls: List[str]):\n    assert type(ls) is list and all(type(a) is str for a in ls), 'ls must be of type List[str]'\n    return min(ls) == max(ls) == str(len(ls))",
+    "sols": [
+      "def sol():\n    return ['1']"
+    ]
+  },
+  {
+    "name": "Study_12_0",
+    "sat": "def sat(li: List[int]):\n    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'\n    return all(i + j == 9 for i, j in zip([4] + li, li)) and len(li) == 1000",
+    "sols": [
+      "def sol():\n    return [9 - 4, 4] * (1000 // 2)"
+    ]
+  },
+  {
+    "name": "Study_13_0",
+    "sat": "def sat(x: float):\n    assert type(x) is float, 'x must be of type float'\n    return str(x - 3.1415).startswith(\"123.456\")",
+    "sols": [
+      "def sol():\n    return 123.456 + 3.1415"
+    ]
+  },
+  {
+    "name": "Study_14_0",
+    "sat": "def sat(li: List[int]):\n    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'\n    return all([sum(li[:i]) == i for i in range(20)])",
+    "sols": [
+      "def sol():\n    return [1] * 20"
+    ]
+  },
+  {
+    "name": "Study_15_0",
+    "sat": "def sat(li: List[int]):\n    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'\n    return all(sum(li[:i]) == 2 ** i - 1 for i in range(20))",
+    "sols": [
+      "def sol():\n    return [(2 ** i) for i in range(20)]"
+    ]
+  },
+  {
+    "name": "Study_16_0",
+    "sat": "def sat(s: str):\n    assert type(s) is str, 's must be of type str'\n    return float(s) + len(s) == 4.5",
+    "sols": [
+      "def sol():\n    return str(4.5 - len(str(4.5)))"
+    ]
+  },
+  {
+    "name": "Study_17_0",
+    "sat": "def sat(i: int):\n    assert type(i) is int, 'i must be of type int'\n    return len(str(i + 1000)) > len(str(i + 1001))",
+    "sols": [
+      "def sol():\n    return -1001"
+    ]
+  },
+  {
+    "name": "Study_18_0",
+    "sat": "def sat(ls: List[str]):\n    assert type(ls) is list and all(type(a) is str for a in ls), 'ls must be of type List[str]'\n    return [s + t for s in ls for t in ls if s != t] == 'berlin berger linber linger gerber gerlin'.split()",
+    "sols": [
+      "def sol():\n    seen = set()\n    ans = []\n    for s in 'berlin berger linber linger gerber gerlin'.split():\n        t = s[:3]\n        if t not in seen:\n            ans.append(t)\n            seen.add(t)\n    return ans"
+    ]
+  },
+  {
+    "name": "Study_19_0",
+    "sat": "def sat(si: Set[int]):\n    assert type(si) is set and all(type(a) is int for a in si), 'si must be of type Set[int]'\n    return {i + j for i in si for j in si} == {0, 1, 2, 3, 4, 5, 6, 17, 18, 19, 20, 34}",
+    "sols": [
+      "def sol():\n    return {0, 1, 2, 3, 17}"
+    ]
+  },
+  {
+    "name": "Study_20_0",
+    "sat": "def sat(li: List[int]):\n    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'\n    return all(j in {i - 1, i + 1, 3 * i} for i, j in zip([0] + li, li + [128]))",
+    "sols": [
+      "def sol():\n    return [1, 3, 4, 12, 13, 14, 42, 126, 127]"
+    ]
+  },
+  {
+    "name": "Study_21_0",
+    "sat": "def sat(li: List[int]):\n    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'\n    return all([li[i] != li[i + 1] for i in range(10)]) and len(set(li)) == 3",
+    "sols": [
+      "def sol():\n    return list(range(3)) * 10"
+    ]
+  },
+  {
+    "name": "Study_22_0",
+    "sat": "def sat(s: str):\n    assert type(s) is str, 's must be of type str'\n    return s[::2] in s and len(set(s)) == 5",
+    "sols": [
+      "def sol():\n    return \"\"\"abacadaeaaaaaaaaaa\"\"\""
+    ]
+  },
+  {
+    "name": "Study_23_0",
+    "sat": "def sat(ls: List[str]):\n    assert type(ls) is list and all(type(a) is str for a in ls), 'ls must be of type List[str]'\n    return tuple(ls) in zip('dee', 'doo', 'dah!')",
+    "sols": [
+      "def sol():\n    return list(next(zip('dee', 'doo', 'dah!')))"
+    ]
+  },
+  {
+    "name": "Study_24_0",
+    "sat": "def sat(li: List[int]):\n    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'\n    return li.count(17) == 3 and li.count(3) >= 2",
+    "sols": [
+      "def sol():\n    return [17] * 3 + [3] * 2"
+    ]
+  },
+  {
+    "name": "Study_25_0",
+    "sat": "def sat(s: str):\n    assert type(s) is str, 's must be of type str'\n    return sorted(s) == sorted('Permute me true') and s == s[::-1]",
+    "sols": [
+      "def sol():\n    return \"\"\"\"\"\".join(sorted('Permute me true'[1:])[::2] + ['P'] + sorted('Permute me true'[1:])[::2][::-1])"
+    ]
+  },
+  {
+    "name": "Study_26_0",
+    "sat": "def sat(ls: List[str]):\n    assert type(ls) is list and all(type(a) is str for a in ls), 'ls must be of type List[str]'\n    return \"\".join(ls) == str(8 ** 88) and all(len(s) == 8 for s in ls)",
+    "sols": [
+      "def sol():\n    return [str(8 ** 88)[i:i + 8] for i in range(0, len(str(8 ** 88)), 8)]"
+    ]
+  },
+  {
+    "name": "Study_27_0",
+    "sat": "def sat(li: List[int]):\n    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'\n    return li[li[0]] != li[li[1]] and li[li[li[0]]] == li[li[li[1]]]",
+    "sols": [
+      "def sol():\n    return [1, 2, 3, 3]"
+    ]
+  },
+  {
+    "name": "Study_28_0",
+    "sat": "def sat(si: Set[int]):\n    assert type(si) is set and all(type(a) is int for a in si), 'si must be of type Set[int]'\n    return all(i in range(1000) and abs(i - j) >= 10 for i in si for j in si if i != j) and len(si) == 100",
+    "sols": [
+      "def sol():\n    return set(range(0, 1000, 10))"
+    ]
+  },
+  {
+    "name": "Study_29_0",
+    "sat": "def sat(si: Set[int]):\n    assert type(si) is set and all(type(a) is int for a in si), 'si must be of type Set[int]'\n    return all(i in range(1000) and abs(i * i - j * j) >= 10 for i in si for j in si if i != j) and len(si) > 995",
+    "sols": [
+      "def sol():\n    return set(range(6, 1000)).union({0, 4})"
+    ]
+  },
+  {
+    "name": "Study_30_0",
+    "sat": "def sat(li: List[int]):\n    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'\n    return all([123 * li[i] % 1000 < 123 * li[i + 1] % 1000 and li[i] in range(1000) for i in range(20)])",
+    "sols": [
+      "def sol():\n    return sorted(range(1000), key=lambda n: 123*n % 1000)[:21]",
+      "def sol():\n    return list(range(1000))[::8][::-1]"
+    ]
+  }
+]

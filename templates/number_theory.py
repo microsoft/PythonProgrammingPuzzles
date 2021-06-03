@@ -554,11 +554,6 @@ class Lehmer(Problem):
 
 
 
-# MAYBE: add Collatz path records: (see http://www.ericr.nl/wondrous/index.html)
-
-# MAYBE: add https://en.wikipedia.org/wiki/Pell%27s_equation, find an integer solution to x^2 - n y^2 = 1
-
-
 if __name__ == "__main__":
     for problem in get_problems(globals()):
         problem.test()

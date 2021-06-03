@@ -9,16 +9,21 @@ Each .json file contains a number of related problems with one or more puzzles e
 - [chess (5 problems, 4,858 instances)](#chess)
 - [classic_puzzles (22 problems, 11,370 instances)](#classic_puzzles)
 - [codeforces (24 problems, 23,025 instances)](#codeforces)
+- [compression (3 problems, 3,000 instances)](#compression)
+- [conways_game_of_life (2 problems, 2,000 instances)](#conways_game_of_life)
+- [games (5 problems, 1,006 instances)](#games)
 - [game_theory (2 problems, 2,000 instances)](#game_theory)
 - [graphs (11 problems, 9,002 instances)](#graphs)
 - [ICPC (3 problems, 3,000 instances)](#icpc)
 - [IMO (6 problems, 5,012 instances)](#imo)
+- [lattices (2 problems, 2,000 instances)](#lattices)
+- [number_theory (16 problems, 10,762 instances)](#number_theory)
 - [probability (5 problems, 5,000 instances)](#probability)
 - [study (30 problems, 30 instances)](#study)
 - [trivial_inverse (34 problems, 32,002 instances)](#trivial_inverse)
 - [tutorial (5 problems, 5 instances)](#tutorial)
 
-Total (172 problems, 120,304 instances)
+Total (200 problems, 139,072 instances)
 
 
 ----
@@ -2595,6 +2600,537 @@ def sol(target="dad", upper=9):
 </details>
 
 [^^ Top](#files)
+## compression
+
+Invert a given de/compression algorithm.
+
+[^ Top](#files)
+
+### LZW ([compression](#compression) 1/3)
+
+**Description:**
+Find a (short) compression that decompresses to the given string.
+We have provided a simple version of the *decompression* algorithm of
+[Lempel-Ziv-Welch](https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Welch)
+so the solution is the *compression* algorithm.
+
+**Problem:**
+
+```python
+def sat(seq: List[int], compressed_len: int=17, text: str="Hellooooooooooooooooooooo world!"):
+    assert type(seq) is list and all(type(a) is int for a in seq), 'seq must be of type List[int]'
+    index = [chr(i) for i in range(256)]
+    pieces = [""]
+    for i in seq:
+        pieces.append((pieces[-1] + pieces[-1][0]) if i == len(index) else index[i])
+        index.append(pieces[-2] + pieces[-1][0])
+    return "".join(pieces) == text and len(seq) <= compressed_len
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(compressed_len=17, text="Hellooooooooooooooooooooo world!"):  # compressed_len is ignored
+    index = {chr(i): i for i in range(256)}
+    seq = []
+    buffer = ""
+    for c in text:
+        if buffer + c in index:
+            buffer += c
+            continue
+        seq.append(index[buffer])
+        index[buffer + c] = len(index) + 1
+        buffer = c
+
+    if text != "":
+        seq.append(index[buffer])
+
+    return seq
+```
+
+</details>
+
+### LZW_decompress ([compression](#compression) 2/3)
+
+**Description:**
+Find a string that compresses to the target sequence for the provided simple version of
+[Lempel-Ziv-Welch](https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Welch)
+so the solution is the *decompression* algorithm.
+
+**Problem:**
+
+```python
+def sat(text: str, seq: List[int]=[72, 101, 108, 108, 111, 32, 119, 111, 114, 100, 262, 264, 266, 263, 265, 33]):
+    assert type(text) is str, 'text must be of type str'
+    index = {chr(i): i for i in range(256)}
+    seq2 = []
+    buffer = ""
+    for c in text:
+        if buffer + c in index:
+            buffer += c
+            continue
+        seq2.append(index[buffer])
+        index[buffer + c] = len(index) + 1
+        buffer = c
+
+    if text != "":
+        seq2.append(index[buffer])
+
+    return seq2 == seq
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(seq=[72, 101, 108, 108, 111, 32, 119, 111, 114, 100, 262, 264, 266, 263, 265, 33]):
+    index = [chr(i) for i in range(256)]
+    pieces = [""]
+    for i in seq:
+        pieces.append(pieces[-1] + pieces[-1][0] if i == len(index) else index[i])
+        index.append(pieces[-2] + pieces[-1][0])
+    return "".join(pieces)
+```
+
+</details>
+
+### PackingHam ([compression](#compression) 3/3)
+
+**Description:**
+Pack a certain number of binary strings so that they have a minimum hamming distance between each other.
+
+This is a [classic problem](https://en.wikipedia.org/wiki/Sphere_packing#Other_spaces) in coding theory.
+
+**Problem:**
+
+```python
+def sat(words: List[str], num: int=100, bits: int=100, dist: int=34):
+    assert type(words) is list and all(type(a) is str for a in words), 'words must be of type List[str]'
+    assert len(words) == num and all(len(word) == bits and set(word) <= {"0", "1"} for word in words)
+    return all(sum([a != b for a, b in zip(words[i], words[j])]) >= dist for i in range(num) for j in range(i))
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(num=100, bits=100, dist=34):
+    import random  # key insight, use randomness!
+    r = random.Random(0)
+    while True:
+        seqs = [r.getrandbits(bits) for _ in range(num)]
+        if all(bin(seqs[i] ^ seqs[j]).count("1") >= dist for i in range(num) for j in range(i)):
+            return [bin(s)[2:].rjust(bits, '0') for s in seqs]
+```
+
+</details>
+
+[^^ Top](#files)
+## conways_game_of_life
+
+Conway's Game of Life problems
+
+[^ Top](#files)
+
+### Oscillators ([conways_game_of_life](#conways_game_of_life) 1/2)
+
+**Description:**
+Oscillators (including some unsolved, open problems)
+
+Find a pattern in [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
+that repeats with a certain period. This problem is *unsolved* for periods 19, 38, and 41.
+
+See
+[discussion](https://en.wikipedia.org/wiki/Oscillator_%28cellular_automaton%29#:~:text=Game%20of%20Life)
+in Wikipedia article on Cellular Automaton Oscillators.
+
+**Problem:**
+
+```python
+def sat(init: List[List[int]], period: int=3):
+    assert type(init) is list and all(type(a) is list and all(type(b) is int for b in a) for a in init), 'init must be of type List[List[int]]'
+    target = {x + y * 1j for x, y in init}  # complex numbers encode live cells
+
+    deltas = (1j, -1j, 1, -1, 1 + 1j, 1 - 1j, -1 + 1j, -1 - 1j)
+    live = target
+    for t in range(period):
+        visible = {z + d for z in live for d in deltas}
+        live = {z for z in visible if sum(z + d in live for d in deltas) in ([2, 3] if z in live else [3])}
+        if live == target:
+            return t + 1 == period
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(period=3):  # generate random patterns, slow solution
+    # def viz(live):
+    #     if not live:
+    #         return
+    #     a, b = min(z.real for z in live), min(z.imag for z in live)
+    #     live = {z - (a + b * 1j) for z in live}
+    #     m, n = int(max(z.real for z in live)) + 1, int(max(z.imag for z in live)) + 1
+    #     for x in range(m):
+    #         print("".join("X" if x + y * 1j in live else "," for y in range(n)))
+
+    import random
+    rand = random.Random(1)
+    # print(f"Looking for {period}:")
+    deltas = (1j, -1j, 1, -1, 1 + 1j, 1 - 1j, -1 + 1j, -1 - 1j)
+
+    completes = [[x + y * 1j for x in range(n) for y in range(n)] for n in range(30)]
+
+    for _attempt in range(10 ** 5):
+        n = rand.randrange(3, 10)
+        m = rand.randrange(3, n * n)
+        live = set(rand.sample(completes[n], m))
+        if rand.randrange(2):
+            live.update([-z for z in live])
+        if rand.randrange(2):
+            live.update([z.conjugate() for z in live])
+        memory = {}
+        for step in range(period * 10):
+            key = sum((.123 - .99123j) ** z for z in live) * 10 ** 5
+            key = int(key.real), int(key.imag)
+            if key in memory:
+                if memory[key] == step - period:
+                    # print(period)
+                    # viz(live)
+                    return [[int(z.real), int(z.imag)] for z in live]
+                break
+            memory[key] = step
+            visible = {z + d for z in live for d in deltas}
+            live = {z for z in visible if sum(z + d in live for d in deltas) in range(3 - (z in live), 4)}
+
+    return None  # failed
+```
+
+</details>
+
+### Spaceship ([conways_game_of_life](#conways_game_of_life) 2/2)
+
+**Description:**
+Spaceship (including *unsolved*, open problems)
+
+Find a [spaceship](https://en.wikipedia.org/wiki/Spaceship_%28cellular_automaton%29) in
+[Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
+with a certain period.
+
+This is an *unsolved* problem for periods 33, 34.
+
+**Problem:**
+
+```python
+def sat(init: List[List[int]], period: int=4):
+    assert type(init) is list and all(type(a) is list and all(type(b) is int for b in a) for a in init), 'init must be of type List[List[int]]'
+    live = {x + y * 1j for x, y in init}  # use complex numbers
+    init_tot = sum(live)
+    target = {z * len(live) - init_tot for z in live}
+    deltas = (1j, -1j, 1, -1, 1 + 1j, 1 - 1j, -1 + 1j, -1 - 1j)
+
+    for t in range(period):
+        visible = {z + d for z in live for d in deltas}
+        live = {z for z in visible if 3 - (z in live) <= sum(z + d in live for d in deltas) <= 3}
+        tot = sum(live)
+        if {z * len(live) - tot for z in live} == target:
+            return t + 1 == period and tot != init_tot
+```
+[^^ Top](#files)
+## games
+
+
+Solve some two-player games
+
+
+[^ Top](#files)
+
+### Nim ([games](#games) 1/5)
+
+**Description:**
+Compute optimal play for the classic two-player game [Nim](https://en.wikipedia.org/wiki/Nim)
+
+In the game of Nim, there are a number of heaps of objects. In each step, a player removes one or more
+objects from a non-empty heap. The player who takes the last object wins. Nim has an elegant theory
+for optimal play based on the xor of the bits.
+
+**Problem:**
+
+```python
+def sat(cert: List[List[int]], heaps: List[int]=[5, 9]):
+    assert type(cert) is list and all(type(a) is list and all(type(b) is int for b in a) for a in cert), 'cert must be of type List[List[int]]'  # cert is a sufficient list of desirable states to leave for opponent
+    good_leaves = {tuple(h) for h in cert}  # for efficiency, we keep track of h as a tuple of n non-negative ints
+    cache = {}
+
+    def is_good_leave(h):
+        if h in cache:
+            return cache[h]
+        next_states = [(*h[:i], k, *h[i + 1:]) for i in range(len(h)) for k in range(h[i])]
+        conjecture = (h in good_leaves)
+        if conjecture:  # check that it is a good leave
+            assert not any(is_good_leave(s) for s in next_states)
+        else:  # check that it is a bad leave, only need to check one move
+            assert is_good_leave(next(s for s in next_states if s in good_leaves))
+        cache[h] = conjecture
+        return conjecture
+
+    return is_good_leave(tuple(heaps)) == (tuple(heaps) in good_leaves)
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(heaps=[5, 9]):
+    import itertools
+
+    def val(h):  # return True if h is a good state to leave things in
+        xor = 0
+        for i in h:
+            xor ^= i
+        return xor == 0
+
+    return [list(h) for h in itertools.product(*[range(i+1) for i in heaps]) if val(h)]
+```
+
+</details>
+
+### Mastermind ([games](#games) 2/5)
+
+**Description:**
+Compute a strategy for winning in [mastermind](https://en.wikipedia.org/wiki/Mastermind_%28board_game%29)
+in a given number of guesses.
+
+Colors are represented by the letters A-F. The representation is as follows.
+A transcript is a string describing the game so far. It consists of rows separated by newlines.
+Each row has 4 letters A-F followed by a space and then two numbers indicating how many are exactly right
+and how many are right but in the wrong location. A sample transcript is as follows:
+```
+AABB 11
+ABCD 21
+ABDC
+```
+This is the transcript as the game is in progress. The complete transcript might be:
+```
+AABB 11
+ABCD 21
+ABDC 30
+ABDE 40
+```
+
+A winning strategy is described by a list of transcripts to visit. The next guess can be determined from
+those partial transcripts.
+
+**Problem:**
+
+```python
+def sat(transcripts: List[str], max_moves: int=10):
+    assert type(transcripts) is list and all(type(a) is str for a in transcripts), 'transcripts must be of type List[str]'
+    COLORS = "ABCDEF"
+
+    def helper(secret: str, transcript=""):
+        if transcript.count("\n") == max_moves:
+            return False
+        guess = min([t for t in transcripts if t.startswith(transcript)], key=len)[-4:]
+        if guess == secret:
+            return True
+        assert all(g in COLORS for g in guess)
+        perfect = {c: sum([g == s == c for g, s in zip(guess, secret)]) for c in COLORS}
+        almost = sum(min(guess.count(c), secret.count(c)) - perfect[c] for c in COLORS)
+        return helper(secret, transcript + f"{guess} {sum(perfect.values())}{almost}\n")
+
+    return all(helper(r + s + t + u) for r in COLORS for s in COLORS for t in COLORS for u in COLORS)
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(max_moves=10):
+    COLORS = "ABCDEF"
+
+    transcripts = []
+
+    ALL = [r + s + t + u for r in COLORS for s in COLORS for t in COLORS for u in COLORS]
+
+    def score(secret, guess):
+        perfect = {c: sum([g == s == c for g, s in zip(guess, secret)]) for c in COLORS}
+        almost = sum(min(guess.count(c), secret.count(c)) - perfect[c] for c in COLORS)
+        return f"{sum(perfect.values())}{almost}"
+
+    def mastermind(transcript="AABB", feasible=ALL):  # mastermind moves
+        transcripts.append(transcript)
+        assert transcript.count("\n") <= max_moves
+        guess = transcript[-4:]
+        feasibles = {}
+        for secret in feasible:
+            scr = score(secret, guess)
+            if scr not in feasibles:
+                feasibles[scr] = []
+            feasibles[scr].append(secret)
+        for scr, secrets in feasibles.items():
+            if scr != "40":
+                guesser(transcript + f" {scr}\n", secrets)
+
+    def guesser(transcript, feasible):  # guesser moves
+        def max_ambiguity(guess):
+            by_score = {}
+            for secret2 in feasible:
+                scr = score(secret2, guess)
+                if scr not in by_score:
+                    by_score[scr] = 0
+                by_score[scr] += 1
+            # for OPTIMAL solution, use return max(by_score.values()) + 0.5 * (guess not in feasible) instead of:
+            return max(by_score.values())
+
+        # for optimal solution use guess = min(ALL, key=max_ambiguity) instead of:
+        guess = min(feasible, key=max_ambiguity)
+
+        mastermind(transcript + guess, feasible)
+
+    mastermind()
+
+    return transcripts
+```
+
+</details>
+
+### TicTacToeX ([games](#games) 3/5)
+
+**Description:**
+Compute a strategy for X (first player) in tic-tac-toe that guarantees a tie.
+
+We are looking for a strategy for X that, no matter what the opponent does, X does not lose.
+
+A board is represented as a 9-char string like an X in the middle would be "....X...." and a
+move is an integer 0-8. The answer is a list of "good boards" that X aims for, so no matter what O does there
+is always good board that X can get to with a single move.
+
+**Problem:**
+
+```python
+def sat(good_boards: List[str]):
+    assert type(good_boards) is list and all(type(a) is str for a in good_boards), 'good_boards must be of type List[str]'
+    board_bit_reps = {tuple(sum(1 << i for i in range(9) if b[i] == c) for c in "XO") for b in good_boards}
+    win = [any(i & w == w for w in [7, 56, 73, 84, 146, 273, 292, 448]) for i in range(512)]
+
+    def tie(x, o):  # returns True if X has a forced tie/win assuming it's X's turn to move.
+        x |= 1 << next(i for i in range(9) if (x | (1 << i), o) in board_bit_reps)
+        return not win[o] and (win[x] or all((x | o) & (1 << i) or tie(x, o | (1 << i)) for i in range(9)))
+
+    return tie(0, 0)
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol():
+    win = [any(i & w == w for w in [7, 56, 73, 84, 146, 273, 292, 448]) for i in range(512)]  # 9-bit representation
+
+    good_boards = []
+
+    def x_move(x, o):  # returns True if x wins or ties, x's turn to move
+        if win[o]:
+            return False
+        if x | o == 511:
+            return True
+        for i in range(9):
+            if (x | o) & (1 << i) == 0 and o_move(x | (1 << i), o):
+                good_boards.append("".join(".XO"[((x >> j) & 1) + 2 * ((o >> j) & 1) + (i == j)] for j in range(9)))
+                return True
+        return False  # O wins
+
+    def o_move(x, o):  # returns True if x wins or ties, x's turn to move
+        if win[x] or x | o == 511:
+            return True
+        for i in range(9):
+            if (x | o) & (1 << i) == 0 and not x_move(x, o | (1 << i)):
+                return False
+        return True  # O wins
+
+    res = x_move(0, 0)
+    assert res
+
+    return good_boards
+```
+
+</details>
+
+### TicTacToeO ([games](#games) 4/5)
+
+**Description:**
+Compute a strategy for O (second player) in tic-tac-toe that guarantees a tie.
+
+We are looking for a strategy for O that, no matter what the opponent does, O does not lose.
+
+A board is represented as a 9-char string like an X in the middle would be "....X...." and a
+move is an integer 0-8. The answer is a list of "good boards" that O aims for, so no matter what X does there
+is always good board that O can get to with a single move.
+
+**Problem:**
+
+```python
+def sat(good_boards: List[str]):
+    assert type(good_boards) is list and all(type(a) is str for a in good_boards), 'good_boards must be of type List[str]'
+    board_bit_reps = {tuple(sum(1 << i for i in range(9) if b[i] == c) for c in "XO") for b in good_boards}
+    win = [any(i & w == w for w in [7, 56, 73, 84, 146, 273, 292, 448]) for i in range(512)]
+
+    def tie(x, o):  # returns True if O has a forced tie/win. It's O's turn to move.
+        if o | x != 511:
+            o |= 1 << next(i for i in range(9) if (x, o | (1 << i)) in board_bit_reps)
+        return not win[x] and (win[o] or all((x | o) & (1 << i) or tie(x | (1 << i), o) for i in range(9)))
+
+    return all(tie(1 << i, 0) for i in range(9))
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol():
+    win = [any(i & w == w for w in [7, 56, 73, 84, 146, 273, 292, 448]) for i in range(512)]  # 9-bit representation
+
+    good_boards = []
+
+    def x_move(x, o):  # returns True if o wins or ties, x's turn to move
+        if win[o] or x | o == 511:
+            return True
+        for i in range(9):
+            if (x | o) & (1 << i) == 0 and not o_move(x | (1 << i), o):
+                return False
+        return True  # O wins/ties
+
+    def o_move(x, o):  # returns True if o wins or ties, o's turn to move
+        if win[x]:
+            return False
+        if x | o == 511:
+            return True
+        for i in range(9):
+            if (x | o) & (1 << i) == 0 and x_move(x, o | (1 << i)):
+                good_boards.append(
+                    "".join(".XO"[((x >> j) & 1) + 2 * ((o >> j) & 1) + 2 * (i == j)] for j in range(9)))
+                return True
+        return False  # X wins
+
+    res = x_move(0, 0)
+    assert res
+
+    return good_boards
+```
+
+</details>
+
+### RockPaperScissors ([games](#games) 5/5)
+
+**Description:**
+Find optimal strategy for Rock-Paper-Scissors zero-sum game
+
+Can the computer figure out that 1/3, 1/3, 1/3 achieves the maximal expected value of 0
+
+**Problem:**
+
+```python
+def sat(probs: List[float]):
+    assert type(probs) is list and all(type(a) is float for a in probs), 'probs must be of type List[float]'  # rock prob, paper prob, scissors prob
+    assert len(probs) == 3 and abs(sum(probs) - 1) < 1e-6
+    return max(probs[(i + 2) % 3] - probs[(i + 1) % 3] for i in range(3)) < 1e-6
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol():
+    return [1 / 3] * 3
+```
+
+</details>
+
+[^^ Top](#files)
 ## game_theory
 
 
@@ -3821,6 +4357,639 @@ def sol(n=3, tags=[0, 1, 2, 0, 0, 1, 1, 1, 2, 2, 0, 2]):
                 ans += p
 
     return ans
+```
+
+</details>
+
+[^^ Top](#files)
+## lattices
+
+Lattice problems with and without noise
+
+[^ Top](#files)
+
+### LearnParity ([lattices](#lattices) 1/2)
+
+**Description:**
+Parity learning (Gaussian elimination)
+
+Given binary vectors in a subspace, find the secret set $S$ of indices such that:
+    $$sum_{i \in S} x_i = 1 (mod 2)$$
+
+The canonical solution to this 
+[Parity learning problem](https://en.wikipedia.org/w/index.php?title=Parity_learning)
+is to use 
+[Gaussian Elimination](https://en.wikipedia.org/w/index.php?title=Gaussian_elimination).
+
+The vectors are encoded as binary integers for succinctness.
+
+**Problem:**
+
+```python
+def sat(inds: List[int], vecs: List[int]=[169, 203, 409, 50, 37, 479, 370, 133, 53, 159, 161, 367, 474, 107, 82, 447, 385]):
+    assert type(inds) is list and all(type(a) is int for a in inds), 'inds must be of type List[int]'
+    return all(sum((v >> i) & 1 for i in inds) % 2 == 1 for v in vecs)
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(vecs=[169, 203, 409, 50, 37, 479, 370, 133, 53, 159, 161, 367, 474, 107, 82, 447, 385]):  # Gaussian elimination
+    d = 0 # decode vectors into arrays
+    m = max(vecs)
+    while m:
+        m >>= 1
+        d += 1
+    vecs = [[(n >> i) & 1 for i in range(d)] for n in vecs]
+    ans = []
+    pool = [[0] * (d + 1) for _ in range(d)] + [v + [1] for v in vecs]
+    for i in range(d):
+        pool[i][i] = 1
+
+    for i in range(d):  # zero out bit i
+        for v in pool[d:]:
+            if v[i] == 1:
+                break
+        if v[i] == 0:
+            v = pool[i]
+        assert v[i] == 1  # found a vector with v[i] = 1, subtract it off from those with a 1 in the ith coordinate
+        w = v[:]
+        for v in pool:
+            if v[i] == 1:
+                for j in range(d + 1):
+                    v[j] ^= w[j]
+
+    return [i for i in range(d) if pool[i][-1]]
+```
+
+</details>
+
+### LearnParityWithNoise ([lattices](#lattices) 2/2)
+
+**Description:**
+Learn parity with noise (*unsolved*)
+
+Given binary vectors, find the secret set $S$ of indices such that, for at least 3/4 of the vectors,
+    $$sum_{i \in S} x_i = 1 (mod 2)$$
+
+The fastest known algorithm to this
+[Parity learning problem](https://en.wikipedia.org/w/index.php?title=Parity_learning)
+runs in time $2^(d/(log d))$
+
+**Problem:**
+
+```python
+def sat(inds: List[int], vecs: List[int]=[26, 5, 16, 3, 15, 18, 31, 13, 24, 25, 6, 5, 15, 24, 16, 13, 0, 27, 13]):
+    assert type(inds) is list and all(type(a) is int for a in inds), 'inds must be of type List[int]'
+    return sum(sum((v >> i) & 1 for i in inds) % 2 for v in vecs) >= len(vecs) * 3 / 4
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(vecs=[26, 5, 16, 3, 15, 18, 31, 13, 24, 25, 6, 5, 15, 24, 16, 13, 0, 27, 13]):  # brute force
+    d = 0 # decode vectors into arrays
+    m = max(vecs)
+    while m:
+        m >>= 1
+        d += 1
+    vecs = [[(n >> i) & 1 for i in range(d)] for n in vecs]
+
+    import random
+    rand = random.Random(0)
+    target = (len(vecs) * 3) // 4
+    while True:
+        ans = [i for i in range(d) if rand.randrange(2)]
+        if sum(sum(v[i] for i in ans) % 2 for v in vecs) >= len(vecs) * 3 / 4:
+            return ans
+```
+
+</details>
+
+[^^ Top](#files)
+## number_theory
+
+Number theory problems
+
+[^ Top](#files)
+
+### FermatsLastTheorem ([number_theory](#number_theory) 1/16)
+
+**Description:**
+[Fermat's last theorem](https://en.wikipedia.org/w/index.php?title=Fermat%27s_Last_Theorem)
+
+Find integers a,b,c > 0, n > 2, such such that `a ** n + b ** n == c ** n`
+Supposedly unsolvable, but how confident are really in the super-complicated proof?
+
+See [Wiles, Andrew. "Modular elliptic curves and Fermat's last theorem." Annals of mathematics 141.3 (1995): 443-551.](https://www.jstor.org/stable/2118559)
+
+**Problem:**
+
+```python
+def sat(nums: List[int]):
+    assert type(nums) is list and all(type(a) is int for a in nums), 'nums must be of type List[int]'
+    a, b, c, n = nums
+    return (a ** n + b ** n == c ** n) and min(a, b, c) > 0 and n > 2
+```
+### GCD ([number_theory](#number_theory) 2/16)
+
+**Description:**
+[Greatest Common Divisor](https://en.wikipedia.org/w/index.php?title=Greatest_common_divisor&oldid=990943381)
+(GCD)
+
+Find the greatest common divisor of two integers.
+
+See also the [Euclidean algorithm](https://en.wikipedia.org/wiki/Euclidean_algorithm)
+
+**Problem:**
+
+```python
+def sat(n: int, a: int=15482, b: int=23223, lower_bound: int=5):
+    assert type(n) is int, 'n must be of type int'
+    return a % n == 0 and b % n == 0 and n >= lower_bound
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(a=15482, b=23223, lower_bound=5):
+    m, n = min(a, b), max(a, b)
+    while m > 0:
+        m, n = n % m, m
+    return n
+```
+
+```python
+def sol(a=15482, b=23223, lower_bound=5):
+    def gcd(m, n):
+        if m > n:
+            return gcd(n, m)
+        if m == 0:
+            return n
+        return gcd(n % m, m)
+
+    return gcd(a, b)
+```
+
+</details>
+
+### GCD_multi ([number_theory](#number_theory) 3/16)
+
+**Description:**
+[Greatest Common Divisor](https://en.wikipedia.org/w/index.php?title=Greatest_common_divisor&oldid=990943381)
+(GCD)
+
+Find the greatest common divisor of a *list* of integers.
+
+See also the [Euclidean algorithm](https://en.wikipedia.org/wiki/Euclidean_algorithm)
+
+**Problem:**
+
+```python
+def sat(n: int, nums: List[int]=[77410, 23223, 54187], lower_bound: int=2):
+    assert type(n) is int, 'n must be of type int'
+    return all(i % n == 0 for i in nums) and n >= lower_bound
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(nums=[77410, 23223, 54187], lower_bound=2):
+    n = 0
+    for i in nums:
+        m, n = min(i, n), max(i, n)
+        while m > 0:
+            m, n = n % m, m
+    return n
+```
+
+</details>
+
+### LCM ([number_theory](#number_theory) 4/16)
+
+**Description:**
+[Least Common Multiple](https://en.wikipedia.org/wiki/Least_common_multiple)
+(LCM)
+
+Find the least common multiple of two integers.
+
+See also the [Euclidean algorithm](https://en.wikipedia.org/wiki/Euclidean_algorithm)
+
+**Problem:**
+
+```python
+def sat(n: int, a: int=15, b: int=27, upper_bound: int=150):
+    assert type(n) is int, 'n must be of type int'
+    return n % a == 0 and n % b == 0 and 0 < n <= upper_bound
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(a=15, b=27, upper_bound=150):
+    m, n = min(a, b), max(a, b)
+    while m > 0:
+        m, n = n % m, m
+    return a * (b // n)
+```
+
+</details>
+
+### LCM_multi ([number_theory](#number_theory) 5/16)
+
+**Description:**
+[Least Common Multiple](https://en.wikipedia.org/wiki/Least_common_multiple)
+(LCM)
+
+Find the least common multiple of a list of integers.
+
+See also the [Euclidean algorithm](https://en.wikipedia.org/wiki/Euclidean_algorithm)
+
+**Problem:**
+
+```python
+def sat(n: int, nums: List[int]=[15, 27, 102], upper_bound: int=5000):
+    assert type(n) is int, 'n must be of type int'
+    return all(n % i == 0 for i in nums) and n <= upper_bound
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(nums=[15, 27, 102], upper_bound=5000):
+    ans = 1
+    for i in nums:
+        m, n = min(i, ans), max(i, ans)
+        while m > 0:
+            m, n = n % m, m
+        ans *= (i // n)
+    return ans
+```
+
+</details>
+
+### SmallExponentBigSolution ([number_theory](#number_theory) 6/16)
+
+**Description:**
+Small exponent, big solution
+
+Solve for n: b^n = target (mod n)
+
+Problems have small b and target but solution is typically a large n.
+Some of them are really hard, for example, for `b=2, target=3`, the smallest solution is `n=4700063497`
+
+See [Richard K. Guy "The strong law of small numbers", (problem 13)](https://doi.org/10.2307/2322249)
+
+**Problem:**
+
+```python
+def sat(n: int, b: int=2, target: int=5):
+    assert type(n) is int, 'n must be of type int'
+    return (b ** n) % n == target
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(b=2, target=5):
+    for n in range(1, 10 ** 5):
+        if pow(b, n, n) == target:
+            return n
+```
+
+</details>
+
+### ThreeCubes ([number_theory](#number_theory) 7/16)
+
+**Description:**
+Sum of three cubes
+
+Given `n`, find integers `a`, `b`, `c` such that `a**3 + b**3 + c**3 = n`. This is unsolvable for `n % 9 in {4, 5}`.
+Conjectured to be true for all other n, i.e., `n % 9 not in {4, 5}`.
+`a`, `b`, `c` may be positive or negative
+
+See [wikipedia entry](https://en.wikipedia.org/wiki/Sums_of_three_cubes) or
+[Andrew R. Booker, Andrew V. Sutherland (2020). "On a question of Mordell."](https://arxiv.org/abs/2007.01209)
+
+**Problem:**
+
+```python
+def sat(nums: List[int], target: int=10):
+    assert type(nums) is list and all(type(a) is int for a in nums), 'nums must be of type List[int]'
+    assert target % 9 not in [4, 5], "Hint"
+    return len(nums) == 3 and sum([i ** 3 for i in nums]) == target
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(target: int=10):
+    assert target % 9 not in {4, 5}
+    for i in range(20):
+        for j in range(i + 1):
+            for k in range(-20, j + 1):
+                n = i ** 3 + j ** 3 + k ** 3
+                if n == target:
+                    return [i, j, k]
+                if n == -target:
+                    return [-i, -j, -k]
+```
+
+</details>
+
+### FourSquares ([number_theory](#number_theory) 8/16)
+
+**Description:**
+Sum of four squares
+
+[Lagrange's Four Square Theorem](https://en.wikipedia.org/w/index.php?title=Lagrange%27s_four-square_theorem)
+
+Given a non-negative integer `n`, a classic theorem of Lagrange says that `n` can be written as the sum of four
+integers. The problem here is to find them. This is a nice problem and we give an elementary solution
+that runs in time 	ilde{O}(n),
+which is not "polynomial time" because it is not polynomial in log(n), the length of n. A poly-log(n)
+algorithm using quaternions is described in the book:
+["Randomized algorithms in number theory" by Michael O. Rabin and Jeffery O. Shallit (1986)](https://doi.org/10.1002/cpa.3160390713)
+
+The first half of the problems involve small numbers and the second half involve some numbers up to 50 digits.
+
+**Problem:**
+
+```python
+def sat(nums: List[int], n: int=12345):
+    assert type(nums) is list and all(type(a) is int for a in nums), 'nums must be of type List[int]'
+    return len(nums) <= 4 and sum(i ** 2 for i in nums) == n
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(n=12345):
+    m = n
+    squares = {i ** 2: i for i in range(int(m ** 0.5) + 2) if i ** 2 <= m}
+    sums_of_squares = {i + j: [a, b] for i, a in squares.items() for j, b in squares.items()}
+    for s in sums_of_squares:
+        if m - s in sums_of_squares:
+            return sums_of_squares[m - s] + sums_of_squares[s]
+    assert False, "Should never reach here"
+```
+
+</details>
+
+### Factoring ([number_theory](#number_theory) 9/16)
+
+**Description:**
+[Factoring](https://en.wikipedia.org/w/index.php?title=Integer_factorization) and
+[RSA challenge](https://en.wikipedia.org/w/index.php?title=RSA_numbers)
+
+The factoring problems require one to find any nontrivial factor of n, which is equivalent to factoring by a
+simple repetition process. Problems range from small (single-digit n) all the way to the "RSA challenges"
+which include several *unsolved* factoring problems put out by the RSA company. The challenge was closed in 2007,
+with hundreds of thousands of dollars in unclaimed prize money for factoring their given numbers. People
+continue to work on them, nonetheless, and only the first 22/53 have RSA challenges have been solved thusfar.
+
+From Wikipedia:
+
+RSA-2048 has 617 decimal digits (2,048 bits). It is the largest of the RSA numbers and carried the largest
+cash prize for its factorization, $200,000. The RSA-2048 may not be factorizable for many years to come,
+unless considerable advances are made in integer factorization or computational power in the near future.
+
+**Problem:**
+
+```python
+def sat(i: int, n: int=62710561):
+    assert type(i) is int, 'i must be of type int'
+    return 1 < i < n and n % i == 0
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(n=62710561):
+    if n % 2 == 0:
+        return 2
+
+    for i in range(3, int(n ** 0.5) + 1, 2):
+        if n % i == 0:
+            return i
+
+    assert False, "problem defined for composite n only"
+```
+
+</details>
+
+### DiscreteLog ([number_theory](#number_theory) 10/16)
+
+**Description:**
+Discrete Log
+
+The discrete logarithm problem is (given `g`, `t`, and `p`) to find n such that:
+
+`g ** n % p == t`
+
+From [Wikipedia article](https://en.wikipedia.org/w/index.php?title=Discrete_logarithm_records):
+
+"Several important algorithms in public-key cryptography base their security on the assumption
+that the discrete logarithm problem over carefully chosen problems has no efficient solution."
+
+The problem is *unsolved* in the sense that no known polynomial-time algorithm has been found.
+
+We include McCurley's discrete log challenge from
+[Weber D., Denny T. (1998) "The solution of McCurley's discrete log challenge."](https://link.springer.com/content/pdf/10.1007/BFb0055747.pdf)
+whose answer is
+`n = 325923617918270562238615985978623709128341338833721058543950813521768156295091638348030637920237175638117352442299234041658748471079911977497864301995972638266781162575370644813703762423329783129621567127479417280687495231463348812`
+
+**Problem:**
+
+```python
+def sat(n: int, g: int=3, p: int=17, t: int=13):
+    assert type(n) is int, 'n must be of type int'
+    return pow(g, n, p) == t
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(g=3, p=17, t=13):
+    for n in range(p):
+        if pow(g, n, p) == t:
+            return n
+    assert False, f"unsolvable discrete log problem g={g}, t={t}, p={p}"
+```
+
+</details>
+
+### GCD17 ([number_theory](#number_theory) 11/16)
+
+**Description:**
+GCD 17
+
+Find n for which gcd(n^17+9, (n+1)^17+9) != 1
+
+According to [this article](https://primes.utm.edu/glossary/page.php?sort=LawOfSmall), the smallest
+solution is 8424432925592889329288197322308900672459420460792433
+
+**Problem:**
+
+```python
+def sat(n: int):
+    assert type(n) is int, 'n must be of type int'
+    i = n ** 17 + 9
+    j = (n + 1) ** 17 + 9
+
+    while i != 0:  # compute gcd using Euclid's algorithm
+        (i, j) = (j % i, i)
+
+    return n >= 0 and j != 1
+```
+### Znam ([number_theory](#number_theory) 12/16)
+
+**Description:**
+[Znam's Problem](https://en.wikipedia.org/wiki/Zn%C3%A1m%27s_problem)
+
+Find k positive integers such that each integer divides (the product of the rest plus 1).
+
+For example [2, 3, 7, 47, 395] is a solution for k=5
+
+**Problem:**
+
+```python
+def sat(li: List[int], k: int=5):
+    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'
+    def prod(nums):
+        ans = 1
+        for i in nums:
+            ans *= i
+        return ans
+
+    return min(li) > 1 and len(li) == k and all((1 + prod(li[:i] + li[i + 1:])) % li[i] == 0 for i in range(k))
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(k=5):
+    n = 2
+    prod = 1
+    ans = []
+    while len(ans) < k:
+        ans.append(n)
+        prod *= n
+        n = prod + 1
+    return ans
+```
+
+</details>
+
+### CollatzCycleUnsolved ([number_theory](#number_theory) 13/16)
+
+**Description:**
+Collatz Conjecture
+
+A solution to this problem would disprove the *Collatz Conjecture*, also called the *3n + 1 problem*,
+as well as the *Generalized Collatz Conjecture* (see the next problem).
+According to the [Wikipedia article](https://en.wikipedia.org/wiki/Collatz_conjecture):
+> Paul Erdos said about the Collatz conjecture: "Mathematics may not be ready for such problems."
+> He also offered US$500 for its solution. Jeffrey Lagarias stated in 2010 that the Collatz conjecture
+> "is an extraordinarily difficult problem, completely out of reach of present day mathematics."
+
+Consider the following process. Start with an integer `n` and repeatedly applying the operation:
+* if n is even, divide n by 2,
+* if n is odd, multiply n by 3 and add 1
+
+The conjecture is to that all `n > 0` eventually reach `n=1`. If this conjecture is false, then
+there is either a cycle or a sequence that increases without bound. This problem seeks a cycle.
+
+**Problem:**
+
+```python
+def sat(n: int):
+    assert type(n) is int, 'n must be of type int'
+    m = n
+    while n > 4:
+        n = 3 * n + 1 if n % 2 else n // 2
+        if n == m:
+            return True
+```
+### CollatzGeneralizedUnsolved ([number_theory](#number_theory) 14/16)
+
+**Description:**
+Generalized Collatz Conjecture
+
+This version, permits negative n and seek a cycle with a number of magnitude greater than 1000,
+which would disprove the Generalized conjecture that states that the only cycles are the known 5 cycles
+(which don't have positive integers).
+
+See the [Wikipedia article](https://en.wikipedia.org/wiki/Collatz_conjecture)
+
+**Problem:**
+
+```python
+def sat(start: int):
+    assert type(start) is int, 'start must be of type int'
+    n = start  # could be positive or negative ...
+    while abs(n) > 1000:
+        n = 3 * n + 1 if n % 2 else n // 2
+        if n == start:
+            return True
+```
+### CollatzDelay ([number_theory](#number_theory) 15/16)
+
+**Description:**
+Collatz Delay
+
+Find `0 < n < upper` so that it takes exactly `t` steps to reach 1 in the Collatz process. For instance,
+the number `n=9780657630` takes 1,132 steps and the number `n=93,571,393,692,802,302` takes
+2,091 steps, according to the [Wikipedia article](https://en.wikipedia.org/wiki/Collatz_conjecture)
+
+Now, this problem can be solved trivially by taking exponentially large `n = 2 ** t` so we also bound the
+number of bits of the solution to be upper.
+
+See [this webpage](http://www.ericr.nl/wondrous/delrecs.html) for up-to-date records.
+
+**Problem:**
+
+```python
+def sat(n: int, t: int=100, upper: int=10):
+    assert type(n) is int, 'n must be of type int'
+    m = n
+    for i in range(t):
+        if n <= 1:
+            return False
+        n = 3 * n + 1 if n % 2 else n // 2
+    return n == 1 and m <= 2 ** upper
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(t=100, upper=10):  # Faster solution for simultaneously solving multiple problems is of course possible
+    bound = t + 10
+    while True:
+        bound *= 2
+        prev = {1}
+        seen = set()
+        for delay in range(t):
+            seen.update(prev)
+            curr = {2 * n for n in prev}
+            curr.update({(n - 1) // 3 for n in prev if n % 6 == 4})
+            prev = {n for n in curr if n <= bound} - seen
+        if prev:
+            return min(prev)
+```
+
+</details>
+
+### Lehmer ([number_theory](#number_theory) 16/16)
+
+**Description:**
+Lehmer puzzle
+
+Find n  such that 2^n mod n = 3
+
+According to [The Strong Law of Large Numbers](https://doi.org/10.2307/2322249) Richard K. Guy states that
+    D. H. & Emma Lehmer discovered that 2^n = 3 (mod n) for n = 4700063497,
+    but for no smaller n > 1
+
+**Problem:**
+
+```python
+def sat(n: int):
+    assert type(n) is int, 'n must be of type int'
+    return pow(2, n, n) == 3
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol():
+    return 4700063497
 ```
 
 </details>
