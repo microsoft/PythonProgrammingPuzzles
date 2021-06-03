@@ -7,4 +7,4 @@ from . import graphs
 from . import ICPC
 from . import IMO
 from . import puzzles
-from . import trivial
+from . import trivial_inverse
