@@ -1,5 +1,5 @@
 """Problems inspired by the
-[International Mathematical Olympiad](https://en.wikipedia.org/wiki/International_Mathematical_Olympiad) (IMO)
+[International Mathematical Olympiad](https://en.wikipedia.org/wiki/International_Mathematical_Olympiad)
 [problems](https://www.imo-official.org/problems.aspx)"""
 
 from problems import Problem, register, get_problems

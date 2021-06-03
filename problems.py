@@ -30,7 +30,79 @@ problem_registry = {}
 _seen_names = set()
 
 
+def check_for_trivial_solutions(problem_class):  # check for trivial solutions
+    if not hasattr(problem_class, "sol"):
+        return
+    example = problem_class.get_example()
+    ans = problem_class.sol(**example)
+    if type(ans) == int:
+        if ans in range(-1000, 1000):
+            tests = [ans]
+        else:
+            tests = []
+    elif type(ans) == str:
+        if len(ans) <= 1:
+            tests = [ans]
+        else:
+            tests = ["cat", "dog", "aa", "ab", "foo", "bar", "baz"]
+    elif type(ans) == float:
+        tests = [-100.0, -10.0, -2.0, -1.0, -0.5, -0.1, 0.0, 0.1, 0.5, 1.0, 2.0, 10.0, 100.0]
+    elif type(ans) == bool:
+        tests = [True, False]
+    elif type(ans) == list or type(ans) == set:
+        if len(ans) == 0:
+            tests = [ans]
+        else:
+            el = list(ans)[0]
+            if type(el) == int:
+                base = list(range(-3, 4))
+            elif type(el) == str:
+                base = ["a", "b", "foo", "bar", "baz"]
+            elif type(el) == bool:
+                base = [True, False]
+            elif type(el) == float:
+                base = [-1.0, -0.1, 0.0, 0.1, 0.5, 1.0, 2.0]
+            else:
+                # print(f"Can't create trivial instances fitting pattern `{ans}`"[:1000])
+                base = []
+            from itertools import product
+            tests = []
+            for r in range(6):
+                tests.extend(type(ans)(p) for p in product(base, repeat=r))
+    else:
+        print(f"Can't check for types, unexpected type `{type(ans)}`")
+        tests = []
+    for t in tests:
+        try:
+            assert problem_class.sat(t, **example)
+            utils.warn(f"`{problem_class.__name__}` in file `{problem_class.__module__.split('.')[-1]}` "
+                       f"has trivial solution `{t}`")
+            break
+        except:
+            pass
+
+
+def test_register(problem_class):
+    print(f"Testing `{problem_class.__name__}`")
+
+    def fake_add(example, test=True):
+        if not test:
+            return
+        print(f"Testing `{example}`", flush=True)
+        ans = problem_class.sol(**example)
+        assert problem_class.sat(ans, **example)
+
+    p = problem_class()
+    p.add = fake_add
+    p.build(1000)
+    print(f"Done testing `{problem_class.__name__}`")
+
+    sys.exit(0)
+
+
 def register(problem_class):
+    if problem_class == "test":
+        return test_register
     global problem_registry
 
     module = inspect.getmodule(problem_class)
@@ -52,7 +124,8 @@ def register(problem_class):
 
 PATH = os.path.join(utils.my_path, "problems/")
 
-_secret_seed = None
+_secret_seed = None # Don't share the seed with the AI problem solver or it can cheat on several puzzles by
+# re-generating the puzzles together with the solution :-)
 
 
 class InterpreterError(Exception): pass
@@ -443,7 +516,7 @@ def unindent(docstr):
         if de_indent is None and line.strip():
             de_indent = len(line) - len(line.lstrip(" "))
         if de_indent and len(line) > de_indent:
-            assert not line[:de_indent].strip(), "Weird indentation in docstring"
+            assert not line[:de_indent].strip(), f"Weird indentation in docstring:\n{docstr}"
             lines[i] = line[de_indent:]
     return "\n".join(lines)
 
@@ -573,7 +646,7 @@ class Problem(abc.ABC):
         if self._example:
             self.add(self._example)
         if target_num_problems > 1:
-            self.gen(target_num_problems - 1)
+            self.gen(target_num_problems)
         while len(self.instances) < target_num_problems:
             n = len(self.instances)
             for _ in range(max_random_attempts):
@@ -586,7 +659,11 @@ class Problem(abc.ABC):
         if len(self.arg_names) == 1 and len(self.instances) == 0:  # no inputs, just add empty inputs
             self.add({})
 
-        assert self.instances, f"{self.name} did not generate any problem instances"
+        if not self.instances:
+            utils.error(f"{self.name} did not generate any problem instances")
+
+        check_for_trivial_solutions(self.__class__)
+
         self.build_time = time.perf_counter() - start_time
 
     def gen(self, target_num_problems):
@@ -672,9 +749,9 @@ def get_func_name(src):
 
 
 def save_readme(problem_sets, filename=os.path.join(PATH, "README.md")):
-    top = """# The Python Reasoning Challenge dataset summary
+    top = """# Python Programming Puzzles: dataset summary
 This document summarizes the dataset stored in .json files.
-Each .json file contains a number of related problems with one or more instances each.
+Each .json file contains a number of related problems with one or more puzzles each.
 
 ## Files:
 
