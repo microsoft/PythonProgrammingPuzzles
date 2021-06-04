@@ -22,8 +22,10 @@ import time
 
 import utils
 
-# if os.environ['PYTHONHASHSEED'] != '0':
-#     utils.warn("Environment variable PYTHONHASHSEED should be set to 0 to make executions deterministic")
+
+# The seed used for randomness is important because if a solver has access to this seed it can cheat and
+# reverse-engineer the solutions to some puzzles. Don't share the seed with AI puzzle solvers :-)
+_AI_SEED = 12389484322359235125123212243523534510980967133563
 
 
 problem_registry = {}
@@ -124,8 +126,7 @@ def register(problem_class):
 
 PATH = os.path.join(utils.my_path, "problems/")
 
-_secret_seed = None # Don't share the seed with the AI problem solver or it can cheat on several puzzles by
-# re-generating the puzzles together with the solution :-)
+
 
 
 class InterpreterError(Exception): pass
@@ -340,19 +341,6 @@ class BuilderRandom(random.Random):
 
     def char(self, chars="0123456789abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ!"):
         return self.choice(chars)
-
-
-def get_seed_str(filename, summary):
-    global _secret_seed
-    if _secret_seed is None:
-        secret_seed_path = os.path.join(utils.my_path, "_secret_seed.txt")
-        try:
-            with open(secret_seed_path, "r") as f:
-                _secret_seed = f.read()
-        except FileNotFoundError:
-            utils.warning(f"Couldn't find `{secret_seed_path}`")
-            _secret_seed = "92354683922359"
-    return f"{filename} | {_secret_seed} | {summary}"
 
 
 class ProblemSet:
@@ -587,13 +575,13 @@ class Problem(abc.ABC):
 
     timeout = None  # how much longer than usual can sat run?
 
-    def __init__(self, seed=None):
+    def __init__(self, seed=_AI_SEED):
         self.name = self.__class__.__name__
         if not self.__doc__ or self.__doc__ == Problem.__doc__:
             self.desc = "<No description/docstring>"
         else:
             self.desc = unindent(self.__doc__)
-        self.random = BuilderRandom(f"{seed} | {self.name} | {self.desc}")
+        self.random = BuilderRandom(f"{seed} | {self.name}")
         self.instances = []
         self._seen_problems = set()
         self._built_target = 0
@@ -778,7 +766,7 @@ Each .json file contains a number of related problems with one or more puzzles e
         tot_instances += n_instances
         table += f"- [{sec_name} ({len(ps.problems):,} problems, {n_instances:,} instances)](#{sec_name.lower().replace(' ', '-')})\n"
         for i, problem in enumerate(ps.problems):
-            section += f"### {problem.name} ({link} {i + 1:,}/{n:,})\n\n"
+            section += f"### {problem.name}\n({link} {i + 1:,}/{n:,})\n\n"
             section += f"**Description:**\n{problem.desc}\n\n"
             section += f"**Problem:**\n\n```python\n{problem.instances[0].src}\n```\n"
             if len(problem.instances[0].sol_srcs) > 0:

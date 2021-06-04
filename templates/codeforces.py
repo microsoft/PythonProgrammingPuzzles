@@ -62,12 +62,17 @@ class SquareTiles(Problem):
     and does not double-cover squares.
 
     Sample Input:
+
     m = 10
+
     n = 9
+
     a = 5
+
     target = 4
 
     Sample Output:
+
     [[0, 0], [0, 5], [5, 0], [5, 5]]
 
     Inspired by [Codeforces Problem 1 A](https://codeforces.com/problemset/problem/1/A)
@@ -214,10 +219,13 @@ class IncDec(Problem):
     "x++", "--x", "x--", and a target value, find initial value so that the final value is the target value.
 
     Sample Input:
+
     ops = ["x++", "--x", "--x"]
+
     target = 12
 
     Sample Output:
+
     13
 
     Inspired by [Codeforces Problem 282 A](https://codeforces.com/problemset/problem/282/A)
@@ -285,10 +293,15 @@ class CompareInAnyCase(Problem):
 @register
 class SlidingOne(Problem):
     """We are given a 5x5 bimatrix with a single 1 like:
+
     0 0 0 0 0
+
     0 0 0 0 1
+
     0 0 0 0 0
+
     0 0 0 0 0
+
     0 0 0 0 0
 
     Find a (minimal) sequence of row and column swaps to move the 1 to the center. A move is a string
@@ -395,10 +408,10 @@ class LongestSubsetString(Problem):
     repeated consecutive characters.
 
     Sample Input:
-    abbbc
+    `"abbbc"`
 
     Sample Output:
-    abc
+    `"abc"`
 
     Inspired by [Codeforces Problem 266 A](https://codeforces.com/problemset/problem/266/A)
     """
@@ -429,10 +442,13 @@ class FindHomogeneousSubstring(Problem):
     all 0's or all 1's.
 
     Sample Input:
+
     s = 0000111111100000, k = 5
 
     Sample Output:
+
     4
+
     (or 5 or 6 or 11)
 
     Inspired by [Codeforces Problem 96 A](https://codeforces.com/problemset/problem/96/A)
@@ -502,7 +518,9 @@ class CombinationLock(Problem):
     Given a starting a final lock position, find the (minimal) intermediate states, where each transition
     involves increasing or decreasing a single digit (mod 10)
     e.g.
+
     start = "012"
+
     combo = "329"
 
     output: ['112', '212', '312', '322', '321', '320']
@@ -574,7 +592,7 @@ class InvertPermutation(Problem):
 class SameDifferent(Problem):
     """
     Given a list of integers and a target length, create of the given length such that:
-    *The first list must be all the same numbers.
+    * The first list must be all the same numbers.
     * The second must be all different.
     * The two lists together comprise a sublist of all the list items
 

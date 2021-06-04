@@ -6,7 +6,7 @@ Each .json file contains a number of related problems with one or more puzzles e
 
 - [algebra (4 problems, 4,000 instances)](#algebra)
 - [basic (21 problems, 21,000 instances)](#basic)
-- [chess (5 problems, 4,858 instances)](#chess)
+- [chess (5 problems, 4,855 instances)](#chess)
 - [classic_puzzles (22 problems, 11,370 instances)](#classic_puzzles)
 - [codeforces (24 problems, 23,025 instances)](#codeforces)
 - [compression (3 problems, 3,000 instances)](#compression)
@@ -23,7 +23,7 @@ Each .json file contains a number of related problems with one or more puzzles e
 - [trivial_inverse (34 problems, 32,002 instances)](#trivial_inverse)
 - [tutorial (5 problems, 5 instances)](#tutorial)
 
-Total (200 problems, 139,072 instances)
+Total (200 problems, 139,069 instances)
 
 
 ----
@@ -34,7 +34,8 @@ Roots of polynomials
 
 [^ Top](#files)
 
-### QuadraticRoot ([algebra](#algebra) 1/4)
+### QuadraticRoot
+([algebra](#algebra) 1/4)
 
 **Description:**
 Find any (real) solution for a [quadratic equation](https://en.wikipedia.org/wiki/Quadratic_formula)
@@ -72,7 +73,8 @@ def sol(coeffs=[2.5, 1.3, -0.5]):
 
 </details>
 
-### AllQuadraticRoots ([algebra](#algebra) 2/4)
+### AllQuadraticRoots
+([algebra](#algebra) 2/4)
 
 **Description:**
 Find all (real) solutions for a [quadratic equation](https://en.wikipedia.org/wiki/Quadratic_formula)
@@ -98,7 +100,8 @@ def sol(coeffs=[1.3, -0.5]):
 
 </details>
 
-### CubicRoot ([algebra](#algebra) 3/4)
+### CubicRoot
+([algebra](#algebra) 3/4)
 
 **Description:**
 Find any (real) solution for a [cubic equation](https://en.wikipedia.org/wiki/Cubic_formula)
@@ -132,7 +135,8 @@ def sol(coeffs=[2.0, 1.0, 0.0, 8.0]):
 
 </details>
 
-### AllCubicRoots ([algebra](#algebra) 4/4)
+### AllCubicRoots
+([algebra](#algebra) 4/4)
 
 **Description:**
 Find all 3 distinct real roots of x^3 + a x^2 + b x + c, i.e., factor into (x-r1)(x-r2)(x-r3)
@@ -177,7 +181,8 @@ Problems testing basic knowledge -- easy to solve if you understand what is bein
 
 [^ Top](#files)
 
-### SumOfDigits ([basic](#basic) 1/21)
+### SumOfDigits
+([basic](#basic) 1/21)
 
 **Description:**
 Find a number that its digits sum to a specific value.
@@ -198,7 +203,8 @@ def sol(s=679):
 
 </details>
 
-### FloatWithDecimalValue ([basic](#basic) 2/21)
+### FloatWithDecimalValue
+([basic](#basic) 2/21)
 
 **Description:**
 Create a float with a specific decimal.
@@ -219,7 +225,8 @@ def sol(v=9, d=0.0001):
 
 </details>
 
-### ArithmeticSequence ([basic](#basic) 3/21)
+### ArithmeticSequence
+([basic](#basic) 3/21)
 
 **Description:**
 Create a list that is a subrange of an arithmetic sequence.
@@ -240,7 +247,8 @@ def sol(a=7, s=5, e=200):
 
 </details>
 
-### GeometricSequence ([basic](#basic) 4/21)
+### GeometricSequence
+([basic](#basic) 4/21)
 
 **Description:**
 Create a list that is a subrange of an gemoetric sequence.
@@ -261,7 +269,8 @@ def sol(a=8, r=2, l=50):
 
 </details>
 
-### LineIntersection ([basic](#basic) 5/21)
+### LineIntersection
+([basic](#basic) 5/21)
 
 **Description:**
 Find the intersection of two lines.
@@ -285,7 +294,8 @@ def sol(a=2, b=-1, c=1, d=2021):
 
 </details>
 
-### IfProblem ([basic](#basic) 6/21)
+### IfProblem
+([basic](#basic) 6/21)
 
 **Description:**
 Simple if statement
@@ -312,7 +322,8 @@ def sol(a=324554, b=1345345):
 
 </details>
 
-### IfProblemWithAnd ([basic](#basic) 7/21)
+### IfProblemWithAnd
+([basic](#basic) 7/21)
 
 **Description:**
 Simple if statement with and clause
@@ -339,7 +350,8 @@ def sol(a=9384594, b=1343663):
 
 </details>
 
-### IfProblemWithOr ([basic](#basic) 8/21)
+### IfProblemWithOr
+([basic](#basic) 8/21)
 
 **Description:**
 Simple if statement with or clause
@@ -366,7 +378,8 @@ def sol(a=253532, b=1230200):
 
 </details>
 
-### IfCases ([basic](#basic) 9/21)
+### IfCases
+([basic](#basic) 9/21)
 
 **Description:**
 Simple if statement with multiple cases
@@ -398,7 +411,8 @@ def sol(a=4, b=54368639):
 
 </details>
 
-### ListPosSum ([basic](#basic) 10/21)
+### ListPosSum
+([basic](#basic) 10/21)
 
 **Description:**
 Construct a list of non-negative integers that sum up to some value
@@ -421,7 +435,8 @@ def sol(n=5, s=19):
 
 </details>
 
-### ListDistinctSum ([basic](#basic) 11/21)
+### ListDistinctSum
+([basic](#basic) 11/21)
 
 **Description:**
 Construct a list of distinct integers that sum up to some value
@@ -454,7 +469,8 @@ def sol(n=4, s=2021):
 
 </details>
 
-### ConcatStrings ([basic](#basic) 12/21)
+### ConcatStrings
+([basic](#basic) 12/21)
 
 **Description:**
 Concatenate list of characters
@@ -475,7 +491,8 @@ def sol(s=['a', 'b', 'c', 'd', 'e', 'f'], n=4):
 
 </details>
 
-### SublistSum ([basic](#basic) 13/21)
+### SublistSum
+([basic](#basic) 13/21)
 
 **Description:**
 Sum values of sublist by range specifications
@@ -507,7 +524,8 @@ def sol(t=677, a=43, e=125, s=10):
 
 </details>
 
-### CumulativeSum ([basic](#basic) 14/21)
+### CumulativeSum
+([basic](#basic) 14/21)
 
 **Description:**
 Number of values with cumulative sum less than target
@@ -536,7 +554,8 @@ def sol(t=50, n=10):
 
 </details>
 
-### BasicStrCounts ([basic](#basic) 15/21)
+### BasicStrCounts
+([basic](#basic) 15/21)
 
 **Description:**
 Find a string that has `count1` occurrences of `s1` and `count1` occurrences of `s1` and starts and ends with
@@ -566,7 +585,8 @@ def sol(s1="a", s2="b", count1=50, count2=30):
 
 </details>
 
-### ZipStr ([basic](#basic) 16/21)
+### ZipStr
+([basic](#basic) 16/21)
 
 **Description:**
 Find a string that contains all the `substrings` alternating, e.g., 'cdaotg' for 'cat' and 'dog'
@@ -588,7 +608,8 @@ def sol(substrings=['foo', 'bar', 'baz']):
 
 </details>
 
-### ReverseCat ([basic](#basic) 17/21)
+### ReverseCat
+([basic](#basic) 17/21)
 
 **Description:**
 Find a string that contains all the `substrings` reversed and forward
@@ -609,7 +630,8 @@ def sol(substrings=['foo', 'bar', 'baz']):
 
 </details>
 
-### EngineerNumbers ([basic](#basic) 18/21)
+### EngineerNumbers
+([basic](#basic) 18/21)
 
 **Description:**
 Find a list of `n` strings starting with `a` and ending with `b`
@@ -630,7 +652,8 @@ def sol(n=100, a="bar", b="foo"):
 
 </details>
 
-### PenultimateString ([basic](#basic) 19/21)
+### PenultimateString
+([basic](#basic) 19/21)
 
 **Description:**
 Find the alphabetically second to last last string in a list.
@@ -651,7 +674,8 @@ def sol(strings=['cat', 'dog', 'bird', 'fly', 'moose']):
 
 </details>
 
-### PenultimateRevString ([basic](#basic) 20/21)
+### PenultimateRevString
+([basic](#basic) 20/21)
 
 **Description:**
 Find the reversed version of the alphabetically second string in a list.
@@ -672,7 +696,8 @@ def sol(strings=['cat', 'dog', 'bird', 'fly', 'moose']):
 
 </details>
 
-### CenteredString ([basic](#basic) 21/21)
+### CenteredString
+([basic](#basic) 21/21)
 
 **Description:**
 Find a substring of length `length` centered within `target`.
@@ -700,7 +725,8 @@ Classic chess problems
 
 [^ Top](#files)
 
-### EightQueensOrFewer ([chess](#chess) 1/5)
+### EightQueensOrFewer
+([chess](#chess) 1/5)
 
 **Description:**
 Eight (or fewer) Queens Puzzle
@@ -737,7 +763,8 @@ def sol(m=8, n=8):  # brute force
 
 </details>
 
-### MoreQueens ([chess](#chess) 2/5)
+### MoreQueens
+([chess](#chess) 2/5)
 
 **Description:**
 More Queens Puzzle
@@ -782,7 +809,8 @@ def sol(m=9, n=9):
 
 </details>
 
-### KnightsTour ([chess](#chess) 3/5)
+### KnightsTour
+([chess](#chess) 3/5)
 
 **Description:**
 Knights Tour
@@ -825,7 +853,8 @@ def sol(m=8, n=8):  # using Warnsdorff's heuristic, breaking ties randomly and r
 
 </details>
 
-### UncrossedKnightsPath ([chess](#chess) 4/5)
+### UncrossedKnightsPath
+([chess](#chess) 4/5)
 
 **Description:**
 Uncrossed Knights Path (known solvable, but no solution given)
@@ -864,7 +893,8 @@ def sat(path: List[List[int]], m: int=8, n: int=8, target: int=35):
 
     return len(path) >= target
 ```
-### UNSOLVED_UncrossedKnightsPath ([chess](#chess) 5/5)
+### UNSOLVED_UncrossedKnightsPath
+([chess](#chess) 5/5)
 
 **Description:**
 Uncrossed Knights Path (open problem, unsolved)
@@ -912,7 +942,8 @@ Classic puzzles
 
 [^ Top](#files)
 
-### TowersOfHanoi ([classic_puzzles](#classic_puzzles) 1/22)
+### TowersOfHanoi
+([classic_puzzles](#classic_puzzles) 1/22)
 
 **Description:**
 [Towers of Hanoi](https://en.wikipedia.org/w/index.php?title=Tower_of_Hanoi)
@@ -945,7 +976,8 @@ def sol():
 
 </details>
 
-### TowersOfHanoiArbitrary ([classic_puzzles](#classic_puzzles) 2/22)
+### TowersOfHanoiArbitrary
+([classic_puzzles](#classic_puzzles) 2/22)
 
 **Description:**
 [Towers of Hanoi](https://en.wikipedia.org/w/index.php?title=Tower_of_Hanoi)
@@ -996,7 +1028,8 @@ def sol(source=[[0, 7], [4, 5, 6], [1, 2, 3, 8]], target=[[0, 1, 2, 3, 8], [4, 5
 
 </details>
 
-### LongestMonotonicSubstring ([classic_puzzles](#classic_puzzles) 3/22)
+### LongestMonotonicSubstring
+([classic_puzzles](#classic_puzzles) 3/22)
 
 **Description:**
 Find the indices of the longest substring with characters in sorted order.
@@ -1031,7 +1064,8 @@ def sol(length=13, s="Dynamic programming solves this puzzle!!!"):  # O(N^2) met
 
 </details>
 
-### LongestMonotonicSubstringTricky ([classic_puzzles](#classic_puzzles) 4/22)
+### LongestMonotonicSubstringTricky
+([classic_puzzles](#classic_puzzles) 4/22)
 
 **Description:**
 Find the indices of the longest substring with characters in sorted order, with a twist!
@@ -1066,7 +1100,8 @@ def sol(length=20, s="Dynamic programming solves this puzzle!!!"):  # O(N^2) met
 
 </details>
 
-### Quine ([classic_puzzles](#classic_puzzles) 5/22)
+### Quine
+([classic_puzzles](#classic_puzzles) 5/22)
 
 **Description:**
 [Quine](https://en.wikipedia.org/wiki/Quine_%28computing%29)
@@ -1094,7 +1129,8 @@ def sol():  # thanks for this simple solution, GPT-3!
 
 </details>
 
-### RevQuine ([classic_puzzles](#classic_puzzles) 6/22)
+### RevQuine
+([classic_puzzles](#classic_puzzles) 6/22)
 
 **Description:**
 Reverse [Quine](https://en.wikipedia.org/wiki/Quine_%28computing%29)
@@ -1118,7 +1154,8 @@ def sol():
 
 </details>
 
-### BooleanPythagoreanTriples ([classic_puzzles](#classic_puzzles) 7/22)
+### BooleanPythagoreanTriples
+([classic_puzzles](#classic_puzzles) 7/22)
 
 **Description:**
 [Boolean Pythagorean Triples Problem](https://en.wikipedia.org/wiki/Boolean_Pythagorean_triples_problem)
@@ -1156,7 +1193,8 @@ def sol(n=100):
 
 </details>
 
-### ClockAngle ([classic_puzzles](#classic_puzzles) 8/22)
+### ClockAngle
+([classic_puzzles](#classic_puzzles) 8/22)
 
 **Description:**
 [Clock Angle Problem](https://en.wikipedia.org/wiki/Clock_angle_problem)
@@ -1183,7 +1221,8 @@ def sol(target_angle=45):
 
 </details>
 
-### Kirkman ([classic_puzzles](#classic_puzzles) 9/22)
+### Kirkman
+([classic_puzzles](#classic_puzzles) 9/22)
 
 **Description:**
 [Kirkman's problem](https://en.wikipedia.org/wiki/Kirkman%27s_schoolgirl_problem)
@@ -1248,7 +1287,8 @@ def sol():
 
 </details>
 
-### MonkeyAndCoconuts ([classic_puzzles](#classic_puzzles) 10/22)
+### MonkeyAndCoconuts
+([classic_puzzles](#classic_puzzles) 10/22)
 
 **Description:**
 [The Monkey and the Coconuts](https://en.wikipedia.org/wiki/The_monkey_and_the_coconuts)
@@ -1291,7 +1331,8 @@ def sol():
 
 </details>
 
-### No3Colinear ([classic_puzzles](#classic_puzzles) 11/22)
+### No3Colinear
+([classic_puzzles](#classic_puzzles) 11/22)
 
 **Description:**
 [No three-in-a-line](https://en.wikipedia.org/wiki/No-three-in-line_problem)
@@ -1339,7 +1380,8 @@ def sol(side=5, num_points=10):
 
 </details>
 
-### PostageStamp ([classic_puzzles](#classic_puzzles) 12/22)
+### PostageStamp
+([classic_puzzles](#classic_puzzles) 12/22)
 
 **Description:**
 [Postage stamp problem](https://en.wikipedia.org/wiki/Postage_stamp_problem)
@@ -1366,7 +1408,8 @@ def sol(target=80, max_stamps=4, options=[10, 32, 8]):
 
 </details>
 
-### SquaringTheSquare ([classic_puzzles](#classic_puzzles) 13/22)
+### SquaringTheSquare
+([classic_puzzles](#classic_puzzles) 13/22)
 
 **Description:**
 [Squaring the square](https://en.wikipedia.org/wiki/Squaring_the_square)
@@ -1405,7 +1448,8 @@ def sol():
 
 </details>
 
-### NecklaceSplit ([classic_puzzles](#classic_puzzles) 14/22)
+### NecklaceSplit
+([classic_puzzles](#classic_puzzles) 14/22)
 
 **Description:**
 [Necklace Splitting Problem](https://en.wikipedia.org/wiki/Necklace_splitting_problem)
@@ -1431,7 +1475,8 @@ def sol(lace="bbbbrrbrbrbbrrrr"):
 
 </details>
 
-### PandigitalSquare ([classic_puzzles](#classic_puzzles) 15/22)
+### PandigitalSquare
+([classic_puzzles](#classic_puzzles) 15/22)
 
 **Description:**
 [Pandigital](https://en.wikipedia.org/wiki/Pandigital_number) Square
@@ -1456,7 +1501,8 @@ def sol():
 
 </details>
 
-### AllPandigitalSquares ([classic_puzzles](#classic_puzzles) 16/22)
+### AllPandigitalSquares
+([classic_puzzles](#classic_puzzles) 16/22)
 
 **Description:**
 All [Pandigital](https://en.wikipedia.org/wiki/Pandigital_number) Squares
@@ -1479,7 +1525,8 @@ def sol():
 
 </details>
 
-### CardGame24 ([classic_puzzles](#classic_puzzles) 17/22)
+### CardGame24
+([classic_puzzles](#classic_puzzles) 17/22)
 
 **Description:**
 [24 Game](https://en.wikipedia.org/wiki/24_Game)
@@ -1543,7 +1590,8 @@ def sol(nums=[3, 7, 3, 7]):
 
 </details>
 
-### Easy63 ([classic_puzzles](#classic_puzzles) 18/22)
+### Easy63
+([classic_puzzles](#classic_puzzles) 18/22)
 
 **Description:**
 An easy puzzle to make 63 using two 8's and one 1's.
@@ -1564,7 +1612,8 @@ def sol():
 
 </details>
 
-### Harder63 ([classic_puzzles](#classic_puzzles) 19/22)
+### Harder63
+([classic_puzzles](#classic_puzzles) 19/22)
 
 **Description:**
 An harder puzzle to make 63 using two 8's and two 1's.
@@ -1585,7 +1634,8 @@ def sol():
 
 </details>
 
-### WaterPouring ([classic_puzzles](#classic_puzzles) 20/22)
+### WaterPouring
+([classic_puzzles](#classic_puzzles) 20/22)
 
 **Description:**
 [Water pouring puzzle](https://en.wikipedia.org/w/index.php?title=Water_pouring_puzzle&oldid=985741928)
@@ -1640,7 +1690,8 @@ def sol(capacities=[8, 5, 3], init=[8, 0, 0], goal=[4, 4, 0]):
 
 </details>
 
-### VerbalArithmetic ([classic_puzzles](#classic_puzzles) 21/22)
+### VerbalArithmetic
+([classic_puzzles](#classic_puzzles) 21/22)
 
 **Description:**
 Find a substitution of digits for characters to make the numbers add up, like this:
@@ -1730,7 +1781,8 @@ def sol(words=['SEND', 'MORE', 'MONEY']):
 
 </details>
 
-### SlidingPuzzle ([classic_puzzles](#classic_puzzles) 22/22)
+### SlidingPuzzle
+([classic_puzzles](#classic_puzzles) 22/22)
 
 **Description:**
 [Sliding puzzle](https://en.wikipedia.org/wiki/15_puzzle)
@@ -1834,7 +1886,8 @@ Problems inspired by [codeforces](https://codeforces.com).
 
 [^ Top](#files)
 
-### IsEven ([codeforces](#codeforces) 1/24)
+### IsEven
+([codeforces](#codeforces) 1/24)
 
 **Description:**
 Determine if n can be evenly divided into two equal numbers. (Easy)
@@ -1862,7 +1915,8 @@ def sol(n=10):
 
 </details>
 
-### Abbreviate ([codeforces](#codeforces) 2/24)
+### Abbreviate
+([codeforces](#codeforces) 2/24)
 
 **Description:**
 Abbreviate strings longer than a given length by replacing everything but the first and last characters by
@@ -1890,19 +1944,25 @@ def sol(word="antidisestablishmentarianism", max_len=10):
 
 </details>
 
-### SquareTiles ([codeforces](#codeforces) 3/24)
+### SquareTiles
+([codeforces](#codeforces) 3/24)
 
 **Description:**
 Find a minimal list of corner locations for a×a tiles that covers [0, m] × [0, n]
 and does not double-cover squares.
 
 Sample Input:
+
 m = 10
+
 n = 9
+
 a = 5
+
 target = 4
 
 Sample Output:
+
 [[0, 0], [0, 5], [5, 0], [5, 5]]
 
 Inspired by [Codeforces Problem 1 A](https://codeforces.com/problemset/problem/1/A)
@@ -1925,7 +1985,8 @@ def sol(m=10, n=9, a=5, target=4):
 
 </details>
 
-### EasyTwos ([codeforces](#codeforces) 4/24)
+### EasyTwos
+([codeforces](#codeforces) 4/24)
 
 **Description:**
 Given a list of lists of triples of integers, return True for each list with a total of at least 2 and False
@@ -1950,7 +2011,8 @@ def sol(trips=[[1, 1, 0], [1, 0, 0], [0, 0, 0], [0, 1, 1], [0, 1, 1], [1, 1, 1],
 
 </details>
 
-### DecreasingCountComparison ([codeforces](#codeforces) 5/24)
+### DecreasingCountComparison
+([codeforces](#codeforces) 5/24)
 
 **Description:**
 Given a list of non-increasing integers and given an integer k, determine how many positive integers in the list
@@ -1976,7 +2038,8 @@ def sol(scores=[100, 95, 80, 70, 65, 9, 9, 9, 4, 2, 1], k=6):
 
 </details>
 
-### DominoTile ([codeforces](#codeforces) 6/24)
+### DominoTile
+([codeforces](#codeforces) 6/24)
 
 **Description:**
 Tile an m x n checkerboard with 2 x 1 tiles. The solution is a list of fourtuples [i1, j1, i2, j2]
@@ -2011,7 +2074,8 @@ def sol(m=10, n=5, target=50):
 
 </details>
 
-### IncDec ([codeforces](#codeforces) 7/24)
+### IncDec
+([codeforces](#codeforces) 7/24)
 
 **Description:**
 This straightforward problem is a little harder than the Codeforces one.
@@ -2019,10 +2083,13 @@ Given a sequence of operations "++x",
 "x++", "--x", "x--", and a target value, find initial value so that the final value is the target value.
 
 Sample Input:
+
 ops = ["x++", "--x", "--x"]
+
 target = 12
 
 Sample Output:
+
 13
 
 Inspired by [Codeforces Problem 282 A](https://codeforces.com/problemset/problem/282/A)
@@ -2049,7 +2116,8 @@ def sol(ops=['x++', '--x', '--x'], target=19143212):
 
 </details>
 
-### CompareInAnyCase ([codeforces](#codeforces) 8/24)
+### CompareInAnyCase
+([codeforces](#codeforces) 8/24)
 
 **Description:**
 Ignoring case, compare s, t lexicographically. Output 0 if they are =, -1 if s < t, 1 if s > t.
@@ -2082,14 +2150,20 @@ def sol(s="aaAab", t="aAaaB"):
 
 </details>
 
-### SlidingOne ([codeforces](#codeforces) 9/24)
+### SlidingOne
+([codeforces](#codeforces) 9/24)
 
 **Description:**
 We are given a 5x5 bimatrix with a single 1 like:
+
 0 0 0 0 0
+
 0 0 0 0 1
+
 0 0 0 0 0
+
 0 0 0 0 0
+
 0 0 0 0 0
 
 Find a (minimal) sequence of row and column swaps to move the 1 to the center. A move is a string
@@ -2137,7 +2211,8 @@ def sol(matrix=[[0, 0, 0, 0, 0], [0, 0, 0, 0, 1], [0, 0, 0, 0, 0], [0, 0, 0, 0, 
 
 </details>
 
-### SortPlusPlus ([codeforces](#codeforces) 10/24)
+### SortPlusPlus
+([codeforces](#codeforces) 10/24)
 
 **Description:**
 Sort numbers in a sum of digits, e.g., 1+3+2+1 -> 1+1+2+3
@@ -2160,7 +2235,8 @@ def sol(inp="1+1+3+1+3+2+2+1+3+1+2"):
 
 </details>
 
-### CapitalizeFirstLetter ([codeforces](#codeforces) 11/24)
+### CapitalizeFirstLetter
+([codeforces](#codeforces) 11/24)
 
 **Description:**
 Capitalize first letter of word
@@ -2190,17 +2266,18 @@ def sol(word="konjac"):
 
 </details>
 
-### LongestSubsetString ([codeforces](#codeforces) 12/24)
+### LongestSubsetString
+([codeforces](#codeforces) 12/24)
 
 **Description:**
 You are given a string consisting of a's, b's and c's, find any longest substring containing no
 repeated consecutive characters.
 
 Sample Input:
-abbbc
+`"abbbc"`
 
 Sample Output:
-abc
+`"abc"`
 
 Inspired by [Codeforces Problem 266 A](https://codeforces.com/problemset/problem/266/A)
 
@@ -2225,17 +2302,21 @@ def sol(s="abbbcabbac", target=7):  # target is ignored
 
 </details>
 
-### FindHomogeneousSubstring ([codeforces](#codeforces) 13/24)
+### FindHomogeneousSubstring
+([codeforces](#codeforces) 13/24)
 
 **Description:**
 You are given a string consisting of 0's and 1's. Find an index after which the subsequent k characters are
 all 0's or all 1's.
 
 Sample Input:
+
 s = 0000111111100000, k = 5
 
 Sample Output:
+
 4
+
 (or 5 or 6 or 11)
 
 Inspired by [Codeforces Problem 96 A](https://codeforces.com/problemset/problem/96/A)
@@ -2278,7 +2359,8 @@ def sol(s="0000111111100000", k=5):
 
 </details>
 
-### FivePowers ([codeforces](#codeforces) 14/24)
+### FivePowers
+([codeforces](#codeforces) 14/24)
 
 **Description:**
 What are the last two digits of 5^n?
@@ -2301,7 +2383,8 @@ def sol(n=7):
 
 </details>
 
-### CombinationLock ([codeforces](#codeforces) 15/24)
+### CombinationLock
+([codeforces](#codeforces) 15/24)
 
 **Description:**
 Shortest Combination Lock Path
@@ -2309,7 +2392,9 @@ Shortest Combination Lock Path
 Given a starting a final lock position, find the (minimal) intermediate states, where each transition
 involves increasing or decreasing a single digit (mod 10)
 e.g.
+
 start = "012"
+
 combo = "329"
 
 output: ['112', '212', '312', '322', '321', '320']
@@ -2345,7 +2430,8 @@ def sol(start="012", combo="329", target_len=6):
 
 </details>
 
-### CombinationLockObfuscated ([codeforces](#codeforces) 16/24)
+### CombinationLockObfuscated
+([codeforces](#codeforces) 16/24)
 
 **Description:**
 An obfuscated version of CombinationLock above
@@ -2375,7 +2461,8 @@ def sol(start="012", combo="329", target_len=6):
 
 </details>
 
-### InvertPermutation ([codeforces](#codeforces) 17/24)
+### InvertPermutation
+([codeforces](#codeforces) 17/24)
 
 **Description:**
 Find a string that, when a given permutation of characters is applied, has a given result.
@@ -2398,11 +2485,12 @@ def sol(perm="qwertyuiopasdfghjklzxcvbnm", target="hello are you there?"):
 
 </details>
 
-### SameDifferent ([codeforces](#codeforces) 18/24)
+### SameDifferent
+([codeforces](#codeforces) 18/24)
 
 **Description:**
 Given a list of integers and a target length, create of the given length such that:
-*The first list must be all the same numbers.
+* The first list must be all the same numbers.
 * The second must be all different.
 * The two lists together comprise a sublist of all the list items
 
@@ -2432,7 +2520,8 @@ def sol(items=[5, 4, 9, 4, 5, 5, 5, 1, 5, 5], length=4):
 
 </details>
 
-### OnesAndTwos ([codeforces](#codeforces) 19/24)
+### OnesAndTwos
+([codeforces](#codeforces) 19/24)
 
 **Description:**
 Find a sequence of 1's and 2's of a given length that that adds up to n
@@ -2455,7 +2544,8 @@ def sol(n=10000, length=5017):
 
 </details>
 
-### MinConsecutiveSum ([codeforces](#codeforces) 20/24)
+### MinConsecutiveSum
+([codeforces](#codeforces) 20/24)
 
 **Description:**
 Find a sequence of k consecutive indices whose sum is minimal
@@ -2478,7 +2568,8 @@ def sol(k=3, upper=6, seq=[17, 1, 2, 65, 18, 91, -30, 100, 3, 1, 2]):
 
 </details>
 
-### MaxConsecutiveSum ([codeforces](#codeforces) 21/24)
+### MaxConsecutiveSum
+([codeforces](#codeforces) 21/24)
 
 **Description:**
 Find a sequence of k consecutive indices whose sum is maximal
@@ -2501,7 +2592,8 @@ def sol(k=3, lower=150, seq=[3, 1, 2, 65, 18, 91, -30, 100, 0, 19, 52]):
 
 </details>
 
-### MaxConsecutiveProduct ([codeforces](#codeforces) 22/24)
+### MaxConsecutiveProduct
+([codeforces](#codeforces) 22/24)
 
 **Description:**
 Find a sequence of k consecutive indices whose product is maximal, possibly looping around
@@ -2533,7 +2625,8 @@ def sol(k=3, lower=100000, seq=[91, 1, 2, 64, 18, 91, -30, 100, 3, 65, 18]):
 
 </details>
 
-### DistinctOddSum ([codeforces](#codeforces) 23/24)
+### DistinctOddSum
+([codeforces](#codeforces) 23/24)
 
 **Description:**
 Find n distinct positive odd integers that sum to tot
@@ -2556,7 +2649,8 @@ def sol(tot=12345, n=5):
 
 </details>
 
-### MinRotations ([codeforces](#codeforces) 24/24)
+### MinRotations
+([codeforces](#codeforces) 24/24)
 
 **Description:**
 We begin with the string `"a...z"`
@@ -2606,7 +2700,8 @@ Invert a given de/compression algorithm.
 
 [^ Top](#files)
 
-### LZW ([compression](#compression) 1/3)
+### LZW
+([compression](#compression) 1/3)
 
 **Description:**
 Find a (short) compression that decompresses to the given string.
@@ -2649,7 +2744,8 @@ def sol(compressed_len=17, text="Hellooooooooooooooooooooo world!"):  # compress
 
 </details>
 
-### LZW_decompress ([compression](#compression) 2/3)
+### LZW_decompress
+([compression](#compression) 2/3)
 
 **Description:**
 Find a string that compresses to the target sequence for the provided simple version of
@@ -2691,7 +2787,8 @@ def sol(seq=[72, 101, 108, 108, 111, 32, 119, 111, 114, 100, 262, 264, 266, 263,
 
 </details>
 
-### PackingHam ([compression](#compression) 3/3)
+### PackingHam
+([compression](#compression) 3/3)
 
 **Description:**
 Pack a certain number of binary strings so that they have a minimum hamming distance between each other.
@@ -2727,7 +2824,8 @@ Conway's Game of Life problems
 
 [^ Top](#files)
 
-### Oscillators ([conways_game_of_life](#conways_game_of_life) 1/2)
+### Oscillators
+([conways_game_of_life](#conways_game_of_life) 1/2)
 
 **Description:**
 Oscillators (including some unsolved, open problems)
@@ -2801,7 +2899,8 @@ def sol(period=3):  # generate random patterns, slow solution
 
 </details>
 
-### Spaceship ([conways_game_of_life](#conways_game_of_life) 2/2)
+### Spaceship
+([conways_game_of_life](#conways_game_of_life) 2/2)
 
 **Description:**
 Spaceship (including *unsolved*, open problems)
@@ -2838,7 +2937,8 @@ Solve some two-player games
 
 [^ Top](#files)
 
-### Nim ([games](#games) 1/5)
+### Nim
+([games](#games) 1/5)
 
 **Description:**
 Compute optimal play for the classic two-player game [Nim](https://en.wikipedia.org/wiki/Nim)
@@ -2886,7 +2986,8 @@ def sol(heaps=[5, 9]):
 
 </details>
 
-### Mastermind ([games](#games) 2/5)
+### Mastermind
+([games](#games) 2/5)
 
 **Description:**
 Compute a strategy for winning in [mastermind](https://en.wikipedia.org/wiki/Mastermind_%28board_game%29)
@@ -2984,7 +3085,8 @@ def sol(max_moves=10):
 
 </details>
 
-### TicTacToeX ([games](#games) 3/5)
+### TicTacToeX
+([games](#games) 3/5)
 
 **Description:**
 Compute a strategy for X (first player) in tic-tac-toe that guarantees a tie.
@@ -3044,7 +3146,8 @@ def sol():
 
 </details>
 
-### TicTacToeO ([games](#games) 4/5)
+### TicTacToeO
+([games](#games) 4/5)
 
 **Description:**
 Compute a strategy for O (second player) in tic-tac-toe that guarantees a tie.
@@ -3106,7 +3209,8 @@ def sol():
 
 </details>
 
-### RockPaperScissors ([games](#games) 5/5)
+### RockPaperScissors
+([games](#games) 5/5)
 
 **Description:**
 Find optimal strategy for Rock-Paper-Scissors zero-sum game
@@ -3139,7 +3243,8 @@ Hard problems from game theory.
 
 [^ Top](#files)
 
-### Nash ([game_theory](#game_theory) 1/2)
+### Nash
+([game_theory](#game_theory) 1/2)
 
 **Description:**
 Compute a [Nash equilibrium](https://en.wikipedia.org/wiki/Nash_equilibrium) for a given
@@ -3197,12 +3302,15 @@ def sol(A=[[-1.0, -3.0], [0.0, -2.0]], B=[[-1.0, 0.0], [-3.0, -2.0]], eps=0.01):
 
 </details>
 
-### ZeroSum ([game_theory](#game_theory) 2/2)
+### ZeroSum
+([game_theory](#game_theory) 2/2)
 
 **Description:**
 Compute minimax optimal strategies for a given
 [zero-sum game](https://en.wikipedia.org/wiki/Zero-sum_game). This problem is known to be equivalent to
-Linear Programming.
+Linear Programming. Note that the provided instances are all quite easy---harder solutions could readily
+be made by decreasing the accuracy tolerance `eps` at which point the solution we provided would fail and
+more efficient algorithms would be needed.
 
 **Problem:**
 
@@ -3253,7 +3361,8 @@ Problems related to graphs such as Conway's 99 problem, finding
 
 [^ Top](#files)
 
-### Conway99 ([graphs](#graphs) 1/11)
+### Conway99
+([graphs](#graphs) 1/11)
 
 **Description:**
 Conway's 99-graph problem (*unsolved*, open problem)
@@ -3276,7 +3385,8 @@ def sat(edges: List[List[int]]):
          range(99)}  # neighbor sets
     return all(len(N[i].intersection(N[j])) == (1 if j in N[i] else 2) for i in range(99) for j in range(i))
 ```
-### AnyEdge ([graphs](#graphs) 2/11)
+### AnyEdge
+([graphs](#graphs) 2/11)
 
 **Description:**
 Find any edge in a given [graph](https://en.wikipedia.org/w/index.php?title=Graph_(discrete_mathematics)).
@@ -3297,7 +3407,8 @@ def sol(edges=[[0, 217], [40, 11], [17, 29], [11, 12], [31, 51]]):
 
 </details>
 
-### AnyTriangle ([graphs](#graphs) 3/11)
+### AnyTriangle
+([graphs](#graphs) 3/11)
 
 **Description:**
 Find a [triangle](https://en.wikipedia.org/w/index.php?title=Triangle_graph) in a given directed graph.
@@ -3333,7 +3444,8 @@ def sol(edges=[[0, 17], [0, 22], [17, 22], [17, 31], [22, 31], [31, 17]]):
 
 </details>
 
-### PlantedClique ([graphs](#graphs) 4/11)
+### PlantedClique
+([graphs](#graphs) 4/11)
 
 **Description:**
 Find a [planted clique](https://en.wikipedia.org/w/index.php?title=Planted_clique) of a given size
@@ -3384,7 +3496,8 @@ def sol(size=3, edges=[[0, 17], [0, 22], [17, 22], [17, 31], [22, 31], [31, 17]]
 
 </details>
 
-### ShortestPath ([graphs](#graphs) 5/11)
+### ShortestPath
+([graphs](#graphs) 5/11)
 
 **Description:**
 Shortest Path
@@ -3429,7 +3542,8 @@ def sol(weights=[{1: 20, 2: 1}, {2: 2, 3: 5}, {1: 10}], bound=11):  # Dijkstra's
 
 </details>
 
-### UnweightedShortestPath ([graphs](#graphs) 6/11)
+### UnweightedShortestPath
+([graphs](#graphs) 6/11)
 
 **Description:**
 Unweighted Shortest Path
@@ -3478,7 +3592,8 @@ def sol(edges=[[0, 11], [0, 22], [11, 22], [11, 33], [22, 33]], u=0, v=33, bound
 
 </details>
 
-### AnyPath ([graphs](#graphs) 7/11)
+### AnyPath
+([graphs](#graphs) 7/11)
 
 **Description:**
 Any Path
@@ -3511,7 +3626,8 @@ def sol(edges=[[0, 1], [0, 2], [1, 2], [1, 3], [2, 3]]):
 
 </details>
 
-### EvenPath ([graphs](#graphs) 8/11)
+### EvenPath
+([graphs](#graphs) 8/11)
 
 **Description:**
 Even Path
@@ -3545,7 +3661,8 @@ def sol(edges=[[0, 2], [0, 1], [2, 1], [2, 3], [1, 3]]):
 
 </details>
 
-### OddPath ([graphs](#graphs) 9/11)
+### OddPath
+([graphs](#graphs) 9/11)
 
 **Description:**
 Odd Path
@@ -3579,7 +3696,8 @@ def sol(edges=[[0, 1], [0, 2], [1, 2], [3, 1], [2, 3]]):
 
 </details>
 
-### Zarankiewicz ([graphs](#graphs) 10/11)
+### Zarankiewicz
+([graphs](#graphs) 10/11)
 
 **Description:**
 [Zarankiewicz problem](https://en.wikipedia.org/wiki/Zarankiewicz_problem)
@@ -3610,7 +3728,8 @@ def sol():
 
 </details>
 
-### GraphIsomorphism ([graphs](#graphs) 11/11)
+### GraphIsomorphism
+([graphs](#graphs) 11/11)
 
 **Description:**
 In the classic [Graph Isomorphism](https://en.wikipedia.org/wiki/Graph_isomorphism) problem,
@@ -3651,7 +3770,8 @@ Problems inspired by the [International Collegiate Programming Contest](https://
 
 [^ Top](#files)
 
-### BiPermutations ([ICPC](#icpc) 1/3)
+### BiPermutations
+([ICPC](#icpc) 1/3)
 
 **Description:**
 There are two rows of objects. Given the length-n integer arrays of prices and heights of objects in each
@@ -3700,7 +3820,8 @@ def sol(prices0=[7, 7, 9, 5, 3, 7, 1, 2], prices1=[5, 5, 5, 4, 2, 5, 1, 1], heig
 
 </details>
 
-### OptimalBridges ([ICPC](#icpc) 2/3)
+### OptimalBridges
+([ICPC](#icpc) 2/3)
 
 **Description:**
 You are to choose locations for bridge bases from among a given set of mountain peaks located at
@@ -3770,7 +3891,8 @@ def sol(H=60, alpha=18, beta=2, xs=[0, 10, 20, 30, 50, 80, 100, 120, 160, 190, 2
 
 </details>
 
-### CheckersPosition ([ICPC](#icpc) 3/3)
+### CheckersPosition
+([ICPC](#icpc) 3/3)
 
 **Description:**
 You are given a partial transcript a checkers game. Find an initial position such that the transcript
@@ -3964,7 +4086,8 @@ Problems inspired by the
 
 [^ Top](#files)
 
-### ExponentialCoinMoves ([IMO](#imo) 1/6)
+### ExponentialCoinMoves
+([IMO](#imo) 1/6)
 
 **Description:**
 This problem has *long* solutions.
@@ -4046,7 +4169,8 @@ def sol(n=10):
 
 </details>
 
-### NoRelativePrimes ([IMO](#imo) 2/6)
+### NoRelativePrimes
+([IMO](#imo) 2/6)
 
 **Description:**
 Let P(n) = n^2 + n + 1.
@@ -4125,7 +4249,8 @@ def sol(b=6, m=2):
 
 </details>
 
-### FindRepeats ([IMO](#imo) 3/6)
+### FindRepeats
+([IMO](#imo) 3/6)
 
 **Description:**
 Find a repeating integer in an infinite sequence of integers, specifically the indices for which the same value
@@ -4176,7 +4301,8 @@ def sol(a0=123):
 
 </details>
 
-### PickNearNeighbors ([IMO](#imo) 4/6)
+### PickNearNeighbors
+([IMO](#imo) 4/6)
 
 **Description:**
 Given a permutation of the integers up to n(n+1) as a list, choose 2n numbers to keep (in the same order)
@@ -4234,7 +4360,8 @@ def sol(heights=[10, 2, 14, 1, 8, 19, 16, 6, 12, 3, 17, 0, 9, 18, 5, 7, 11, 13, 
 
 </details>
 
-### FindProductiveList ([IMO](#imo) 5/6)
+### FindProductiveList
+([IMO](#imo) 5/6)
 
 **Description:**
 Given n, find n integers such that li[i] * li[i+1] + 1 == li[i+2], for i = 0, 1, ..., n-1
@@ -4271,7 +4398,8 @@ def sol(n=6):
 
 </details>
 
-### HalfTag ([IMO](#imo) 6/6)
+### HalfTag
+([IMO](#imo) 6/6)
 
 **Description:**
 The input tags is a list of 4n integer tags each in range(n) with each tag occurring 4 times.
@@ -4368,7 +4496,8 @@ Lattice problems with and without noise
 
 [^ Top](#files)
 
-### LearnParity ([lattices](#lattices) 1/2)
+### LearnParity
+([lattices](#lattices) 1/2)
 
 **Description:**
 Parity learning (Gaussian elimination)
@@ -4423,7 +4552,8 @@ def sol(vecs=[169, 203, 409, 50, 37, 479, 370, 133, 53, 159, 161, 367, 474, 107,
 
 </details>
 
-### LearnParityWithNoise ([lattices](#lattices) 2/2)
+### LearnParityWithNoise
+([lattices](#lattices) 2/2)
 
 **Description:**
 Learn parity with noise (*unsolved*)
@@ -4471,7 +4601,8 @@ Number theory problems
 
 [^ Top](#files)
 
-### FermatsLastTheorem ([number_theory](#number_theory) 1/16)
+### FermatsLastTheorem
+([number_theory](#number_theory) 1/16)
 
 **Description:**
 [Fermat's last theorem](https://en.wikipedia.org/w/index.php?title=Fermat%27s_Last_Theorem)
@@ -4489,7 +4620,8 @@ def sat(nums: List[int]):
     a, b, c, n = nums
     return (a ** n + b ** n == c ** n) and min(a, b, c) > 0 and n > 2
 ```
-### GCD ([number_theory](#number_theory) 2/16)
+### GCD
+([number_theory](#number_theory) 2/16)
 
 **Description:**
 [Greatest Common Divisor](https://en.wikipedia.org/w/index.php?title=Greatest_common_divisor&oldid=990943381)
@@ -4530,7 +4662,8 @@ def sol(a=15482, b=23223, lower_bound=5):
 
 </details>
 
-### GCD_multi ([number_theory](#number_theory) 3/16)
+### GCD_multi
+([number_theory](#number_theory) 3/16)
 
 **Description:**
 [Greatest Common Divisor](https://en.wikipedia.org/w/index.php?title=Greatest_common_divisor&oldid=990943381)
@@ -4561,7 +4694,8 @@ def sol(nums=[77410, 23223, 54187], lower_bound=2):
 
 </details>
 
-### LCM ([number_theory](#number_theory) 4/16)
+### LCM
+([number_theory](#number_theory) 4/16)
 
 **Description:**
 [Least Common Multiple](https://en.wikipedia.org/wiki/Least_common_multiple)
@@ -4590,7 +4724,8 @@ def sol(a=15, b=27, upper_bound=150):
 
 </details>
 
-### LCM_multi ([number_theory](#number_theory) 5/16)
+### LCM_multi
+([number_theory](#number_theory) 5/16)
 
 **Description:**
 [Least Common Multiple](https://en.wikipedia.org/wiki/Least_common_multiple)
@@ -4622,7 +4757,8 @@ def sol(nums=[15, 27, 102], upper_bound=5000):
 
 </details>
 
-### SmallExponentBigSolution ([number_theory](#number_theory) 6/16)
+### SmallExponentBigSolution
+([number_theory](#number_theory) 6/16)
 
 **Description:**
 Small exponent, big solution
@@ -4652,7 +4788,8 @@ def sol(b=2, target=5):
 
 </details>
 
-### ThreeCubes ([number_theory](#number_theory) 7/16)
+### ThreeCubes
+([number_theory](#number_theory) 7/16)
 
 **Description:**
 Sum of three cubes
@@ -4689,7 +4826,8 @@ def sol(target: int=10):
 
 </details>
 
-### FourSquares ([number_theory](#number_theory) 8/16)
+### FourSquares
+([number_theory](#number_theory) 8/16)
 
 **Description:**
 Sum of four squares
@@ -4727,7 +4865,8 @@ def sol(n=12345):
 
 </details>
 
-### Factoring ([number_theory](#number_theory) 9/16)
+### Factoring
+([number_theory](#number_theory) 9/16)
 
 **Description:**
 [Factoring](https://en.wikipedia.org/w/index.php?title=Integer_factorization) and
@@ -4768,7 +4907,8 @@ def sol(n=62710561):
 
 </details>
 
-### DiscreteLog ([number_theory](#number_theory) 10/16)
+### DiscreteLog
+([number_theory](#number_theory) 10/16)
 
 **Description:**
 Discrete Log
@@ -4808,7 +4948,8 @@ def sol(g=3, p=17, t=13):
 
 </details>
 
-### GCD17 ([number_theory](#number_theory) 11/16)
+### GCD17
+([number_theory](#number_theory) 11/16)
 
 **Description:**
 GCD 17
@@ -4831,7 +4972,8 @@ def sat(n: int):
 
     return n >= 0 and j != 1
 ```
-### Znam ([number_theory](#number_theory) 12/16)
+### Znam
+([number_theory](#number_theory) 12/16)
 
 **Description:**
 [Znam's Problem](https://en.wikipedia.org/wiki/Zn%C3%A1m%27s_problem)
@@ -4869,7 +5011,8 @@ def sol(k=5):
 
 </details>
 
-### CollatzCycleUnsolved ([number_theory](#number_theory) 13/16)
+### CollatzCycleUnsolved
+([number_theory](#number_theory) 13/16)
 
 **Description:**
 Collatz Conjecture
@@ -4899,7 +5042,8 @@ def sat(n: int):
         if n == m:
             return True
 ```
-### CollatzGeneralizedUnsolved ([number_theory](#number_theory) 14/16)
+### CollatzGeneralizedUnsolved
+([number_theory](#number_theory) 14/16)
 
 **Description:**
 Generalized Collatz Conjecture
@@ -4921,7 +5065,8 @@ def sat(start: int):
         if n == start:
             return True
 ```
-### CollatzDelay ([number_theory](#number_theory) 15/16)
+### CollatzDelay
+([number_theory](#number_theory) 15/16)
 
 **Description:**
 Collatz Delay
@@ -4967,7 +5112,8 @@ def sol(t=100, upper=10):  # Faster solution for simultaneously solving multiple
 
 </details>
 
-### Lehmer ([number_theory](#number_theory) 16/16)
+### Lehmer
+([number_theory](#number_theory) 16/16)
 
 **Description:**
 Lehmer puzzle
@@ -5001,7 +5147,8 @@ Probability problems
 
 [^ Top](#files)
 
-### BirthdayParadox ([probability](#probability) 1/5)
+### BirthdayParadox
+([probability](#probability) 1/5)
 
 **Description:**
 Find `n` such that the probability of two people having the same birthday in a group of `n` is near `1/2`.
@@ -5035,7 +5182,8 @@ def sol(year_len=365):
 
 </details>
 
-### BirthdayParadoxMonteCarlo ([probability](#probability) 2/5)
+### BirthdayParadoxMonteCarlo
+([probability](#probability) 2/5)
 
 **Description:**
 A slower, Monte Carlo version of the above Birthday Paradox problem.
@@ -5068,7 +5216,8 @@ def sol(year_len=365):
 
 </details>
 
-### BallotProblem ([probability](#probability) 3/5)
+### BallotProblem
+([probability](#probability) 3/5)
 
 **Description:**
 Suppose a list of m 1's and n -1's are permuted at random. What is the probability that
@@ -5110,7 +5259,8 @@ def sol(target_prob=0.5):
 
 </details>
 
-### BinomialProbabilities ([probability](#probability) 4/5)
+### BinomialProbabilities
+([probability](#probability) 4/5)
 
 **Description:**
 Find `a`, `b` so that the probability of seeing `a` heads and `b` tails on `n = a + b` coin flips
@@ -5144,7 +5294,8 @@ def sol(p=0.5, target_prob=0.0625):
 
 </details>
 
-### ExponentialProbability ([probability](#probability) 5/5)
+### ExponentialProbability
+([probability](#probability) 5/5)
 
 **Description:**
 Find stopping probability, so that the probability of stopping in `steps` or fewer time steps
@@ -5177,7 +5328,8 @@ Problems used for the study.
 
 [^ Top](#files)
 
-### Study_1 ([study](#study) 1/30)
+### Study_1
+([study](#study) 1/30)
 
 **Description:**
 Find a string with 1000 'o's but no two adjacent 'o's.
@@ -5198,7 +5350,8 @@ def sol():
 
 </details>
 
-### Study_2 ([study](#study) 2/30)
+### Study_2
+([study](#study) 2/30)
 
 **Description:**
 Find a string with 1000 'o's, 100 pairs of adjacent 'o's and 801 copies of 'ho'.
@@ -5219,7 +5372,8 @@ def sol():
 
 </details>
 
-### Study_3 ([study](#study) 3/30)
+### Study_3
+([study](#study) 3/30)
 
 **Description:**
 Find a permutation of [0, 1, ..., 998] such that the ith element is *not* i, for all i=0, 1, ..., 998.
@@ -5240,7 +5394,8 @@ def sol():
 
 </details>
 
-### Study_4 ([study](#study) 4/30)
+### Study_4
+([study](#study) 4/30)
 
 **Description:**
 Find a list of length 10 where the fourth element occurs exactly twice.
@@ -5261,7 +5416,8 @@ def sol():
 
 </details>
 
-### Study_5 ([study](#study) 5/30)
+### Study_5
+([study](#study) 5/30)
 
 **Description:**
 Find a list integers such that the integer i occurs i times, for i = 0, 1, 2, ..., 9.
@@ -5282,7 +5438,8 @@ def sol():
 
 </details>
 
-### Study_6 ([study](#study) 6/30)
+### Study_6
+([study](#study) 6/30)
 
 **Description:**
 Find an integer greater than 10^10 which is 4 mod 123.
@@ -5303,7 +5460,8 @@ def sol():
 
 </details>
 
-### Study_7 ([study](#study) 7/30)
+### Study_7
+([study](#study) 7/30)
 
 **Description:**
 Find a three-digit pattern  that occurs more than 8 times in the decimal representation of 8^2888.
@@ -5325,7 +5483,8 @@ def sol():
 
 </details>
 
-### Study_8 ([study](#study) 8/30)
+### Study_8
+([study](#study) 8/30)
 
 **Description:**
 Find a list of more than 1235 strings such that the 1234th string is a proper substring of the 1235th.
@@ -5346,7 +5505,8 @@ def sol():
 
 </details>
 
-### Study_9 ([study](#study) 9/30)
+### Study_9
+([study](#study) 9/30)
 
 **Description:**
 Find a way to rearrange the letters in the pangram "The quick brown fox jumps over the lazy dog" to
@@ -5370,7 +5530,8 @@ def sol():
 
 </details>
 
-### Study_10 ([study](#study) 10/30)
+### Study_10
+([study](#study) 10/30)
 
 **Description:**
 Find a palindrome of length greater than 11 in the decimal representation of 8^1818.
@@ -5396,7 +5557,8 @@ def sol():
 
 </details>
 
-### Study_11 ([study](#study) 11/30)
+### Study_11
+([study](#study) 11/30)
 
 **Description:**
 Find a list of strings whose length (viewed as a string) is equal to the lexicographically largest element
@@ -5418,7 +5580,8 @@ def sol():
 
 </details>
 
-### Study_12 ([study](#study) 12/30)
+### Study_12
+([study](#study) 12/30)
 
 **Description:**
 Find a list of 1,000 integers where every two adjacent integers sum to 9, and where the first
@@ -5440,7 +5603,8 @@ def sol():
 
 </details>
 
-### Study_13 ([study](#study) 13/30)
+### Study_13
+([study](#study) 13/30)
 
 **Description:**
 Find a real number which, when you subtract 3.1415, has a decimal representation starting with 123.456.
@@ -5461,7 +5625,8 @@ def sol():
 
 </details>
 
-### Study_14 ([study](#study) 14/30)
+### Study_14
+([study](#study) 14/30)
 
 **Description:**
 Find a list of integers such that the sum of the first i integers is i, for i=0, 1, 2, ..., 19.
@@ -5482,7 +5647,8 @@ def sol():
 
 </details>
 
-### Study_15 ([study](#study) 15/30)
+### Study_15
+([study](#study) 15/30)
 
 **Description:**
 Find a list of integers such that the sum of the first i integers is 2^i -1, for i = 0, 1, 2, ..., 19.
@@ -5503,7 +5669,8 @@ def sol():
 
 </details>
 
-### Study_16 ([study](#study) 16/30)
+### Study_16
+([study](#study) 16/30)
 
 **Description:**
 Find a real number such that when you add the length of its decimal representation to it, you get 4.5.
@@ -5525,7 +5692,8 @@ def sol():
 
 </details>
 
-### Study_17 ([study](#study) 17/30)
+### Study_17
+([study](#study) 17/30)
 
 **Description:**
 Find a number whose decimal representation is *a longer string* when you add 1,000 to it than when you add 1,001.
@@ -5546,7 +5714,8 @@ def sol():
 
 </details>
 
-### Study_18 ([study](#study) 18/30)
+### Study_18
+([study](#study) 18/30)
 
 **Description:**
 Find a list of strings that when you combine them in all pairwise combinations gives the six strings:
@@ -5575,7 +5744,8 @@ def sol():
 
 </details>
 
-### Study_19 ([study](#study) 19/30)
+### Study_19
+([study](#study) 19/30)
 
 **Description:**
 Find a set of integers whose pairwise sums make the set {0, 1, 2, 3, 4, 5, 6, 17, 18, 19, 20, 34}.
@@ -5597,7 +5767,8 @@ def sol():
 
 </details>
 
-### Study_20 ([study](#study) 20/30)
+### Study_20
+([study](#study) 20/30)
 
 **Description:**
 Find a list of integers, starting with 0 and ending with 128, such that each integer either differs from
@@ -5619,7 +5790,8 @@ def sol():
 
 </details>
 
-### Study_21 ([study](#study) 21/30)
+### Study_21
+([study](#study) 21/30)
 
 **Description:**
 Find a list integers containing exactly three distinct values, such that no integer repeats
@@ -5641,7 +5813,8 @@ def sol():
 
 </details>
 
-### Study_22 ([study](#study) 22/30)
+### Study_22
+([study](#study) 22/30)
 
 **Description:**
 Find a string s containing exactly five distinct characters which also contains as a substring every other
@@ -5663,7 +5836,8 @@ def sol():
 
 </details>
 
-### Study_23 ([study](#study) 23/30)
+### Study_23
+([study](#study) 23/30)
 
 **Description:**
 Find a list of characters which are aligned at the same indices of the three strings 'dee', 'doo', and 'dah!'.
@@ -5684,7 +5858,8 @@ def sol():
 
 </details>
 
-### Study_24 ([study](#study) 24/30)
+### Study_24
+([study](#study) 24/30)
 
 **Description:**
 Find a list of integers with exactly three occurrences of seventeen and at least two occurrences of three.
@@ -5705,7 +5880,8 @@ def sol():
 
 </details>
 
-### Study_25 ([study](#study) 25/30)
+### Study_25
+([study](#study) 25/30)
 
 **Description:**
 Find a permutation of the string 'Permute me true' which is a palindrome.
@@ -5726,7 +5902,8 @@ def sol():
 
 </details>
 
-### Study_26 ([study](#study) 26/30)
+### Study_26
+([study](#study) 26/30)
 
 **Description:**
 Divide the decimal representation of 8^88 up into strings of length eight.
@@ -5747,7 +5924,8 @@ def sol():
 
 </details>
 
-### Study_27 ([study](#study) 27/30)
+### Study_27
+([study](#study) 27/30)
 
 **Description:**
 Consider a digraph where each node has exactly one outgoing edge. For each edge (u, v), call u the parent and
@@ -5770,7 +5948,8 @@ def sol():
 
 </details>
 
-### Study_28 ([study](#study) 28/30)
+### Study_28
+([study](#study) 28/30)
 
 **Description:**
 Find a set of one hundred integers between 0 and 999 which all differ by at least ten from one another.
@@ -5791,7 +5970,8 @@ def sol():
 
 </details>
 
-### Study_29 ([study](#study) 29/30)
+### Study_29
+([study](#study) 29/30)
 
 **Description:**
 Find a set of more than 995 integers between 0 and 999, inclusive, such that each pair of integers have
@@ -5813,7 +5993,8 @@ def sol():
 
 </details>
 
-### Study_30 ([study](#study) 30/30)
+### Study_30
+([study](#study) 30/30)
 
 **Description:**
 Define f(n) to be the residue of 123 times n mod 1000. Find a list of integers such that the first twenty one
@@ -5849,7 +6030,8 @@ For instance, for the len function you can ask for a string of len(s)==100 etc.
 
 [^ Top](#files)
 
-### HelloWorld ([trivial_inverse](#trivial_inverse) 1/34)
+### HelloWorld
+([trivial_inverse](#trivial_inverse) 1/34)
 
 **Description:**
 Trivial example, no solutions provided
@@ -5861,7 +6043,8 @@ def sat(s: str):
     assert type(s) is str, 's must be of type str'
     return s + 'world' == 'Hello world'
 ```
-### BackWorlds ([trivial_inverse](#trivial_inverse) 2/34)
+### BackWorlds
+([trivial_inverse](#trivial_inverse) 2/34)
 
 **Description:**
 Two solutions, no inputs
@@ -5887,7 +6070,8 @@ def sol():  # solution methods must begin with 'sol'
 
 </details>
 
-### StrAdd ([trivial_inverse](#trivial_inverse) 3/34)
+### StrAdd
+([trivial_inverse](#trivial_inverse) 3/34)
 
 **Description:**
 Solve simple string addition problem.
@@ -5908,7 +6092,8 @@ def sol(a="world", b="Hello world"):
 
 </details>
 
-### StrSetLen ([trivial_inverse](#trivial_inverse) 4/34)
+### StrSetLen
+([trivial_inverse](#trivial_inverse) 4/34)
 
 **Description:**
 Find a string with `dups` duplicate chars
@@ -5929,7 +6114,8 @@ def sol(dups=2021):
 
 </details>
 
-### StrMul ([trivial_inverse](#trivial_inverse) 5/34)
+### StrMul
+([trivial_inverse](#trivial_inverse) 5/34)
 
 **Description:**
 Find a string which when repeated `n` times gives `target`
@@ -5952,7 +6138,8 @@ def sol(target="foofoofoofoo", n=2):
 
 </details>
 
-### StrMul2 ([trivial_inverse](#trivial_inverse) 6/34)
+### StrMul2
+([trivial_inverse](#trivial_inverse) 6/34)
 
 **Description:**
 Find `n` such that `s` repeated `n` times gives `target`
@@ -5975,7 +6162,8 @@ def sol(target="foofoofoofoo", s="foofoo"):
 
 </details>
 
-### StrLen ([trivial_inverse](#trivial_inverse) 7/34)
+### StrLen
+([trivial_inverse](#trivial_inverse) 7/34)
 
 **Description:**
 Find a string of length `n`
@@ -5996,7 +6184,8 @@ def sol(n=1000):
 
 </details>
 
-### StrAt ([trivial_inverse](#trivial_inverse) 8/34)
+### StrAt
+([trivial_inverse](#trivial_inverse) 8/34)
 
 **Description:**
 Find the index of `target` in string `s`
@@ -6017,7 +6206,8 @@ def sol(s="cat", target="a"):
 
 </details>
 
-### StrNegAt ([trivial_inverse](#trivial_inverse) 9/34)
+### StrNegAt
+([trivial_inverse](#trivial_inverse) 9/34)
 
 **Description:**
 Find the index of `target` in `s` using a negative index.
@@ -6038,7 +6228,8 @@ def sol(s="cat", target="a"):
 
 </details>
 
-### StrSlice ([trivial_inverse](#trivial_inverse) 10/34)
+### StrSlice
+([trivial_inverse](#trivial_inverse) 10/34)
 
 **Description:**
 Find the three slice indices that give the specific `target` in string `s`
@@ -6066,7 +6257,8 @@ def sol(s="hello world", target="do"):
 
 </details>
 
-### StrIndex ([trivial_inverse](#trivial_inverse) 11/34)
+### StrIndex
+([trivial_inverse](#trivial_inverse) 11/34)
 
 **Description:**
 Find a string whose *first* index in `big_str` is `index`
@@ -6087,7 +6279,8 @@ def sol(big_str="foobar", index=2):
 
 </details>
 
-### StrIndex2 ([trivial_inverse](#trivial_inverse) 12/34)
+### StrIndex2
+([trivial_inverse](#trivial_inverse) 12/34)
 
 **Description:**
 Find a string whose *first* index of `sub_str` is `index`
@@ -6111,7 +6304,8 @@ def sol(sub_str="foobar", index=2):
 
 </details>
 
-### StrIn ([trivial_inverse](#trivial_inverse) 13/34)
+### StrIn
+([trivial_inverse](#trivial_inverse) 13/34)
 
 **Description:**
 Find a string of length `length` that is in both strings `a` and `b`
@@ -6134,7 +6328,8 @@ def sol(a="hello", b="yellow", length=4):
 
 </details>
 
-### StrIn2 ([trivial_inverse](#trivial_inverse) 14/34)
+### StrIn2
+([trivial_inverse](#trivial_inverse) 14/34)
 
 **Description:**
 Find a list of >= `count` distinct strings that are all contained in `s`
@@ -6155,7 +6350,8 @@ def sol(s="hello", count=15):
 
 </details>
 
-### ListSetLen ([trivial_inverse](#trivial_inverse) 15/34)
+### ListSetLen
+([trivial_inverse](#trivial_inverse) 15/34)
 
 **Description:**
 Find a list with a certain number of duplicate items
@@ -6176,7 +6372,8 @@ def sol(dups=42155):
 
 </details>
 
-### ListMul ([trivial_inverse](#trivial_inverse) 16/34)
+### ListMul
+([trivial_inverse](#trivial_inverse) 16/34)
 
 **Description:**
 Find a list that when multiplied n times gives the target list
@@ -6199,7 +6396,8 @@ def sol(target=[17, 9, -1, 17, 9, -1], n=2):
 
 </details>
 
-### ListLen ([trivial_inverse](#trivial_inverse) 17/34)
+### ListLen
+([trivial_inverse](#trivial_inverse) 17/34)
 
 **Description:**
 Find a list of a given length n
@@ -6220,7 +6418,8 @@ def sol(n=85012):
 
 </details>
 
-### ListAt ([trivial_inverse](#trivial_inverse) 18/34)
+### ListAt
+([trivial_inverse](#trivial_inverse) 18/34)
 
 **Description:**
 Find the index of an item in a list. Any such index is fine.
@@ -6241,7 +6440,8 @@ def sol(li=[17, 31, 91, 18, 42, 1, 9], target=18):
 
 </details>
 
-### ListNegAt ([trivial_inverse](#trivial_inverse) 19/34)
+### ListNegAt
+([trivial_inverse](#trivial_inverse) 19/34)
 
 **Description:**
 Find the index of an item in a list using negative indexing.
@@ -6262,7 +6462,8 @@ def sol(li=[17, 31, 91, 18, 42, 1, 9], target=91):
 
 </details>
 
-### ListSlice ([trivial_inverse](#trivial_inverse) 20/34)
+### ListSlice
+([trivial_inverse](#trivial_inverse) 20/34)
 
 **Description:**
 Find three slice indices to achieve a given list slice
@@ -6290,7 +6491,8 @@ def sol(li=[42, 18, 21, 103, -2, 11], target=[-2, 21, 42]):
 
 </details>
 
-### ListIndex ([trivial_inverse](#trivial_inverse) 21/34)
+### ListIndex
+([trivial_inverse](#trivial_inverse) 21/34)
 
 **Description:**
 Find the item whose first index in `li` is `index`
@@ -6311,7 +6513,8 @@ def sol(li=[17, 2, 3, 9, 11, 11], index=4):
 
 </details>
 
-### ListIndex2 ([trivial_inverse](#trivial_inverse) 22/34)
+### ListIndex2
+([trivial_inverse](#trivial_inverse) 22/34)
 
 **Description:**
 Find a list that contains `i` first at index `index`
@@ -6332,7 +6535,8 @@ def sol(i=29, index=10412):
 
 </details>
 
-### ListIn ([trivial_inverse](#trivial_inverse) 23/34)
+### ListIn
+([trivial_inverse](#trivial_inverse) 23/34)
 
 **Description:**
 Find an item that is in both lists `a` and `b`
@@ -6353,7 +6557,8 @@ def sol(a=['cat', 'dot', 'bird'], b=['tree', 'fly', 'dot']):
 
 </details>
 
-### IntNeg ([trivial_inverse](#trivial_inverse) 24/34)
+### IntNeg
+([trivial_inverse](#trivial_inverse) 24/34)
 
 **Description:**
 Solve unary negation problem
@@ -6374,7 +6579,8 @@ def sol(a=93252338):
 
 </details>
 
-### IntSum ([trivial_inverse](#trivial_inverse) 25/34)
+### IntSum
+([trivial_inverse](#trivial_inverse) 25/34)
 
 **Description:**
 Solve sum problem
@@ -6395,7 +6601,8 @@ def sol(a=1073258, b=72352549):
 
 </details>
 
-### IntSub ([trivial_inverse](#trivial_inverse) 26/34)
+### IntSub
+([trivial_inverse](#trivial_inverse) 26/34)
 
 **Description:**
 Solve subtraction problem
@@ -6416,7 +6623,8 @@ def sol(a=-382, b=14546310):
 
 </details>
 
-### IntSub2 ([trivial_inverse](#trivial_inverse) 27/34)
+### IntSub2
+([trivial_inverse](#trivial_inverse) 27/34)
 
 **Description:**
 Solve subtraction problem
@@ -6437,7 +6645,8 @@ def sol(a=8665464, b=-93206):
 
 </details>
 
-### IntMul ([trivial_inverse](#trivial_inverse) 28/34)
+### IntMul
+([trivial_inverse](#trivial_inverse) 28/34)
 
 **Description:**
 Solve multiplication problem
@@ -6458,7 +6667,8 @@ def sol(a=14302, b=5):
 
 </details>
 
-### IntDiv ([trivial_inverse](#trivial_inverse) 29/34)
+### IntDiv
+([trivial_inverse](#trivial_inverse) 29/34)
 
 **Description:**
 Solve division problem
@@ -6483,7 +6693,8 @@ def sol(a=3, b=23463462):
 
 </details>
 
-### IntDiv2 ([trivial_inverse](#trivial_inverse) 30/34)
+### IntDiv2
+([trivial_inverse](#trivial_inverse) 30/34)
 
 **Description:**
 Find `n` that when divided by `b` is `a`
@@ -6504,7 +6715,8 @@ def sol(a=345346363, b=10):
 
 </details>
 
-### IntSquareRoot ([trivial_inverse](#trivial_inverse) 31/34)
+### IntSquareRoot
+([trivial_inverse](#trivial_inverse) 31/34)
 
 **Description:**
 Compute square root of number.
@@ -6526,7 +6738,8 @@ def sol(a=10201202001):
 
 </details>
 
-### IntNegSquareRoot ([trivial_inverse](#trivial_inverse) 32/34)
+### IntNegSquareRoot
+([trivial_inverse](#trivial_inverse) 32/34)
 
 **Description:**
 Compute negative square root of number.
@@ -6548,7 +6761,8 @@ def sol(a=10000200001):
 
 </details>
 
-### FloatSquareRoot ([trivial_inverse](#trivial_inverse) 33/34)
+### FloatSquareRoot
+([trivial_inverse](#trivial_inverse) 33/34)
 
 **Description:**
 Compute square root of number.
@@ -6571,7 +6785,8 @@ def sol(a=1020):
 
 </details>
 
-### FloatNegSquareRoot ([trivial_inverse](#trivial_inverse) 34/34)
+### FloatNegSquareRoot
+([trivial_inverse](#trivial_inverse) 34/34)
 
 **Description:**
 Compute (negative) square root of number.
@@ -6603,7 +6818,8 @@ A few example puzzles that were presented with solutions to participants of the 
 
 [^ Top](#files)
 
-### Tutorial1 ([tutorial](#tutorial) 1/5)
+### Tutorial1
+([tutorial](#tutorial) 1/5)
 
 **Description:**
 Find a string that when concatenated onto 'Hello ' gives 'Hello world'.
@@ -6624,7 +6840,8 @@ def sol():
 
 </details>
 
-### Tutorial2 ([tutorial](#tutorial) 2/5)
+### Tutorial2
+([tutorial](#tutorial) 2/5)
 
 **Description:**
 Find a string that when reversed and concatenated onto 'Hello ' gives 'Hello world'.
@@ -6645,7 +6862,8 @@ def sol():
 
 </details>
 
-### Tutorial3 ([tutorial](#tutorial) 3/5)
+### Tutorial3
+([tutorial](#tutorial) 3/5)
 
 **Description:**
 Find a list of two integers whose sum is 3.
@@ -6666,7 +6884,8 @@ def sol():
 
 </details>
 
-### Tutorial4 ([tutorial](#tutorial) 4/5)
+### Tutorial4
+([tutorial](#tutorial) 4/5)
 
 **Description:**
 Find a list of 1000 distinct strings which each have more 'a's than 'b's and at least one 'b'.
@@ -6687,7 +6906,8 @@ def sol():
 
 </details>
 
-### Tutorial5 ([tutorial](#tutorial) 5/5)
+### Tutorial5
+([tutorial](#tutorial) 5/5)
 
 **Description:**
 Find an integer whose perfect square begins with 123456789 in its decimal representation.

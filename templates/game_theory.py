@@ -71,7 +71,9 @@ class Nash(Problem):
 class ZeroSum(Problem):
     """Compute minimax optimal strategies for a given
      [zero-sum game](https://en.wikipedia.org/wiki/Zero-sum_game). This problem is known to be equivalent to
-     Linear Programming."""
+     Linear Programming. Note that the provided instances are all quite easy---harder solutions could readily
+     be made by decreasing the accuracy tolerance `eps` at which point the solution we provided would fail and
+     more efficient algorithms would be needed."""
 
     @staticmethod
     def sat(strategies: List[List[float]],
