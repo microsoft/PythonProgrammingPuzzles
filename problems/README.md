@@ -1694,11 +1694,10 @@ def sol(capacities=[8, 5, 3], init=[8, 0, 0], goal=[4, 4, 0]):
 ([classic_puzzles](#classic_puzzles) 21/22)
 
 **Description:**
-Find a substitution of digits for characters to make the numbers add up, like this:
+Find a substitution of digits for characters to make the numbers add up in a sum like this:
 SEND + MORE = MONEY
-9567 + 1085 = 10652
 
-The first digit in any cannot be 0.
+The first digit in any number cannot be 0.
 See [Wikipedia article](https://en.wikipedia.org/wiki/Verbal_arithmetic)
 
 **Problem:**
@@ -1787,9 +1786,22 @@ def sol(words=['SEND', 'MORE', 'MONEY']):
 **Description:**
 [Sliding puzzle](https://en.wikipedia.org/wiki/15_puzzle)
 
-Classic example of A* search. NP-hard but the puzzles can all be solved with A* and an efficient representation
+The 3-, 8-, and 15-sliding puzzles are classic examples of A* search. In this puzzle, you are given a board like:
+1 2 5
+3 4 0
+6 7 8
 
-3-, 8-, and 15-sliding puzzles
+and your goal is to transform it to:
+0 1 2
+3 4 5
+6 7 8
+
+by a sequence of swaps with the 0 square (0 indicates blank). The starting configuration is given by a 2d list of
+lists and the answer is represented by a list of integers indicating which number you swap with 0. In the above
+example, the answer would be `[1, 2, 5]`
+
+
+ The problem is NP-hard but the puzzles can all be solved with A* and an efficient representation.
 
 **Problem:**
 
@@ -1948,21 +1960,16 @@ def sol(word="antidisestablishmentarianism", max_len=10):
 ([codeforces](#codeforces) 3/24)
 
 **Description:**
-Find a minimal list of corner locations for a×a tiles that covers [0, m] × [0, n]
-and does not double-cover squares.
+Find a minimal list of corner locations for a×a tiles that covers [0, m] × [0, n] and does not double-cover
+squares.
 
 Sample Input:
-
 m = 10
-
 n = 9
-
 a = 5
-
 target = 4
 
 Sample Output:
-
 [[0, 0], [0, 5], [5, 0], [5, 5]]
 
 Inspired by [Codeforces Problem 1 A](https://codeforces.com/problemset/problem/1/A)
@@ -1989,8 +1996,8 @@ def sol(m=10, n=9, a=5, target=4):
 ([codeforces](#codeforces) 4/24)
 
 **Description:**
-Given a list of lists of triples of integers, return True for each list with a total of at least 2 and False
-for each other list.
+Given a list of lists of triples of integers, return True for each list with a total of at least 2 and False for
+each other list.
 
 Inspired by [Codeforces Problem 231 A](https://codeforces.com/problemset/problem/231/A)
 
@@ -2042,8 +2049,8 @@ def sol(scores=[100, 95, 80, 70, 65, 9, 9, 9, 4, 2, 1], k=6):
 ([codeforces](#codeforces) 6/24)
 
 **Description:**
-Tile an m x n checkerboard with 2 x 1 tiles. The solution is a list of fourtuples [i1, j1, i2, j2]
-with i2 == i1 and j2 == j1 + 1 or i2 == i1 + 1 and j2 == j1 with no overlap.
+Tile an m x n checkerboard with 2 x 1 tiles. The solution is a list of fourtuples [i1, j1, i2, j2] with i2 == i1
+and j2 == j1 + 1 or i2 == i1 + 1 and j2 == j1 with no overlap.
 
 Inspired by [Codeforces Problem 50 A](https://codeforces.com/problemset/problem/50/A)
 
@@ -2079,17 +2086,14 @@ def sol(m=10, n=5, target=50):
 
 **Description:**
 This straightforward problem is a little harder than the Codeforces one.
-Given a sequence of operations "++x",
-"x++", "--x", "x--", and a target value, find initial value so that the final value is the target value.
+Given a sequence of operations "++x", "x++", "--x", "x--", and a target value, find initial value so that the
+final value is the target value.
 
 Sample Input:
-
 ops = ["x++", "--x", "--x"]
-
 target = 12
 
 Sample Output:
-
 13
 
 Inspired by [Codeforces Problem 282 A](https://codeforces.com/problemset/problem/282/A)
@@ -2157,13 +2161,9 @@ def sol(s="aaAab", t="aAaaB"):
 We are given a 5x5 bimatrix with a single 1 like:
 
 0 0 0 0 0
-
 0 0 0 0 1
-
 0 0 0 0 0
-
 0 0 0 0 0
-
 0 0 0 0 0
 
 Find a (minimal) sequence of row and column swaps to move the 1 to the center. A move is a string
@@ -2270,8 +2270,8 @@ def sol(word="konjac"):
 ([codeforces](#codeforces) 12/24)
 
 **Description:**
-You are given a string consisting of a's, b's and c's, find any longest substring containing no
-repeated consecutive characters.
+You are given a string consisting of a's, b's and c's, find any longest substring containing no repeated
+consecutive characters.
 
 Sample Input:
 `"abbbc"`
@@ -2310,13 +2310,10 @@ You are given a string consisting of 0's and 1's. Find an index after which the 
 all 0's or all 1's.
 
 Sample Input:
-
 s = 0000111111100000, k = 5
 
 Sample Output:
-
 4
-
 (or 5 or 6 or 11)
 
 Inspired by [Codeforces Problem 96 A](https://codeforces.com/problemset/problem/96/A)
@@ -2390,13 +2387,10 @@ def sol(n=7):
 Shortest Combination Lock Path
 
 Given a starting a final lock position, find the (minimal) intermediate states, where each transition
-involves increasing or decreasing a single digit (mod 10)
-e.g.
+involves increasing or decreasing a single digit (mod 10), e.g.
 
 start = "012"
-
 combo = "329"
-
 output: ['112', '212', '312', '322', '321', '320']
 
 Inspired by [Codeforces Problem 540 A](https://codeforces.com/problemset/problem/540/A)
@@ -4926,8 +4920,6 @@ The problem is *unsolved* in the sense that no known polynomial-time algorithm h
 
 We include McCurley's discrete log challenge from
 [Weber D., Denny T. (1998) "The solution of McCurley's discrete log challenge."](https://link.springer.com/content/pdf/10.1007/BFb0055747.pdf)
-whose answer is
-`n = 325923617918270562238615985978623709128341338833721058543950813521768156295091638348030637920237175638117352442299234041658748471079911977497864301995972638266781162575370644813703762423329783129621567127479417280687495231463348812`
 
 **Problem:**
 

@@ -1,4 +1,4 @@
-# Python Programming Puzzles
+# Python Programming Puzzles (P3)
 
 This repo contains a dataset of python programming puzzles which can be used to teach and evaluate
 an AI's programming proficiency. We hope this dataset with **grow rapidly**, and it is already diverse in 
@@ -45,6 +45,10 @@ def sat(moves: List[List[int]]):
     return all(t[j].append(t[i].pop()) or t[j][-1] == min(t[j]) for i, j in moves) and t[0] == t[1]
 
 ```
+
+For more information on the motivation and how programming puzzles can help AI learn to program, see 
+the paper:  
+*Programming Puzzles*, by Tal Schuster, Ashwin Kalyan, Alex Polozov, and Adam Tauman Kalai. 2021 (Link to be added shortly)  
 
 # [Click here to browse the puzzles](/problems/README.md)
 

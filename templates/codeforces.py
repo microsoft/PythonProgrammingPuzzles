@@ -58,21 +58,16 @@ class Abbreviate(Problem):
 
 @register
 class SquareTiles(Problem):
-    """Find a minimal list of corner locations for a×a tiles that covers [0, m] × [0, n]
-    and does not double-cover squares.
+    """Find a minimal list of corner locations for a×a tiles that covers [0, m] × [0, n] and does not double-cover
+    squares.
 
     Sample Input:
-
     m = 10
-
     n = 9
-
     a = 5
-
     target = 4
 
     Sample Output:
-
     [[0, 0], [0, 5], [5, 0], [5, 5]]
 
     Inspired by [Codeforces Problem 1 A](https://codeforces.com/problemset/problem/1/A)
@@ -99,8 +94,8 @@ class SquareTiles(Problem):
 @register
 class EasyTwos(Problem):
     """
-    Given a list of lists of triples of integers, return True for each list with a total of at least 2 and False
-    for each other list.
+    Given a list of lists of triples of integers, return True for each list with a total of at least 2 and False for
+    each other list.
 
     Inspired by [Codeforces Problem 231 A](https://codeforces.com/problemset/problem/231/A)"""
 
@@ -181,8 +176,8 @@ class VowelDrop(Problem):
 
 @register
 class DominoTile(Problem):
-    """Tile an m x n checkerboard with 2 x 1 tiles. The solution is a list of fourtuples [i1, j1, i2, j2]
-    with i2 == i1 and j2 == j1 + 1 or i2 == i1 + 1 and j2 == j1 with no overlap.
+    """Tile an m x n checkerboard with 2 x 1 tiles. The solution is a list of fourtuples [i1, j1, i2, j2] with i2 == i1
+    and j2 == j1 + 1 or i2 == i1 + 1 and j2 == j1 with no overlap.
 
     Inspired by [Codeforces Problem 50 A](https://codeforces.com/problemset/problem/50/A)
     """
@@ -215,17 +210,14 @@ class DominoTile(Problem):
 @register
 class IncDec(Problem):
     """This straightforward problem is a little harder than the Codeforces one.
-    Given a sequence of operations "++x",
-    "x++", "--x", "x--", and a target value, find initial value so that the final value is the target value.
+    Given a sequence of operations "++x", "x++", "--x", "x--", and a target value, find initial value so that the
+    final value is the target value.
 
     Sample Input:
-
     ops = ["x++", "--x", "--x"]
-
     target = 12
 
     Sample Output:
-
     13
 
     Inspired by [Codeforces Problem 282 A](https://codeforces.com/problemset/problem/282/A)
@@ -295,13 +287,9 @@ class SlidingOne(Problem):
     """We are given a 5x5 bimatrix with a single 1 like:
 
     0 0 0 0 0
-
     0 0 0 0 1
-
     0 0 0 0 0
-
     0 0 0 0 0
-
     0 0 0 0 0
 
     Find a (minimal) sequence of row and column swaps to move the 1 to the center. A move is a string
@@ -404,8 +392,8 @@ class CapitalizeFirstLetter(Problem):
 
 @register
 class LongestSubsetString(Problem):
-    """You are given a string consisting of a's, b's and c's, find any longest substring containing no
-    repeated consecutive characters.
+    """You are given a string consisting of a's, b's and c's, find any longest substring containing no repeated
+    consecutive characters.
 
     Sample Input:
     `"abbbc"`
@@ -442,13 +430,10 @@ class FindHomogeneousSubstring(Problem):
     all 0's or all 1's.
 
     Sample Input:
-
     s = 0000111111100000, k = 5
 
     Sample Output:
-
     4
-
     (or 5 or 6 or 11)
 
     Inspired by [Codeforces Problem 96 A](https://codeforces.com/problemset/problem/96/A)
@@ -516,13 +501,10 @@ class CombinationLock(Problem):
     """Shortest Combination Lock Path
 
     Given a starting a final lock position, find the (minimal) intermediate states, where each transition
-    involves increasing or decreasing a single digit (mod 10)
-    e.g.
+    involves increasing or decreasing a single digit (mod 10), e.g.
 
     start = "012"
-
     combo = "329"
-
     output: ['112', '212', '312', '322', '321', '320']
 
     Inspired by [Codeforces Problem 540 A](https://codeforces.com/problemset/problem/540/A)

@@ -332,7 +332,7 @@ class Factoring(Problem):
 
 
 @register
-class DiscreteLog(Problem):
+class DiscreteLog(Problem):  # updated because the answer was given away in the docstring! OMG
     """Discrete Log
 
     The discrete logarithm problem is (given `g`, `t`, and `p`) to find n such that:
@@ -348,8 +348,6 @@ class DiscreteLog(Problem):
 
     We include McCurley's discrete log challenge from
     [Weber D., Denny T. (1998) "The solution of McCurley's discrete log challenge."](https://link.springer.com/content/pdf/10.1007/BFb0055747.pdf)
-    whose answer is
-    `n = 325923617918270562238615985978623709128341338833721058543950813521768156295091638348030637920237175638117352442299234041658748471079911977497864301995972638266781162575370644813703762423329783129621567127479417280687495231463348812`
     """
 
     @staticmethod

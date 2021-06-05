@@ -1022,12 +1022,11 @@ class WaterPouring(Problem):
 
 
 @register
-class VerbalArithmetic(Problem):
-    """Find a substitution of digits for characters to make the numbers add up, like this:
+class VerbalArithmetic(Problem): # updated because the answer was given away in the docstring! OMG
+    """Find a substitution of digits for characters to make the numbers add up in a sum like this:
     SEND + MORE = MONEY
-    9567 + 1085 = 10652
 
-    The first digit in any cannot be 0.
+    The first digit in any number cannot be 0.
     See [Wikipedia article](https://en.wikipedia.org/wiki/Verbal_arithmetic)
     """
 
@@ -1125,9 +1124,22 @@ class VerbalArithmetic(Problem):
 class SlidingPuzzle(Problem):
     """[Sliding puzzle](https://en.wikipedia.org/wiki/15_puzzle)
 
-    Classic example of A* search. NP-hard but the puzzles can all be solved with A* and an efficient representation
+    The 3-, 8-, and 15-sliding puzzles are classic examples of A* search. In this puzzle, you are given a board like:
+    1 2 5
+    3 4 0
+    6 7 8
 
-    3-, 8-, and 15-sliding puzzles
+    and your goal is to transform it to:
+    0 1 2
+    3 4 5
+    6 7 8
+
+    by a sequence of swaps with the 0 square (0 indicates blank). The starting configuration is given by a 2d list of
+    lists and the answer is represented by a list of integers indicating which number you swap with 0. In the above
+    example, the answer would be `[1, 2, 5]`
+
+
+     The problem is NP-hard but the puzzles can all be solved with A* and an efficient representation.
     """
 
     @staticmethod
@@ -1230,6 +1242,5 @@ class SlidingPuzzle(Problem):
 
 
 if __name__ == "__main__":
-    # SlidingPuzzle.sol(**SlidingPuzzle.get_example())
     for problem in get_problems(globals()):
         problem.test()
