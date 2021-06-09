@@ -3,7 +3,7 @@
 This repo contains a dataset of python programming puzzles which can be used to teach and evaluate
 an AI's programming proficiency. We hope this dataset with **grow rapidly**, and it is already diverse in 
 terms of problem difficult, domain, 
-and algorithmic tools needed to solve the problems. Please [contribute](#contributing)! 
+and algorithmic tools needed to solve the problems. Please [contribute](../../wiki/How-to-add-a-puzzle)! 
  
 
 ## What is a python programming puzzle?
@@ -99,9 +99,7 @@ and [math problems](https://en.wikipedia.org/wiki/List_of_unsolved_problems_in_m
 ## Contributing
 
 This project welcomes contributions and suggestions. Use your creativity to help teach 
-AI's to program! To allow for solutions
-in multiple languages, the answer to a puzzle has to be a single input that is a basic type 
-such as `str`, `int`, `float`, `bool`, or a `List` or `Set` (or list of lists, etc.) of them.  
+AI's to program! See our [wiki on how to add a puzzle](../../wiki/How-to-add-a-puzzle).
 
 Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
