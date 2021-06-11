@@ -2,7 +2,7 @@ from __future__ import print_function
 import ipywidgets as widgets
 from IPython.display import clear_output, display, Markdown, Javascript
 import IPython
-from study import study_puzzles
+from demo import study_puzzles
 
 from typing import List, Set, Tuple, Callable
 import inspect
@@ -18,11 +18,13 @@ import subprocess
 from tempfile import TemporaryDirectory
 
 
-IPYNP_FILE = 'Study.ipynb'
+IPYNP_FILE = 'Demo.ipynb'
 LOCAL = True
 
-temp_dir = TemporaryDirectory() # local version. Will create a new dir each time so it's not stateful...
-out_dir = temp_dir.name
+#temp_dir = TemporaryDirectory() # local version. Will create a new dir each time so it's not stateful...
+#out_dir = temp_dir.name
+out_dir = "state"
+os.makedirs(out_dir, exist_ok=True)
 log_path = os.path.join(out_dir, 'run.log')
 
 logger = logging.getLogger(__name__)
@@ -72,7 +74,7 @@ def update_progress_bar():
 
 
 # globals
-STATE_FILENAME = os.path.join(out_dir, "study_results.pkl")
+STATE_FILENAME = os.path.join(out_dir, "state.pkl")
 
 state = None  # set by load_state function
 __puzzle__ = None  # set by next_puzzle function
@@ -190,6 +192,7 @@ def cur_puzzle(reload_state=True):
         load_state()
     if state.cur is None:
         print(f"All parts complete!")
+        print_solving_times()
         return
 
     if state.cur.start_time is None or state.cur.solve_time is not None or state.cur.give_up_time is not None:
@@ -235,6 +238,27 @@ def reset_widgets():  # close existing widgets
         logger.error("reset_widgets exception")
 
 
+def print_solving_times():
+    print("=" * 10)
+    print('Check our "Programming Puzzles" paper (section 5.1) to see how difficult GPT-3 and others found each puzzle to be: https://arxiv.org/abs/2106.05784')
+    print("=" * 10)
+    print("Your solving times:")
+    for i, puz in enumerate(state.puzzles):
+        if i < 3:
+            # Warmup.
+            continue
+
+        if state.cur is not None and state.cur.num < puz.num:
+            return
+
+        if puz.solve_time:
+            elapsed = puz.solve_time - puz.start_time
+            time_str = time.strftime("%M:%S", time.gmtime(elapsed))
+            print(f"Puzzle {puz.num - 2}: {time_str} seconds")
+        else:
+            print(f"Puzzle {puz.num - 2}: Unsolved")
+
+
 def check_finished_part():
     if state.cur is None:
         cur_puzzle(reload_state=False)
@@ -246,6 +270,11 @@ def check_finished_part():
     else:
         if state.cur.part != state.puzzles[state.cur.num + 1].part:
             print(f"Finished {state.cur.part}!!!")
+            print("Continue to the next part when you are ready.")
+            if state.cur.part != "WARM UP":  # Warmup
+                print_solving_times()
+            else:
+                print("You will get a summary of your solving times after each part.")
             state.cur = state.puzzles[state.cur.num + 1]
             save_state()
             return True
