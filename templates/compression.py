@@ -1,7 +1,11 @@
 """Invert a given de/compression algorithm."""
 
-from problems import Problem, register, get_problems
+from problems import Problem
 from typing import List
+
+
+# Hint: subclass Problem.Debug for quick testing. Run make_dataset.py to make the dataset
+# See https://github.com/microsoft/PythonProgrammingPuzzles/wiki/How-to-add-a-puzzle for more info
 
 
 def _compress_LZW(text):  # for development
@@ -32,7 +36,6 @@ def _decompress_LZW(seq: List[int]):  # for development
     return "".join(pieces)
 
 
-@register
 class LZW(Problem):
     """Find a (short) compression that decompresses to the given string.
     We have provided a simple version of the *decompression* algorithm of
@@ -69,7 +72,7 @@ class LZW(Problem):
 
         return seq
 
-    def gen(self, _target_num_problems):
+    def gen(self, _target_num_instances):
         self.add({"text": "", "compressed_len": 0})
         self.add({"text": "c" * 1000, "compressed_len": len(_compress_LZW("c" * 1000))})
 
@@ -79,7 +82,6 @@ class LZW(Problem):
         self.add({"text": text, "compressed_len": len(_compress_LZW(text))})
 
 
-@register
 class LZW_decompress(Problem):
     """Find a string that compresses to the target sequence for the provided simple version of
     [Lempel-Ziv-Welch](https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Welch)
@@ -113,7 +115,7 @@ class LZW_decompress(Problem):
             index.append(pieces[-2] + pieces[-1][0])
         return "".join(pieces)
 
-    def gen(self, _target_num_problems):
+    def gen(self, _target_num_instances):
         for s in ['', 'a', 'b' * 1000, 'ab' * 1000 + '!']:
             self.add({"seq": _compress_LZW(s)})
 
@@ -123,7 +125,6 @@ class LZW_decompress(Problem):
         self.add({"seq": _compress_LZW(text)})
 
 
-@register
 class PackingHam(Problem):
     """Pack a certain number of binary strings so that they have a minimum hamming distance between each other.
 
@@ -158,5 +159,4 @@ class PackingHam(Problem):
 
 
 if __name__ == "__main__":
-    for problem in get_problems(globals()):
-        problem.test()
+    Problem.debug_problems()

@@ -2,11 +2,14 @@
 Problems inspired by the [International Collegiate Programming Contest](https://icpc.global) (ICPC).
 """
 
-from problems import Problem, register, get_problems
+from problems import Problem
 from typing import List
 
 
-@register
+# Hint: subclass Problem.Debug for quick testing. Run make_dataset.py to make the dataset
+# See https://github.com/microsoft/PythonProgrammingPuzzles/wiki/How-to-add-a-puzzle for more info
+
+
 class BiPermutations(Problem):
     """There are two rows of objects. Given the length-n integer arrays of prices and heights of objects in each
     row, find a permutation of both rows so that the permuted prices are non-decreasing in each row and
@@ -71,7 +74,6 @@ class BiPermutations(Problem):
         self.add(dict(prices0=prices0, heights0=heights0, prices1=prices1, heights1=heights1))
 
 
-@register
 class OptimalBridges(Problem):
     """
     You are to choose locations for bridge bases from among a given set of mountain peaks located at
@@ -181,7 +183,6 @@ class OptimalBridges(Problem):
         self.add(dict(H=H, alpha=alpha, beta=beta, xs=xs, ys=ys, thresh=thresh))
 
 
-@register
 class CheckersPosition(Problem):
     """You are given a partial transcript a checkers game. Find an initial position such that the transcript
     would be a legal set of moves. The board positions are [x, y] pairs with 0 <= x, y < 8 and x + y even.
@@ -201,7 +202,7 @@ class CheckersPosition(Problem):
     """
 
     @staticmethod
-    def sat(position: List[List[int]], transcript=[[[3, 3], [5, 5], [3, 7]], [[5, 3], [6,4]]]):
+    def sat(position: List[List[int]], transcript=[[[3, 3], [5, 5], [3, 7]], [[5, 3], [6, 4]]]):
         board = {(x, y): 0 for x in range(8) for y in range(8) if (x + y) % 2 == 0}  # empty board, 0 = empty
         for x, y, p in position:
             assert -2 <= p <= 2 and board[x, y] == 0  # -1, 1 is regular piece, -2, 2 is king
@@ -427,5 +428,4 @@ class CheckersPosition(Problem):
 
 
 if __name__ == "__main__":
-    for problem in get_problems(globals()):
-        problem.test()
+    Problem.debug_problems()

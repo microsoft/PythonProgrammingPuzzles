@@ -5,6 +5,7 @@ import time
 import problems
 import utils
 import templates  # This loads all the problem templates
+import inspect
 
 TARGET_NUM_PER_PROBLEM = 1000
 
@@ -27,15 +28,24 @@ parser.add_argument('--templates',
 
 def main(args):
     start_time = time.perf_counter()
-    templates = fnmatch.filter(problems.problem_registry.keys(), args.templates)
-    utils.info(f"Generating from templates: {templates}")
+    if problems.Problem.Debug.subclass_descendents(): # if there are debug problems, don't make the dataset
+        problems.Problem.debug_problems()
+        print("Didn't make dataset because there are `Problem.Debug` problems, remove the `.Debug` to proceed.")
+        return
+
+    all_probs = problems.Problem.subclass_descendents()
+
+    probs_by_template = utils.inv_dict({p: p.__module__.split(".")[-1] for p in all_probs})
+
+    used_templates = fnmatch.filter(probs_by_template, args.templates)
+    utils.info(f"Generating from templates: {used_templates}")
     problem_sets = []
-    for name in templates:  # order determined by import order in templates/__init__.py
-        entry = problems.problem_registry[name]
-        ps = problems.ProblemSet(entry["name"], entry["summary"])
-        for cls in entry["classes"]:
+    for name in used_templates:  # order determined by import order in templates/__init__.py
+        probs = probs_by_template[name]
+        ps = problems.ProblemSet(name, inspect.getmodule(probs[0]).__doc__)
+        for cls in probs:
             problem = cls()
-            problem.build(args.target_num_per_problem)
+            problem.build(args.target_num_per_problem, ps.get_already_tested())
             ps.add(problem)
         ps.save()
         problem_sets.append(ps)

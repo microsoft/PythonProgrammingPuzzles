@@ -2,11 +2,14 @@
 Hard problems from game theory.
 """
 
-from problems import Problem, register, get_problems
+from problems import Problem
 from typing import List
 
 
-@register
+# Hint: subclass Problem.Debug for quick testing. Run make_dataset.py to make the dataset
+# See https://github.com/microsoft/PythonProgrammingPuzzles/wiki/How-to-add-a-puzzle for more info
+
+
 class Nash(Problem):
     """Compute a [Nash equilibrium](https://en.wikipedia.org/wiki/Nash_equilibrium) for a given
      [bimatrix game](https://en.wikipedia.org/wiki/Bimatrix_game). While this problem was known to be
@@ -67,7 +70,6 @@ class Nash(Problem):
         self.add(dict(A=A, B=B, eps=eps), test=solved)
 
 
-@register
 class ZeroSum(Problem):
     """Compute minimax optimal strategies for a given
      [zero-sum game](https://en.wikipedia.org/wiki/Zero-sum_game). This problem is known to be equivalent to
@@ -120,5 +122,4 @@ class ZeroSum(Problem):
 
 
 if __name__ == "__main__":
-    for problem in get_problems(globals()):
-        problem.test()
+    Problem.debug_problems()

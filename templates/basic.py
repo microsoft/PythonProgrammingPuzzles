@@ -1,11 +1,12 @@
 """Problems testing basic knowledge -- easy to solve if you understand what is being asked"""
 
-from problems import Problem, register, get_problems
+from problems import Problem
 from typing import List
 
 
+# Hint: subclass Problem.Debug for quick testing. Run make_dataset.py to make the dataset
+# See https://github.com/microsoft/PythonProgrammingPuzzles/wiki/How-to-add-a-puzzle for more info
 
-@register
 class SumOfDigits(Problem):
     """Find a number that its digits sum to a specific value."""
 
@@ -15,76 +16,72 @@ class SumOfDigits(Problem):
 
     @staticmethod
     def sol(s):
-        return int(s/9) * '9' + str(s%9)
+        return int(s / 9) * '9' + str(s % 9)
 
     def gen_random(self):
-        s = self.random.randint(0, 10**5)
+        s = self.random.randint(0, 10 ** 5)
         self.add(dict(s=s))
 
 
-@register
 class FloatWithDecimalValue(Problem):
     """Create a float with a specific decimal."""
 
     @staticmethod
     def sat(z: float, v=9, d=0.0001):
-        return int(z * 1/d % 10) == v
+        return int(z * 1 / d % 10) == v
 
     @staticmethod
     def sol(v, d):
         return v * d
 
     def gen_random(self):
-        v = self.random.randint(0,9)
-        a = self.random.randint(-10**2, 10**2)
+        v = self.random.randint(0, 9)
+        a = self.random.randint(-10 ** 2, 10 ** 2)
         while a == 0:
-            a = self.random.randint(-10**2, 10**2)
-        d = float(10**a)
-        if not float((v*d)* 1/d % 10) == v:
+            a = self.random.randint(-10 ** 2, 10 ** 2)
+        d = float(10 ** a)
+        if not float((v * d) * 1 / d % 10) == v:
             # Some values won't be solved by the reference solution due to Python floats.
             return
         self.add(dict(v=v, d=d))
 
 
-@register
 class ArithmeticSequence(Problem):
     """Create a list that is a subrange of an arithmetic sequence."""
 
     @staticmethod
     def sat(x: List[int], a=7, s=5, e=200):
-        return x[0] == a and x[-1] <= e and (x[-1] + s > e) and all([x[i] + s == x[i+1] for i in range(len(x)-1)])
+        return x[0] == a and x[-1] <= e and (x[-1] + s > e) and all([x[i] + s == x[i + 1] for i in range(len(x) - 1)])
 
     @staticmethod
     def sol(a, s, e):
-        return list(range(a,e+1,s))
+        return list(range(a, e + 1, s))
 
     def gen_random(self):
-        a = self.random.randint(-10**5, 10**5)
-        e = self.random.randint(a, 10**6)
-        s = self.random.randint(1, 10**4)
+        a = self.random.randint(-10 ** 5, 10 ** 5)
+        e = self.random.randint(a, 10 ** 6)
+        s = self.random.randint(1, 10 ** 4)
         self.add(dict(a=a, e=e, s=s))
 
 
-@register
 class GeometricSequence(Problem):
     """Create a list that is a subrange of an gemoetric sequence."""
 
     @staticmethod
     def sat(x: List[int], a=8, r=2, l=50):
-        return x[0] == a and len(x) == l and all([x[i] * r == x[i+1] for i in range(len(x)-1)])
+        return x[0] == a and len(x) == l and all([x[i] * r == x[i + 1] for i in range(len(x) - 1)])
 
     @staticmethod
     def sol(a, r, l):
-        return [a*r**i for i in range(l)]
+        return [a * r ** i for i in range(l)]
 
     def gen_random(self):
-        a = self.random.randint(-10**3, 10**3)
-        r = self.random.randint(1, 10**1)
-        l = self.random.randint(1, 10**3)
+        a = self.random.randint(-10 ** 3, 10 ** 3)
+        r = self.random.randint(1, 10 ** 1)
+        l = self.random.randint(1, 10 ** 3)
         self.add(dict(a=a, r=r, l=l))
 
 
-@register
 class LineIntersection(Problem):
     """Find the intersection of two lines.
        Solution should be a list of the (x,y) coordinates.
@@ -109,7 +106,6 @@ class LineIntersection(Problem):
         self.add(dict(a=a, b=b, c=c, d=d))
 
 
-@register
 class IfProblem(Problem):
     """Simple if statement"""
 
@@ -133,7 +129,6 @@ class IfProblem(Problem):
         self.add(dict(a=a, b=b))
 
 
-@register
 class IfProblemWithAnd(Problem):
     """Simple if statement with and clause"""
 
@@ -157,7 +152,6 @@ class IfProblemWithAnd(Problem):
         self.add(dict(a=a, b=b))
 
 
-@register
 class IfProblemWithOr(Problem):
     """Simple if statement with or clause"""
 
@@ -181,7 +175,6 @@ class IfProblemWithOr(Problem):
         self.add(dict(a=a, b=b))
 
 
-@register
 class IfCases(Problem):
     """Simple if statement with multiple cases"""
 
@@ -210,7 +203,6 @@ class IfCases(Problem):
         self.add(dict(a=a, b=b))
 
 
-@register
 class ListPosSum(Problem):
     """Construct a list of non-negative integers that sum up to some value"""
 
@@ -230,7 +222,6 @@ class ListPosSum(Problem):
         self.add(dict(n=n, s=s))
 
 
-@register
 class ListDistinctSum(Problem):
     """Construct a list of distinct integers that sum up to some value"""
 
@@ -260,7 +251,6 @@ class ListDistinctSum(Problem):
         self.add(dict(n=n, s=s))
 
 
-@register
 class ConcatStrings(Problem):
     """Concatenate list of characters"""
 
@@ -279,7 +269,6 @@ class ConcatStrings(Problem):
         self.add(dict(n=n, s=s))
 
 
-@register
 class SublistSum(Problem):
     """Sum values of sublist by range specifications"""
 
@@ -310,7 +299,6 @@ class SublistSum(Problem):
         self.add(dict(t=t, a=a, e=e, s=s))
 
 
-@register
 class CumulativeSum(Problem):
     """Number of values with cumulative sum less than target"""
 
@@ -336,8 +324,6 @@ class CumulativeSum(Problem):
         self.add(dict(t=t, n=n))
 
 
-
-@register
 class BasicStrCounts(Problem):
     """
     Find a string that has `count1` occurrences of `s1` and `count1` occurrences of `s1` and starts and ends with
@@ -350,7 +336,7 @@ class BasicStrCounts(Problem):
 
     @staticmethod
     def sol(s1, s2, count1, count2):
-        if s1==s2:
+        if s1 == s2:
             ans = (s1 + "?") * count1
         elif s1.count(s2):
             ans = (s1 + "?") * count1
@@ -358,7 +344,7 @@ class BasicStrCounts(Problem):
         else:
             ans = (s2 + "?") * count2
             ans += (s1 + "?") * (count1 - ans.count(s1))
-        return "?"*10 + ans + "?"*10
+        return "?" * 10 + ans + "?" * 10
 
     def gen_random(self):
         s1 = self.random.pseudo_word(max_len=3)
@@ -369,7 +355,7 @@ class BasicStrCounts(Problem):
         if self.sat(self.sol(**inputs), **inputs):
             self.add(inputs)
 
-@register
+
 class ZipStr(Problem):
     """
     Find a string that contains all the `substrings` alternating, e.g., 'cdaotg' for 'cat' and 'dog'
@@ -389,7 +375,6 @@ class ZipStr(Problem):
         self.add(dict(substrings=substrings))
 
 
-@register
 class ReverseCat(Problem):
     """
     Find a string that contains all the `substrings` reversed and forward
@@ -408,8 +393,6 @@ class ReverseCat(Problem):
         self.add(dict(substrings=substrings))
 
 
-
-@register
 class EngineerNumbers(Problem):
     """
     Find a list of `n` strings starting with `a` and ending with `b`
@@ -421,17 +404,15 @@ class EngineerNumbers(Problem):
 
     @staticmethod
     def sol(n, a, b):
-        return sorted([a] + [a + chr(0) + str(i) for i in range(n-2)] + [b])
+        return sorted([a] + [a + chr(0) + str(i) for i in range(n - 2)] + [b])
 
     def gen_random(self):
         a, b = sorted(self.random.pseudo_word() for _ in range(2))
         n = self.random.randrange(2, 100)
-        if a!=b:
+        if a != b:
             self.add(dict(n=n, a=a, b=b))
 
 
-
-@register
 class PenultimateString(Problem):
     """Find the alphabetically second to last last string in a list."""
 
@@ -449,7 +430,6 @@ class PenultimateString(Problem):
             self.add(dict(strings=strings))
 
 
-@register
 class PenultimateRevString(Problem):
     """Find the reversed version of the alphabetically second string in a list."""
 
@@ -467,7 +447,6 @@ class PenultimateRevString(Problem):
             self.add(dict(strings=strings))
 
 
-@register
 class CenteredString(Problem):
     """Find a substring of length `length` centered within `target`."""
 
@@ -485,7 +464,5 @@ class CenteredString(Problem):
         self.add(dict(target=target, length=length))
 
 
-
 if __name__ == "__main__":
-    for problem in get_problems(globals()):
-        problem.test()
+    Problem.debug_problems()

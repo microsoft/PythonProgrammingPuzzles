@@ -9,7 +9,7 @@ my_path = os.path.dirname(__file__)
 
 def inv_dict(d):
     ans = {}
-    for k, v in ans.items():
+    for k, v in d.items():
         if v not in ans:
             ans[v] = []
         ans[v].append(k)

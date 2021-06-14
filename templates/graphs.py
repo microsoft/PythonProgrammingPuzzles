@@ -1,11 +1,14 @@
 """Problems related to graphs such as Conway's 99 problem, finding
 [cliques](https://en.wikipedia.org/wiki/Clique_(graph_theory)) of various sizes, shortest path (Dijkstra) """
 
-from problems import Problem, register, get_problems
+from problems import Problem
 from typing import List
 
 
-@register
+# Hint: subclass Problem.Debug for quick testing. Run make_dataset.py to make the dataset
+# See https://github.com/microsoft/PythonProgrammingPuzzles/wiki/How-to-add-a-puzzle for more info
+
+
 class Conway99(Problem):
     """Conway's 99-graph problem (*unsolved*, open problem)
 
@@ -31,7 +34,6 @@ def dedup_edges(stuff):
     return [a for a in stuff if tuple(a) not in seen and not seen.add(tuple(a))]
 
 
-@register
 class AnyEdge(Problem):
     "Find any edge in a given [graph](https://en.wikipedia.org/w/index.php?title=Graph_(discrete_mathematics))."
 
@@ -51,7 +53,6 @@ class AnyEdge(Problem):
         self.add({"edges": edges})
 
 
-@register
 class AnyTriangle(Problem):
     """Find a [triangle](https://en.wikipedia.org/w/index.php?title=Triangle_graph) in a given directed graph."""
 
@@ -93,7 +94,6 @@ class AnyTriangle(Problem):
 ########################################################################################################################
 
 
-@register
 class PlantedClique(Problem):
     """Find a [planted clique](https://en.wikipedia.org/w/index.php?title=Planted_clique) of a given size
     in an undirected graph. Finding a polynomial-time algorithm for this problem has been *unsolved* for
@@ -152,7 +152,6 @@ class PlantedClique(Problem):
         self.add({"edges": edges, "size": size}, test=(size <= 10))
 
 
-@register
 class ShortestPath(Problem):
     """Shortest Path
 
@@ -205,7 +204,6 @@ class ShortestPath(Problem):
             self.add(dict(weights=weights, bound=bound))
 
 
-@register
 class UnweightedShortestPath(Problem):
     """Unweighted Shortest Path
 
@@ -264,7 +262,6 @@ class UnweightedShortestPath(Problem):
             self.add(dict(u=u, v=v, edges=edges, bound=bound))
 
 
-@register
 class AnyPath(Problem):
     """Any Path
 
@@ -297,7 +294,6 @@ class AnyPath(Problem):
             self.add(dict(edges=edges))
 
 
-@register
 class EvenPath(Problem):
     """Even Path
 
@@ -331,7 +327,6 @@ class EvenPath(Problem):
             self.add(dict(edges=edges))
 
 
-@register
 class OddPath(Problem):
     """Odd Path
 
@@ -366,7 +361,6 @@ class OddPath(Problem):
 
 
 
-@register
 class Zarankiewicz(Problem):
     """[Zarankiewicz problem](https://en.wikipedia.org/wiki/Zarankiewicz_problem)
 
@@ -388,7 +382,6 @@ class Zarankiewicz(Problem):
     def sol():
         return [[i, j] for i in range(4) for j in range(4) if i != j or i == 0]
 
-@register
 class GraphIsomorphism(Problem):
     """
     In the classic [Graph Isomorphism](https://en.wikipedia.org/wiki/Graph_isomorphism) problem,
@@ -427,5 +420,4 @@ class GraphIsomorphism(Problem):
 
 
 if __name__ == "__main__":
-    for problem in get_problems(globals()):
-        problem.test()
+    Problem.debug_problems()

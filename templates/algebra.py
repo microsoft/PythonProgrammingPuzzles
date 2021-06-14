@@ -1,10 +1,13 @@
 """Roots of polynomials"""
 
-from problems import Problem, register, get_problems
+from problems import Problem
 from typing import List
 
 
-@register
+# Hint: subclass Problem.Debug for quick testing. Run make_dataset.py to make the dataset
+# See https://github.com/microsoft/PythonProgrammingPuzzles/wiki/How-to-add-a-puzzle for more info
+
+
 class QuadraticRoot(Problem):
     """Find any (real) solution for a [quadratic equation](https://en.wikipedia.org/wiki/Quadratic_formula)
     a x^2 + b x + c"""
@@ -39,7 +42,6 @@ class QuadraticRoot(Problem):
         self.add(dict(coeffs=coeffs))
 
 
-@register
 class AllQuadraticRoots(Problem):
     """Find all (real) solutions for a [quadratic equation](https://en.wikipedia.org/wiki/Quadratic_formula)
     x^2 + b x + c (i.e., factor into roots)"""
@@ -65,7 +67,6 @@ class AllQuadraticRoots(Problem):
         self.add(dict(coeffs=coeffs))
 
 
-@register
 class CubicRoot(Problem):
     """Find any (real) solution for a [cubic equation](https://en.wikipedia.org/wiki/Cubic_formula)
     a x^3 + b x^2 + c x + d"""
@@ -100,7 +101,6 @@ class CubicRoot(Problem):
             self.add(dict(coeffs=coeffs))
 
 
-@register
 class AllCubicRoots(Problem):
     """Find all 3 distinct real roots of x^3 + a x^2 + b x + c, i.e., factor into (x-r1)(x-r2)(x-r3)
     """
@@ -139,7 +139,5 @@ class AllCubicRoots(Problem):
             self.add(dict(coeffs=coeffs))  # won't add duplicates
 
 
-
 if __name__ == "__main__":
-    for problem in get_problems(globals()):
-        problem.test()
+    Problem.debug_problems()

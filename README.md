@@ -5,6 +5,21 @@ an AI's programming proficiency. We hope this dataset with **grow rapidly**, and
 terms of problem difficult, domain, 
 and algorithmic tools needed to solve the problems. Please [contribute](../../wiki/How-to-add-a-puzzle)! 
  
+To learn more about how well AI systems such as GPT-3 can solve these problems, read our paper:
+
+[Programming Puzzles](https://arxiv.org/abs/2106.05784). Tal Schuster, Ashwin Kalyan, Oleksandr Polozov, 
+Adam Tauman Kalai.
+```
+@misc{schuster2021programming,
+      title={Programming Puzzles}, 
+      author={Tal Schuster and Ashwin Kalyan and Oleksandr Polozov and Adam Tauman Kalai},
+      year={2021},
+      eprint={2106.05784},
+      archivePrefix={arXiv},      
+}
+```
+
+
 
 ## What is a python programming puzzle?
 
@@ -57,6 +72,42 @@ The problems in this repo are based on:
 and [math problems](https://en.wikipedia.org/wiki/List_of_unsolved_problems_in_mathematics).
 * The website [codeforces.com](https://codeforces.com), a popular website for programming competition problems
 * Olympiad problems from the [International Collegiate Programming Contest](https://icpc.global) and [International Mathematical Olympiad](https://en.wikipedia.org/wiki/International_Mathematical_Olympiad).
+
+
+## Notebooks
+
+The [notebooks](/notebooks) subdirectory has some relevant notebooks. [Demo.ipynb](/notebooks/Demo.ipynb)
+has the 30 problems completed by our users in a user study. [Try the notebook at Binder](https://aka.ms/python_puzzles)
+and see how your programming compares to the AI baselines! 
+
+### Hackathon
+During a Microsoft hackathon July 27-29, 2020, several people completed 30 user 
+[study puzzles](/problems/README.md#study). We also had tons of fun making the puzzles in 
+[Hackathon_puzzles.ipynb](/notebooks/Hackathon_puzzles.ipynb). These are of a somewhat
+different flavor as they are more often `hacks` like 
+```python
+def f(x):
+    return x > x
+```
+where the type of `x` is clearly non-standard. The creators of these puzzles include github users: 
+    [Adam Tauman Kalai](akalai),
+    [Alec Helbling](helblazer811),
+    [Alexander Vorobev](OnFireDolphin),
+    [Alexander Wei](aw31),
+    [Alexey Romanov](jgc128),
+    [Keith Battaochi](kbattocchi),
+    [Maggie Hei](heimengqi),
+    [Misha Khodak](mkhodak),
+    [Monil Mehta](monilm2),
+    [Philip Rosenfield](philrosenfield),
+    [Qida Ma](JerryMa90),
+    [Raj Bhargava](rajbhargava),
+    [Rishi Jaiswal](nextquanta),
+    [Saikiran Mullaguri](sm947),
+    [Tal Schuster](TalSchuster), and
+    [Varsha Srinivasan](varsha2197). 
+You can try out the notebook at (link to be added).
+
 
 ## Highlights
 * Numerous trivial puzzles like reversing a list, useful for learning to program 

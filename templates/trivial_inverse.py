@@ -2,11 +2,14 @@
 For instance, for the len function you can ask for a string of len(s)==100 etc.
 """
 
-from problems import Problem, register, get_problems
+from problems import Problem
 from typing import List
 
 
-@register
+# Hint: subclass Problem.Debug for quick testing. Run make_dataset.py to make the dataset
+# See https://github.com/microsoft/PythonProgrammingPuzzles/wiki/How-to-add-a-puzzle for more info
+
+
 class HelloWorld(Problem):
     """Trivial example, no solutions provided"""
 
@@ -15,7 +18,6 @@ class HelloWorld(Problem):
         return s + 'world' == 'Hello world'
 
 
-@register
 class BackWorlds(Problem):
     """Two solutions, no inputs"""
 
@@ -35,7 +37,6 @@ class BackWorlds(Problem):
 # With other inputs, the default values of the input are used to generate the first instance.
 # You can run Uncat.get_example() to get the inputs, so you can then run
 # assert Uncat.sat(Uncat.sol(**Uncat.get_example()))
-@register
 class StrAdd(Problem):
     """Solve simple string addition problem."""
 
@@ -53,10 +54,6 @@ class StrAdd(Problem):
         self.add({"a": a, "b": b})
 
 
-assert StrAdd.sat(StrAdd.sol(**StrAdd.get_example()))
-
-
-@register
 class StrSetLen(Problem):
     """Find a string with `dups` duplicate chars"""
 
@@ -68,14 +65,13 @@ class StrSetLen(Problem):
     def sol(dups):
         return "a" * (dups + 1)
 
-    def gen(self, target_num_problems):
-        for dups in range(target_num_problems):
-            if len(self.instances) == target_num_problems:
+    def gen(self, target_num_instances):
+        for dups in range(target_num_instances):
+            if len(self.instances) == target_num_instances:
                 return
             self.add(dict(dups=dups))
 
 
-@register
 class StrMul(Problem):
     """Find a string which when repeated `n` times gives `target`"""
 
@@ -96,7 +92,6 @@ class StrMul(Problem):
         self.add(dict(target=target, n=n))
 
 
-@register
 class StrMul2(Problem):
     """Find `n` such that `s` repeated `n` times gives `target`"""
 
@@ -117,7 +112,6 @@ class StrMul2(Problem):
         self.add(dict(target=target, s=s))
 
 
-@register
 class StrLen(Problem):
     """Find a string of length `n`"""
 
@@ -134,7 +128,6 @@ class StrLen(Problem):
         self.add(dict(n=n))
 
 
-@register
 class StrAt(Problem):
     """Find the index of `target` in string `s`"""
 
@@ -152,7 +145,6 @@ class StrAt(Problem):
         self.add(dict(s=s, target=target))
 
 
-@register
 class StrNegAt(Problem):
     """Find the index of `target` in `s` using a negative index."""
 
@@ -170,7 +162,6 @@ class StrNegAt(Problem):
         self.add(dict(s=s, target=target))
 
 
-@register
 class StrSlice(Problem):
     """Find the three slice indices that give the specific `target` in string `s`"""
 
@@ -199,7 +190,6 @@ class StrSlice(Problem):
             pass
 
 
-@register
 class StrIndex(Problem):
     """Find a string whose *first* index in `big_str` is `index`"""
 
@@ -218,7 +208,6 @@ class StrIndex(Problem):
         self.add(dict(big_str=big_str, index=index))
 
 
-@register
 class StrIndex2(Problem):
     """Find a string whose *first* index of `sub_str` is `index`"""
 
@@ -239,7 +228,6 @@ class StrIndex2(Problem):
         self.add(dict(sub_str=sub_str, index=index))
 
 
-@register
 class StrIn(Problem):
     """Find a string of length `length` that is in both strings `a` and `b`"""
 
@@ -261,7 +249,6 @@ class StrIn(Problem):
         self.add(dict(a=a, b=b, length=length))
 
 
-@register
 class StrIn2(Problem):
     """Find a list of >= `count` distinct strings that are all contained in `s`"""
 
@@ -284,7 +271,6 @@ class StrIn2(Problem):
 ########################################
 
 
-@register
 class ListSetLen(Problem):
     """Find a list with a certain number of duplicate items"""
 
@@ -300,7 +286,6 @@ class ListSetLen(Problem):
         self.add(dict(dups=self.random.randrange(10 ** 5)))
 
 
-@register
 class ListMul(Problem):
     """Find a list that when multiplied n times gives the target list"""
 
@@ -322,7 +307,6 @@ class ListMul(Problem):
         self.add(dict(target=target, n=n))
 
 
-@register
 class ListLen(Problem):
     """Find a list of a given length n"""
 
@@ -339,7 +323,6 @@ class ListLen(Problem):
         self.add(dict(n=n))
 
 
-@register
 class ListAt(Problem):
     """Find the index of an item in a list. Any such index is fine."""
 
@@ -357,7 +340,6 @@ class ListAt(Problem):
         self.add(dict(li=li, target=target))
 
 
-@register
 class ListNegAt(Problem):
     """Find the index of an item in a list using negative indexing."""
 
@@ -375,7 +357,6 @@ class ListNegAt(Problem):
         self.add(dict(li=li, target=target))
 
 
-@register
 class ListSlice(Problem):
     """Find three slice indices to achieve a given list slice"""
 
@@ -406,7 +387,6 @@ class ListSlice(Problem):
 
 
 
-@register
 class ListIndex(Problem):
     """Find the item whose first index in `li` is `index`"""
 
@@ -424,7 +404,6 @@ class ListIndex(Problem):
         index = li.index(li[i])
         self.add(dict(li=li, index=index))
 
-@register
 class ListIndex2(Problem):
     """Find a list that contains `i` first at index `index`"""
 
@@ -442,7 +421,6 @@ class ListIndex2(Problem):
         self.add(dict(i=i, index=index))
 
 
-@register
 class ListIn(Problem):
     """Find an item that is in both lists `a` and `b`"""
 
@@ -466,7 +444,6 @@ class ListIn(Problem):
 # int problems
 ########################################
 
-@register
 class IntNeg(Problem):
     """Solve unary negation problem"""
 
@@ -483,7 +460,6 @@ class IntNeg(Problem):
         self.add(dict(a=a))
 
 
-@register
 class IntSum(Problem):
     """Solve sum problem"""
 
@@ -501,7 +477,6 @@ class IntSum(Problem):
         self.add(dict(a=a, b=b))
 
 
-@register
 class IntSub(Problem):
     """Solve subtraction problem"""
 
@@ -520,7 +495,6 @@ class IntSub(Problem):
         self.add(dict(a=a, b=b))
 
 
-@register
 class IntSub2(Problem):
     """Solve subtraction problem"""
 
@@ -539,7 +513,6 @@ class IntSub2(Problem):
         self.add(dict(a=a, b=b))
 
 
-@register
 class IntMul(Problem):
     """Solve multiplication problem"""
 
@@ -559,7 +532,6 @@ class IntMul(Problem):
             self.add(dict(a=a, b=b))
 
 
-@register
 class IntDiv(Problem):
     """Solve division problem"""
 
@@ -584,7 +556,6 @@ class IntDiv(Problem):
             self.add(dict(a=a, b=b))
 
 
-@register
 class IntDiv2(Problem):
     """Find `n` that when divided by `b` is `a`"""
 
@@ -604,7 +575,6 @@ class IntDiv2(Problem):
             self.add(dict(a=a, b=b))
 
 
-@register
 class IntSquareRoot(Problem):
     """Compute square root of number.
        The target has a round (integer) square root."""
@@ -623,7 +593,6 @@ class IntSquareRoot(Problem):
         self.add(dict(a=a))
 
 
-@register
 class IntNegSquareRoot(Problem):
     """Compute negative square root of number.
        The target has a round (integer) square root."""
@@ -642,7 +611,6 @@ class IntNegSquareRoot(Problem):
         self.add(dict(a=a))
 
 
-@register
 class FloatSquareRoot(Problem):
     """Compute square root of number.
        The target might not have a round solution.
@@ -661,7 +629,6 @@ class FloatSquareRoot(Problem):
         self.add(dict(a=a))
 
 
-@register
 class FloatNegSquareRoot(Problem):
     """Compute (negative) square root of number.
        The target might not have a round solution.
@@ -681,5 +648,4 @@ class FloatNegSquareRoot(Problem):
 
 
 if __name__ == "__main__":
-    for problem in get_problems(globals()):
-        problem.test(100)
+    Problem.debug_problems()

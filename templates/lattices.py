@@ -1,10 +1,13 @@
 """Lattice problems with and without noise"""
 
-from problems import Problem, register, get_problems
+from problems import Problem
 from typing import List
 
 
-@register
+# Hint: subclass Problem.Debug for quick testing. Run make_dataset.py to make the dataset
+# See https://github.com/microsoft/PythonProgrammingPuzzles/wiki/How-to-add-a-puzzle for more info
+
+
 class LearnParity(Problem):
     """Parity learning (Gaussian elimination)
 
@@ -64,7 +67,6 @@ class LearnParity(Problem):
         self.add(dict(vecs=vecs))
 
 
-@register
 class LearnParityWithNoise(Problem):
     """Learn parity with noise (*unsolved*)
 
@@ -74,6 +76,8 @@ class LearnParityWithNoise(Problem):
     The fastest known algorithm to this
     [Parity learning problem](https://en.wikipedia.org/w/index.php?title=Parity_learning)
     runs in time $2^(d/(log d))$"""
+
+    timeout = 40
 
     @staticmethod
     def sat(inds: List[int], vecs=[26, 5, 16, 3, 15, 18, 31, 13, 24, 25, 6, 5, 15, 24, 16, 13, 0, 27, 13]):
@@ -114,5 +118,4 @@ class LearnParityWithNoise(Problem):
 
 
 if __name__ == "__main__":
-    for problem in get_problems(globals()):
-        problem.test()
+    Problem.debug_problems()

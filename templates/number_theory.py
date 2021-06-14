@@ -1,11 +1,14 @@
 """Number theory problems"""
 
-from problems import Problem, register, get_problems
+from problems import Problem
 from typing import List
 import os, json
 
 
-@register
+# Hint: subclass Problem.Debug for quick testing. Run make_dataset.py to make the dataset
+# See https://github.com/microsoft/PythonProgrammingPuzzles/wiki/How-to-add-a-puzzle for more info
+
+
 class FermatsLastTheorem(Problem):
     """[Fermat's last theorem](https://en.wikipedia.org/w/index.php?title=Fermat%27s_Last_Theorem)
 
@@ -20,7 +23,6 @@ class FermatsLastTheorem(Problem):
         return (a ** n + b ** n == c ** n) and min(a, b, c) > 0 and n > 2
 
 
-@register
 class GCD(Problem):
     """[Greatest Common Divisor](https://en.wikipedia.org/w/index.php?title=Greatest_common_divisor&oldid=990943381)
     (GCD)
@@ -59,7 +61,6 @@ class GCD(Problem):
         self.add(dict(a=a, b=b, lower_bound=lower_bound))
 
 
-@register
 class GCD_multi(Problem):
     """[Greatest Common Divisor](https://en.wikipedia.org/w/index.php?title=Greatest_common_divisor&oldid=990943381)
     (GCD)
@@ -90,7 +91,6 @@ class GCD_multi(Problem):
         self.add(dict(nums=nums, lower_bound=lower_bound))
 
 
-@register
 class LCM(Problem):
     """[Least Common Multiple](https://en.wikipedia.org/wiki/Least_common_multiple)
     (LCM)
@@ -118,7 +118,6 @@ class LCM(Problem):
         self.add(dict(a=a, b=b, upper_bound=upper_bound))
 
 
-@register
 class LCM_multi(Problem):
     """[Least Common Multiple](https://en.wikipedia.org/wiki/Least_common_multiple)
     (LCM)
@@ -149,7 +148,6 @@ class LCM_multi(Problem):
         self.add(dict(nums=nums, upper_bound=upper_bound))
 
 
-@register
 class SmallExponentBigSolution(Problem):
     """Small exponent, big solution
 
@@ -170,7 +168,7 @@ class SmallExponentBigSolution(Problem):
             if pow(b, n, n) == target:
                 return n
 
-    def gen(self, target_num_problems):
+    def gen(self, target_num_instances):
         self.add(dict(b=2, target=3), test=False)
         hard = {2: [1, 69], 3: [2, 14, 34, 56, 74], 4: [17, 53, 83, 87], 5: [58], 6: [29, 89],
                 7: [36, 66, 86], 8: [49, 61, 91], 9: [8], 10: [9, 11, 29, 83]}
@@ -178,22 +176,21 @@ class SmallExponentBigSolution(Problem):
             for b in bs:
                 test = (self.sol(b, target) is not None)
                 self.add(dict(b=b, target=target), test=test)
-                if len(self.instances) >= target_num_problems:
+                if len(self.instances) >= target_num_instances:
                     return
-        m = target_num_problems
+        m = target_num_instances
         solved = {b: {pow(b, n, n) for n in range(1, 10 ** 5) if 1 < pow(b, n, n) < m} for b in range(2, 11)}
         for b, targets in solved.items():
             for target in range(2, 100):
                 if target in targets and self.sol(b, target):
                     self.add(dict(b=b, target=target))
-                    if len(self.instances) >= target_num_problems:
+                    if len(self.instances) >= target_num_instances:
                         return
 
     def gen_random(self):
         pass
 
 
-@register
 class ThreeCubes(Problem):
     """Sum of three cubes
 
@@ -222,12 +219,12 @@ class ThreeCubes(Problem):
                     if n == -target:
                         return [-i, -j, -k]
 
-    def gen(self, target_num_problems):
+    def gen(self, target_num_instances):
         targets = [114, 390, 579, 627, 633, 732, 921, 975]
-        targets += [t for t in range(target_num_problems // 2) if t % 9 not in {4, 5}]
+        targets += [t for t in range(target_num_instances // 2) if t % 9 not in {4, 5}]
         for target in targets:
             self.add(dict(target=target), test=self.sol(target) is not None)
-            if len(self.instances) >= target_num_problems:
+            if len(self.instances) >= target_num_instances:
                 return
 
     def gen_random(self):
@@ -237,7 +234,6 @@ class ThreeCubes(Problem):
             self.add(dict(target=target), test=self.sol(target) is not None)
 
 
-@register
 class FourSquares(Problem):
     """Sum of four squares
 
@@ -267,11 +263,11 @@ class FourSquares(Problem):
                 return sums_of_squares[m - s] + sums_of_squares[s]
         assert False, "Should never reach here"
 
-    def gen(self, target_num_problems):
-        for i in range(target_num_problems // 2):
+    def gen(self, target_num_instances):
+        for i in range(target_num_instances // 2):
             n = abs(i ** 2 - 1)
             self.add(dict(n=n))
-            if len(self.instances) >= target_num_problems:
+            if len(self.instances) >= target_num_instances:
                 return
 
     def gen_random(self):
@@ -279,7 +275,6 @@ class FourSquares(Problem):
         self.add(dict(n=n), test=(n < 10 ** 5))
 
 
-@register
 class Factoring(Problem):
     """[Factoring](https://en.wikipedia.org/w/index.php?title=Integer_factorization) and
     [RSA challenge](https://en.wikipedia.org/w/index.php?title=RSA_numbers)
@@ -315,13 +310,13 @@ class Factoring(Problem):
 
         assert False, "problem defined for composite n only"
 
-    def gen(self, target_num_problems):
+    def gen(self, target_num_instances):
         with open(self.DATA_PATH) as f:
             challenges = json.load(f)  # format: ["challenge name", "n factor"] (if factor is known)
         numbers = [16] + [int(v.split()[0]) for name, v in challenges]
         for n in numbers:
             self.add(dict(n=n), test=n < self.MAX_TEST)
-            if len(self.instances) >= target_num_problems:
+            if len(self.instances) >= target_num_instances:
                 return
 
     def gen_random(self):
@@ -331,7 +326,6 @@ class Factoring(Problem):
         self.add(dict(n=n), test=n < self.MAX_TEST)
 
 
-@register
 class DiscreteLog(Problem):  # updated because the answer was given away in the docstring! OMG
     """Discrete Log
 
@@ -361,7 +355,7 @@ class DiscreteLog(Problem):  # updated because the answer was given away in the 
                 return n
         assert False, f"unsolvable discrete log problem g={g}, t={t}, p={p}"
 
-    def gen(self, target_num_problems):
+    def gen(self, target_num_instances):
         mccurleys_discrete_log_challenge = {
             "g": 7,
             "p": (739 * (7 ** 149) - 736) // 3,
@@ -377,7 +371,6 @@ class DiscreteLog(Problem):  # updated because the answer was given away in the 
         self.add(dict(g=g, p=p, t=t), test=p < 10 ** 6)
 
 
-@register
 class GCD17(Problem):
     """GCD 17
 
@@ -386,6 +379,7 @@ class GCD17(Problem):
     According to [this article](https://primes.utm.edu/glossary/page.php?sort=LawOfSmall), the smallest
     solution is 8424432925592889329288197322308900672459420460792433
     """
+
     @staticmethod
     def sat(n: int):
         i = n ** 17 + 9
@@ -397,9 +391,6 @@ class GCD17(Problem):
         return n >= 0 and j != 1
 
 
-
-
-@register
 class Znam(Problem):
     """[Znam's Problem](https://en.wikipedia.org/wiki/Zn%C3%A1m%27s_problem)
 
@@ -429,14 +420,13 @@ class Znam(Problem):
             n = prod + 1
         return ans
 
-    def gen(self, target_num_problems):
+    def gen(self, target_num_instances):
         k = 5
-        while len(self.instances) < target_num_problems:
+        while len(self.instances) < target_num_instances:
             self.add(dict(k=k), test=k < 18)
             k += 1
 
 
-@register
 class CollatzCycleUnsolved(Problem):
     """Collatz Conjecture
 
@@ -464,7 +454,6 @@ class CollatzCycleUnsolved(Problem):
                 return True
 
 
-@register
 class CollatzGeneralizedUnsolved(Problem):
     """Generalized Collatz Conjecture
 
@@ -484,7 +473,6 @@ class CollatzGeneralizedUnsolved(Problem):
                 return True
 
 
-@register
 class CollatzDelay(Problem):
     """Collatz Delay
 
@@ -522,14 +510,14 @@ class CollatzDelay(Problem):
             if prev:
                 return min(prev)
 
-    def gen(self, target_num_problems):
-        nums = [1000, 2000, 2283, 2337, 2350, 2500, 3000, 4000] + list(range(target_num_problems))
+    def gen(self, target_num_instances):
+        nums = [1000, 2000, 2283, 2337, 2350, 2500, 3000, 4000] + list(range(target_num_instances))
 
         for t in nums:
-            if len(self.instances) < target_num_problems:
+            if len(self.instances) < target_num_instances:
                 self.add(dict(t=t, upper=t // 15 + self.random.randint(30, 100)), test=t <= 100)
 
-@register
+
 class Lehmer(Problem):
     """Lehmer puzzle
 
@@ -541,7 +529,6 @@ class Lehmer(Problem):
 
     """
 
-
     @staticmethod
     def sat(n: int):
         return pow(2, n, n) == 3
@@ -551,7 +538,5 @@ class Lehmer(Problem):
         return 4700063497
 
 
-
 if __name__ == "__main__":
-    for problem in get_problems(globals()):
-        problem.test()
+    Problem.debug_problems()

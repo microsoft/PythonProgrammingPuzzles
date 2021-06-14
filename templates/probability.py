@@ -1,10 +1,13 @@
 """Probability problems"""
 
-from problems import Problem, register, get_problems
+from problems import Problem
 from typing import List
 
 
-@register
+# Hint: subclass Problem.Debug for quick testing. Run make_dataset.py to make the dataset
+# See https://github.com/microsoft/PythonProgrammingPuzzles/wiki/How-to-add-a-puzzle for more info
+
+
 class BirthdayParadox(Problem):
     """Find `n` such that the probability of two people having the same birthday in a group of `n` is near `1/2`.
     The year length is year_len (365 is earth, while Neptune year is 60,182)
@@ -33,16 +36,15 @@ class BirthdayParadox(Problem):
         if self.sat(self.sol(**inputs), **inputs):
             self.add(inputs)
 
-    def gen(self, target_num_problems):
+    def gen(self, target_num_instances):
         self.safe_add(year_len=60182)  # Neptune year!
         year_len = 2
-        while len(self.instances) < target_num_problems:
+        while len(self.instances) < target_num_instances:
             self.safe_add(year_len=year_len)
             year_len += 1
 
 
 
-@register
 class BirthdayParadoxMonteCarlo(BirthdayParadox):
     """A slower, Monte Carlo version of the above Birthday Paradox problem."""
 
@@ -58,7 +60,6 @@ class BirthdayParadoxMonteCarlo(BirthdayParadox):
 
 
 
-@register
 class BallotProblem(Problem):
     """Suppose a list of m 1's and n -1's are permuted at random. What is the probability that
     all of the cumulative sums are positive?
@@ -99,7 +100,6 @@ class BallotProblem(Problem):
         self.add(dict(target_prob=target_prob))
 
 
-@register
 class BinomialProbabilities(Problem):
     """Find `a`, `b` so that the probability of seeing `a` heads and `b` tails on `n = a + b` coin flips
     is the given `target_prob`.
@@ -135,7 +135,6 @@ class BinomialProbabilities(Problem):
 
 
 
-@register
 class ExponentialProbability(Problem):
     """Find stopping probability, so that the probability of stopping in `steps` or fewer time steps
     is the given `target_prob`.
@@ -158,5 +157,4 @@ class ExponentialProbability(Problem):
 
 
 if __name__ == "__main__":
-    for problem in get_problems(globals()):
-        problem.test()
+    Problem.debug_problems()

@@ -2,11 +2,14 @@
 Solve some two-player games
 """
 
-from problems import Problem, register, get_problems
+from problems import Problem
 from typing import List
 
 
-@register
+# Hint: subclass Problem.Debug for quick testing. Run make_dataset.py to make the dataset
+# See https://github.com/microsoft/PythonProgrammingPuzzles/wiki/How-to-add-a-puzzle for more info
+
+
 class Nim(Problem):
     """Compute optimal play for the classic two-player game [Nim](https://en.wikipedia.org/wiki/Nim)
 
@@ -14,6 +17,8 @@ class Nim(Problem):
     objects from a non-empty heap. The player who takes the last object wins. Nim has an elegant theory
     for optimal play based on the xor of the bits.
     """
+
+    timeout = 10  # harder than most problems, get extra time
 
     @staticmethod
     def sat(cert: List[List[int]], heaps=[5, 9]):  # cert is a sufficient list of desirable states to leave for opponent
@@ -34,7 +39,6 @@ class Nim(Problem):
 
         return is_good_leave(tuple(heaps)) == (tuple(heaps) in good_leaves)
 
-
     @staticmethod
     def sol(heaps):
         import itertools
@@ -45,8 +49,7 @@ class Nim(Problem):
                 xor ^= i
             return xor == 0
 
-        return [list(h) for h in itertools.product(*[range(i+1) for i in heaps]) if val(h)]
-
+        return [list(h) for h in itertools.product(*[range(i + 1) for i in heaps]) if val(h)]
 
     def gen_random(self):
         num_heaps = self.random.randrange(10)
@@ -58,8 +61,6 @@ class Nim(Problem):
             self.add(dict(heaps=heaps))
 
 
-
-@register
 class Mastermind(Problem):
     """Compute a strategy for winning in [mastermind](https://en.wikipedia.org/wiki/Mastermind_%28board_game%29)
      in a given number of guesses.
@@ -84,6 +85,8 @@ class Mastermind(Problem):
      A winning strategy is described by a list of transcripts to visit. The next guess can be determined from
      those partial transcripts.
      """
+
+    timeout = 10
 
     @staticmethod
     def sat(transcripts: List[str], max_moves=10):
@@ -149,12 +152,11 @@ class Mastermind(Problem):
 
         return transcripts
 
-    def gen(self, target_num_problems):
+    def gen(self, target_num_instances):
         for max_moves in [6, 8, 10]:
             self.add(dict(max_moves=max_moves))
 
 
-@register
 class TicTacToeX(Problem):
     """Compute a strategy for X (first player) in tic-tac-toe that guarantees a tie.
 
@@ -207,7 +209,6 @@ class TicTacToeX(Problem):
         return good_boards
 
 
-@register
 class TicTacToeO(Problem):
     """Compute a strategy for O (second player) in tic-tac-toe that guarantees a tie.
 
@@ -262,11 +263,10 @@ class TicTacToeO(Problem):
         return good_boards
 
 
-@register
 class RockPaperScissors(Problem):
     """Find optimal strategy for Rock-Paper-Scissors zero-sum game
 
-    Can the computer figure out that 1/3, 1/3, 1/3 achieves the maximal expected value of 0
+    Find the distribution that guarantees maximum expected value of 0
     """
 
     @staticmethod
@@ -280,5 +280,4 @@ class RockPaperScissors(Problem):
 
 
 if __name__ == "__main__":
-    for problem in get_problems(globals()):
-        problem.test()
+    Problem.debug_problems()

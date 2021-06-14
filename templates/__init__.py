@@ -1,3 +1,5 @@
+# problems are identified automatically by looking for subclasses (and sub-subclasses) of the Problem class
+
 from . import algebra
 from . import basic
 from . import chess

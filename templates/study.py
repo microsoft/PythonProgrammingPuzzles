@@ -2,11 +2,14 @@
 Problems used for the study.
 """
 
-from problems import Problem, register, get_problems
+from problems import Problem
 from typing import List, Set
 
 
-@register
+# Hint: subclass Problem.Debug for quick testing. Run make_dataset.py to make the dataset
+# See https://github.com/microsoft/PythonProgrammingPuzzles/wiki/How-to-add-a-puzzle for more info
+
+
 class Study_1(Problem):
     "Find a string with 1000 'o's but no two adjacent 'o's."
 
@@ -19,7 +22,6 @@ class Study_1(Problem):
         return ('h' + 'o') * 1000
 
 
-@register
 class Study_2(Problem):
     "Find a string with 1000 'o's, 100 pairs of adjacent 'o's and 801 copies of 'ho'."
 
@@ -32,7 +34,6 @@ class Study_2(Problem):
         return 'ho' * (800 + 1) + 'o' * (100 * 2 - 1)
 
 
-@register
 class Study_3(Problem):
     "Find a permutation of [0, 1, ..., 998] such that the ith element is *not* i, for all i=0, 1, ..., 998."
 
@@ -45,7 +46,6 @@ class Study_3(Problem):
         return [((i + 1) % 999) for i in range(999)]
 
 
-@register
 class Study_4(Problem):
     "Find a list of length 10 where the fourth element occurs exactly twice."
 
@@ -58,7 +58,6 @@ class Study_4(Problem):
         return list(range(10 // 2)) * 2
 
 
-@register
 class Study_5(Problem):
     "Find a list integers such that the integer i occurs i times, for i = 0, 1, 2, ..., 9."
 
@@ -71,7 +70,6 @@ class Study_5(Problem):
         return [i for i in range(10) for j in range(i)]
 
 
-@register
 class Study_6(Problem):
     "Find an integer greater than 10^10 which is 4 mod 123."
 
@@ -84,7 +82,6 @@ class Study_6(Problem):
         return 4 + 10 ** 10 + 123 - 10 ** 10 % 123
 
 
-@register
 class Study_7(Problem):
     "Find a three-digit pattern  that occurs more than 8 times in the decimal representation of 8^2888."
 
@@ -98,7 +95,6 @@ class Study_7(Problem):
         return max({s[i: i + 3] for i in range(len(s) - 2)}, key=lambda t: s.count(t))
 
 
-@register
 class Study_8(Problem):
     "Find a list of more than 1235 strings such that the 1234th string is a proper substring of the 1235th."
 
@@ -111,7 +107,6 @@ class Study_8(Problem):
         return [''] * 1235 + ['a']
 
 
-@register
 class Study_9(Problem):
     """Find a way to rearrange the letters in the pangram "The quick brown fox jumps over the lazy dog" to
     get the pangram "The five boxing wizards jump quickly". The answer should be represented as a list of index
@@ -128,7 +123,6 @@ class Study_9(Problem):
         return ['The quick brown fox jumps over the lazy dog'.index(t) for t in 'The five boxing wizards jump quickly']
 
 
-@register
 class Study_10(Problem):
     "Find a palindrome of length greater than 11 in the decimal representation of 8^1818."
 
@@ -146,7 +140,6 @@ class Study_10(Problem):
                     )
 
 
-@register
 class Study_11(Problem):
     """Find a list of strings whose length (viewed as a string) is equal to the lexicographically largest element
     and is equal to the lexicographically smallest element."""
@@ -160,7 +153,6 @@ class Study_11(Problem):
         return ['1']
 
 
-@register
 class Study_12(Problem):
     """Find a list of 1,000 integers where every two adjacent integers sum to 9, and where the first
     integer plus 4 is 9."""
@@ -174,7 +166,6 @@ class Study_12(Problem):
         return [9 - 4, 4] * (1000 // 2)
 
 
-@register
 class Study_13(Problem):
     "Find a real number which, when you subtract 3.1415, has a decimal representation starting with 123.456."
 
@@ -187,7 +178,6 @@ class Study_13(Problem):
         return 123.456 + 3.1415
 
 
-@register
 class Study_14(Problem):
     "Find a list of integers such that the sum of the first i integers is i, for i=0, 1, 2, ..., 19."
 
@@ -200,7 +190,6 @@ class Study_14(Problem):
         return [1] * 20
 
 
-@register
 class Study_15(Problem):
     "Find a list of integers such that the sum of the first i integers is 2^i -1, for i = 0, 1, 2, ..., 19."
 
@@ -213,7 +202,6 @@ class Study_15(Problem):
         return [(2 ** i) for i in range(20)]
 
 
-@register
 class Study_16(Problem):
     """Find a real number such that when you add the length of its decimal representation to it, you get 4.5.
     Your answer should be the string form of the number in its decimal representation."""
@@ -227,7 +215,6 @@ class Study_16(Problem):
         return str(4.5 - len(str(4.5)))
 
 
-@register
 class Study_17(Problem):
     "Find a number whose decimal representation is *a longer string* when you add 1,000 to it than when you add 1,001."
 
@@ -240,7 +227,6 @@ class Study_17(Problem):
         return -1001
 
 
-@register
 class Study_18(Problem):
     """Find a list of strings that when you combine them in all pairwise combinations gives the six strings:
     'berlin', 'berger', 'linber', 'linger', 'gerber', 'gerlin'
@@ -262,7 +248,6 @@ class Study_18(Problem):
         return ans
 
 
-@register
 class Study_19(Problem):
     """Find a set of integers whose pairwise sums make the set {0, 1, 2, 3, 4, 5, 6, 17, 18, 19, 20, 34}.
     That is find set S such that, { i + j | i, j in S } = {0, 1, 2, 3, 4, 5, 6, 17, 18, 19, 20, 34}.
@@ -277,7 +262,6 @@ class Study_19(Problem):
         return {0, 1, 2, 3, 17}
 
 
-@register
 class Study_20(Problem):
     """Find a list of integers, starting with 0 and ending with 128, such that each integer either differs from
     the previous one by one or is thrice the previous one."""
@@ -291,7 +275,6 @@ class Study_20(Problem):
         return [1, 3, 4, 12, 13, 14, 42, 126, 127]
 
 
-@register
 class Study_21(Problem):
     """Find a list integers containing exactly three distinct values, such that no integer repeats
     twice consecutively among the first eleven entries. (So the list needs to have length greater than ten.)
@@ -306,7 +289,6 @@ class Study_21(Problem):
         return list(range(3)) * 10
 
 
-@register
 class Study_22(Problem):
     """Find a string s containing exactly five distinct characters which also contains as a substring every other
     character of s (e.g., if the string s were 'parrotfish' every other character would be 'profs')."""
@@ -320,7 +302,6 @@ class Study_22(Problem):
         return """abacadaeaaaaaaaaaa"""
 
 
-@register
 class Study_23(Problem):
     """Find a list of characters which are aligned at the same indices of the three strings 'dee', 'doo', and 'dah!'."""
 
@@ -333,7 +314,6 @@ class Study_23(Problem):
         return list(next(zip('dee', 'doo', 'dah!')))
 
 
-@register
 class Study_24(Problem):
     """Find a list of integers with exactly three occurrences of seventeen and at least two occurrences of three."""
 
@@ -346,7 +326,6 @@ class Study_24(Problem):
         return [17] * 3 + [3] * 2
 
 
-@register
 class Study_25(Problem):
     """Find a permutation of the string 'Permute me true' which is a palindrome."""
 
@@ -359,7 +338,6 @@ class Study_25(Problem):
         return """""".join(sorted('Permute me true'[1:])[::2] + ['P'] + sorted('Permute me true'[1:])[::2][::-1])
 
 
-@register
 class Study_26(Problem):
     """Divide the decimal representation of 8^88 up into strings of length eight."""
 
@@ -372,7 +350,6 @@ class Study_26(Problem):
         return [str(8 ** 88)[i:i + 8] for i in range(0, len(str(8 ** 88)), 8)]
 
 
-@register
 class Study_27(Problem):
     """Consider a digraph where each node has exactly one outgoing edge. For each edge (u, v), call u the parent and
     v the child. Then find such a digraph where the grandchildren of the first and second nodes differ but they
@@ -387,7 +364,6 @@ class Study_27(Problem):
         return [1, 2, 3, 3]
 
 
-@register
 class Study_28(Problem):
     """Find a set of one hundred integers between 0 and 999 which all differ by at least ten from one another."""
 
@@ -400,7 +376,6 @@ class Study_28(Problem):
         return set(range(0, 1000, 10))
 
 
-@register
 class Study_29(Problem):
     """Find a set of more than 995 integers between 0 and 999, inclusive, such that each pair of integers have
     squares that differ by at least 10."""
@@ -414,7 +389,6 @@ class Study_29(Problem):
         return set(range(6, 1000)).union({0, 4})
 
 
-@register
 class Study_30(Problem):
     """Define f(n) to be the residue of 123 times n mod 1000. Find a list of integers such that the first twenty one
     are between 0 and 999, inclusive, and are strictly increasing in terms of f(n)."""
@@ -425,8 +399,7 @@ class Study_30(Problem):
 
     @staticmethod
     def sol():
-        return sorted(range(1000), key=lambda n: 123*n % 1000)[:21]
-
+        return sorted(range(1000), key=lambda n: 123 * n % 1000)[:21]
 
     @staticmethod
     def sol_surprisingly_short():
@@ -434,5 +407,4 @@ class Study_30(Problem):
 
 
 if __name__ == "__main__":
-    for problem in get_problems(globals()):
-        problem.test()
+    Problem.debug_problems()

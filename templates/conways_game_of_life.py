@@ -1,9 +1,13 @@
 """Conway's Game of Life problems"""
 
-from problems import Problem, register, get_problems
+from problems import Problem
 from typing import List
 
-@register
+
+# Hint: subclass Problem.Debug for quick testing. Run make_dataset.py to make the dataset
+# See https://github.com/microsoft/PythonProgrammingPuzzles/wiki/How-to-add-a-puzzle for more info
+
+
 class Oscillators(Problem):
     """Oscillators (including some unsolved, open problems)
 
@@ -26,7 +30,6 @@ class Oscillators(Problem):
             live = {z for z in visible if sum(z + d in live for d in deltas) in ([2, 3] if z in live else [3])}
             if live == target:
                 return t + 1 == period
-
 
     @staticmethod
     def sol(period):  # generate random patterns, slow solution
@@ -70,13 +73,13 @@ class Oscillators(Problem):
 
         return None  # failed
 
-    def gen(self, target_num_problems):
-        for period in range(1, target_num_problems + 1):
-            self.add(dict(period=period), test=(period in {1, 2, 3})) # period 6 takes 30s to test
+    def gen(self, target_num_instances):
+        for period in range(1, target_num_instances + 1):
+            self.add(dict(period=period), test=(period in {1, 2, 3}))  # period 6 takes 30s to test
+
 
 ########################################################################################################################
 
-@register
 class Spaceship(Problem):
     """Spaceship (including *unsolved*, open problems)
 
@@ -99,7 +102,6 @@ class Spaceship(Problem):
             tot = sum(live)
             if {z * len(live) - tot for z in live} == target:
                 return t + 1 == period and tot != init_tot
-
 
     # def viz(live):
     #     a, b = min(i for i, j in live), min(j for i, j in live)
@@ -155,11 +157,10 @@ class Spaceship(Problem):
     #
     #     return None  # failed
 
-    def gen(self, target_num_problems):
-        for period in range(2, target_num_problems + 2):
-            self.add(dict(period=period), test=(period not in (33,34)))
+    def gen(self, target_num_instances):
+        for period in range(2, target_num_instances + 2):
+            self.add(dict(period=period), test=(period not in (33, 34)))
 
 
 if __name__ == "__main__":
-    for problem in get_problems(globals()):
-        problem.test()
+    Problem.debug_problems()

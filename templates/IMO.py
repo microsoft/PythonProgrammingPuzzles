@@ -2,11 +2,14 @@
 [International Mathematical Olympiad](https://en.wikipedia.org/wiki/International_Mathematical_Olympiad)
 [problems](https://www.imo-official.org/problems.aspx)"""
 
-from problems import Problem, register, get_problems
+from problems import Problem
 from typing import List
 
 
-@register
+# Hint: subclass Problem.Debug for quick testing. Run make_dataset.py to make the dataset
+# See https://github.com/microsoft/PythonProgrammingPuzzles/wiki/How-to-add-a-puzzle for more info
+
+
 class ExponentialCoinMoves(Problem):
     """This problem has *long* solutions.
 
@@ -81,16 +84,15 @@ class ExponentialCoinMoves(Problem):
         ans.append(state)
         return ans
 
-    def gen(self, target_num_problems):
+    def gen(self, target_num_instances):
         self.add(dict(n=2 ** 14 + 1))
         for i in range(10):
             n = 2 ** i
             self.add(dict(n=n))
-            if len(self.instances) >= target_num_problems:
+            if len(self.instances) >= target_num_instances:
                 return
 
 
-@register
 class NoRelativePrimes(Problem):
     """Let P(n) = n^2 + n + 1.
 
@@ -167,7 +169,6 @@ class NoRelativePrimes(Problem):
         self.add(dict(b=b, m=m), test=(b < 10))
 
 
-@register
 class FindRepeats(Problem):
     """Find a repeating integer in an infinite sequence of integers, specifically the indices for which the same value
     occurs 1000 times. The sequence is defined by a starting value a_0 and each subsequent term is:
@@ -215,7 +216,6 @@ class FindRepeats(Problem):
         self.add(dict(a0=a0))
 
 
-@register
 class PickNearNeighbors(Problem):
     """Given a permutation of the integers up to n(n+1) as a list, choose 2n numbers to keep (in the same order)
     so that the remaining list of numbers satisfies:
@@ -272,7 +272,6 @@ class PickNearNeighbors(Problem):
         self.add(dict(heights=heights))
 
 
-@register
 class FindProductiveList(Problem):
     """Given n, find n integers such that li[i] * li[i+1] + 1 == li[i+2], for i = 0, 1, ..., n-1
     where indices >= n "wrap around". Note: only n multiples of 3 are given since this is only possible for n
@@ -300,13 +299,12 @@ class FindProductiveList(Problem):
     def sol(n):
         return [-1, -1, 2] * (n // 3)
 
-    def gen(self, target_num_problems):
-        for n in range(3, 3 * target_num_problems + 3, 3):
+    def gen(self, target_num_instances):
+        for n in range(3, 3 * target_num_instances + 3, 3):
             # print(self.__class__, n, tick())
             self.add(dict(n=n))
 
 
-@register
 class HalfTag(Problem):
     """The input tags is a list of 4n integer tags each in range(n) with each tag occurring 4 times.
     The goal is to find a subset (list) li of half the indices such that:
@@ -411,5 +409,4 @@ class HalfTag(Problem):
 
 
 if __name__ == "__main__":
-    for problem in get_problems(globals()):
-        problem.test(100)
+    Problem.debug_problems()

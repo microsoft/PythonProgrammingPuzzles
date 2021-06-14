@@ -1,10 +1,13 @@
 """Classic chess problems"""
 
-from problems import Problem, register, get_problems
+from problems import Problem
 from typing import List
 
 
-@register
+# Hint: subclass Problem.Debug for quick testing. Run make_dataset.py to make the dataset
+# See https://github.com/microsoft/PythonProgrammingPuzzles/wiki/How-to-add-a-puzzle for more info
+
+
 class EightQueensOrFewer(Problem):
     """Eight (or fewer) Queens Puzzle
 
@@ -38,7 +41,6 @@ class EightQueensOrFewer(Problem):
             self.add(dict(m=m, n=n))
 
 
-@register
 class MoreQueens(Problem):
     """More Queens Puzzle
 
@@ -80,7 +82,6 @@ class MoreQueens(Problem):
             self.add(dict(m=m, n=n))
 
 
-@register
 class KnightsTour(Problem):
     """Knights Tour
 
@@ -94,9 +95,9 @@ class KnightsTour(Problem):
         return sorted(tour) == [[i, j] for i in range(m) for j in range(n)]  # cover every square once
 
     @staticmethod
-    def sol(m, n):  # using Warnsdorff's heuristic, breaking ties randomly and restarting 10 times
+    def sol(m, n):  # using Warnsdorff's heuristic, breaking ties randomly 
         import random
-        for seed in range(10):
+        for seed in range(100):
             r = random.Random(seed)
             ans = [(0, 0)]
             free = {(i, j) for i in range(m) for j in range(n)} - {(0, 0)}
@@ -117,20 +118,17 @@ class KnightsTour(Problem):
     def gen(self, num_target_problems):
         count = 0
         for n in [9, 8, 7, 6, 5] + list(range(10, 100)):
+            if len(self.instances) == num_target_problems:
+                return
             m = n
-            if self.sol(m, n):
-                self.add(dict(m=m, n=n))
-                count += 1
-                if count == num_target_problems:
-                    return
+            self.add(dict(m=m, n=n))
 
     def gen_random(self):
         m, n = [self.random.randrange(5, self.random.choice([10, 100])) for _ in range(2)]
-        if self.sol(m, n):
+        if max(m / n, n / m) <= 2:
             self.add(dict(m=m, n=n))
 
 
-@register
 class UncrossedKnightsPath(Problem):
     """Uncrossed Knights Path (known solvable, but no solution given)
 
@@ -168,9 +166,9 @@ class UncrossedKnightsPath(Problem):
 
         return len(path) >= target
 
-    def gen(self, target_num_problems):
+    def gen(self, target_num_instances):
         for count, n in enumerate(self.nxn_records):
-            if len(self.instances) >= target_num_problems:
+            if len(self.instances) >= target_num_instances:
                 return
             self.add(dict(m=n, n=n, target=self.nxn_records[n]))
 
@@ -181,7 +179,7 @@ class UncrossedKnightsPath(Problem):
             target = self.random.randrange(self.nxn_records[k])
             self.add(dict(m=m, n=n, target=target))  # solved by someone
 
-@register
+
 class UNSOLVED_UncrossedKnightsPath(UncrossedKnightsPath):
     """Uncrossed Knights Path (open problem, unsolved)
 
@@ -196,12 +194,12 @@ class UNSOLVED_UncrossedKnightsPath(UncrossedKnightsPath):
     unsolved_nxn_records = {10: 61, 11: 76, 12: 94, 13: 113, 14: 135, 15: 158,
                             16: 183, 17: 211, 18: 238, 19: 268, 20: 302, 21: 337, 22: 375, 23: 414}
 
-    def gen(self, target_num_problems):
+    def gen(self, target_num_instances):
         for count, n in enumerate(self.nxn_records):
-            if len(self.instances) >= target_num_problems:
+            if len(self.instances) >= target_num_instances:
                 return
             self.add(dict(m=n, n=n, target=self.nxn_records[n] + 1))  # Note the +1 means breaking the record!
 
+
 if __name__ == "__main__":
-    for problem in get_problems(globals()):
-        problem.test()
+    Problem.debug_problems()

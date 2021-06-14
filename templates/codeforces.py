@@ -1,10 +1,13 @@
 """Problems inspired by [codeforces](https://codeforces.com)."""
 
-from problems import Problem, register, get_problems
+from problems import Problem
 from typing import List
 
 
-@register
+# Hint: subclass Problem.Debug for quick testing. Run make_dataset.py to make the dataset
+# See https://github.com/microsoft/PythonProgrammingPuzzles/wiki/How-to-add-a-puzzle for more info
+
+
 class IsEven(Problem):
     """Determine if n can be evenly divided into two equal numbers. (Easy)
 
@@ -24,14 +27,13 @@ class IsEven(Problem):
     def sol(n):
         return n % 2 == 0
 
-    def gen(self, target_num_problems):
+    def gen(self, target_num_instances):
         n = 0
-        while len(self.instances) < target_num_problems:
+        while len(self.instances) < target_num_instances:
             self.add(dict(n=n))
             n += 1
 
 
-@register
 class Abbreviate(Problem):
     """Abbreviate strings longer than a given length by replacing everything but the first and last characters by
     an integer indicating how many characters there were in between them.
@@ -45,6 +47,7 @@ class Abbreviate(Problem):
             return word == s
         return int(s[1:-1]) == len(word[1:-1]) and word[0] == s[0] and word[-1] == s[-1]
 
+    @staticmethod
     def sol(word, max_len):
         if len(word) <= max_len:
             return word
@@ -56,7 +59,6 @@ class Abbreviate(Problem):
         self.add(dict(word=word, max_len=max_len))
 
 
-@register
 class SquareTiles(Problem):
     """Find a minimal list of corner locations for a×a tiles that covers [0, m] × [0, n] and does not double-cover
     squares.
@@ -91,7 +93,6 @@ class SquareTiles(Problem):
         self.add(dict(a=a, m=m, n=n, target=target))
 
 
-@register
 class EasyTwos(Problem):
     """
     Given a list of lists of triples of integers, return True for each list with a total of at least 2 and False for
@@ -113,7 +114,6 @@ class EasyTwos(Problem):
         self.add(dict(trips=trips))
 
 
-@register
 class DecreasingCountComparison(Problem):
     """
     Given a list of non-increasing integers and given an integer k, determine how many positive integers in the list
@@ -174,7 +174,6 @@ class VowelDrop(Problem):
         self.add(dict(s=s))
 
 
-@register
 class DominoTile(Problem):
     """Tile an m x n checkerboard with 2 x 1 tiles. The solution is a list of fourtuples [i1, j1, i2, j2] with i2 == i1
     and j2 == j1 + 1 or i2 == i1 + 1 and j2 == j1 with no overlap.
@@ -207,7 +206,6 @@ class DominoTile(Problem):
         self.add(dict(m=m, n=n, target=target))
 
 
-@register
 class IncDec(Problem):
     """This straightforward problem is a little harder than the Codeforces one.
     Given a sequence of operations "++x", "x++", "--x", "x--", and a target value, find initial value so that the
@@ -245,7 +243,6 @@ class IncDec(Problem):
         self.add(dict(ops=ops, target=target))
 
 
-@register
 class CompareInAnyCase(Problem):
     """Ignoring case, compare s, t lexicographically. Output 0 if they are =, -1 if s < t, 1 if s > t.
 
@@ -282,7 +279,6 @@ class CompareInAnyCase(Problem):
         self.add(dict(s=s, t=t))
 
 
-@register
 class SlidingOne(Problem):
     """We are given a 5x5 bimatrix with a single 1 like:
 
@@ -302,6 +298,7 @@ class SlidingOne(Problem):
     def sat(s: str,
             matrix=[[0, 0, 0, 0, 0], [0, 0, 0, 0, 1], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]],
             max_moves=3):
+        matrix = [m[:] for m in matrix]  # copy
         for c in s:
             if c in "01234":
                 i = "01234".index(c)
@@ -332,10 +329,10 @@ class SlidingOne(Problem):
             j += 1
         return ans
 
-    def gen(self, target_num_problems):
+    def gen(self, target_num_instances):
         for i in range(5):
             for j in range(5):
-                if len(self.instances) == target_num_problems:
+                if len(self.instances) == target_num_instances:
                     return
                 matrix = [[0] * 5 for _ in range(5)]
                 matrix[i][j] = 1
@@ -343,7 +340,6 @@ class SlidingOne(Problem):
                 self.add(dict(matrix=matrix, max_moves=max_moves))
 
 
-@register
 class SortPlusPlus(Problem):
     """Sort numbers in a sum of digits, e.g., 1+3+2+1 -> 1+1+2+3
 
@@ -363,7 +359,6 @@ class SortPlusPlus(Problem):
         self.add(dict(inp=inp))
 
 
-@register
 class CapitalizeFirstLetter(Problem):
     """Capitalize first letter of word
 
@@ -390,7 +385,6 @@ class CapitalizeFirstLetter(Problem):
         self.add(dict(word=word))
 
 
-@register
 class LongestSubsetString(Problem):
     """You are given a string consisting of a's, b's and c's, find any longest substring containing no repeated
     consecutive characters.
@@ -411,7 +405,7 @@ class LongestSubsetString(Problem):
             while c != s[i]:
                 i += 1
             i += 1
-        return len(t) >= target
+        return len(t) >= target and all(t[i] != t[i + 1] for i in range(len(t) - 1))
 
     @staticmethod
     def sol(s, target):  # target is ignored
@@ -424,7 +418,8 @@ class LongestSubsetString(Problem):
         self.add(dict(s=s, target=target))
 
 
-@register
+# Ignoring inappropriate problem http://codeforces.com/problemset/problem/236/A
+
 class FindHomogeneousSubstring(Problem):
     """You are given a string consisting of 0's and 1's. Find an index after which the subsequent k characters are
     all 0's or all 1's.
@@ -476,7 +471,204 @@ class FindHomogeneousSubstring(Problem):
         self.add(dict(s=s, k=k))
 
 
-@register
+class Triple0(Problem):
+    """Find the missing triple of integers to make them all add up to 0 coordinatewise
+
+    Inspired by [Codeforces Problem 630 A](https://codeforces.com/problemset/problem/69/A)
+    """
+
+    @staticmethod
+    def sat(delta: List[int], nums=[[1, 2, 3], [9, -2, 8], [17, 2, 50]]):
+        return all(sum(vec[i] for vec in nums) + delta[i] == 0 for i in range(3))
+
+    @staticmethod
+    def sol(nums):
+        return [-sum(vec[i] for vec in nums) for i in range(3)]
+
+    def gen_random(self):
+        nums = [[self.random.randrange(-100, 100) for _ in range(3)] for _i in range(self.random.randrange(10))]
+        self.add(dict(nums=nums))
+
+
+class TotalDifference(Problem):
+    """Find n such that n + a == b * (the sum of the first c integers)
+
+    Inspired by [Codeforces Problem 546 A](https://codeforces.com/problemset/problem/546/A)
+    """
+
+    @staticmethod
+    def sat(n: int, a=17, b=100, c=20):
+        return n + a == sum([b * i for i in range(c)])
+
+    @staticmethod
+    def sol(a, b, c):
+        return -a + sum([b * i for i in range(c)])
+
+    def gen_random(self):
+        a, b, c = [self.random.randrange(1, 100) for _ in range(3)]
+        self.add(dict(a=a, b=b, c=c))
+
+
+class TripleDouble(Problem):
+    """Find n such that n + a == b * (the sum of the first c integers)
+
+    Inspired by [Codeforces Problem 791 A](https://codeforces.com/problemset/problem/791/A)
+    """
+
+    @staticmethod
+    def sat(n: int, v=17, w=100):
+        for i in range(n):
+            assert v <= w
+            v *= 3
+            w *= 2
+        return v > w
+
+    @staticmethod
+    def sol(v, w):
+        i = 0
+        while v <= w:
+            v *= 3
+            w *= 2
+            i += 1
+        return i
+
+    def gen_random(self):
+        w = self.random.randrange(2, 10 ** 9)
+        v = self.random.randrange(1, w)
+        self.add(dict(v=v, w=w))
+
+
+class RepeatDec(Problem):
+    """Find the result of applying the following operation to integer m, n times: if the last digit is zero, remove
+    the zero, otherwise subtract 1.
+
+    Inspired by [Codeforces Problem 977 A](https://codeforces.com/problemset/problem/977/A)
+    """
+
+    @staticmethod
+    def sat(res: int, m=1234578987654321, n=4):
+        for i in range(n):
+            m = (m - 1 if m % 10 else m // 10)
+        return res == m
+
+    @staticmethod
+    def sol(m, n):
+        for i in range(n):
+            m = (m - 1 if m % 10 else m // 10)
+        return m
+
+    def gen_random(self):
+        m = self.random.randrange(2, 10 ** 20)
+        n = self.random.randrange(1, 10)
+        self.add(dict(m=m, n=n))
+
+
+class ShortestDecDelta(Problem):
+    """Find a the shortest sequence of integers going from 1 to n where each difference is at most 10. Do not include
+    1 or n in the sequence.
+
+    Inspired by [Codeforces Problem 617 A](https://codeforces.com/problemset/problem/617/A)
+    """
+
+    @staticmethod
+    def sat(li: List[int], n=149, upper=14):
+        return len(li) <= upper and all(abs(a - b) <= 10 for a, b in zip([1] + li, li + [n]))
+
+    @staticmethod
+    def sol(n, upper):
+        m = 1
+        ans = []
+        while True:
+            m = min(n, m + 10)
+            if m >= n:
+                return ans
+            ans.append(m)
+
+    def gen_random(self):
+        n = self.random.randrange(1, 10 ** 6)
+        upper = len(self.sol(n, None))
+        self.add(dict(n=n, upper=upper))
+
+
+class MaxDelta(Problem):
+    """Given a sequence of integer pairs, p_i, m_i, where \sum p_i-m_i = 0, find the maximum value, over t, of
+    p_{t+1} + \sum_{i=1}^t p_i - m_i
+
+    Inspired by [Codeforces Problem 116 A](https://codeforces.com/problemset/problem/116/A)
+    """
+
+    @staticmethod
+    def sat(n: int, pairs=[[3, 0], [17, 1], [9254359, 19], [123, 9254359], [0, 123]]):
+        assert sum(p - m for p, m in pairs) == 0, "oo"
+        tot = 0
+        success = False
+        for p, m in pairs:
+            tot -= m
+            tot += p
+            assert tot <= n
+            if tot == n:
+                success = True
+        return success
+
+    @staticmethod
+    def sol(pairs):
+        tot = 0
+        n = 0
+        for p, m in pairs:
+            tot += p - m
+            if tot > n:
+                n = tot
+        return n
+
+    def gen_random(self):
+        tot = 0
+        pairs = []
+        while self.random.randrange(10):
+            m = self.random.randrange(tot + 1)
+            p = self.random.randrange(10 ** 6)
+            tot += p - m
+            pairs.append([p, m])
+        pairs.append([0, tot])
+        self.add(dict(pairs=pairs))
+
+
+class CommonCase(Problem):
+    """Given a word, replace it either with an upper-case or lower-case depending on whether or not it has more
+    capitals or lower-case letters. If it has strictly more capitals, use upper-case, otherwise, use lower-case.
+
+    Inspired by [Codeforces Problem 59 A](https://codeforces.com/problemset/problem/59/A)
+    """
+
+    @staticmethod
+    def sat(s_case: str, s="CanYouTellIfItHASmoreCAPITALS"):
+        caps = 0
+        for c in s:
+            if c != c.lower():
+                caps += 1
+        return s_case == (s.upper() if caps > len(s) // 2 else s.lower())
+
+    @staticmethod
+    def sol(s):
+        """
+        This is a trivial puzzle, especially if the AI realizes that it can can just copy the solution from
+        the problem"""
+        caps = 0
+        for c in s:
+            if c != c.lower():
+                caps += 1
+        return (s.upper() if caps > len(s) // 2 else s.lower())  # duh, just take sat and return the answer checked for
+
+    def gen_random(self):
+        s = "".join([c.upper() if self.random.random() > 0.5 else c.lower() for c in self.random.pseudo_word(1, 30)])
+        self.add(dict(s=s))
+
+
+# TO ADD: 58A 266B 122A 110A 41A 160A 734A 271A 677A 133A 467A 136A 344A 1030A 318A 158B 705A 580A 486A 61A 200B 131A
+# 479A 405A 469A 208A 148A 228A 337A 144A 443A 1328A 25A 268A 520A 785A 996A 141A 1335A 492B 230A 339B 451A 4C 510A 230B
+# 189A 750A 581A 155A 1399A 1352A 1409A 472A 732A 1154A 427A 455A 1367A 1343B 466A 723A 432A 758A 500A 1343A 313A 1353B
+# 490A 1374A 1360A 1399B 1367B 703A 460A 1360B 489C 379A'
+
+
 class FivePowers(Problem):
     """What are the last two digits of 5^n?
 
@@ -491,12 +683,11 @@ class FivePowers(Problem):
     def sol(n):
         return ("1" if n == 0 else "5" if n == 1 else "25")
 
-    def gen(self, target_num_problems):
-        for n in range(target_num_problems):
+    def gen(self, target_num_instances):
+        for n in range(target_num_instances):
             self.add(dict(n=n))
 
 
-@register
 class CombinationLock(Problem):
     """Shortest Combination Lock Path
 
@@ -539,7 +730,6 @@ class CombinationLock(Problem):
             self.add(dict(start=start, combo=combo, target_len=target_len))
 
 
-@register
 class CombinationLockObfuscated(CombinationLock):
     """An obfuscated version of CombinationLock above"""
 
@@ -549,7 +739,6 @@ class CombinationLockObfuscated(CombinationLock):
                    for a, b in zip([start] + states, states[:target_len] + [combo]))
 
 
-@register
 class InvertPermutation(Problem):
     """Find a string that, when a given permutation of characters is applied, has a given result.
 
@@ -570,7 +759,6 @@ class InvertPermutation(Problem):
         self.add(dict(perm=perm, target=target))
 
 
-@register
 class SameDifferent(Problem):
     """
     Given a list of integers and a target length, create of the given length such that:
@@ -606,7 +794,6 @@ class SameDifferent(Problem):
         self.add(dict(items=items, length=length))
 
 
-@register
 class OnesAndTwos(Problem):
     """Find a sequence of 1's and 2's of a given length that that adds up to n
 
@@ -626,7 +813,6 @@ class OnesAndTwos(Problem):
         self.add(dict(n=n, length=length))
 
 
-@register
 class MinConsecutiveSum(Problem):
     """Find a sequence of k consecutive indices whose sum is minimal
 
@@ -648,7 +834,6 @@ class MinConsecutiveSum(Problem):
         self.add(dict(k=k, upper=upper, seq=seq))
 
 
-@register
 class MaxConsecutiveSum(Problem):
     """Find a sequence of k consecutive indices whose sum is maximal
 
@@ -670,7 +855,6 @@ class MaxConsecutiveSum(Problem):
         self.add(dict(k=k, lower=lower, seq=seq))
 
 
-@register
 class MaxConsecutiveProduct(Problem):
     """Find a sequence of k consecutive indices whose product is maximal, possibly looping around
 
@@ -709,7 +893,6 @@ class MaxConsecutiveProduct(Problem):
         self.add(dict(k=k, lower=lower, seq=seq))
 
 
-@register
 class DistinctOddSum(Problem):
     """Find n distinct positive odd integers that sum to tot
 
@@ -730,7 +913,6 @@ class DistinctOddSum(Problem):
         self.add(dict(tot=tot, n=n))
 
 
-@register
 class MinRotations(Problem):
     """
     We begin with the string `"a...z"`
@@ -772,5 +954,4 @@ class MinRotations(Problem):
 
 
 if __name__ == "__main__":
-    for problem in get_problems(globals()):
-        problem.test()
+    Problem.debug_problems()

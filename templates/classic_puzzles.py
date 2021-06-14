@@ -1,11 +1,14 @@
 """Classic puzzles
 """
 
-from problems import Problem, register, get_problems
+from problems import Problem
 from typing import List, Dict, Set
 
 
-@register
+# Hint: subclass Problem.Debug for quick testing. Run make_dataset.py to make the dataset
+# See https://github.com/microsoft/PythonProgrammingPuzzles/wiki/How-to-add-a-puzzle for more info
+
+
 class TowersOfHanoi(Problem):
     """[Towers of Hanoi](https://en.wikipedia.org/w/index.php?title=Tower_of_Hanoi)
 
@@ -30,7 +33,6 @@ class TowersOfHanoi(Problem):
         return helper(8, 0, 2)
 
 
-@register
 class TowersOfHanoiArbitrary(Problem):
     """[Towers of Hanoi](https://en.wikipedia.org/w/index.php?title=Tower_of_Hanoi)
 
@@ -83,7 +85,6 @@ class TowersOfHanoiArbitrary(Problem):
         self.add(dict(source=source, target=target))
 
 
-@register
 class LongestMonotonicSubstring(Problem):
     """Find the indices of the longest substring with characters in sorted order."""
 
@@ -111,22 +112,20 @@ class LongestMonotonicSubstring(Problem):
 
     def gen_random(self):
         n = self.random.randrange(self.random.choice([10, 100, 1000]))  # a length between 1-10 or 1-100 or 1-1000
-        m = self.random.randrange(n + 1)
+        length = self.random.randrange(n + 1)
         rand_chars = [chr(self.random.randrange(32, 124)) for _ in range(n)]
-        li = sorted(rand_chars[:m])
-        for i in range(m, n):
+        li = sorted(rand_chars[:length])
+        for i in range(length, n):
             li.insert(self.random.randrange(i + 1), rand_chars[i])
         s = "".join(li)
-        length = len(self.sol(-1, s))
         self.add(dict(length=length, s=s))
 
 
-@register
 class LongestMonotonicSubstringTricky(Problem):
     """Find the indices of the longest substring with characters in sorted order, with a twist!"""
 
     @staticmethod
-    def sat(x: List[int], length=20, s="Dynamic programming solves this puzzle!!!"):
+    def sat(x: List[int], length=20, s="Dynamic programming solves this classic job-interview puzzle!!!"):
         return all(s[x[i]] <= s[x[i + 1]] and x[i + 1] > x[i] for i in range(length - 1))
 
     @staticmethod
@@ -149,17 +148,19 @@ class LongestMonotonicSubstringTricky(Problem):
 
     def gen_random(self):
         n = self.random.randrange(self.random.choice([10, 100, 1000]))  # a length between 1-10 or 1-100 or 1-1000
-        m = self.random.randrange(n + 1)
+        length = self.random.randrange(n + 1)
         rand_chars = [chr(self.random.randrange(32, 124)) for _ in range(n)]
-        li = sorted(rand_chars[:m])
-        for i in range(m, n):
+        li = sorted(rand_chars[:length])
+        a, b = li[:length // 2][::-1], li[length // 2:][::-1]
+        li = []
+        while a or b:
+            li.append(self.random.choice([c for c in (a, b) if c]).pop())
+        for i in range(length, n):
             li.insert(self.random.randrange(i + 1), rand_chars[i])
         s = "".join(li)
-        length = len(self.sol(-1, s))
         self.add(dict(length=length, s=s))
 
 
-@register
 class Quine(Problem):
     """[Quine](https://en.wikipedia.org/wiki/Quine_%28computing%29)
 
@@ -179,7 +180,6 @@ class Quine(Problem):
         return 'quine'
 
 
-@register
 class RevQuine(Problem):
     """Reverse [Quine](https://en.wikipedia.org/wiki/Quine_%28computing%29)
 
@@ -196,8 +196,6 @@ class RevQuine(Problem):
         return "rev_quine"[::-1]  # thanks GPT-3!
 
 
-
-@register
 class BooleanPythagoreanTriples(Problem):
     """[Boolean Pythagorean Triples Problem](https://en.wikipedia.org/wiki/Boolean_Pythagorean_triples_problem)
 
@@ -227,14 +225,13 @@ class BooleanPythagoreanTriples(Problem):
                     sol[random.choice([i, j, k])] = 1 - sol[i]
         return sol
 
-    def gen(self, target_num_problems):
-        for n in [7824] + list(range(target_num_problems)):
-            if len(self.instances) == target_num_problems:
+    def gen(self, target_num_instances):
+        for n in [7824] + list(range(target_num_instances)):
+            if len(self.instances) == target_num_instances:
                 return
             self.add(dict(n=n), test=n <= 100)
 
 
-@register
 class ClockAngle(Problem):
     """[Clock Angle Problem](https://en.wikipedia.org/wiki/Clock_angle_problem)
 
@@ -252,10 +249,10 @@ class ClockAngle(Problem):
                 if ((60 * hour + min) - 12 * min) % 720 == 2 * target_angle:
                     return [hour, min]
 
-    def gen(self, target_num_problems):
+    def gen(self, target_num_instances):
         for hour in range(1, 13):
             for min in range(60):
-                if len(self.instances) == target_num_problems:
+                if len(self.instances) == target_num_instances:
                     return
                 double_angle = ((60 * hour + min) - 12 * min) % 720
                 if double_angle % 2 == 0:
@@ -361,7 +358,6 @@ class ClockAngle(Problem):
 # assert hausdorff_moment_prob(hausdorff_moment_sol())
 #
 
-@register
 class Kirkman(Problem):
     """[Kirkman's problem](https://en.wikipedia.org/wiki/Kirkman%27s_schoolgirl_problem)
 
@@ -427,7 +423,6 @@ class Kirkman(Problem):
         #         [[10, 12, 3], [11, 13, 4], [14, 1, 7], [0, 2, 8], [5, 6, 9]]]
 
 
-@register
 class MonkeyAndCoconuts(Problem):
     """[The Monkey and the Coconuts](https://en.wikipedia.org/wiki/The_monkey_and_the_coconuts)
 
@@ -508,7 +503,6 @@ class MonkeyAndCoconuts(Problem):
 # assert mountain_climbining_prob(mountain_climbining_sol())  # length 91
 #
 #
-@register
 class No3Colinear(Problem):
     """[No three-in-a-line](https://en.wikipedia.org/wiki/No-three-in-line_problem)
 
@@ -603,10 +597,10 @@ class No3Colinear(Problem):
         #     if len(ans) >= num_points:
         #         return ans
 
-    def gen(self, target_num_problems):
+    def gen(self, target_num_instances):
         for easy in range(47):
             for side in range(47):
-                if len(self.instances) == target_num_problems:
+                if len(self.instances) == target_num_instances:
                     return
                 test = side < 5 or side == 10
                 num_points = 1 if side == 1 else 2 * side
@@ -636,7 +630,6 @@ class No3Colinear(Problem):
 #
 #
 
-@register
 class PostageStamp(Problem):
     """[Postage stamp problem](https://en.wikipedia.org/wiki/Postage_stamp_problem)
 
@@ -662,7 +655,6 @@ class PostageStamp(Problem):
         self.add(dict(target=target, max_stamps=max_stamps, options=options))
 
 
-@register
 class SquaringTheSquare(Problem):
     """[Squaring the square](https://en.wikipedia.org/wiki/Squaring_the_square)
     Partition a square into smaller squares with unique side lengths. A perfect squared path has distinct sides.
@@ -694,7 +686,6 @@ class SquaringTheSquare(Problem):
                 [70, 70, 42], [82, 35, 11], [82, 46, 6], [85, 0, 27], [85, 27, 8], [88, 46, 24], [93, 27, 19]]
 
 
-@register
 class NecklaceSplit(Problem):
     """[Necklace Splitting Problem](https://en.wikipedia.org/wiki/Necklace_splitting_problem)
 
@@ -819,7 +810,6 @@ class NecklaceSplit(Problem):
 #
 
 
-@register
 class PandigitalSquare(Problem):
     """[Pandigital](https://en.wikipedia.org/wiki/Pandigital_number) Square
 
@@ -837,7 +827,6 @@ class PandigitalSquare(Problem):
                 return n
 
 
-@register
 class AllPandigitalSquares(Problem):
     """All [Pandigital](https://en.wikipedia.org/wiki/Pandigital_number) Squares
 
@@ -854,7 +843,6 @@ class AllPandigitalSquares(Problem):
 
 # MAYBE: add a version of TowersOfHanoiArbitrary where one has to find the fewest moves (maybe with more than 3 pegs)
 
-@register
 class CardGame24(Problem):
     """[24 Game](https://en.wikipedia.org/wiki/24_Game)
 
@@ -916,7 +904,6 @@ with + - * / (and parentheses) to make the number 24.
             self.add({"nums": nums})
 
 
-@register
 class Easy63(Problem):
     '''An easy puzzle to make 63 using two 8's and one 1's.'''
 
@@ -929,7 +916,6 @@ class Easy63(Problem):
         return "8*8-1"
 
 
-@register
 class Harder63(Problem):
     '''An harder puzzle to make 63 using two 8's and two 1's.'''
 
@@ -942,7 +928,6 @@ class Harder63(Problem):
         return "8*8-1**8"
 
 
-@register
 class WaterPouring(Problem):
     """[Water pouring puzzle](https://en.wikipedia.org/w/index.php?title=Water_pouring_puzzle&oldid=985741928)
 
@@ -1021,8 +1006,7 @@ class WaterPouring(Problem):
         self.add(dict(init=init, goal=goal, capacities=capacities))
 
 
-@register
-class VerbalArithmetic(Problem): # updated because the answer was given away in the docstring! OMG
+class VerbalArithmetic(Problem):  # updated because the answer was given away in the docstring! OMG
     """Find a substitution of digits for characters to make the numbers add up in a sum like this:
     SEND + MORE = MONEY
 
@@ -1107,7 +1091,7 @@ class VerbalArithmetic(Problem): # updated because the answer was given away in 
         ["GREEN", "ORANGE", "COLORS"]
     ]
 
-    def gen(self, target_num_problems):
+    def gen(self, target_num_instances):
         for words in self._fixed:
             self.add(dict(words=words))
 
@@ -1120,7 +1104,7 @@ class VerbalArithmetic(Problem): # updated because the answer was given away in 
         words = ["".join(alpha[int(d)] for d in str(i)) for i in nums]
         self.add(dict(words=words))  # , test=False)
 
-@register
+
 class SlidingPuzzle(Problem):
     """[Sliding puzzle](https://en.wikipedia.org/wiki/15_puzzle)
 
@@ -1222,7 +1206,6 @@ class SlidingPuzzle(Problem):
                     todo.add(s2)
                     heapq.heappush(heap, (score2, s2))
 
-
     def gen_random(self):
         d = self.random.randint(2, 4)
         N = d * d
@@ -1242,5 +1225,4 @@ class SlidingPuzzle(Problem):
 
 
 if __name__ == "__main__":
-    for problem in get_problems(globals()):
-        problem.test()
+    Problem.debug_problems()

@@ -2,11 +2,14 @@
 A few example puzzles that were presented with solutions to participants of the study.
 """
 
-from problems import Problem, register, get_problems
-from typing import List, Set, Tuple
+from problems import Problem
+from typing import List
 
 
-@register
+# Hint: subclass Problem.Debug for quick testing. Run make_dataset.py to make the dataset
+# See https://github.com/microsoft/PythonProgrammingPuzzles/wiki/How-to-add-a-puzzle for more info
+
+
 class Tutorial1(Problem):
     """Find a string that when concatenated onto 'Hello ' gives 'Hello world'."""
 
@@ -19,7 +22,6 @@ class Tutorial1(Problem):
         return "world"
 
 
-@register
 class Tutorial2(Problem):
     """Find a string that when reversed and concatenated onto 'Hello ' gives 'Hello world'."""
 
@@ -32,7 +34,6 @@ class Tutorial2(Problem):
         return "world"[::-1]
 
 
-@register
 class Tutorial3(Problem):
     """Find a list of two integers whose sum is 3."""
 
@@ -45,7 +46,6 @@ class Tutorial3(Problem):
         return [1, 2]
 
 
-@register
 class Tutorial4(Problem):
     """Find a list of 1000 distinct strings which each have more 'a's than 'b's and at least one 'b'."""
 
@@ -55,10 +55,9 @@ class Tutorial4(Problem):
 
     @staticmethod
     def sol():
-        return ["a"*(i+2)+"b" for i in range(1000)]
+        return ["a" * (i + 2) + "b" for i in range(1000)]
 
 
-@register
 class Tutorial5(Problem):
     """Find an integer whose perfect square begins with 123456789 in its decimal representation."""
 
@@ -68,12 +67,11 @@ class Tutorial5(Problem):
 
     @staticmethod
     def sol():
-        return int(int("123456789" + "0"*9) ** 0.5) + 1
+        return int(int("123456789" + "0" * 9) ** 0.5) + 1
 
 
 # Not clear this last one is necessary/helpful
-# @register
-# class Tutorial6(Problem):
+# # class Tutorial6(Problem):
 #     """Find a string corresponding to a decimal number whose negation is 1337."""
 #
 #     @staticmethod
@@ -85,5 +83,4 @@ class Tutorial5(Problem):
 #         return str(-1337)
 
 if __name__ == "__main__":
-    for problem in get_problems(globals()):
-        problem.test()
+    Problem.debug_problems()

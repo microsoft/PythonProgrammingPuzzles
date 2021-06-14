@@ -206,7 +206,7 @@
     "name": "Study_30_0",
     "sat": "def sat(li: List[int]):\n    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'\n    return all([123 * li[i] % 1000 < 123 * li[i + 1] % 1000 and li[i] in range(1000) for i in range(20)])",
     "sols": [
-      "def sol():\n    return sorted(range(1000), key=lambda n: 123*n % 1000)[:21]",
+      "def sol():\n    return sorted(range(1000), key=lambda n: 123 * n % 1000)[:21]",
       "def sol():\n    return list(range(1000))[::8][::-1]"
     ]
   }
