@@ -241,8 +241,10 @@ def reset_widgets():  # close existing widgets
 def print_solving_times():
     print("=" * 10)
     print('Check our "Programming Puzzles" paper (section 5.1) to see how difficult GPT-3 and others found each puzzle to be: https://arxiv.org/abs/2106.05784')
+    print()
+    print('Visit our GitHub repository to explore the full dataset and contribute your own puzzles: https://github.com/microsoft/PythonProgrammingPuzzles')
     print("=" * 10)
-    print("Your solving times:")
+    print("Your solving times (minutes:seconds):")
     for i, puz in enumerate(state.puzzles):
         if i < 3:
             # Warmup.
@@ -254,7 +256,7 @@ def print_solving_times():
         if puz.solve_time:
             elapsed = puz.solve_time - puz.start_time
             time_str = time.strftime("%M:%S", time.gmtime(elapsed))
-            print(f"Puzzle {puz.num - 2}: {time_str} seconds")
+            print(f"Puzzle {puz.num - 2}: {time_str}")
         else:
             print(f"Puzzle {puz.num - 2}: Unsolved")
 
