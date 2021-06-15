@@ -19,7 +19,9 @@ Adam Tauman Kalai.
 }
 ```
 
-
+If you just want to dive right into solving a few puzzles, try the [intro notebook at Binder](https://aka.ms/python_puzzles) 
+that shows which puzzles the AI baselines solved and which they did not, so you can see how 
+your programming compares. 
 
 ## What is a python programming puzzle?
 
@@ -76,7 +78,11 @@ and [math problems](https://en.wikipedia.org/wiki/List_of_unsolved_problems_in_m
 
 ## Notebooks
 
-The [notebooks](/notebooks) subdirectory has some relevant notebooks. [Demo.ipynb](/notebooks/Demo.ipynb)
+The [notebooks](/notebooks) subdirectory has some relevant notebooks. [Intro.ipynb](/notebooks/Intro.ipynb)
+has a sampling of puzzles indicating which ones the AI solved and did not [Try the notebook at Binder](https://aka.ms/python_puzzles)
+and see how your programming compares to the AI baselines! 
+ 
+ [Demo.ipynb](/notebooks/Demo.ipynb)
 has the 30 problems completed by our users in a user study. [Try the notebook at Binder](https://aka.ms/python_puzzles)
 and see how your programming compares to the AI baselines! 
 
@@ -90,22 +96,24 @@ def f(x):
     return x > x
 ```
 where the type of `x` is clearly non-standard. The creators of these puzzles include github users: 
-    [Adam Tauman Kalai](akalai),
-    [Alec Helbling](helblazer811),
-    [Alexander Vorobev](OnFireDolphin),
-    [Alexander Wei](aw31),
-    [Alexey Romanov](jgc128),
-    [Keith Battaochi](kbattocchi),
-    [Maggie Hei](heimengqi),
-    [Misha Khodak](mkhodak),
-    [Monil Mehta](monilm2),
-    [Philip Rosenfield](philrosenfield),
-    [Qida Ma](JerryMa90),
-    [Raj Bhargava](rajbhargava),
-    [Rishi Jaiswal](nextquanta),
-    [Saikiran Mullaguri](sm947),
-    [Tal Schuster](TalSchuster), and
-    [Varsha Srinivasan](varsha2197). 
+[Adam Tauman Kalai](https://github.com/akalai),
+    [Alec Helbling](https://github.com/helblazer811),
+    [Alexander Vorobev](https://github.com/OnFireDolphin),
+    [Alexander Wei](https://github.com/aw31),
+    [Alexey Romanov](https://github.com/jgc128),
+    [Keith Battaochi](https://github.com/kbattocchi),
+    [Kodai Sudo](https://github.com/kouml),
+    [Maggie Hei](https://github.com/heimengqi),
+    [Mariia Mykhailova](https://github.com/tcNickolas),
+    [Misha Khodak](https://github.com/mkhodak),
+    [Monil Mehta](https://github.com/monilm2),
+    [Philip Rosenfield](https://github.com/philrosenfield),
+    [Qida Ma](https://github.com/JerryMa90),
+    [Raj Bhargava](https://github.com/rajbhargava),
+    [Rishi Jaiswal](https://github.com/nextquanta),
+    [Saikiran Mullaguri](https://github.com/sm947),
+    [Tal Schuster](https://github.com/TalSchuster), and
+    [Varsha Srinivasan](https://github.com/varsha2197). 
 You can try out the notebook at (link to be added).
 
 
