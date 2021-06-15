@@ -4,9 +4,8 @@ This repo contains a dataset of python programming puzzles which can be used to 
 an AI's programming proficiency. We hope this dataset with **grow rapidly**, and it is already diverse in 
 terms of problem difficult, domain, 
 and algorithmic tools needed to solve the problems. Please
-[propose a new puzzle](/issues/new?assignees=akalai&labels=New-puzzle&template=new-puzzle.md&title=New+puzzle) 
- or [browse the 
-proposed puzzles](/issues?q=is%3Aopen+is%3Aissue+label%3ANew-puzzle)  
+[propose a new puzzle](../../issues/new?assignees=akalai&labels=New-puzzle&template=new-puzzle.md&title=New+puzzle) 
+ or [browse newly proposed puzzles](../../issues?q=is%3Aopen+is%3Aissue+label%3ANew-puzzle) 
 or [contribute through pull requests](../../wiki/How-to-add-a-puzzle). 
  
 To learn more about how well AI systems such as GPT-3 can solve these problems, read our paper:
