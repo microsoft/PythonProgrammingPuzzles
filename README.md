@@ -3,7 +3,11 @@
 This repo contains a dataset of python programming puzzles which can be used to teach and evaluate
 an AI's programming proficiency. We hope this dataset with **grow rapidly**, and it is already diverse in 
 terms of problem difficult, domain, 
-and algorithmic tools needed to solve the problems. Please [contribute](../../wiki/How-to-add-a-puzzle)! 
+and algorithmic tools needed to solve the problems. Please
+[propose a new puzzle](/issues/new?assignees=akalai&labels=New-puzzle&template=new-puzzle.md&title=New+puzzle) 
+ or [browse the 
+proposed puzzles](/issues?q=is%3Aopen+is%3Aissue+label%3ANew-puzzle)  
+or [contribute through pull requests](../../wiki/How-to-add-a-puzzle). 
  
 To learn more about how well AI systems such as GPT-3 can solve these problems, read our paper:
 
@@ -79,11 +83,11 @@ and [math problems](https://en.wikipedia.org/wiki/List_of_unsolved_problems_in_m
 ## Notebooks
 
 The [notebooks](/notebooks) subdirectory has some relevant notebooks. [Intro.ipynb](/notebooks/Intro.ipynb)
-has a sampling of puzzles indicating which ones the AI solved and did not [Try the notebook at Binder](https://aka.ms/python_puzzles)
+has a dozen puzzles indicating which ones the AI solved and did not [Try the notebook at Binder](https://aka.ms/python_puzzles)
 and see how your programming compares to the AI baselines! 
  
  [Demo.ipynb](/notebooks/Demo.ipynb)
-has the 30 problems completed by our users in a user study. [Try the notebook at Binder](https://aka.ms/python_puzzles)
+has the 30 problems completed by our users in a user study. Try the [demo notebook](https://aka.ms/python_puzzles_study)
 and see how your programming compares to the AI baselines! 
 
 ### Hackathon
