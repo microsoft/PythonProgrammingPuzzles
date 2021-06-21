@@ -8,7 +8,7 @@ Each .json file contains a number of related problems with one or more puzzles e
 - [basic (21 problems, 21,000 instances)](#basic)
 - [chess (5 problems, 4,855 instances)](#chess)
 - [classic_puzzles (22 problems, 11,370 instances)](#classic_puzzles)
-- [codeforces (32 problems, 31,025 instances)](#codeforces)
+- [codeforces (39 problems, 38,025 instances)](#codeforces)
 - [compression (3 problems, 3,000 instances)](#compression)
 - [conways_game_of_life (2 problems, 2,000 instances)](#conways_game_of_life)
 - [games (5 problems, 1,006 instances)](#games)
@@ -23,7 +23,7 @@ Each .json file contains a number of related problems with one or more puzzles e
 - [trivial_inverse (34 problems, 32,002 instances)](#trivial_inverse)
 - [tutorial (5 problems, 5 instances)](#tutorial)
 
-Total (208 problems, 147,069 instances)
+Total (215 problems, 154,069 instances)
 
 
 ----
@@ -1899,7 +1899,7 @@ Problems inspired by [codeforces](https://codeforces.com).
 [^ Top](#files)
 
 ### IsEven
-([codeforces](#codeforces) 1/32)
+([codeforces](#codeforces) 1/39)
 
 **Description:**
 Determine if n can be evenly divided into two equal numbers. (Easy)
@@ -1928,7 +1928,7 @@ def sol(n=10):
 </details>
 
 ### Abbreviate
-([codeforces](#codeforces) 2/32)
+([codeforces](#codeforces) 2/39)
 
 **Description:**
 Abbreviate strings longer than a given length by replacing everything but the first and last characters by
@@ -1957,7 +1957,7 @@ def sol(word="antidisestablishmentarianism", max_len=10):
 </details>
 
 ### SquareTiles
-([codeforces](#codeforces) 3/32)
+([codeforces](#codeforces) 3/39)
 
 **Description:**
 Find a minimal list of corner locations for a×a tiles that covers [0, m] × [0, n] and does not double-cover
@@ -1993,7 +1993,7 @@ def sol(m=10, n=9, a=5, target=4):
 </details>
 
 ### EasyTwos
-([codeforces](#codeforces) 4/32)
+([codeforces](#codeforces) 4/39)
 
 **Description:**
 Given a list of lists of triples of integers, return True for each list with a total of at least 2 and False for
@@ -2019,7 +2019,7 @@ def sol(trips=[[1, 1, 0], [1, 0, 0], [0, 0, 0], [0, 1, 1], [0, 1, 1], [1, 1, 1],
 </details>
 
 ### DecreasingCountComparison
-([codeforces](#codeforces) 5/32)
+([codeforces](#codeforces) 5/39)
 
 **Description:**
 Given a list of non-increasing integers and given an integer k, determine how many positive integers in the list
@@ -2046,7 +2046,7 @@ def sol(scores=[100, 95, 80, 70, 65, 9, 9, 9, 4, 2, 1], k=6):
 </details>
 
 ### VowelDrop
-([codeforces](#codeforces) 6/32)
+([codeforces](#codeforces) 6/39)
 
 **Description:**
 Given an alphabetic string s, remove all vowels (aeiouy/AEIOUY), insert a "." before each remaining letter
@@ -2085,7 +2085,7 @@ def sol(s="Problems"):
 </details>
 
 ### DominoTile
-([codeforces](#codeforces) 7/32)
+([codeforces](#codeforces) 7/39)
 
 **Description:**
 Tile an m x n checkerboard with 2 x 1 tiles. The solution is a list of fourtuples [i1, j1, i2, j2] with i2 == i1
@@ -2121,7 +2121,7 @@ def sol(m=10, n=5, target=50):
 </details>
 
 ### IncDec
-([codeforces](#codeforces) 8/32)
+([codeforces](#codeforces) 8/39)
 
 **Description:**
 This straightforward problem is a little harder than the Codeforces one.
@@ -2160,7 +2160,7 @@ def sol(ops=['x++', '--x', '--x'], target=19143212):
 </details>
 
 ### CompareInAnyCase
-([codeforces](#codeforces) 9/32)
+([codeforces](#codeforces) 9/39)
 
 **Description:**
 Ignoring case, compare s, t lexicographically. Output 0 if they are =, -1 if s < t, 1 if s > t.
@@ -2194,7 +2194,7 @@ def sol(s="aaAab", t="aAaaB"):
 </details>
 
 ### SlidingOne
-([codeforces](#codeforces) 10/32)
+([codeforces](#codeforces) 10/39)
 
 **Description:**
 We are given a 5x5 bimatrix with a single 1 like:
@@ -2252,7 +2252,7 @@ def sol(matrix=[[0, 0, 0, 0, 0], [0, 0, 0, 0, 1], [0, 0, 0, 0, 0], [0, 0, 0, 0, 
 </details>
 
 ### SortPlusPlus
-([codeforces](#codeforces) 11/32)
+([codeforces](#codeforces) 11/39)
 
 **Description:**
 Sort numbers in a sum of digits, e.g., 1+3+2+1 -> 1+1+2+3
@@ -2276,7 +2276,7 @@ def sol(inp="1+1+3+1+3+2+2+1+3+1+2"):
 </details>
 
 ### CapitalizeFirstLetter
-([codeforces](#codeforces) 12/32)
+([codeforces](#codeforces) 12/39)
 
 **Description:**
 Capitalize first letter of word
@@ -2307,7 +2307,7 @@ def sol(word="konjac"):
 </details>
 
 ### LongestSubsetString
-([codeforces](#codeforces) 13/32)
+([codeforces](#codeforces) 13/39)
 
 **Description:**
 You are given a string consisting of a's, b's and c's, find any longest substring containing no repeated
@@ -2343,7 +2343,7 @@ def sol(s="abbbcabbac", target=7):  # target is ignored
 </details>
 
 ### FindHomogeneousSubstring
-([codeforces](#codeforces) 14/32)
+([codeforces](#codeforces) 14/39)
 
 **Description:**
 You are given a string consisting of 0's and 1's. Find an index after which the subsequent k characters are
@@ -2397,7 +2397,7 @@ def sol(s="0000111111100000", k=5):
 </details>
 
 ### Triple0
-([codeforces](#codeforces) 15/32)
+([codeforces](#codeforces) 15/39)
 
 **Description:**
 Find the missing triple of integers to make them all add up to 0 coordinatewise
@@ -2421,7 +2421,7 @@ def sol(nums=[[1, 2, 3], [9, -2, 8], [17, 2, 50]]):
 </details>
 
 ### TotalDifference
-([codeforces](#codeforces) 16/32)
+([codeforces](#codeforces) 16/39)
 
 **Description:**
 Find n such that n + a == b * (the sum of the first c integers)
@@ -2445,7 +2445,7 @@ def sol(a=17, b=100, c=20):
 </details>
 
 ### TripleDouble
-([codeforces](#codeforces) 17/32)
+([codeforces](#codeforces) 17/39)
 
 **Description:**
 Find n such that n + a == b * (the sum of the first c integers)
@@ -2478,7 +2478,7 @@ def sol(v=17, w=100):
 </details>
 
 ### RepeatDec
-([codeforces](#codeforces) 18/32)
+([codeforces](#codeforces) 18/39)
 
 **Description:**
 Find the result of applying the following operation to integer m, n times: if the last digit is zero, remove
@@ -2507,7 +2507,7 @@ def sol(m=1234578987654321, n=4):
 </details>
 
 ### ShortestDecDelta
-([codeforces](#codeforces) 19/32)
+([codeforces](#codeforces) 19/39)
 
 **Description:**
 Find a the shortest sequence of integers going from 1 to n where each difference is at most 10. Do not include
@@ -2538,7 +2538,7 @@ def sol(n=149, upper=14):
 </details>
 
 ### MaxDelta
-([codeforces](#codeforces) 20/32)
+([codeforces](#codeforces) 20/39)
 
 **Description:**
 Given a sequence of integer pairs, p_i, m_i, where \sum p_i-m_i = 0, find the maximum value, over t, of
@@ -2578,7 +2578,7 @@ def sol(pairs=[[3, 0], [17, 1], [9254359, 19], [123, 9254359], [0, 123]]):
 </details>
 
 ### CommonCase
-([codeforces](#codeforces) 21/32)
+([codeforces](#codeforces) 21/39)
 
 **Description:**
 Given a word, replace it either with an upper-case or lower-case depending on whether or not it has more
@@ -2613,8 +2613,226 @@ def sol(s="CanYouTellIfItHASmoreCAPITALS"):
 
 </details>
 
+### Sssuubbstriiingg
+([codeforces](#codeforces) 22/39)
+
+**Description:**
+Find increasing indices to make the substring "substring"
+
+Inspired by [Codeforces Problem 58 A](https://codeforces.com/problemset/problem/58/A)
+
+**Problem:**
+
+```python
+def sat(inds: List[int], string: str="Sssuubbstriiingg"):
+    assert type(inds) is list and all(type(a) is int for a in inds), 'inds must be of type List[int]'
+    return inds == sorted(inds) and "".join(string[i] for i in inds) == "substring"
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(string="Sssuubbstriiingg"):
+    target = "substring"
+    j = 0
+    ans = []
+    for i in range(len(string)):
+        while string[i] == target[j]:
+            ans.append(i)
+            j += 1
+            if j == len(target):
+                return ans
+```
+
+</details>
+
+### Sstriiinggssuubb
+([codeforces](#codeforces) 23/39)
+
+**Description:**
+Find increasing indices to make the substring "intelligent" (with a surprise twist)
+
+Inspired by [Codeforces Problem 58 A](https://codeforces.com/problemset/problem/58/A)
+
+**Problem:**
+
+```python
+def sat(inds: List[int], string: str="enlightenment"):
+    assert type(inds) is list and all(type(a) is int for a in inds), 'inds must be of type List[int]'
+    return inds == sorted(inds) and "".join(string[i] for i in inds) == "intelligent"
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(string="enlightenment"):
+    target = "intelligent"
+    j = 0
+    ans = []
+    for i in range(-len(string), len(string)):
+        while string[i] == target[j]:
+            ans.append(i)
+            j += 1
+            if j == len(target):
+                return ans
+```
+
+</details>
+
+### Moving0s
+([codeforces](#codeforces) 24/39)
+
+**Description:**
+Find a sequence of 0's and 1's so that, after n_steps of swapping each adjacent (0, 1), target target sequence
+is achieved.
+
+Inspired by [Codeforces Problem 266 B](https://codeforces.com/problemset/problem/266/B)
+
+**Problem:**
+
+```python
+def sat(seq: List[int], target: List[int]=[1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0], n_steps: int=4):
+    assert type(seq) is list and all(type(a) is int for a in seq), 'seq must be of type List[int]'
+    s = seq[:]  # copy
+    for step in range(n_steps):
+        for i in range(len(seq) - 1):
+            if (s[i], s[i + 1]) == (0, 1):
+                (s[i], s[i + 1]) = (1, 0)
+    return s == target
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(target=[1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0], n_steps=4):
+    s = target[:]  # copy
+    for step in range(n_steps):
+        for i in range(len(target) - 2, -1, -1):
+            if (s[i], s[i + 1]) == (1, 0):
+                (s[i], s[i + 1]) = (0, 1)
+    return s
+```
+
+</details>
+
+### Factor47
+([codeforces](#codeforces) 25/39)
+
+**Description:**
+Find a integer factor of n whose decimal representation consists only of 7's and 4's.
+
+Inspired by [Codeforces Problem 122 A](https://codeforces.com/problemset/problem/122/A)
+
+**Problem:**
+
+```python
+def sat(d: int, n: int=6002685529):
+    assert type(d) is int, 'd must be of type int'
+    return n % d == 0 and set(str(d)) <= {"4", "7"}
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(n=6002685529):
+    def helper(so_far, k):
+        if k > 0:
+            return helper(so_far * 10 + 4, k - 1) or helper(so_far * 10 + 7, k - 1)
+        return (n % so_far == 0) and so_far
+
+    for length in range(1, len(str(n)) // 2 + 2):
+        ans = helper(0, length)
+        if ans:
+            return ans
+```
+
+</details>
+
+### Count47
+([codeforces](#codeforces) 26/39)
+
+**Description:**
+Find a number bigger than n whose decimal representation has k 4's and 7's where k's decimal representation
+consists only of 4's and 7's
+
+Inspired by [Codeforces Problem 110 A](https://codeforces.com/problemset/problem/110/A)
+
+**Problem:**
+
+```python
+def sat(d: int, n: int=123456789):
+    assert type(d) is int, 'd must be of type int'
+    return d > n and set(str(str(d).count("4") + str(d).count("7"))) <= {"4", "7"}
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(n=123456789):
+    return int("4444" + "0" * (len(str(n)) - 3))
+```
+
+</details>
+
+### MaybeReversed
+([codeforces](#codeforces) 27/39)
+
+**Description:**
+Either reverse a string or don't based on the reversed flag
+
+Inspired by [Codeforces Problem 41 A](https://codeforces.com/problemset/problem/41/A)
+
+**Problem:**
+
+```python
+def sat(s: str, target: str="reverse me", reverse: bool=True):
+    assert type(s) is str, 's must be of type str'
+    return (s[::-1] == target) == reverse
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(target="reverse me", reverse=True):
+    return target[::-1] if reverse else target + "x"
+```
+
+</details>
+
+### MinBigger
+([codeforces](#codeforces) 28/39)
+
+**Description:**
+Find minimal counts whose sum is greater than half the total
+
+Inspired by [Codeforces Problem 160 A](https://codeforces.com/problemset/problem/160/A)
+
+**Problem:**
+
+```python
+def sat(taken: List[int], val_counts: List[List[int]]=[[4, 3], [5, 2], [9, 3], [13, 13], [8, 11], [56, 1]], upper: int=11):
+    assert type(taken) is list and all(type(a) is int for a in taken), 'taken must be of type List[int]'
+    advantage = 0
+    for i, (val, count) in zip(taken, val_counts):
+        assert 0 <= i <= count
+        advantage += val * i - val * count / 2
+    return len(taken) == len(val_counts) and advantage > 0 and sum(taken) <= upper
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(val_counts=[[4, 3], [5, 2], [9, 3], [13, 13], [8, 11], [56, 1]], upper=11):
+    n = len(val_counts)
+    pi = sorted(range(n), key=lambda i: val_counts[i][0])
+    needed = sum(a * b for a, b in val_counts) / 2 + 0.1
+    ans = [0] * n
+    while needed > 0:
+        while val_counts[pi[-1]][1] == ans[pi[-1]]:
+            pi.pop()
+        i = pi[-1]
+        ans[i] += 1
+        needed -= val_counts[i][0]
+    return ans
+```
+
+</details>
+
 ### FivePowers
-([codeforces](#codeforces) 22/32)
+([codeforces](#codeforces) 29/39)
 
 **Description:**
 What are the last two digits of 5^n?
@@ -2638,7 +2856,7 @@ def sol(n=7):
 </details>
 
 ### CombinationLock
-([codeforces](#codeforces) 23/32)
+([codeforces](#codeforces) 30/39)
 
 **Description:**
 Shortest Combination Lock Path
@@ -2682,7 +2900,7 @@ def sol(start="012", combo="329", target_len=6):
 </details>
 
 ### CombinationLockObfuscated
-([codeforces](#codeforces) 24/32)
+([codeforces](#codeforces) 31/39)
 
 **Description:**
 An obfuscated version of CombinationLock above
@@ -2713,7 +2931,7 @@ def sol(start="012", combo="329", target_len=6):
 </details>
 
 ### InvertPermutation
-([codeforces](#codeforces) 25/32)
+([codeforces](#codeforces) 32/39)
 
 **Description:**
 Find a string that, when a given permutation of characters is applied, has a given result.
@@ -2737,7 +2955,7 @@ def sol(perm="qwertyuiopasdfghjklzxcvbnm", target="hello are you there?"):
 </details>
 
 ### SameDifferent
-([codeforces](#codeforces) 26/32)
+([codeforces](#codeforces) 33/39)
 
 **Description:**
 Given a list of integers and a target length, create of the given length such that:
@@ -2772,7 +2990,7 @@ def sol(items=[5, 4, 9, 4, 5, 5, 5, 1, 5, 5], length=4):
 </details>
 
 ### OnesAndTwos
-([codeforces](#codeforces) 27/32)
+([codeforces](#codeforces) 34/39)
 
 **Description:**
 Find a sequence of 1's and 2's of a given length that that adds up to n
@@ -2796,7 +3014,7 @@ def sol(n=10000, length=5017):
 </details>
 
 ### MinConsecutiveSum
-([codeforces](#codeforces) 28/32)
+([codeforces](#codeforces) 35/39)
 
 **Description:**
 Find a sequence of k consecutive indices whose sum is minimal
@@ -2820,7 +3038,7 @@ def sol(k=3, upper=6, seq=[17, 1, 2, 65, 18, 91, -30, 100, 3, 1, 2]):
 </details>
 
 ### MaxConsecutiveSum
-([codeforces](#codeforces) 29/32)
+([codeforces](#codeforces) 36/39)
 
 **Description:**
 Find a sequence of k consecutive indices whose sum is maximal
@@ -2844,7 +3062,7 @@ def sol(k=3, lower=150, seq=[3, 1, 2, 65, 18, 91, -30, 100, 0, 19, 52]):
 </details>
 
 ### MaxConsecutiveProduct
-([codeforces](#codeforces) 30/32)
+([codeforces](#codeforces) 37/39)
 
 **Description:**
 Find a sequence of k consecutive indices whose product is maximal, possibly looping around
@@ -2877,7 +3095,7 @@ def sol(k=3, lower=100000, seq=[91, 1, 2, 64, 18, 91, -30, 100, 3, 65, 18]):
 </details>
 
 ### DistinctOddSum
-([codeforces](#codeforces) 31/32)
+([codeforces](#codeforces) 38/39)
 
 **Description:**
 Find n distinct positive odd integers that sum to tot
@@ -2901,7 +3119,7 @@ def sol(tot=12345, n=5):
 </details>
 
 ### MinRotations
-([codeforces](#codeforces) 32/32)
+([codeforces](#codeforces) 39/39)
 
 **Description:**
 We begin with the string `"a...z"`

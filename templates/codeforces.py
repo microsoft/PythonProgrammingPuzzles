@@ -663,7 +663,225 @@ class CommonCase(Problem):
         self.add(dict(s=s))
 
 
-# TO ADD: 58A 266B 122A 110A 41A 160A 734A 271A 677A 133A 467A 136A 344A 1030A 318A 158B 705A 580A 486A 61A 200B 131A
+class Sssuubbstriiingg(Problem):
+    """
+    Find increasing indices to make the substring "substring"
+
+    Inspired by [Codeforces Problem 58 A](https://codeforces.com/problemset/problem/58/A)
+    """
+
+    @staticmethod
+    def sat(inds: List[int], string="Sssuubbstriiingg"):
+        return inds == sorted(inds) and "".join(string[i] for i in inds) == "substring"
+
+    @staticmethod
+    def sol(string):
+        target = "substring"
+        j = 0
+        ans = []
+        for i in range(len(string)):
+            while string[i] == target[j]:
+                ans.append(i)
+                j += 1
+                if j == len(target):
+                    return ans
+
+    def gen_random(self):
+        chars = list("substring")
+        for _ in range(self.random.randrange(20)):
+            i = self.random.randrange(len(chars) + 1)
+            ch = self.random.choice("   abcdefghijklmnopqrstuvwxyz    ABCDEFGHIJKLMNOPQRSTUVWXYZ  ")
+            chars.insert(i, ch)
+        string = "".join(chars)
+        self.add(dict(string=string))
+
+
+class Sstriiinggssuubb(Problem):
+    """
+    Find increasing indices to make the substring "intelligent" (with a surprise twist)
+
+    Inspired by [Codeforces Problem 58 A](https://codeforces.com/problemset/problem/58/A)
+    """
+
+    @staticmethod
+    def sat(inds: List[int], string="enlightenment"):
+        return inds == sorted(inds) and "".join(string[i] for i in inds) == "intelligent"
+
+    @staticmethod
+    def sol(string):
+        target = "intelligent"
+        j = 0
+        ans = []
+        for i in range(-len(string), len(string)):
+            while string[i] == target[j]:
+                ans.append(i)
+                j += 1
+                if j == len(target):
+                    return ans
+
+    def gen_random(self):
+        chars = list("inteligent")
+        i = self.random.randrange(len(chars))
+        a, b = chars[:i][::-1], chars[i:][::-1]
+        chars = []
+        while a and b:
+            chars.append(self.random.choice([a, b]).pop())
+        while (a or b):
+            chars.append((a or b).pop())
+        for _ in range(self.random.randrange(20)):
+            i = self.random.randrange(len(chars) + 1)
+            ch = self.random.choice("   abcdefghijklmnopqrstuvwxyz    ABCDEFGHIJKLMNOPQRSTUVWXYZ  ")
+            chars.insert(i, ch)
+        string = "".join(chars)
+        self.add(dict(string=string))
+
+
+class Moving0s(Problem):
+    """
+    Find a sequence of 0's and 1's so that, after n_steps of swapping each adjacent (0, 1), target target sequence
+    is achieved.
+
+    Inspired by [Codeforces Problem 266 B](https://codeforces.com/problemset/problem/266/B)
+    """
+
+    @staticmethod
+    def sat(seq: List[int], target=[1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0], n_steps=4):
+        s = seq[:]  # copy
+        for step in range(n_steps):
+            for i in range(len(seq) - 1):
+                if (s[i], s[i + 1]) == (0, 1):
+                    (s[i], s[i + 1]) = (1, 0)
+        return s == target
+
+    @staticmethod
+    def sol(target, n_steps):
+        s = target[:]  # copy
+        for step in range(n_steps):
+            for i in range(len(target) - 2, -1, -1):
+                if (s[i], s[i + 1]) == (1, 0):
+                    (s[i], s[i + 1]) = (0, 1)
+        return s
+
+    def gen_random(self):
+        seq = [self.random.randrange(2) for _ in range(self.random.randrange(3, 20))]
+        n_steps = self.random.randrange(len(seq))
+        target = seq[:]  # copy
+        for step in range(n_steps):
+            for i in range(len(seq) - 1):
+                if (target[i], target[i + 1]) == (0, 1):
+                    (target[i], target[i + 1]) = (1, 0)
+        self.add(dict(target=target, n_steps=n_steps))
+
+
+class Factor47(Problem):
+    """
+    Find a integer factor of n whose decimal representation consists only of 7's and 4's.
+
+    Inspired by [Codeforces Problem 122 A](https://codeforces.com/problemset/problem/122/A)
+    """
+
+    @staticmethod
+    def sat(d: int, n=6002685529):
+        return n % d == 0 and set(str(d)) <= {"4", "7"}
+
+    @staticmethod
+    def sol(n):
+        def helper(so_far, k):
+            if k > 0:
+                return helper(so_far * 10 + 4, k - 1) or helper(so_far * 10 + 7, k - 1)
+            return (n % so_far == 0) and so_far
+
+        for length in range(1, len(str(n)) // 2 + 2):
+            ans = helper(0, length)
+            if ans:
+                return ans
+
+    def gen_random(self):
+        length = self.random.randrange(1, 14)
+        d = int("".join(self.random.choice("47") for _ in range(length)))
+        n = self.random.randrange(1, 10 ** length) * d
+        if self.sol(n) == d:
+            self.add(dict(n=n))
+
+
+class Count47(Problem):
+    """
+    Find a number bigger than n whose decimal representation has k 4's and 7's where k's decimal representation
+    consists only of 4's and 7's
+
+    Inspired by [Codeforces Problem 110 A](https://codeforces.com/problemset/problem/110/A)
+    """
+
+    @staticmethod
+    def sat(d: int, n=123456789):
+        return d > n and set(str(str(d).count("4") + str(d).count("7"))) <= {"4", "7"}
+
+    @staticmethod
+    def sol(n):
+        return int("4444" + "0" * (len(str(n)) - 3))
+
+    def gen_random(self):
+        n = self.random.randrange(10 ** self.random.randrange(2, 30))
+        self.add(dict(n=n))
+
+
+class MaybeReversed(Problem):
+    """
+    Either reverse a string or don't based on the reversed flag
+
+    Inspired by [Codeforces Problem 41 A](https://codeforces.com/problemset/problem/41/A)
+    """
+
+    @staticmethod
+    def sat(s: str, target="reverse me", reverse=True):
+        return (s[::-1] == target) == reverse
+
+    @staticmethod
+    def sol(target, reverse):
+        return target[::-1] if reverse else target + "x"
+
+    def gen_random(self):
+        reverse = self.random.choice([True, False])
+        target = self.random.pseudo_word()
+        self.add(dict(target=target, reverse=reverse))
+
+
+class MinBigger(Problem):
+    """
+    Find minimal counts whose sum is greater than half the total
+
+    Inspired by [Codeforces Problem 160 A](https://codeforces.com/problemset/problem/160/A)
+    """
+
+    @staticmethod
+    def sat(taken: List[int], val_counts=[[4, 3], [5, 2], [9, 3], [13, 13], [8, 11], [56, 1]], upper=11):
+        advantage = 0
+        for i, (val, count) in zip(taken, val_counts):
+            assert 0 <= i <= count
+            advantage += val * i - val * count / 2
+        return len(taken) == len(val_counts) and advantage > 0 and sum(taken) <= upper
+
+    @staticmethod
+    def sol(val_counts, upper):
+        n = len(val_counts)
+        pi = sorted(range(n), key=lambda i: val_counts[i][0])
+        needed = sum(a * b for a, b in val_counts) / 2 + 0.1
+        ans = [0] * n
+        while needed > 0:
+            while val_counts[pi[-1]][1] == ans[pi[-1]]:
+                pi.pop()
+            i = pi[-1]
+            ans[i] += 1
+            needed -= val_counts[i][0]
+        return ans
+
+    def gen_random(self):
+        val_counts = [[self.random.randrange(1, 100) for _ in "vc"] for i in range(self.random.randrange(1, 10))]
+        upper = sum(self.sol(val_counts, None))
+        self.add(dict(val_counts=val_counts, upper=upper))
+
+
+# TO ADD: 734A 271A 677A 133A 467A 136A 344A 1030A 318A 158B 705A 580A 486A 61A 200B 131A
 # 479A 405A 469A 208A 148A 228A 337A 144A 443A 1328A 25A 268A 520A 785A 996A 141A 1335A 492B 230A 339B 451A 4C 510A 230B
 # 189A 750A 581A 155A 1399A 1352A 1409A 472A 732A 1154A 427A 455A 1367A 1343B 466A 723A 432A 758A 500A 1343A 313A 1353B
 # 490A 1374A 1360A 1399B 1367B 703A 460A 1360B 489C 379A'
