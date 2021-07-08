@@ -881,7 +881,71 @@ class MinBigger(Problem):
         self.add(dict(val_counts=val_counts, upper=upper))
 
 
-# TO ADD: 734A 271A 677A 133A 467A 136A 344A 1030A 318A 158B 705A 580A 486A 61A 200B 131A
+class Dada(Problem):
+    """
+    Find a string with a given number of a's and d's
+
+    Inspired by [Codeforces Problem 734 A](https://codeforces.com/problemset/problem/734/A)
+    """
+
+    @staticmethod
+    def sat(s: str, a=5129, d=17):
+        return s.count("a") == a and s.count("d") == d and len(s) == a + d
+
+    @staticmethod
+    def sol(a, d):
+        return "a" * a + "d" * d
+
+    def gen_random(self):
+        a = self.random.randrange(10 ** 4)
+        d = self.random.randrange(10 ** 4)
+        self.add(dict(a=a, d=d))
+
+
+class DistinctDigits(Problem):
+    """
+    Find a string with a given number of a's and d's
+
+    Inspired by [Codeforces Problem 271 A](https://codeforces.com/problemset/problem/271/A)
+    """
+
+    @staticmethod
+    def sat(nums: List[int], a=100, b=1000, count=1):
+        return sum(len(str(n)) == len(set(str(n))) and a <= n <= b for n in set(nums)) >= count
+
+    @staticmethod
+    def sol(a, b, count):
+        return [n for n in range(a, b + 1) if len(str(n)) == len(set(str(n)))]
+
+    def gen_random(self):
+        b = self.random.randrange(1, 10 ** 3)
+        a = self.random.randrange(b)
+        count = len(self.sol(a, b, None))
+        self.add(dict(a=a, b=b, count=count))
+
+
+class EasySum(Problem):
+    """
+    Add up 1 or 2 for numbers in a list depending on whether they exceed a threshold
+
+    Inspired by [Codeforces Problem 677 A](https://codeforces.com/problemset/problem/677/A)
+    """
+
+    @staticmethod
+    def sat(tot: int, nums=[2, 8, 25, 18, 99, 11, 17, 16], thresh=17):
+        return tot == sum(1 if i < thresh else 2 for i in nums)
+
+    @staticmethod
+    def sol(nums, thresh):
+        return sum(1 if i < thresh else 2 for i in nums)
+
+    def gen_random(self):
+        nums = [self.random.randrange(100) for _ in range(self.random.randrange(30))]
+        thresh = self.random.randrange(1, 100)
+        self.add(dict(nums=nums, thresh=thresh))
+
+
+# TO ADD:  133A 467A 136A 344A 1030A 318A 158B 705A 580A 486A 61A 200B 131A
 # 479A 405A 469A 208A 148A 228A 337A 144A 443A 1328A 25A 268A 520A 785A 996A 141A 1335A 492B 230A 339B 451A 4C 510A 230B
 # 189A 750A 581A 155A 1399A 1352A 1409A 472A 732A 1154A 427A 455A 1367A 1343B 466A 723A 432A 758A 500A 1343A 313A 1353B
 # 490A 1374A 1360A 1399B 1367B 703A 460A 1360B 489C 379A'

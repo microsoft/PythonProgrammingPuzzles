@@ -427,5 +427,71 @@ class CheckersPosition(Problem):
         return [[list(a) for a in move] for move in transcript]  # convert to lists
 
 
+class MatchingMarkers(Problem):
+    """
+    The input is a string of start and end markers "aaBAcGeg" where upper-case characters indicate start markers
+    and lower-case characters indicate ending markers. The string indicates a ring (joined at the ends) and the goal is
+    to find a location to split the ring so that there are a maximal number of matched start/end chars where a character
+    (like "a"/"A") is matched if starting at the split and going around the ring, the start-end pairs form a valid
+    nesting like nested parentheses.
+
+    This is trivial in quadratic time, but the challenge is to solve it quickly (i.e., linear time).
+
+    Inspired by
+    [ICPC 2019 Problem D: Circular DNA](https://icpc.global/newcms/worldfinals/problems/2019%20ACM-ICPC%20World%20Finals/icpc2019.pdf)
+    """
+
+    @staticmethod
+    def sat(cut_position: int, ring="yRrsmOkLCHSDJywpVDEDsjgCwSUmtvHMefxxPFdmBIpM", lower=5):
+        line = ring[cut_position:] + ring[:cut_position]
+        matches = {c: 0 for c in line.lower()}
+        for c in line:
+            if c.islower():
+                matches[c] -= (1 if matches[c] > 0 else len(line))
+            else:
+                matches[c.lower()] += 1
+        return sum(i == 0 for i in matches.values()) >= lower
+
+    @staticmethod
+    def sol(ring, lower):
+        cumulatives = {c: [(0, 0)] for c in ring.lower()}
+        n = len(ring)
+        for i, c in enumerate(ring):
+            v = cumulatives[c.lower()]
+            v.append((i, v[-1][1] + (-1 if c.islower() else 1)))
+
+        scores = [0]*n
+        cumulatives = {c: v for c, v in cumulatives.items() if v[-1][1]==0}
+        for c, v in cumulatives.items():
+            if v[-1][1] != 0: # ignore things with unequal numbers of opens and closes
+                continue
+            m = min(t for i, t in v)
+            for (i, t), (i2, t2) in zip(v, v[1:] + [(n, 0)]):
+                if t == m:
+                    for j in range(i+1, i2+1):
+                        scores[j % n] += 1
+        b = max(scores)
+        for i in range(n):
+            if scores[i] == b:
+                return i
+
+
+    def gen_random(self):
+        pool = self.random.sample("abcdefghijklmnopqrstuvwxyz", self.random.randrange(1, 26))
+        pool += [c.upper() for c in pool]
+        length = self.random.randrange(1, 2**self.random.randrange(11)+1)
+        ring = "".join(self.random.choice(pool) for _ in range(length))
+        cut_position = self.sol(ring, None)
+        line = ring[cut_position:] + ring[:cut_position]
+        matches = {c: 0 for c in line.lower()}
+        for c in line:
+            if c.islower():
+                matches[c] -= (1 if matches[c] > 0 else len(line))
+            else:
+                matches[c.lower()] += 1
+        lower = sum(i == 0 for i in matches.values())
+        self.add(dict(ring=ring, lower=lower))
+
+
 if __name__ == "__main__":
     Problem.debug_problems()
