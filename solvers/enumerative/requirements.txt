@@ -1,0 +1,8 @@
+tqdm
+orderedset
+numpy
+astor
+sklearn
+torch==1.8.1
+transformers==2.11.0
+tensorboardX
