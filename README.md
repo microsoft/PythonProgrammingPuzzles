@@ -22,6 +22,8 @@ Adam Tauman Kalai.
 }
 ```
 
+To reproduce the results in the paper, see the [solvers](/solvers) folder.
+
 If you just want to dive right into solving a few puzzles, try the [intro notebook at Binder](https://aka.ms/python_puzzles) 
 that shows which puzzles the AI baselines solved and which they did not, so you can see how 
 your programming compares. 
