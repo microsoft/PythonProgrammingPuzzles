@@ -945,7 +945,74 @@ class EasySum(Problem):
         self.add(dict(nums=nums, thresh=thresh))
 
 
-# TO ADD:  133A 467A 136A 344A 1030A 318A 158B 705A 580A 486A 61A 200B 131A
+class GimmeChars(Problem):
+    """
+    Find a string with certain characters, simple codeforces problem
+
+    Inspired by [Codeforces Problem 133 A](https://codeforces.com/problemset/problem/133/A)
+    """
+
+    @staticmethod
+    def sat(s: str, chars=["H", "Q", "9"]):
+        for c in chars:
+            if c not in s:
+                return False
+        return True
+
+    def gen_random(self):
+        chars = [self.random.choice("abcdefghijklmnopqrstuvwxyzABCCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+=- ")
+                 for _ in range(self.random.choice([3, 5, 10]))]
+        self.add(dict(chars=chars))
+
+
+class GimmeChars(Problem):
+    """
+    Find a list of lists of two integers where the number of pairs in which the second number is more than
+    two greater than the first number is a given constant
+
+    Inspired by [Codeforces Problem 467 A](https://codeforces.com/problemset/problem/467/A)
+    """
+
+    @staticmethod
+    def sat(ans: List[List[int]], target=17):
+        for i in range(len(ans)):
+            a, b = ans[i]
+            if b - a >= 2:
+                target -= 1
+        return target == 0
+
+    # @staticmethod
+    # def sol(target):
+    #     return [[0, 2]]*target
+
+    def gen(self, target_num_instances):
+        target = 0
+        while len(self.instances) < target_num_instances:
+            self.add(dict(target=target))
+            target += 1
+
+
+class InvertIndices(Problem):
+    """
+    Given a list of integers representing a permutation, invert the permutation.
+
+    Inspired by [Codeforces Problem 136 A](https://codeforces.com/problemset/problem/136/A)
+    """
+
+    @staticmethod
+    def sat(indexes: List[int], target=[1, 3, 4, 2, 5, 6, 7]):
+        for i in range(1, len(target) + 1):
+            if target[indexes[i - 1] - 1] != i:
+                return False
+        return True
+
+    def gen_random(self):
+        target = list(range(1, self.random.randrange(1, 100)))
+        self.random.shuffle(target)
+        self.add(dict(target=target))
+
+
+# TO ADD: 344A 1030A 318A 158B 705A 580A 486A 61A 200B 131A
 # 479A 405A 469A 208A 148A 228A 337A 144A 443A 1328A 25A 268A 520A 785A 996A 141A 1335A 492B 230A 339B 451A 4C 510A 230B
 # 189A 750A 581A 155A 1399A 1352A 1409A 472A 732A 1154A 427A 455A 1367A 1343B 466A 723A 432A 758A 500A 1343A 313A 1353B
 # 490A 1374A 1360A 1399B 1367B 703A 460A 1360B 489C 379A'
