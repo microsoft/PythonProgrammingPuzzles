@@ -2,14 +2,8 @@
 This script runs the GPT_3 experiments and prints the results to stdout.
 It uses cacheing mechanisms so that if run twice with the same parameters, it will give exactly the same
 results and will not query the GPT3 API again and will not judge the resulting solutions again. Hence, the first
-time you run it, it will be slow, but you can subsequently run it again and it will be fast.
-
-It was run with  sys.version = '3.6.9 (default, Jan 26 2021, 15:33:00) \n[GCC 8.4.0]'
-python (3.6.9)
-astor (0.8.1)
-openai (0.6.3)
-transformers (2.11.0)
-Pebble (4.6.1)
+time you run it, it will be slow, but you can subsequently run it again and it will be fast. It will run the
+experiment three times, with different seeds to get different results.
 
 """
 
@@ -120,11 +114,11 @@ assert True == f5(int(int("123456789" + "0"*9) ** 0.5) + 1)
 
 
 def run(seed=0):
-    sols = [lm_solve.prompt_experiment(**PARAMS, prefix=""),
-            lm_solve.prompt_experiment(**PARAMS, prefix=PREFIX),
-            lm_solve.prompt_experiment(**PARAMS, prefix=PREFIX_DOCSTR, add_docstring=True)]
+    sols = [lm_solve.prompt_experiment(**PARAMS, prefix="", seed=seed),
+            lm_solve.prompt_experiment(**PARAMS, prefix=PREFIX, seed=seed),
+            lm_solve.prompt_experiment(**PARAMS, prefix=PREFIX_DOCSTR, add_docstring=True, seed=seed)]
     problems_solved = [sorted([i for i, (f, gs) in enumerate(s) if gs]) for s in sols]
-    bootstrap = lm_solve.bootstrap(**BOOTSTRAP_PARAMS)
+    bootstrap = lm_solve.bootstrap(**BOOTSTRAP_PARAMS, seed=seed)
     print(f"run={seed} ALL DONE!\n\n")
     print(f"run={seed} RESULTS " + "=" * 50)
     print()
