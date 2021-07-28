@@ -732,14 +732,22 @@ class DebugProblem(Problem):
     The program will exit if it successful.
     """
 
-    def add(self, inp: dict, test=True):
+    # def __init__(self):
+    #     print("ho")
+        # super().__init__()
 
+
+    def add(self, inp: dict, test=True):
         if self.check_seen_input(inp):
             return  # don't add duplicate problems
 
         if test:
+            var_name = self.sat_src_spec[1].args[0]
+            type_assertion_str = gen_type_assertion(var_name, self.types[var_name])
             for s in self.sols:
-                assert self.sat(s(**inp), **inp) is True, f"Puzzle {self.name} didn't return True on `{inp}`"
+                answer = s(**inp)
+                exec(type_assertion_str, {var_name: answer})
+                assert self.sat(answer, **inp) is True, f"Puzzle {self.name} didn't return True on `{inp}`"
 
         self.instances.append(("DEBUG TEST", bool(test and self.sols)))  # for counting purposes
 

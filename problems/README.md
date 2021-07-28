@@ -5,7 +5,7 @@ Each .json file contains a number of related problems with one or more puzzles e
 ## Files:
 
 - [algebra (4 problems, 4,000 instances)](#algebra)
-- [basic (21 problems, 21,000 instances)](#basic)
+- [basic (22 problems, 22,000 instances)](#basic)
 - [chess (5 problems, 4,855 instances)](#chess)
 - [classic_puzzles (22 problems, 11,370 instances)](#classic_puzzles)
 - [codeforces (44 problems, 43,025 instances)](#codeforces)
@@ -20,10 +20,10 @@ Each .json file contains a number of related problems with one or more puzzles e
 - [number_theory (16 problems, 10,762 instances)](#number_theory)
 - [probability (5 problems, 5,000 instances)](#probability)
 - [study (30 problems, 30 instances)](#study)
-- [trivial_inverse (34 problems, 32,002 instances)](#trivial_inverse)
+- [trivial_inverse (39 problems, 37,002 instances)](#trivial_inverse)
 - [tutorial (5 problems, 5 instances)](#tutorial)
 
-Total (221 problems, 160,069 instances)
+Total (227 problems, 166,069 instances)
 
 
 ----
@@ -182,7 +182,7 @@ Problems testing basic knowledge -- easy to solve if you understand what is bein
 [^ Top](#files)
 
 ### SumOfDigits
-([basic](#basic) 1/21)
+([basic](#basic) 1/22)
 
 **Description:**
 Find a number that its digits sum to a specific value.
@@ -204,7 +204,7 @@ def sol(s=679):
 </details>
 
 ### FloatWithDecimalValue
-([basic](#basic) 2/21)
+([basic](#basic) 2/22)
 
 **Description:**
 Create a float with a specific decimal.
@@ -226,7 +226,7 @@ def sol(v=9, d=0.0001):
 </details>
 
 ### ArithmeticSequence
-([basic](#basic) 3/21)
+([basic](#basic) 3/22)
 
 **Description:**
 Create a list that is a subrange of an arithmetic sequence.
@@ -248,7 +248,7 @@ def sol(a=7, s=5, e=200):
 </details>
 
 ### GeometricSequence
-([basic](#basic) 4/21)
+([basic](#basic) 4/22)
 
 **Description:**
 Create a list that is a subrange of an gemoetric sequence.
@@ -270,7 +270,7 @@ def sol(a=8, r=2, l=50):
 </details>
 
 ### LineIntersection
-([basic](#basic) 5/21)
+([basic](#basic) 5/22)
 
 **Description:**
 Find the intersection of two lines.
@@ -295,7 +295,7 @@ def sol(a=2, b=-1, c=1, d=2021):
 </details>
 
 ### IfProblem
-([basic](#basic) 6/21)
+([basic](#basic) 6/22)
 
 **Description:**
 Simple if statement
@@ -323,7 +323,7 @@ def sol(a=324554, b=1345345):
 </details>
 
 ### IfProblemWithAnd
-([basic](#basic) 7/21)
+([basic](#basic) 7/22)
 
 **Description:**
 Simple if statement with and clause
@@ -351,7 +351,7 @@ def sol(a=9384594, b=1343663):
 </details>
 
 ### IfProblemWithOr
-([basic](#basic) 8/21)
+([basic](#basic) 8/22)
 
 **Description:**
 Simple if statement with or clause
@@ -379,7 +379,7 @@ def sol(a=253532, b=1230200):
 </details>
 
 ### IfCases
-([basic](#basic) 9/21)
+([basic](#basic) 9/22)
 
 **Description:**
 Simple if statement with multiple cases
@@ -412,7 +412,7 @@ def sol(a=4, b=54368639):
 </details>
 
 ### ListPosSum
-([basic](#basic) 10/21)
+([basic](#basic) 10/22)
 
 **Description:**
 Construct a list of non-negative integers that sum up to some value
@@ -436,7 +436,7 @@ def sol(n=5, s=19):
 </details>
 
 ### ListDistinctSum
-([basic](#basic) 11/21)
+([basic](#basic) 11/22)
 
 **Description:**
 Construct a list of distinct integers that sum up to some value
@@ -470,7 +470,7 @@ def sol(n=4, s=2021):
 </details>
 
 ### ConcatStrings
-([basic](#basic) 12/21)
+([basic](#basic) 12/22)
 
 **Description:**
 Concatenate list of characters
@@ -492,7 +492,7 @@ def sol(s=['a', 'b', 'c', 'd', 'e', 'f'], n=4):
 </details>
 
 ### SublistSum
-([basic](#basic) 13/21)
+([basic](#basic) 13/22)
 
 **Description:**
 Sum values of sublist by range specifications
@@ -525,7 +525,7 @@ def sol(t=677, a=43, e=125, s=10):
 </details>
 
 ### CumulativeSum
-([basic](#basic) 14/21)
+([basic](#basic) 14/22)
 
 **Description:**
 Number of values with cumulative sum less than target
@@ -555,7 +555,7 @@ def sol(t=50, n=10):
 </details>
 
 ### BasicStrCounts
-([basic](#basic) 15/21)
+([basic](#basic) 15/22)
 
 **Description:**
 Find a string that has `count1` occurrences of `s1` and `count1` occurrences of `s1` and starts and ends with
@@ -586,7 +586,7 @@ def sol(s1="a", s2="b", count1=50, count2=30):
 </details>
 
 ### ZipStr
-([basic](#basic) 16/21)
+([basic](#basic) 16/22)
 
 **Description:**
 Find a string that contains all the `substrings` alternating, e.g., 'cdaotg' for 'cat' and 'dog'
@@ -609,7 +609,7 @@ def sol(substrings=['foo', 'bar', 'baz']):
 </details>
 
 ### ReverseCat
-([basic](#basic) 17/21)
+([basic](#basic) 17/22)
 
 **Description:**
 Find a string that contains all the `substrings` reversed and forward
@@ -631,7 +631,7 @@ def sol(substrings=['foo', 'bar', 'baz']):
 </details>
 
 ### EngineerNumbers
-([basic](#basic) 18/21)
+([basic](#basic) 18/22)
 
 **Description:**
 Find a list of `n` strings starting with `a` and ending with `b`
@@ -653,7 +653,7 @@ def sol(n=100, a="bar", b="foo"):
 </details>
 
 ### PenultimateString
-([basic](#basic) 19/21)
+([basic](#basic) 19/22)
 
 **Description:**
 Find the alphabetically second to last last string in a list.
@@ -675,7 +675,7 @@ def sol(strings=['cat', 'dog', 'bird', 'fly', 'moose']):
 </details>
 
 ### PenultimateRevString
-([basic](#basic) 20/21)
+([basic](#basic) 20/22)
 
 **Description:**
 Find the reversed version of the alphabetically second string in a list.
@@ -697,7 +697,7 @@ def sol(strings=['cat', 'dog', 'bird', 'fly', 'moose']):
 </details>
 
 ### CenteredString
-([basic](#basic) 21/21)
+([basic](#basic) 21/22)
 
 **Description:**
 Find a substring of length `length` centered within `target`.
@@ -714,6 +714,36 @@ def sat(s: str, target: str="foobarbazwow", length: int=6):
 ```python
 def sol(target="foobarbazwow", length=6):
     return target[(len(target) - length) // 2:(len(target) + length) // 2]
+```
+
+</details>
+
+### SubstrCount
+([basic](#basic) 22/22)
+
+**Description:**
+Find a substring with a certain count in a given string
+
+**Problem:**
+
+```python
+def sat(substring: str, string: str="moooboooofasd", count: int=2):
+    assert type(substring) is str, 'substring must be of type str'
+    return string.count(substring) == count
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(string="moooboooofasd", count=2):
+    for i in range(len(string)):
+        for j in range(i+1, len(string)):
+            substring = string[i:j]
+            c = string.count(substring)
+            if c == count:
+                return substring
+            if c < count:
+                break
+    assert False
 ```
 
 </details>
@@ -6665,7 +6695,7 @@ For instance, for the len function you can ask for a string of len(s)==100 etc.
 [^ Top](#files)
 
 ### HelloWorld
-([trivial_inverse](#trivial_inverse) 1/34)
+([trivial_inverse](#trivial_inverse) 1/39)
 
 **Description:**
 Trivial example, no solutions provided
@@ -6678,7 +6708,7 @@ def sat(s: str):
     return s + 'world' == 'Hello world'
 ```
 ### BackWorlds
-([trivial_inverse](#trivial_inverse) 2/34)
+([trivial_inverse](#trivial_inverse) 2/39)
 
 **Description:**
 Two solutions, no inputs
@@ -6705,7 +6735,7 @@ def sol():  # solution methods must begin with 'sol'
 </details>
 
 ### StrAdd
-([trivial_inverse](#trivial_inverse) 3/34)
+([trivial_inverse](#trivial_inverse) 3/39)
 
 **Description:**
 Solve simple string addition problem.
@@ -6727,7 +6757,7 @@ def sol(a="world", b="Hello world"):
 </details>
 
 ### StrSetLen
-([trivial_inverse](#trivial_inverse) 4/34)
+([trivial_inverse](#trivial_inverse) 4/39)
 
 **Description:**
 Find a string with `dups` duplicate chars
@@ -6749,7 +6779,7 @@ def sol(dups=2021):
 </details>
 
 ### StrMul
-([trivial_inverse](#trivial_inverse) 5/34)
+([trivial_inverse](#trivial_inverse) 5/39)
 
 **Description:**
 Find a string which when repeated `n` times gives `target`
@@ -6773,7 +6803,7 @@ def sol(target="foofoofoofoo", n=2):
 </details>
 
 ### StrMul2
-([trivial_inverse](#trivial_inverse) 6/34)
+([trivial_inverse](#trivial_inverse) 6/39)
 
 **Description:**
 Find `n` such that `s` repeated `n` times gives `target`
@@ -6797,7 +6827,7 @@ def sol(target="foofoofoofoo", s="foofoo"):
 </details>
 
 ### StrLen
-([trivial_inverse](#trivial_inverse) 7/34)
+([trivial_inverse](#trivial_inverse) 7/39)
 
 **Description:**
 Find a string of length `n`
@@ -6819,7 +6849,7 @@ def sol(n=1000):
 </details>
 
 ### StrAt
-([trivial_inverse](#trivial_inverse) 8/34)
+([trivial_inverse](#trivial_inverse) 8/39)
 
 **Description:**
 Find the index of `target` in string `s`
@@ -6841,7 +6871,7 @@ def sol(s="cat", target="a"):
 </details>
 
 ### StrNegAt
-([trivial_inverse](#trivial_inverse) 9/34)
+([trivial_inverse](#trivial_inverse) 9/39)
 
 **Description:**
 Find the index of `target` in `s` using a negative index.
@@ -6863,7 +6893,7 @@ def sol(s="cat", target="a"):
 </details>
 
 ### StrSlice
-([trivial_inverse](#trivial_inverse) 10/34)
+([trivial_inverse](#trivial_inverse) 10/39)
 
 **Description:**
 Find the three slice indices that give the specific `target` in string `s`
@@ -6892,7 +6922,7 @@ def sol(s="hello world", target="do"):
 </details>
 
 ### StrIndex
-([trivial_inverse](#trivial_inverse) 11/34)
+([trivial_inverse](#trivial_inverse) 11/39)
 
 **Description:**
 Find a string whose *first* index in `big_str` is `index`
@@ -6914,7 +6944,7 @@ def sol(big_str="foobar", index=2):
 </details>
 
 ### StrIndex2
-([trivial_inverse](#trivial_inverse) 12/34)
+([trivial_inverse](#trivial_inverse) 12/39)
 
 **Description:**
 Find a string whose *first* index of `sub_str` is `index`
@@ -6939,7 +6969,7 @@ def sol(sub_str="foobar", index=2):
 </details>
 
 ### StrIn
-([trivial_inverse](#trivial_inverse) 13/34)
+([trivial_inverse](#trivial_inverse) 13/39)
 
 **Description:**
 Find a string of length `length` that is in both strings `a` and `b`
@@ -6963,7 +6993,7 @@ def sol(a="hello", b="yellow", length=4):
 </details>
 
 ### StrIn2
-([trivial_inverse](#trivial_inverse) 14/34)
+([trivial_inverse](#trivial_inverse) 14/39)
 
 **Description:**
 Find a list of >= `count` distinct strings that are all contained in `s`
@@ -6984,8 +7014,129 @@ def sol(s="hello", count=15):
 
 </details>
 
+### StrCount
+([trivial_inverse](#trivial_inverse) 15/39)
+
+**Description:**
+Find a string with a certain number of copies of a given substring and of a given length
+
+**Problem:**
+
+```python
+def sat(string: str, substring: str="a", count: int=10, length: int=100):
+    assert type(string) is str, 'string must be of type str'
+    return string.count(substring) == count and len(string) == length
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(substring="a", count=10, length=100):
+    c = chr(1 + max(ord(c) for c in (substring or "a")))  # a character not in substring
+    return substring * count + (length - len(substring) * count) * '^'
+```
+
+</details>
+
+### StrSplit
+([trivial_inverse](#trivial_inverse) 16/39)
+
+**Description:**
+Find a string of a given length with a certain split
+
+**Problem:**
+
+```python
+def sat(x: str, parts: List[str]=['I', 'love', 'dumplings', '!'], length: int=100):
+    assert type(x) is str, 'x must be of type str'
+    return len(x) == length and x.split() == parts
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(parts=['I', 'love', 'dumplings', '!'], length=100):
+    joined = " ".join(parts)
+    return joined + " " * (length - len(joined))
+```
+
+</details>
+
+### StrSplitter
+([trivial_inverse](#trivial_inverse) 17/39)
+
+**Description:**
+Find a separator that when used to split a given string gives a certain result
+
+**Problem:**
+
+```python
+def sat(x: str, parts: List[str]=['I', 'love', 'dumplings', '!', ''], string: str="I_love_dumplings_!_"):
+    assert type(x) is str, 'x must be of type str'
+    return string.split(x) == parts
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(parts=['I', 'love', 'dumplings', '!', ''], string="I_love_dumplings_!_"):
+    if len(parts) <= 1:
+        return string * 2
+    length = (len(string) - len("".join(parts))) // (len(parts) - 1)
+    start = len(parts[0])
+    return string[start:start + length]
+```
+
+</details>
+
+### StrJoiner
+([trivial_inverse](#trivial_inverse) 18/39)
+
+**Description:**
+Find a separator that when used to join a given string gives a certain result.
+This is related to the previous problem but there are some edge cases that differ.
+
+**Problem:**
+
+```python
+def sat(x: str, parts: List[str]=['I!!', '!love', 'dumplings', '!', ''], string: str="I!!!!!love!!dumplings!!!!!"):
+    assert type(x) is str, 'x must be of type str'
+    return x.join(parts) == string
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(parts=['I!!', '!love', 'dumplings', '!', ''], string="I!!!!!love!!dumplings!!!!!"):
+    if len(parts) <= 1:
+        return ""
+    length = (len(string) - len("".join(parts))) // (len(parts) - 1)
+    start = len(parts[0])
+    return string[start:start + length]
+```
+
+</details>
+
+### StrParts
+([trivial_inverse](#trivial_inverse) 19/39)
+
+**Description:**
+Find parts that when joined give a specific string.
+
+**Problem:**
+
+```python
+def sat(parts: List[str], sep: str="!!", string: str="I!!!!!love!!dumplings!!!!!"):
+    assert type(parts) is list and all(type(a) is str for a in parts), 'parts must be of type List[str]'
+    return sep.join(parts) == string and all(sep not in p for p in parts)
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(sep="!!", string="I!!!!!love!!dumplings!!!!!"):
+    return string.split(sep)
+```
+
+</details>
+
 ### ListSetLen
-([trivial_inverse](#trivial_inverse) 15/34)
+([trivial_inverse](#trivial_inverse) 20/39)
 
 **Description:**
 Find a list with a certain number of duplicate items
@@ -7007,7 +7158,7 @@ def sol(dups=42155):
 </details>
 
 ### ListMul
-([trivial_inverse](#trivial_inverse) 16/34)
+([trivial_inverse](#trivial_inverse) 21/39)
 
 **Description:**
 Find a list that when multiplied n times gives the target list
@@ -7031,7 +7182,7 @@ def sol(target=[17, 9, -1, 17, 9, -1], n=2):
 </details>
 
 ### ListLen
-([trivial_inverse](#trivial_inverse) 17/34)
+([trivial_inverse](#trivial_inverse) 22/39)
 
 **Description:**
 Find a list of a given length n
@@ -7053,7 +7204,7 @@ def sol(n=85012):
 </details>
 
 ### ListAt
-([trivial_inverse](#trivial_inverse) 18/34)
+([trivial_inverse](#trivial_inverse) 23/39)
 
 **Description:**
 Find the index of an item in a list. Any such index is fine.
@@ -7075,7 +7226,7 @@ def sol(li=[17, 31, 91, 18, 42, 1, 9], target=18):
 </details>
 
 ### ListNegAt
-([trivial_inverse](#trivial_inverse) 19/34)
+([trivial_inverse](#trivial_inverse) 24/39)
 
 **Description:**
 Find the index of an item in a list using negative indexing.
@@ -7097,7 +7248,7 @@ def sol(li=[17, 31, 91, 18, 42, 1, 9], target=91):
 </details>
 
 ### ListSlice
-([trivial_inverse](#trivial_inverse) 20/34)
+([trivial_inverse](#trivial_inverse) 25/39)
 
 **Description:**
 Find three slice indices to achieve a given list slice
@@ -7126,7 +7277,7 @@ def sol(li=[42, 18, 21, 103, -2, 11], target=[-2, 21, 42]):
 </details>
 
 ### ListIndex
-([trivial_inverse](#trivial_inverse) 21/34)
+([trivial_inverse](#trivial_inverse) 26/39)
 
 **Description:**
 Find the item whose first index in `li` is `index`
@@ -7148,7 +7299,7 @@ def sol(li=[17, 2, 3, 9, 11, 11], index=4):
 </details>
 
 ### ListIndex2
-([trivial_inverse](#trivial_inverse) 22/34)
+([trivial_inverse](#trivial_inverse) 27/39)
 
 **Description:**
 Find a list that contains `i` first at index `index`
@@ -7164,13 +7315,13 @@ def sat(li: List[int], i: int=29, index: int=10412):
 
 ```python
 def sol(i=29, index=10412):
-    return [i-1] * index + [i]
+    return [i - 1] * index + [i]
 ```
 
 </details>
 
 ### ListIn
-([trivial_inverse](#trivial_inverse) 23/34)
+([trivial_inverse](#trivial_inverse) 28/39)
 
 **Description:**
 Find an item that is in both lists `a` and `b`
@@ -7192,7 +7343,7 @@ def sol(a=['cat', 'dot', 'bird'], b=['tree', 'fly', 'dot']):
 </details>
 
 ### IntNeg
-([trivial_inverse](#trivial_inverse) 24/34)
+([trivial_inverse](#trivial_inverse) 29/39)
 
 **Description:**
 Solve unary negation problem
@@ -7214,7 +7365,7 @@ def sol(a=93252338):
 </details>
 
 ### IntSum
-([trivial_inverse](#trivial_inverse) 25/34)
+([trivial_inverse](#trivial_inverse) 30/39)
 
 **Description:**
 Solve sum problem
@@ -7236,7 +7387,7 @@ def sol(a=1073258, b=72352549):
 </details>
 
 ### IntSub
-([trivial_inverse](#trivial_inverse) 26/34)
+([trivial_inverse](#trivial_inverse) 31/39)
 
 **Description:**
 Solve subtraction problem
@@ -7258,7 +7409,7 @@ def sol(a=-382, b=14546310):
 </details>
 
 ### IntSub2
-([trivial_inverse](#trivial_inverse) 27/34)
+([trivial_inverse](#trivial_inverse) 32/39)
 
 **Description:**
 Solve subtraction problem
@@ -7280,7 +7431,7 @@ def sol(a=8665464, b=-93206):
 </details>
 
 ### IntMul
-([trivial_inverse](#trivial_inverse) 28/34)
+([trivial_inverse](#trivial_inverse) 33/39)
 
 **Description:**
 Solve multiplication problem
@@ -7302,7 +7453,7 @@ def sol(a=14302, b=5):
 </details>
 
 ### IntDiv
-([trivial_inverse](#trivial_inverse) 29/34)
+([trivial_inverse](#trivial_inverse) 34/39)
 
 **Description:**
 Solve division problem
@@ -7328,7 +7479,7 @@ def sol(a=3, b=23463462):
 </details>
 
 ### IntDiv2
-([trivial_inverse](#trivial_inverse) 30/34)
+([trivial_inverse](#trivial_inverse) 35/39)
 
 **Description:**
 Find `n` that when divided by `b` is `a`
@@ -7350,7 +7501,7 @@ def sol(a=345346363, b=10):
 </details>
 
 ### IntSquareRoot
-([trivial_inverse](#trivial_inverse) 31/34)
+([trivial_inverse](#trivial_inverse) 36/39)
 
 **Description:**
 Compute square root of number.
@@ -7373,7 +7524,7 @@ def sol(a=10201202001):
 </details>
 
 ### IntNegSquareRoot
-([trivial_inverse](#trivial_inverse) 32/34)
+([trivial_inverse](#trivial_inverse) 37/39)
 
 **Description:**
 Compute negative square root of number.
@@ -7396,7 +7547,7 @@ def sol(a=10000200001):
 </details>
 
 ### FloatSquareRoot
-([trivial_inverse](#trivial_inverse) 33/34)
+([trivial_inverse](#trivial_inverse) 38/39)
 
 **Description:**
 Compute square root of number.
@@ -7420,7 +7571,7 @@ def sol(a=1020):
 </details>
 
 ### FloatNegSquareRoot
-([trivial_inverse](#trivial_inverse) 34/34)
+([trivial_inverse](#trivial_inverse) 39/39)
 
 **Description:**
 Compute (negative) square root of number.

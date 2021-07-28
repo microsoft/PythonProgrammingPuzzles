@@ -266,6 +266,114 @@ class StrIn2(Problem):
         self.add(dict(s=s, count=count))
 
 
+class StrCount(Problem):
+    """Find a string with a certain number of copies of a given substring and of a given length"""
+
+    @staticmethod
+    def sat(string: str, substring="a", count=10, length=100):
+        return string.count(substring) == count and len(string) == length
+
+    @staticmethod
+    def sol(substring, count, length):
+        c = chr(1 + max(ord(c) for c in (substring or "a")))  # a character not in substring
+        return substring * count + (length - len(substring) * count) * '^'
+
+    def gen_random(self):
+        substring = self.random.pseudo_word(max_len=self.random.randrange(1, 11))
+        count = self.random.randrange(100)
+        length = len(substring) * count + self.random.randrange(1000)
+        self.add(dict(substring=substring, count=count, length=length))
+
+
+class StrSplit(Problem):
+    """Find a string of a given length with a certain split"""
+
+    @staticmethod
+    def sat(x: str, parts=["I", "love", "dumplings", "!"], length=100):
+        return len(x) == length and x.split() == parts
+
+    @staticmethod
+    def sol(parts, length):
+        joined = " ".join(parts)
+        return joined + " " * (length - len(joined))
+
+    def gen_random(self):
+        parts = [self.random.pseudo_word() for _ in range(self.random.randrange(1, 6))]
+        length = len(" ".join(parts)) + self.random.randrange(100)
+        self.add(dict(parts=parts, length=length))
+
+
+class StrSplitter(Problem):
+    """Find a separator that when used to split a given string gives a certain result"""
+
+    @staticmethod
+    def sat(x: str, parts=["I", "love", "dumplings", "!", ""], string="I_love_dumplings_!_"):
+        return string.split(x) == parts
+
+    @staticmethod
+    def sol(parts, string):
+        if len(parts) <= 1:
+            return string * 2
+        length = (len(string) - len("".join(parts))) // (len(parts) - 1)
+        start = len(parts[0])
+        return string[start:start + length]
+
+    def gen_random(self):
+        x = self.random.pseudo_word()
+        parts = [self.random.pseudo_word(min_len=0) for _ in range(1, self.random.randrange(6))]
+        parts = [p for p in parts if x not in p]
+        if not any(parts):
+            return
+        string = x.join(parts)
+        self.add(dict(parts=parts, string=string))
+
+class StrJoiner(Problem):
+    """
+    Find a separator that when used to join a given string gives a certain result.
+    This is related to the previous problem but there are some edge cases that differ.
+    """
+
+    @staticmethod
+    def sat(x: str, parts=["I!!", "!love", "dumplings", "!", ""], string="I!!!!!love!!dumplings!!!!!"):
+        return x.join(parts) == string
+
+    @staticmethod
+    def sol(parts, string):
+        if len(parts) <= 1:
+            return ""
+        length = (len(string) - len("".join(parts))) // (len(parts) - 1)
+        start = len(parts[0])
+        return string[start:start + length]
+
+    def gen_random(self):
+        x = self.random.pseudo_word()
+        parts = [self.random.pseudo_word(min_len=0) for _ in range(1, self.random.randrange(6))]
+        string = x.join(parts)
+        self.add(dict(parts=parts, string=string))
+
+
+class StrParts(Problem):
+    """
+    Find parts that when joined give a specific string.
+    """
+
+    @staticmethod
+    def sat(parts: List[str], sep="!!", string="I!!!!!love!!dumplings!!!!!"):
+        return sep.join(parts) == string and all(sep not in p for p in parts)
+
+    @staticmethod
+    def sol(sep, string):
+        return string.split(sep)
+
+    def gen_random(self):
+        sep = self.random.pseudo_word()
+        parts = [self.random.pseudo_word(min_len=0) for _ in range(1, self.random.randrange(6))]
+        parts = [p for p in parts if sep not in p]
+        string = sep.join(parts)
+        self.add(dict(sep=sep, string=string))
+
+
+
 ########################################
 # List problems
 ########################################
@@ -386,7 +494,6 @@ class ListSlice(Problem):
             pass
 
 
-
 class ListIndex(Problem):
     """Find the item whose first index in `li` is `index`"""
 
@@ -404,6 +511,7 @@ class ListIndex(Problem):
         index = li.index(li[i])
         self.add(dict(li=li, index=index))
 
+
 class ListIndex2(Problem):
     """Find a list that contains `i` first at index `index`"""
 
@@ -413,11 +521,11 @@ class ListIndex2(Problem):
 
     @staticmethod
     def sol(i, index):
-        return [i-1] * index + [i]
+        return [i - 1] * index + [i]
 
     def gen_random(self):
-        i = self.random.randrange(-10**5, 10**5)
-        index = self.random.randrange(10**5)
+        i = self.random.randrange(-10 ** 5, 10 ** 5)
+        index = self.random.randrange(10 ** 5)
         self.add(dict(i=i, index=index))
 
 
@@ -437,7 +545,6 @@ class ListIn(Problem):
         b = [self.random.pseudo_word() for _ in range(self.random.randrange(1, 100))]
         b.insert(self.random.randrange(len(b)), self.random.choice(a))
         self.add(dict(a=a, b=b))
-
 
 
 ########################################

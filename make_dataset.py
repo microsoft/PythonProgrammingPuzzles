@@ -1,6 +1,7 @@
 import argparse
 import fnmatch
 import time
+import sys
 
 import problems
 import utils
@@ -38,6 +39,7 @@ def main(args):
     probs_by_template = utils.inv_dict({p: p.__module__.split(".")[-1] for p in all_probs})
 
     used_templates = fnmatch.filter(probs_by_template, args.templates)
+    utils.info(f"Python version {sys.version}")
     utils.info(f"Generating from templates: {used_templates}")
     problem_sets = []
     for name in used_templates:  # order determined by import order in templates/__init__.py

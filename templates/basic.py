@@ -464,5 +464,35 @@ class CenteredString(Problem):
         self.add(dict(target=target, length=length))
 
 
+class SubstrCount(Problem):
+    """Find a substring with a certain count in a given string"""
+
+    @staticmethod
+    def sat(substring: str, string="moooboooofasd", count=2):
+        return string.count(substring) == count
+
+    @staticmethod
+    def sol(string, count):
+        for i in range(len(string)):
+            for j in range(i+1, len(string)):
+                substring = string[i:j]
+                c = string.count(substring)
+                if c == count:
+                    return substring
+                if c < count:
+                    break
+        assert False
+
+    def gen_random(self):
+        string = self.random.pseudo_word(max_len=self.random.randrange(1, 100))
+        candidates = [string[i:j] for i in range(len(string)) for j in range(i, len(string)) if
+                      len(string[i:j]) > 1 and string.count(string[i:j]) > 2]
+        if not candidates:
+            return
+        substring = self.random.choice(candidates)
+        count = string.count(substring)
+        self.add(dict(string=string, count=count))
+
+
 if __name__ == "__main__":
     Problem.debug_problems()

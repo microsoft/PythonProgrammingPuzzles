@@ -1224,5 +1224,7 @@ class SlidingPuzzle(Problem):
         self.add(dict(start=start))
 
 
+
+
 if __name__ == "__main__":
     Problem.debug_problems()
