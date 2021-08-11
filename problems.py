@@ -763,6 +763,13 @@ class DebugProblem(Problem):
 Problem.Debug = DebugProblem
 
 
+def remove_type_assertion(src: str):
+    lines = src.split("\n")
+    assert lines[1].strip().startswith("assert type")
+    lines.pop(1)
+    return "\n".join(lines)
+
+
 def get_src_spec(f: Callable):
     try:
         src = inspect.getsource(f)
@@ -818,7 +825,12 @@ def get_func_name(src):
 def save_readme(problem_sets, filename=os.path.join(PATH, "README.md")):
     top = """# Python Programming Puzzles: dataset summary
 This document summarizes the dataset stored in .json files.
-Each .json file contains a number of related problems with one or more puzzles each.
+Each .json file contains a number of related problems with one or more puzzles each. (Each puzzle in the json 
+files contains an assert statement on its first line ensuring that the input is of the correct type---these
+assertions have been removed below for readability.) The only import required for puzzles is: 
+```from typing import List, Set, Dict```    
+
+
 
 ## Files:
 
@@ -827,6 +839,8 @@ Each .json file contains a number of related problems with one or more puzzles e
 ----
 
 """
+
+
 
     table = ""
     content = ""
@@ -847,7 +861,7 @@ Each .json file contains a number of related problems with one or more puzzles e
         for i, problem in enumerate(ps.problems):
             section += f"### {problem.name}\n({link} {i + 1:,}/{n:,})\n\n"
             section += f"**Description:**\n{problem.desc}\n\n"
-            section += f"**Problem:**\n\n```python\n{problem.instances[0].src}\n```\n"
+            section += f"**Problem:**\n\n```python\n{remove_type_assertion(problem.instances[0].src)}\n```\n"
             if len(problem.instances[0].sol_srcs) > 0:
                 section += "<details><summary><strong>Reveal solution(s):</strong></summary>\n\n"
                 for sol in problem.instances[0].sol_srcs:
@@ -861,6 +875,7 @@ Each .json file contains a number of related problems with one or more puzzles e
         content += section
 
     table += f"\nTotal ({tot_probs:,} problems, {tot_instances:,} instances)\n"
+
 
     content = top.format(table) + content
 

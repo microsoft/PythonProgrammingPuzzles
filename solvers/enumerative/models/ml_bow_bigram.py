@@ -177,8 +177,13 @@ class BOWCondParentLRModel(CandidateGenerator):
                     sum_probs = np.sum(rule_probs * class_mask)
                     if sum_probs > 0:
                         rule_probs = rule_probs * class_mask / sum_probs
+                        rule_probs = [(rule_probs[i], RULES[self.sk_model.classes_[i]]) for i in
+                                      rule_probs.nonzero()[0]]
+                        assert all(r.nt == kind for _, r in rule_probs)
+                    else:
+                        rule_probs = []
 
-                    rule_probs = [(rule_probs[i], RULES[self.sk_model.classes_[i]]) for i in rule_probs.nonzero()[0]]
+
 
                     ans[r].append(([], rule_probs))
                     tok2 = time.time() - tik2

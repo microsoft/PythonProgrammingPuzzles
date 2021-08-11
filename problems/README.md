@@ -1,14 +1,21 @@
 # Python Programming Puzzles: dataset summary
 This document summarizes the dataset stored in .json files.
-Each .json file contains a number of related problems with one or more puzzles each.
+Each .json file contains a number of related problems with one or more puzzles each. (Each puzzle in the json 
+files contains an assert statement on its first line ensuring that the input is of the correct type---these
+assertions have been removed below for readability.) The only import required for puzzles is: 
+```from typing import List, Set, Dict```    
+
+
 
 ## Files:
 
+- [study (30 problems, 30 instances)](#study)
+- [classic_puzzles (22 problems, 11,370 instances)](#classic_puzzles)
+- [codex (16 problems, 16,000 instances)](#codex)
+- [codeforces (44 problems, 43,025 instances)](#codeforces)
 - [algebra (4 problems, 4,000 instances)](#algebra)
 - [basic (22 problems, 22,000 instances)](#basic)
 - [chess (5 problems, 4,855 instances)](#chess)
-- [classic_puzzles (22 problems, 11,370 instances)](#classic_puzzles)
-- [codeforces (44 problems, 43,025 instances)](#codeforces)
 - [compression (3 problems, 3,000 instances)](#compression)
 - [conways_game_of_life (2 problems, 2,000 instances)](#conways_game_of_life)
 - [games (5 problems, 1,006 instances)](#games)
@@ -19,951 +26,685 @@ Each .json file contains a number of related problems with one or more puzzles e
 - [lattices (2 problems, 2,000 instances)](#lattices)
 - [number_theory (16 problems, 10,762 instances)](#number_theory)
 - [probability (5 problems, 5,000 instances)](#probability)
-- [study (30 problems, 30 instances)](#study)
 - [trivial_inverse (39 problems, 37,002 instances)](#trivial_inverse)
 - [tutorial (5 problems, 5 instances)](#tutorial)
 
-Total (227 problems, 166,069 instances)
+Total (243 problems, 182,069 instances)
 
 
 ----
 
-## algebra
+## study
 
-Roots of polynomials
 
-[^ Top](#files)
+Problems used for the study.
 
-### QuadraticRoot
-([algebra](#algebra) 1/4)
-
-**Description:**
-Find any (real) solution for a [quadratic equation](https://en.wikipedia.org/wiki/Quadratic_formula)
-a x^2 + b x + c
-
-**Problem:**
-
-```python
-def sat(x: float, coeffs: List[float]=[2.5, 1.3, -0.5]):
-    assert type(x) is float, 'x must be of type float'
-    a, b, c = coeffs
-    return abs(a * x ** 2 + b * x + c) < 1e-6
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol(coeffs=[2.5, 1.3, -0.5]):
-    a, b, c = coeffs
-    if a == 0:
-        ans = -c / b if b != 0 else 0.0
-    else:
-        ans = ((-b + (b ** 2 - 4 * a * c) ** 0.5) / (2 * a))
-    return ans
-```
-
-```python
-def sol(coeffs=[2.5, 1.3, -0.5]):
-    a, b, c = coeffs
-    if a == 0:
-        ans = -c / b if b != 0 else 0.0
-    else:
-        ans = (-b - (b ** 2 - 4 * a * c) ** 0.5) / (2 * a)
-    return ans
-```
-
-</details>
-
-### AllQuadraticRoots
-([algebra](#algebra) 2/4)
-
-**Description:**
-Find all (real) solutions for a [quadratic equation](https://en.wikipedia.org/wiki/Quadratic_formula)
-x^2 + b x + c (i.e., factor into roots)
-
-**Problem:**
-
-```python
-def sat(roots: List[float], coeffs: List[float]=[1.3, -0.5]):
-    assert type(roots) is list and all(type(a) is float for a in roots), 'roots must be of type List[float]'
-    b, c = coeffs
-    r1, r2 = roots
-    return abs(r1 + r2 + b) + abs(r1 * r2 - c) < 1e-6
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol(coeffs=[1.3, -0.5]):
-    b, c = coeffs
-    delta = (b ** 2 - 4 * c) ** 0.5
-    return [(-b + delta) / 2, (-b - delta) / 2]
-```
-
-</details>
-
-### CubicRoot
-([algebra](#algebra) 3/4)
-
-**Description:**
-Find any (real) solution for a [cubic equation](https://en.wikipedia.org/wiki/Cubic_formula)
-a x^3 + b x^2 + c x + d
-
-**Problem:**
-
-```python
-def sat(x: float, coeffs: List[float]=[2.0, 1.0, 0.0, 8.0]):
-    assert type(x) is float, 'x must be of type float'
-    return abs(sum(c * x ** (3 - i) for i, c in enumerate(coeffs))) < 1e-6
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol(coeffs=[2.0, 1.0, 0.0, 8.0]):
-    a2, a1, a0 = [c / coeffs[0] for c in coeffs[1:]]
-    p = (3 * a1 - a2 ** 2) / 3
-    q = (9 * a1 * a2 - 27 * a0 - 2 * a2 ** 3) / 27
-    delta = (q ** 2 + 4 * p ** 3 / 27) ** 0.5
-    omega = (-(-1) ** (1 / 3))
-    answers = []
-    for cube in [(q + delta) / 2, (q - delta) / 2]:
-        c = cube ** (1 / 3)
-        for w in [c, c * omega, c * omega.conjugate()]:
-            if w != 0:
-                x = complex(w - p / (3 * w) - a2 / 3).real
-                if abs(sum(c * x ** (3 - i) for i, c in enumerate(coeffs))) < 1e-6:
-                    return x
-```
-
-</details>
-
-### AllCubicRoots
-([algebra](#algebra) 4/4)
-
-**Description:**
-Find all 3 distinct real roots of x^3 + a x^2 + b x + c, i.e., factor into (x-r1)(x-r2)(x-r3)
-
-**Problem:**
-
-```python
-def sat(roots: List[float], coeffs: List[float]=[1.0, -2.0, -1.0]):
-    assert type(roots) is list and all(type(a) is float for a in roots), 'roots must be of type List[float]'
-    r1, r2, r3 = roots
-    a, b, c = coeffs
-    return abs(r1 + r2 + r3 + a) + abs(r1 * r2 + r1 * r3 + r2 * r3 - b) + abs(r1 * r2 * r3 + c) < 1e-6
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol(coeffs=[1.0, -2.0, -1.0]):
-    a, b, c = coeffs
-    p = (3 * b - a ** 2) / 3
-    q = (9 * b * a - 27 * c - 2 * a ** 3) / 27
-    delta = (q ** 2 + 4 * p ** 3 / 27) ** 0.5
-    omega = (-(-1) ** (1 / 3))
-    ans = []
-    for cube in [(q + delta) / 2, (q - delta) / 2]:
-        v = cube ** (1 / 3)
-        for w in [v, v * omega, v * omega.conjugate()]:
-            if w != 0.0:
-                x = complex(w - p / (3 * w) - a / 3).real
-                if abs(x ** 3 + a * x ** 2 + b * x + c) < 1e-4:
-                    if not ans or min(abs(z - x) for z in ans) > 1e-6:
-                        ans.append(x)
-    if len(ans) == 3:
-        return ans
-```
-
-</details>
-
-[^^ Top](#files)
-## basic
-
-Problems testing basic knowledge -- easy to solve if you understand what is being asked
 
 [^ Top](#files)
 
-### SumOfDigits
-([basic](#basic) 1/22)
+### Study_1
+([study](#study) 1/30)
 
 **Description:**
-Find a number that its digits sum to a specific value.
+Find a string with 1000 'o's but no two adjacent 'o's.
 
 **Problem:**
 
 ```python
-def sat(x: str, s: int=679):
-    assert type(x) is str, 'x must be of type str'
-    return s == sum([int(d) for d in x])
+def sat(s: str):
+    return s.count('o') == 1000 and s.count('oo') == 0
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
 
 ```python
-def sol(s=679):
-    return int(s / 9) * '9' + str(s % 9)
+def sol():
+    return ('h' + 'o') * 1000
 ```
 
 </details>
 
-### FloatWithDecimalValue
-([basic](#basic) 2/22)
+### Study_2
+([study](#study) 2/30)
 
 **Description:**
-Create a float with a specific decimal.
+Find a string with 1000 'o's, 100 pairs of adjacent 'o's and 801 copies of 'ho'.
 
 **Problem:**
 
 ```python
-def sat(z: float, v: int=9, d: float=0.0001):
-    assert type(z) is float, 'z must be of type float'
-    return int(z * 1 / d % 10) == v
+def sat(s: str):
+    return s.count('o') == 1000 and s.count('oo') == 100 and s.count('ho') == 801
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
 
 ```python
-def sol(v=9, d=0.0001):
-    return v * d
+def sol():
+    return 'ho' * (800 + 1) + 'o' * (100 * 2 - 1)
 ```
 
 </details>
 
-### ArithmeticSequence
-([basic](#basic) 3/22)
+### Study_3
+([study](#study) 3/30)
 
 **Description:**
-Create a list that is a subrange of an arithmetic sequence.
+Find a permutation of [0, 1, ..., 998] such that the ith element is *not* i, for all i=0, 1, ..., 998.
 
 **Problem:**
 
 ```python
-def sat(x: List[int], a: int=7, s: int=5, e: int=200):
-    assert type(x) is list and all(type(a) is int for a in x), 'x must be of type List[int]'
-    return x[0] == a and x[-1] <= e and (x[-1] + s > e) and all([x[i] + s == x[i + 1] for i in range(len(x) - 1)])
+def sat(li: List[int]):
+    return sorted(li) == list(range(999)) and all(li[i] != i for i in range(len(li)))
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
 
 ```python
-def sol(a=7, s=5, e=200):
-    return list(range(a, e + 1, s))
+def sol():
+    return [((i + 1) % 999) for i in range(999)]
 ```
 
 </details>
 
-### GeometricSequence
-([basic](#basic) 4/22)
+### Study_4
+([study](#study) 4/30)
 
 **Description:**
-Create a list that is a subrange of an gemoetric sequence.
+Find a list of length 10 where the fourth element occurs exactly twice.
 
 **Problem:**
 
 ```python
-def sat(x: List[int], a: int=8, r: int=2, l: int=50):
-    assert type(x) is list and all(type(a) is int for a in x), 'x must be of type List[int]'
-    return x[0] == a and len(x) == l and all([x[i] * r == x[i + 1] for i in range(len(x) - 1)])
+def sat(li: List[int]):
+    return len(li) == 10 and li.count(li[3]) == 2
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
 
 ```python
-def sol(a=8, r=2, l=50):
-    return [a * r ** i for i in range(l)]
+def sol():
+    return list(range(10 // 2)) * 2
 ```
 
 </details>
 
-### LineIntersection
-([basic](#basic) 5/22)
+### Study_5
+([study](#study) 5/30)
 
 **Description:**
-Find the intersection of two lines.
-Solution should be a list of the (x,y) coordinates.
-Accuracy of fifth decimal digit is required.
+Find a list integers such that the integer i occurs i times, for i = 0, 1, 2, ..., 9.
 
 **Problem:**
 
 ```python
-def sat(e: List[int], a: int=2, b: int=-1, c: int=1, d: int=2021):
-    assert type(e) is list and all(type(a) is int for a in e), 'e must be of type List[int]'
-    x = e[0] / e[1]
-    return abs(a * x + b - c * x - d) < 10 ** -5
+def sat(li: List[int]):
+    return all([li.count(i) == i for i in range(10)])
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
 
 ```python
-def sol(a=2, b=-1, c=1, d=2021):
-    return [d - b, a - c]
+def sol():
+    return [i for i in range(10) for j in range(i)]
 ```
 
 </details>
 
-### IfProblem
-([basic](#basic) 6/22)
+### Study_6
+([study](#study) 6/30)
 
 **Description:**
-Simple if statement
+Find an integer greater than 10^10 which is 4 mod 123.
 
 **Problem:**
 
 ```python
-def sat(x: int, a: int=324554, b: int=1345345):
-    assert type(x) is int, 'x must be of type int'
-    if a < 50:
-        return x + a == b
-    else:
-        return x - 2 * a == b
+def sat(i: int):
+    return i % 123 == 4 and i > 10 ** 10
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
 
 ```python
-def sol(a=324554, b=1345345):
-    if a < 50:
-        return b - a
-    else:
-        return b + 2 * a
+def sol():
+    return 4 + 10 ** 10 + 123 - 10 ** 10 % 123
 ```
 
 </details>
 
-### IfProblemWithAnd
-([basic](#basic) 7/22)
+### Study_7
+([study](#study) 7/30)
 
 **Description:**
-Simple if statement with and clause
+Find a three-digit pattern  that occurs more than 8 times in the decimal representation of 8^2888.
 
 **Problem:**
 
 ```python
-def sat(x: int, a: int=9384594, b: int=1343663):
-    assert type(x) is int, 'x must be of type int'
-    if x > 0 and a > 50:
-        return x - a == b
-    else:
-        return x + a == b
+def sat(s: str):
+    return str(8 ** 2888).count(s) > 8 and len(s) == 3
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
 
 ```python
-def sol(a=9384594, b=1343663):
-    if a > 50 and b > a:
-        return b + a
-    else:
-        return b - a
+def sol():
+    s = str(8 ** 2888)
+    return max({s[i: i + 3] for i in range(len(s) - 2)}, key=lambda t: s.count(t))
 ```
 
 </details>
 
-### IfProblemWithOr
-([basic](#basic) 8/22)
+### Study_8
+([study](#study) 8/30)
 
 **Description:**
-Simple if statement with or clause
+Find a list of more than 1235 strings such that the 1234th string is a proper substring of the 1235th.
 
 **Problem:**
 
 ```python
-def sat(x: int, a: int=253532, b: int=1230200):
-    assert type(x) is int, 'x must be of type int'
-    if x > 0 or a > 50:
-        return x - a == b
-    else:
-        return x + a == b
+def sat(ls: List[str]):
+    return ls[1234] in ls[1235] and ls[1234] != ls[1235]
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
 
 ```python
-def sol(a=253532, b=1230200):
-    if a > 50 or b > a:
-        return b + a
-    else:
-        return b - a
+def sol():
+    return [''] * 1235 + ['a']
 ```
 
 </details>
 
-### IfCases
-([basic](#basic) 9/22)
+### Study_9
+([study](#study) 9/30)
 
 **Description:**
-Simple if statement with multiple cases
+Find a way to rearrange the letters in the pangram "The quick brown fox jumps over the lazy dog" to
+get the pangram "The five boxing wizards jump quickly". The answer should be represented as a list of index
+mappings.
 
 **Problem:**
 
 ```python
-def sat(x: int, a: int=4, b: int=54368639):
-    assert type(x) is int, 'x must be of type int'
-    if a == 1:
-        return x % 2 == 0
-    elif a == -1:
-        return x % 2 == 1
-    else:
-        return x + a == b
+def sat(li: List[int]):
+    return ["The quick brown fox jumps over the lazy dog"[i] for i in li] == list(
+        "The five boxing wizards jump quickly")
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
 
 ```python
-def sol(a=4, b=54368639):
-    if a == 1:
-        x = 0
-    elif a == -1:
-        x = 1
-    else:
-        x = b - a
-    return x
+def sol():
+    return ['The quick brown fox jumps over the lazy dog'.index(t) for t in 'The five boxing wizards jump quickly']
 ```
 
 </details>
 
-### ListPosSum
-([basic](#basic) 10/22)
+### Study_10
+([study](#study) 10/30)
 
 **Description:**
-Construct a list of non-negative integers that sum up to some value
+Find a palindrome of length greater than 11 in the decimal representation of 8^1818.
 
 **Problem:**
 
 ```python
-def sat(x: List[int], n: int=5, s: int=19):
-    assert type(x) is list and all(type(a) is int for a in x), 'x must be of type List[int]'
-    return len(x) == n and sum(x) == s and all([a > 0 for a in x])
+def sat(s: str):
+    return s in str(8 ** 1818) and s == s[::-1] and len(s) > 11
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
 
 ```python
-def sol(n=5, s=19):
-    x = [1] * n
-    x[0] = s - n + 1
-    return x
-```
-
-</details>
-
-### ListDistinctSum
-([basic](#basic) 11/22)
-
-**Description:**
-Construct a list of distinct integers that sum up to some value
-
-**Problem:**
-
-```python
-def sat(x: List[int], n: int=4, s: int=2021):
-    assert type(x) is list and all(type(a) is int for a in x), 'x must be of type List[int]'
-    return len(x) == n and sum(x) == s and len(set(x)) == n
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol(n=4, s=2021):
-    a = 1
-    x = []
-    while len(x) < n - 1:
-        x.append(a)
-        a = -a
-        if a in x:
-            a += 1
-
-    if s - sum(x) in x:
-        x = [i for i in range(n - 1)]
-
-    x = x + [s - sum(x)]
-    return x
-```
-
-</details>
-
-### ConcatStrings
-([basic](#basic) 12/22)
-
-**Description:**
-Concatenate list of characters
-
-**Problem:**
-
-```python
-def sat(x: str, s: List[str]=['a', 'b', 'c', 'd', 'e', 'f'], n: int=4):
-    assert type(x) is str, 'x must be of type str'
-    return len(x) == n and all([x[i] == s[i] for i in range(n)])
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol(s=['a', 'b', 'c', 'd', 'e', 'f'], n=4):
-    return ''.join([s[i] for i in range(n)])
-```
-
-</details>
-
-### SublistSum
-([basic](#basic) 13/22)
-
-**Description:**
-Sum values of sublist by range specifications
-
-**Problem:**
-
-```python
-def sat(x: List[int], t: int=677, a: int=43, e: int=125, s: int=10):
-    assert type(x) is list and all(type(a) is int for a in x), 'x must be of type List[int]'
-    non_zero = [z for z in x if z != 0]
-    return t == sum([x[i] for i in range(a, e, s)]) and len(set(non_zero)) == len(non_zero) and all(
-        [x[i] != 0 for i in range(a, e, s)])
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol(t=677, a=43, e=125, s=10):
-    x = [0] * e
-    for i in range(a, e, s):
-        x[i] = i
-    correction = t - sum(x) + x[i]
-    if correction in x:
-        x[correction] = -1 * correction
-        x[i] = 3 * correction
-    else:
-        x[i] = correction
-    return x
-```
-
-</details>
-
-### CumulativeSum
-([basic](#basic) 14/22)
-
-**Description:**
-Number of values with cumulative sum less than target
-
-**Problem:**
-
-```python
-def sat(x: List[int], t: int=50, n: int=10):
-    assert type(x) is list and all(type(a) is int for a in x), 'x must be of type List[int]'
-    assert all([v > 0 for v in x])
-    s = 0
-    i = 0
-    for v in sorted(x):
-        s += v
-        if s > t:
-            return i == n
-        i += 1
-    return i == n
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol(t=50, n=10):
-    return [1] * n + [t]
-```
-
-</details>
-
-### BasicStrCounts
-([basic](#basic) 15/22)
-
-**Description:**
-Find a string that has `count1` occurrences of `s1` and `count1` occurrences of `s1` and starts and ends with
-the same 10 characters
-
-**Problem:**
-
-```python
-def sat(s: str, s1: str="a", s2: str="b", count1: int=50, count2: int=30):
-    assert type(s) is str, 's must be of type str'
-    return s.count(s1) == count1 and s.count(s2) == count2 and s[:10] == s[-10:]
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol(s1="a", s2="b", count1=50, count2=30):
-    if s1 == s2:
-        ans = (s1 + "?") * count1
-    elif s1.count(s2):
-        ans = (s1 + "?") * count1
-        ans += (s2 + "?") * (count2 - ans.count(s2))
-    else:
-        ans = (s2 + "?") * count2
-        ans += (s1 + "?") * (count1 - ans.count(s1))
-    return "?" * 10 + ans + "?" * 10
-```
-
-</details>
-
-### ZipStr
-([basic](#basic) 16/22)
-
-**Description:**
-Find a string that contains all the `substrings` alternating, e.g., 'cdaotg' for 'cat' and 'dog'
-
-**Problem:**
-
-```python
-def sat(s: str, substrings: List[str]=['foo', 'bar', 'baz']):
-    assert type(s) is str, 's must be of type str'
-    return all(sub in s[i::len(substrings)] for i, sub in enumerate(substrings))
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol(substrings=['foo', 'bar', 'baz']):
-    m = max(len(s) for s in substrings)
-    return "".join([(s[i] if i < len(s) else " ") for i in range(m) for s in substrings])
-```
-
-</details>
-
-### ReverseCat
-([basic](#basic) 17/22)
-
-**Description:**
-Find a string that contains all the `substrings` reversed and forward
-
-**Problem:**
-
-```python
-def sat(s: str, substrings: List[str]=['foo', 'bar', 'baz']):
-    assert type(s) is str, 's must be of type str'
-    return all(sub in s and sub[::-1] in s for sub in substrings)
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol(substrings=['foo', 'bar', 'baz']):
-    return "".join(substrings + [s[::-1] for s in substrings])
-```
-
-</details>
-
-### EngineerNumbers
-([basic](#basic) 18/22)
-
-**Description:**
-Find a list of `n` strings starting with `a` and ending with `b`
-
-**Problem:**
-
-```python
-def sat(ls: List[str], n: int=100, a: str="bar", b: str="foo"):
-    assert type(ls) is list and all(type(a) is str for a in ls), 'ls must be of type List[str]'
-    return len(ls) == len(set(ls)) == n and ls[0] == a and ls[-1] == b and ls == sorted(ls)
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol(n=100, a="bar", b="foo"):
-    return sorted([a] + [a + chr(0) + str(i) for i in range(n - 2)] + [b])
-```
-
-</details>
-
-### PenultimateString
-([basic](#basic) 19/22)
-
-**Description:**
-Find the alphabetically second to last last string in a list.
-
-**Problem:**
-
-```python
-def sat(s: str, strings: List[str]=['cat', 'dog', 'bird', 'fly', 'moose']):
-    assert type(s) is str, 's must be of type str'
-    return s in strings and sum(t > s for t in strings) == 1
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol(strings=['cat', 'dog', 'bird', 'fly', 'moose']):
-    return sorted(strings)[-2]
-```
-
-</details>
-
-### PenultimateRevString
-([basic](#basic) 20/22)
-
-**Description:**
-Find the reversed version of the alphabetically second string in a list.
-
-**Problem:**
-
-```python
-def sat(s: str, strings: List[str]=['cat', 'dog', 'bird', 'fly', 'moose']):
-    assert type(s) is str, 's must be of type str'
-    return s[::-1] in strings and sum(t < s[::-1] for t in strings) == 1
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol(strings=['cat', 'dog', 'bird', 'fly', 'moose']):
-    return sorted(strings)[1][::-1]
-```
-
-</details>
-
-### CenteredString
-([basic](#basic) 21/22)
-
-**Description:**
-Find a substring of length `length` centered within `target`.
-
-**Problem:**
-
-```python
-def sat(s: str, target: str="foobarbazwow", length: int=6):
-    assert type(s) is str, 's must be of type str'
-    return target[(len(target) - length) // 2:(len(target) + length) // 2] == s
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol(target="foobarbazwow", length=6):
-    return target[(len(target) - length) // 2:(len(target) + length) // 2]
-```
-
-</details>
-
-### SubstrCount
-([basic](#basic) 22/22)
-
-**Description:**
-Find a substring with a certain count in a given string
-
-**Problem:**
-
-```python
-def sat(substring: str, string: str="moooboooofasd", count: int=2):
-    assert type(substring) is str, 'substring must be of type str'
-    return string.count(substring) == count
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol(string="moooboooofasd", count=2):
-    for i in range(len(string)):
-        for j in range(i+1, len(string)):
-            substring = string[i:j]
-            c = string.count(substring)
-            if c == count:
-                return substring
-            if c < count:
-                break
-    assert False
-```
-
-</details>
-
-[^^ Top](#files)
-## chess
-
-Classic chess problems
-
-[^ Top](#files)
-
-### EightQueensOrFewer
-([chess](#chess) 1/5)
-
-**Description:**
-Eight (or fewer) Queens Puzzle
-
-Position min(m, n) <= 8 queens on an m x n chess board so that no pair is attacking each other. Hint:
-a brute force approach works on this puzzle.
-
-See the MoreQueens puzzle for another (longer but clearer) equivalent definition of sat
-
-See Wikipedia entry on
-[Eight Queens puzzle](https://en.wikipedia.org/w/index.php?title=Eight_queens_puzzle).
-
-**Problem:**
-
-```python
-def sat(squares: List[List[int]], m: int=8, n: int=8):
-    assert type(squares) is list and all(type(a) is list and all(type(b) is int for b in a) for a in squares), 'squares must be of type List[List[int]]'
-    k = min(m, n)
-    assert all(i in range(m) and j in range(n) for i, j in squares) and len(squares) == k
-    return 4 * k == len({t for i, j in squares for t in [('row', i), ('col', j), ('SE', i + j), ('NE', i - j)]})
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol(m=8, n=8):  # brute force
-    k = min(m, n)
-
-    from itertools import permutations
-    for p in permutations(range(k)):
-        if 4 * k == len(
-                {t for i, j in enumerate(p) for t in [('row', i), ('col', j), ('SE', i + j), ('NE', i - j)]}):
-            return [[i, j] for i, j in enumerate(p)]
-```
-
-</details>
-
-### MoreQueens
-([chess](#chess) 2/5)
-
-**Description:**
-More Queens Puzzle
-
-Position min(m, n) > 8 queens on an m x n chess board so that no pair is attacking each other. A brute force
-approach will not work on many of these problems. Here, we use a different
-
-See Wikipedia entry on
-[Eight Queens puzzle](https://en.wikipedia.org/w/index.php?title=Eight_queens_puzzle).
-
-**Problem:**
-
-```python
-def sat(squares: List[List[int]], m: int=9, n: int=9):
-    assert type(squares) is list and all(type(a) is list and all(type(b) is int for b in a) for a in squares), 'squares must be of type List[List[int]]'
-    k = min(m, n)
-    assert all(i in range(m) and j in range(n) for i, j in squares), "queen off board"
-    assert len(squares) == k, "Wrong number of queens"
-    assert len({i for i, j in squares}) == k, "Queens on same row"
-    assert len({j for i, j in squares}) == k, "Queens on same file"
-    assert len({i + j for i, j in squares}) == k, "Queens on same SE diagonal"
-    assert len({i - j for i, j in squares}) == k, "Queens on same NE diagonal"
-    return True
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol(m=9, n=9):
-    t = min(m, n)
-    ans = []
-    if t % 2 == 1:  # odd k, put a queen in the lower right corner (and decrement k)
-        ans.append([t - 1, t - 1])
-        t -= 1
-    if t % 6 == 2:  # do something special for 8x8, 14x14 etc:
-        ans += [[i, (2 * i + t // 2 - 1) % t] for i in range(t // 2)]
-        ans += [[i + t // 2, (2 * i - t // 2 + 2) % t] for i in range(t // 2)]
-    else:
-        ans += [[i, 2 * i + 1] for i in range(t // 2)]
-        ans += [[i + t // 2, 2 * i] for i in range(t // 2)]
-    return ans
-```
-
-</details>
-
-### KnightsTour
-([chess](#chess) 3/5)
-
-**Description:**
-Knights Tour
-
-Find an (open) tour of knight moves on an m x n chess-board that visits each square once.
-
-See Wikipedia entry on [Knight's tour](https://en.wikipedia.org/w/index.php?title=Knight%27s_tour)
-
-**Problem:**
-
-```python
-def sat(tour: List[List[int]], m: int=8, n: int=8):
-    assert type(tour) is list and all(type(a) is list and all(type(b) is int for b in a) for a in tour), 'tour must be of type List[List[int]]'
-    assert all({abs(i1 - i2), abs(j1 - j2)} == {1, 2} for [i1, j1], [i2, j2] in zip(tour, tour[1:])), 'legal moves'
-    return sorted(tour) == [[i, j] for i in range(m) for j in range(n)]  # cover every square once
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol(m=8, n=8):  # using Warnsdorff's heuristic, breaking ties randomly 
-    import random
-    for seed in range(100):
-        r = random.Random(seed)
-        ans = [(0, 0)]
-        free = {(i, j) for i in range(m) for j in range(n)} - {(0, 0)}
-
-        def possible(i, j):
-            moves = [(i + s * a, j + t * b) for (a, b) in [(1, 2), (2, 1)] for s in [-1, 1] for t in [-1, 1]]
-            return [z for z in moves if z in free]
-
-        while True:
-            if not free:
-                return [[a, b] for (a, b) in ans]
-            candidates = possible(*ans[-1])
-            if not candidates:
-                break
-            ans.append(min(candidates, key=lambda z: len(possible(*z)) + r.random()))
-            free.remove(ans[-1])
-```
-
-</details>
-
-### UncrossedKnightsPath
-([chess](#chess) 4/5)
-
-**Description:**
-Uncrossed Knights Path (known solvable, but no solution given)
-
-Find long (open) tour of knight moves on an m x n chess-board whose edges don't cross.
-The goal of these problems is to match the nxn_records from [http://ukt.alex-black.ru/](http://ukt.alex-black.ru/)
-(accessed 2020-11-29).
-
-A more precise description is in this
-[Wikipedia article](https://en.wikipedia.org/w/index.php?title=Longest_uncrossed_knight%27s_path).
-
-**Problem:**
-
-```python
-def sat(path: List[List[int]], m: int=8, n: int=8, target: int=35):
-    assert type(path) is list and all(type(a) is list and all(type(b) is int for b in a) for a in path), 'path must be of type List[List[int]]'
-    def legal_move(m):
-        (a, b), (i, j) = m
-        return {abs(i - a), abs(j - b)} == {1, 2}
-
-    def legal_quad(m1, m2):  # non-overlapping test: parallel or bounding box has (width - 1) * (height - 1) >= 5
-        (i1, j1), (i2, j2) = m1
-        (a1, b1), (a2, b2) = m2
-        return (len({(i1, j1), (i2, j2), (a1, b1), (a2, b2)}) < 4  # adjacent edges in path, ignore
-                or (i1 - i2) * (b1 - b2) == (j1 - j2) * (a1 - a2)  # parallel
-                or (max(a1, a2, i1, i2) - min(a1, a2, i1, i2)) * (max(b1, b2, j1, j2) - min(b1, b2, j1, j2)) >= 5
-                # far
+def sol():
+    s = str(8 ** 1818)
+    return next(s[i: i + le]
+                for le in range(12, len(s) + 1)
+                for i in range(len(s) - le + 1)
+                if s[i: i + le] == s[i: i + le][::-1]
                 )
-
-    assert all(i in range(m) and j in range(n) for i, j in path), "move off board"
-    assert len({(i, j) for i, j in path}) == len(path), "visited same square twice"
-
-    moves = list(zip(path, path[1:]))
-    assert all(legal_move(m) for m in moves), "illegal move"
-    assert all(legal_quad(m1, m2) for m1 in moves for m2 in moves), "intersecting move pair"
-
-    return len(path) >= target
 ```
-### UNSOLVED_UncrossedKnightsPath
-([chess](#chess) 5/5)
+
+</details>
+
+### Study_11
+([study](#study) 11/30)
 
 **Description:**
-Uncrossed Knights Path (open problem, unsolved)
-
-Find long (open) tour of knight moves on an m x n chess-board whose edges don't cross.
-The goal of these problems is to *beat* the nxn_records from
-[http://ukt.alex-black.ru/](http://ukt.alex-black.ru/)
-(accessed 2020-11-29).
-
-A more precise description is in this
-[Wikipedia article](https://en.wikipedia.org/w/index.php?title=Longest_uncrossed_knight%27s_path).
+Find a list of strings whose length (viewed as a string) is equal to the lexicographically largest element
+and is equal to the lexicographically smallest element.
 
 **Problem:**
 
 ```python
-def sat(path: List[List[int]], m: int=8, n: int=8, target: int=35):
-    assert type(path) is list and all(type(a) is list and all(type(b) is int for b in a) for a in path), 'path must be of type List[List[int]]'
-    def legal_move(m):
-        (a, b), (i, j) = m
-        return {abs(i - a), abs(j - b)} == {1, 2}
-
-    def legal_quad(m1, m2):  # non-overlapping test: parallel or bounding box has (width - 1) * (height - 1) >= 5
-        (i1, j1), (i2, j2) = m1
-        (a1, b1), (a2, b2) = m2
-        return (len({(i1, j1), (i2, j2), (a1, b1), (a2, b2)}) < 4  # adjacent edges in path, ignore
-                or (i1 - i2) * (b1 - b2) == (j1 - j2) * (a1 - a2)  # parallel
-                or (max(a1, a2, i1, i2) - min(a1, a2, i1, i2)) * (max(b1, b2, j1, j2) - min(b1, b2, j1, j2)) >= 5
-                # far
-                )
-
-    assert all(i in range(m) and j in range(n) for i, j in path), "move off board"
-    assert len({(i, j) for i, j in path}) == len(path), "visited same square twice"
-
-    moves = list(zip(path, path[1:]))
-    assert all(legal_move(m) for m in moves), "illegal move"
-    assert all(legal_quad(m1, m2) for m1 in moves for m2 in moves), "intersecting move pair"
-
-    return len(path) >= target
+def sat(ls: List[str]):
+    return min(ls) == max(ls) == str(len(ls))
 ```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol():
+    return ['1']
+```
+
+</details>
+
+### Study_12
+([study](#study) 12/30)
+
+**Description:**
+Find a list of 1,000 integers where every two adjacent integers sum to 9, and where the first
+integer plus 4 is 9.
+
+**Problem:**
+
+```python
+def sat(li: List[int]):
+    return all(i + j == 9 for i, j in zip([4] + li, li)) and len(li) == 1000
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol():
+    return [9 - 4, 4] * (1000 // 2)
+```
+
+</details>
+
+### Study_13
+([study](#study) 13/30)
+
+**Description:**
+Find a real number which, when you subtract 3.1415, has a decimal representation starting with 123.456.
+
+**Problem:**
+
+```python
+def sat(x: float):
+    return str(x - 3.1415).startswith("123.456")
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol():
+    return 123.456 + 3.1415
+```
+
+</details>
+
+### Study_14
+([study](#study) 14/30)
+
+**Description:**
+Find a list of integers such that the sum of the first i integers is i, for i=0, 1, 2, ..., 19.
+
+**Problem:**
+
+```python
+def sat(li: List[int]):
+    return all([sum(li[:i]) == i for i in range(20)])
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol():
+    return [1] * 20
+```
+
+</details>
+
+### Study_15
+([study](#study) 15/30)
+
+**Description:**
+Find a list of integers such that the sum of the first i integers is 2^i -1, for i = 0, 1, 2, ..., 19.
+
+**Problem:**
+
+```python
+def sat(li: List[int]):
+    return all(sum(li[:i]) == 2 ** i - 1 for i in range(20))
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol():
+    return [(2 ** i) for i in range(20)]
+```
+
+</details>
+
+### Study_16
+([study](#study) 16/30)
+
+**Description:**
+Find a real number such that when you add the length of its decimal representation to it, you get 4.5.
+Your answer should be the string form of the number in its decimal representation.
+
+**Problem:**
+
+```python
+def sat(s: str):
+    return float(s) + len(s) == 4.5
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol():
+    return str(4.5 - len(str(4.5)))
+```
+
+</details>
+
+### Study_17
+([study](#study) 17/30)
+
+**Description:**
+Find a number whose decimal representation is *a longer string* when you add 1,000 to it than when you add 1,001.
+
+**Problem:**
+
+```python
+def sat(i: int):
+    return len(str(i + 1000)) > len(str(i + 1001))
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol():
+    return -1001
+```
+
+</details>
+
+### Study_18
+([study](#study) 18/30)
+
+**Description:**
+Find a list of strings that when you combine them in all pairwise combinations gives the six strings:
+'berlin', 'berger', 'linber', 'linger', 'gerber', 'gerlin'
+
+**Problem:**
+
+```python
+def sat(ls: List[str]):
+    return [s + t for s in ls for t in ls if s != t] == 'berlin berger linber linger gerber gerlin'.split()
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol():
+    seen = set()
+    ans = []
+    for s in 'berlin berger linber linger gerber gerlin'.split():
+        t = s[:3]
+        if t not in seen:
+            ans.append(t)
+            seen.add(t)
+    return ans
+```
+
+</details>
+
+### Study_19
+([study](#study) 19/30)
+
+**Description:**
+Find a set of integers whose pairwise sums make the set {0, 1, 2, 3, 4, 5, 6, 17, 18, 19, 20, 34}.
+That is find set S such that, { i + j | i, j in S } = {0, 1, 2, 3, 4, 5, 6, 17, 18, 19, 20, 34}.
+
+**Problem:**
+
+```python
+def sat(si: Set[int]):
+    return {i + j for i in si for j in si} == {0, 1, 2, 3, 4, 5, 6, 17, 18, 19, 20, 34}
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol():
+    return {0, 1, 2, 3, 17}
+```
+
+</details>
+
+### Study_20
+([study](#study) 20/30)
+
+**Description:**
+Find a list of integers, starting with 0 and ending with 128, such that each integer either differs from
+the previous one by one or is thrice the previous one.
+
+**Problem:**
+
+```python
+def sat(li: List[int]):
+    return all(j in {i - 1, i + 1, 3 * i} for i, j in zip([0] + li, li + [128]))
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol():
+    return [1, 3, 4, 12, 13, 14, 42, 126, 127]
+```
+
+</details>
+
+### Study_21
+([study](#study) 21/30)
+
+**Description:**
+Find a list integers containing exactly three distinct values, such that no integer repeats
+twice consecutively among the first eleven entries. (So the list needs to have length greater than ten.)
+
+**Problem:**
+
+```python
+def sat(li: List[int]):
+    return all([li[i] != li[i + 1] for i in range(10)]) and len(set(li)) == 3
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol():
+    return list(range(3)) * 10
+```
+
+</details>
+
+### Study_22
+([study](#study) 22/30)
+
+**Description:**
+Find a string s containing exactly five distinct characters which also contains as a substring every other
+character of s (e.g., if the string s were 'parrotfish' every other character would be 'profs').
+
+**Problem:**
+
+```python
+def sat(s: str):
+    return s[::2] in s and len(set(s)) == 5
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol():
+    return """abacadaeaaaaaaaaaa"""
+```
+
+</details>
+
+### Study_23
+([study](#study) 23/30)
+
+**Description:**
+Find a list of characters which are aligned at the same indices of the three strings 'dee', 'doo', and 'dah!'.
+
+**Problem:**
+
+```python
+def sat(ls: List[str]):
+    return tuple(ls) in zip('dee', 'doo', 'dah!')
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol():
+    return list(next(zip('dee', 'doo', 'dah!')))
+```
+
+</details>
+
+### Study_24
+([study](#study) 24/30)
+
+**Description:**
+Find a list of integers with exactly three occurrences of seventeen and at least two occurrences of three.
+
+**Problem:**
+
+```python
+def sat(li: List[int]):
+    return li.count(17) == 3 and li.count(3) >= 2
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol():
+    return [17] * 3 + [3] * 2
+```
+
+</details>
+
+### Study_25
+([study](#study) 25/30)
+
+**Description:**
+Find a permutation of the string 'Permute me true' which is a palindrome.
+
+**Problem:**
+
+```python
+def sat(s: str):
+    return sorted(s) == sorted('Permute me true') and s == s[::-1]
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol():
+    return """""".join(sorted('Permute me true'[1:])[::2] + ['P'] + sorted('Permute me true'[1:])[::2][::-1])
+```
+
+</details>
+
+### Study_26
+([study](#study) 26/30)
+
+**Description:**
+Divide the decimal representation of 8^88 up into strings of length eight.
+
+**Problem:**
+
+```python
+def sat(ls: List[str]):
+    return "".join(ls) == str(8 ** 88) and all(len(s) == 8 for s in ls)
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol():
+    return [str(8 ** 88)[i:i + 8] for i in range(0, len(str(8 ** 88)), 8)]
+```
+
+</details>
+
+### Study_27
+([study](#study) 27/30)
+
+**Description:**
+Consider a digraph where each node has exactly one outgoing edge. For each edge (u, v), call u the parent and
+v the child. Then find such a digraph where the grandchildren of the first and second nodes differ but they
+share the same great-grandchildren. Represented this digraph by the list of children indices.
+
+**Problem:**
+
+```python
+def sat(li: List[int]):
+    return li[li[0]] != li[li[1]] and li[li[li[0]]] == li[li[li[1]]]
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol():
+    return [1, 2, 3, 3]
+```
+
+</details>
+
+### Study_28
+([study](#study) 28/30)
+
+**Description:**
+Find a set of one hundred integers between 0 and 999 which all differ by at least ten from one another.
+
+**Problem:**
+
+```python
+def sat(si: Set[int]):
+    return all(i in range(1000) and abs(i - j) >= 10 for i in si for j in si if i != j) and len(si) == 100
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol():
+    return set(range(0, 1000, 10))
+```
+
+</details>
+
+### Study_29
+([study](#study) 29/30)
+
+**Description:**
+Find a set of more than 995 integers between 0 and 999, inclusive, such that each pair of integers have
+squares that differ by at least 10.
+
+**Problem:**
+
+```python
+def sat(si: Set[int]):
+    return all(i in range(1000) and abs(i * i - j * j) >= 10 for i in si for j in si if i != j) and len(si) > 995
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol():
+    return set(range(6, 1000)).union({0, 4})
+```
+
+</details>
+
+### Study_30
+([study](#study) 30/30)
+
+**Description:**
+Define f(n) to be the residue of 123 times n mod 1000. Find a list of integers such that the first twenty one
+are between 0 and 999, inclusive, and are strictly increasing in terms of f(n).
+
+**Problem:**
+
+```python
+def sat(li: List[int]):
+    return all([123 * li[i] % 1000 < 123 * li[i + 1] % 1000 and li[i] in range(1000) for i in range(20)])
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol():
+    return sorted(range(1000), key=lambda n: 123 * n % 1000)[:21]
+```
+
+```python
+def sol():
+    return list(range(1000))[::8][::-1]
+```
+
+</details>
+
 [^^ Top](#files)
 ## classic_puzzles
 
@@ -984,7 +725,6 @@ In this classic version one must move all 8 disks from the first to third peg.
 
 ```python
 def sat(moves: List[List[int]]):
-    assert type(moves) is list and all(type(a) is list and all(type(b) is int for b in a) for a in moves), 'moves must be of type List[List[int]]'  # moves is list of [from, to] pairs
     rods = ([8, 7, 6, 5, 4, 3, 2, 1], [], [])
     for [i, j] in moves:
         rods[j].append(rods[i].pop())
@@ -1018,7 +758,6 @@ In this version one must transform a given source state to a target state.
 
 ```python
 def sat(moves: List[List[int]], source: List[List[int]]=[[0, 7], [4, 5, 6], [1, 2, 3, 8]], target: List[List[int]]=[[0, 1, 2, 3, 8], [4, 5], [6, 7]]):
-    assert type(moves) is list and all(type(a) is list and all(type(b) is int for b in a) for a in moves), 'moves must be of type List[List[int]]'
     state = [s[:] for s in source]
 
     for [i, j] in moves:
@@ -1068,7 +807,6 @@ Find the indices of the longest substring with characters in sorted order.
 
 ```python
 def sat(x: List[int], length: int=13, s: str="Dynamic programming solves this puzzle!!!"):
-    assert type(x) is list and all(type(a) is int for a in x), 'x must be of type List[int]'
     return all(s[x[i]] <= s[x[i + 1]] and x[i + 1] > x[i] >= 0 for i in range(length - 1))
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -1104,7 +842,6 @@ Find the indices of the longest substring with characters in sorted order, with 
 
 ```python
 def sat(x: List[int], length: int=20, s: str="Dynamic programming solves this classic job-interview puzzle!!!"):
-    assert type(x) is list and all(type(a) is int for a in x), 'x must be of type List[int]'
     return all(s[x[i]] <= s[x[i + 1]] and x[i + 1] > x[i] for i in range(length - 1))
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -1142,7 +879,6 @@ Find a string that when evaluated as a Python expression is that string itself.
 
 ```python
 def sat(quine: str):
-    assert type(quine) is str, 'quine must be of type str'
     return eval(quine) == quine
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -1172,7 +908,6 @@ is from GPT3.
 
 ```python
 def sat(rev_quine: str):
-    assert type(rev_quine) is str, 'rev_quine must be of type str'
     return eval(rev_quine[::-1]) == rev_quine
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -1196,7 +931,6 @@ Color the first n integers with one of two colors so that there is no monochroma
 
 ```python
 def sat(colors: List[int], n: int=100):
-    assert type(colors) is list and all(type(a) is int for a in colors), 'colors must be of type List[int]'  # list of 0/1 colors of length >= n
     assert set(colors) <= {0, 1} and len(colors) >= n
     squares = {i ** 2: colors[i] for i in range(1, len(colors))}
     return not any(c == d == squares.get(i + j) for i, c in squares.items() for j, d in squares.items())
@@ -1235,7 +969,6 @@ Easy variant checks if angle at li = [hour, min] is a given number of degrees.
 
 ```python
 def sat(hands: List[int], target_angle: int=45):
-    assert type(hands) is list and all(type(a) is int for a in hands), 'hands must be of type List[int]'
     hour, min = hands
     return hour in range(1, 13) and min in range(60) and ((60 * hour + min) - 12 * min) % 720 == 2 * target_angle
 ```
@@ -1263,7 +996,6 @@ Arrange 15 people into groups of 3 each day for seven days so that no two people
 
 ```python
 def sat(daygroups: List[List[List[int]]]):
-    assert type(daygroups) is list and all(type(a) is list and all(type(b) is list and all(type(c) is int for c in b) for b in a) for a in daygroups), 'daygroups must be of type List[List[List[int]]]'
     assert len(daygroups) == 7
     assert all(len(groups) == 5 and {i for g in groups for i in g} == set(range(15)) for groups in daygroups)
     assert all(len(g) == 3 for groups in daygroups for g in groups)
@@ -1337,7 +1069,6 @@ Find the number of coconuts to solve the following riddle quoted from
 
 ```python
 def sat(n: int):
-    assert type(n) is int, 'n must be of type int'
     for i in range(5):
         assert n % 5 == 1
         n -= 1 + (n - 1) // 5
@@ -1373,7 +1104,6 @@ Find `num_points` points in an `side x side` grid such that no three points are 
 
 ```python
 def sat(coords: List[List[int]], side: int=5, num_points: int=10):
-    assert type(coords) is list and all(type(a) is list and all(type(b) is int for b in a) for a in coords), 'coords must be of type List[List[int]]'
     for i1 in range(len(coords)):
         x1, y1 = coords[i1]
         assert 0 <= x1 < side and 0 <= y1 < side
@@ -1422,7 +1152,6 @@ In this problem version, one must find a selection of stamps to achieve a given 
 
 ```python
 def sat(stamps: List[int], target: int=80, max_stamps: int=4, options: List[int]=[10, 32, 8]):
-    assert type(stamps) is list and all(type(a) is int for a in stamps), 'stamps must be of type List[int]'
     return set(stamps) <= set(options) and len(stamps) <= max_stamps and sum(stamps) == target
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -1457,7 +1186,6 @@ due to Duijvestijn (1978):
 
 ```python
 def sat(xy_sides: List[List[int]]):
-    assert type(xy_sides) is list and all(type(a) is list and all(type(b) is int for b in a) for a in xy_sides), 'xy_sides must be of type List[List[int]]'  # List of (x, y, side)
     n = max(x + side for x, y, side in xy_sides)
     assert len({side for x, y, side in xy_sides}) == len(xy_sides) > 1
     for x, y, s in xy_sides:
@@ -1490,7 +1218,6 @@ Split a specific red/blue necklace in half at n so that each piece has an equal 
 
 ```python
 def sat(n: int, lace: str="bbbbrrbrbrbbrrrr"):
-    assert type(n) is int, 'n must be of type int'
     sub = lace[n: n + len(lace) // 2]
     return n >= 0 and lace.count("r") == 2 * sub.count("r") and lace.count("b") == 2 * sub.count("b")
 ```
@@ -1517,7 +1244,6 @@ Find an integer whose square has all digits 0-9 once.
 
 ```python
 def sat(n: int):
-    assert type(n) is int, 'n must be of type int'
     return sorted([int(s) for s in str(n * n)]) == list(range(10))
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -1543,7 +1269,6 @@ Find all 174 integers whose 10-digit square has all digits 0-9
 
 ```python
 def sat(nums: List[int]):
-    assert type(nums) is list and all(type(a) is int for a in nums), 'nums must be of type List[int]'
     return [sorted([int(s) for s in str(n * n)]) for n in set(nums)] == [list(range(10))] * 174
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -1568,7 +1293,6 @@ with + - * / (and parentheses) to make the number 24.
 
 ```python
 def sat(expr: str, nums: List[int]=[3, 7, 3, 7]):
-    assert type(expr) is str, 'expr must be of type str'
     assert len(nums) == 4 and 1 <= min(nums) and max(nums) <= 13, "hint: nums is a list of four ints in 1..13"
     expr = expr.replace(" ", "")  # ignore whitespace
     digits = ""
@@ -1630,7 +1354,6 @@ An easy puzzle to make 63 using two 8's and one 1's.
 
 ```python
 def sat(s: str):
-    assert type(s) is str, 's must be of type str'
     return set(s) <= set("18-+*/") and s.count("8") == 2 and s.count("1") == 1 and eval(s) == 63
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -1652,7 +1375,6 @@ An harder puzzle to make 63 using two 8's and two 1's.
 
 ```python
 def sat(s: str):
-    assert type(s) is str, 's must be of type str'
     return set(s) <= set("18-+*/") and s.count("8") == 3 and s.count("1") == 1 and eval(s) == 63
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -1677,7 +1399,6 @@ one jug into another until it is full or the first is empty) to reaches the give
 
 ```python
 def sat(moves: List[List[int]], capacities: List[int]=[8, 5, 3], init: List[int]=[8, 0, 0], goal: List[int]=[4, 4, 0]):
-    assert type(moves) is list and all(type(a) is list and all(type(b) is int for b in a) for a in moves), 'moves must be of type List[List[int]]'  # moves is list of [from, to] pairs
     state = init.copy()
 
     for [i, j] in moves:
@@ -1734,7 +1455,6 @@ See [Wikipedia article](https://en.wikipedia.org/wiki/Verbal_arithmetic)
 
 ```python
 def sat(li: List[int], words: List[str]=['SEND', 'MORE', 'MONEY']):
-    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'
     assert len(li) == len(words) and all(i > 0 and len(str(i)) == len(w) for i, w in zip(li, words))
     assert len({c for w in words for c in w}) == len({(d, c) for i, w in zip(li, words) for d, c in zip(str(i), w)})
     return sum(li[:-1]) == li[-1]
@@ -1837,7 +1557,6 @@ example, the answer would be `[1, 2, 5]`
 
 ```python
 def sat(moves: List[int], start: List[List[int]]=[[5, 0, 2, 3], [1, 9, 6, 7], [4, 14, 8, 11], [12, 13, 10, 15]]):
-    assert type(moves) is list and all(type(a) is int for a in moves), 'moves must be of type List[int]'
     locs = {i: [x, y] for y, row in enumerate(start) for x, i in enumerate(row)}  # locations, 0 stands for blank
     for i in moves:
         assert abs(locs[0][0] - locs[i][0]) + abs(locs[0][1] - locs[i][1]) == 1
@@ -1922,6 +1641,623 @@ def sol(start=[[5, 0, 2, 3], [1, 9, 6, 7], [4, 14, 8, 11], [12, 13, 10, 15]]):
 </details>
 
 [^^ Top](#files)
+## codex
+
+Problems inspired by [HumanEval dataset](https://github.com/openai/human-eval) described
+in the [codex paper](https://arxiv.org/abs/2107.03374).
+
+[^ Top](#files)
+
+### FindCloseElements
+([codex](#codex) 1/16)
+
+**Description:**
+Given a list of numbers and a threshold, find two distinct numbers in the list that
+are closer than the given threshold.
+
+Sample Input:
+[1.2, 5.23, 0.89, 21.0, 5.28], 0.1
+
+Sample Output:
+[5.23, 5.28]
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/0
+
+**Problem:**
+
+```python
+def sat(pair: List[float], nums: List[float]=[0.17, 21.3, 5.0, 9.0, 11.0, 4.99, 17.0], thresh: float=0.1):
+    a, b = pair
+    return a in nums and b in nums and 0 < abs(a - b) < thresh
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(nums=[0.17, 21.3, 5.0, 9.0, 11.0, 4.99, 17.0], thresh=0.1):
+    s = sorted(set(nums))
+    return min([[a, b] for a, b in zip(s, s[1:])], key=lambda x: x[1] - x[0])
+```
+
+</details>
+
+### SeparateParenGroups
+([codex](#codex) 2/16)
+
+**Description:**
+Given a string consisting of whitespace and groups of matched parentheses, split it
+into groups of perfectly matched parentheses without any whitespace.
+
+Sample Input:
+'( ()) ((()()())) (()) ()'
+
+Sample Output:
+['(())', '((()()()))', '(())', '()']
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/1
+
+**Problem:**
+
+```python
+def sat(ls: List[str], combined: str="() (()) ((() () ())) (() )"):
+    assert ''.join(ls) == combined.replace(' ', '')
+    for s in ls:  # check that s is not further divisible
+        depth = 0
+        for c in s[:-1]:
+            if c == '(':
+                depth += 1
+            else:
+                assert c == ')'
+                depth -= 1
+                assert depth >= 1
+        assert depth == 1 and s[-1] == ')'
+    return True
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(combined="() (()) ((() () ())) (() )"):
+    cur = ''
+    ans = []
+    depth = 0
+    for c in combined.replace(' ', ''):
+        cur += c
+        if c == '(':
+            depth += 1
+        else:
+            assert c == ')'
+            depth -= 1
+            if depth == 0:
+                ans.append(cur)
+                cur = ''
+    return ans
+```
+
+</details>
+
+### Frac
+([codex](#codex) 3/16)
+
+**Description:**
+Given a floating point number, find its fractional part.
+
+Sample Input:
+4.175
+
+Sample Output:
+0.175
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/2
+
+**Problem:**
+
+```python
+def sat(x: float, v: float=523.12892):
+    return 0 <= x < 1 and (v - x).is_integer()
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(v=523.12892):
+    return v % 1.0
+```
+
+</details>
+
+### FirstNegCumulative
+([codex](#codex) 4/16)
+
+**Description:**
+Given a list of numbers which represent bank deposits and withdrawals, find the *first* negative balance.
+
+Sample Input:
+[12, -5, 3, -99, 14, 88, -99]
+
+Sample Output:
+-89
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/3
+
+**Problem:**
+
+```python
+def sat(n: int, balances: List[int]=[2, 7, -2, 4, 3, -15, 10, -45, 3]):
+    total = 0
+    for b in balances:
+        total += b
+        if total < 0:
+            return total == n
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(balances=[2, 7, -2, 4, 3, -15, 10, -45, 3]):
+    total = 0
+    for b in balances:
+        total += b
+        if total < 0:
+            return total
+    assert False, "should not reach here"
+```
+
+</details>
+
+### NegCumulative_Trivial
+([codex](#codex) 5/16)
+
+**Description:**
+Given a list of numbers which represent bank deposits and withdrawals,
+determine if the cumulative sum is negative.
+
+Sample Input:
+[12, -5, 3, -99, 14, 88, -99]
+
+Sample Output:
+True
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/3
+(see also FirstNegCumulative above which is not as trivial)
+
+**Problem:**
+
+```python
+def sat(neg: bool, balances: List[int]=[2, 7, -2, 4, 3, -15, 10, -45, 3]):
+    total = 0
+    for b in balances:
+        total += b
+        if total < 0:
+            return neg == True
+    return neg == False
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(balances=[2, 7, -2, 4, 3, -15, 10, -45, 3]):
+    total = 0
+    for b in balances:
+        total += b
+        if total < 0:
+            return True
+    return False
+```
+
+</details>
+
+### MinRMS
+([codex](#codex) 6/16)
+
+**Description:**
+Given a list of numbers, find x whose root mean squared deviation is less than a given threshold.
+
+Sample Input:
+[4, -5, 17, -9, 14, 108, -9], 38.5
+
+Sample Output:
+17.14285
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/4
+
+**Problem:**
+
+```python
+def sat(x: float, nums: List[int]=[12, -2, 14, 3, -15, 10, -45, 3, 30], thresh: float=20.003):
+    total = 0.0
+    for n in nums:
+        total += (n - x) ** 2
+    return (total / len(nums)) ** 0.5 <= thresh
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(nums=[12, -2, 14, 3, -15, 10, -45, 3, 30], thresh=20.003):
+    return sum(nums) / len(nums)  # mean minimizes RMS deviation
+```
+
+</details>
+
+### Intersperse
+([codex](#codex) 7/16)
+
+**Description:**
+Given a list of numbers and a number to inject, create a list containing that number in between each pair of
+adjacent numbers.
+
+Sample Input:
+[8, 14, 21, 17, 9, -5], 3
+
+Sample Output:
+[8, 3, 14, 3, 21, 3, 17, 3, 9, 3, -5]
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/5
+
+**Problem:**
+
+```python
+def sat(li: List[int], nums: List[int]=[12, 23, -2, 5, 0], sep: int=4):
+    for i, n in enumerate(nums):
+        assert li[2 * i] == n
+        if i > 0:
+            assert li[2 * i - 1] == sep
+    return len(li) == max(0, len(nums) * 2 - 1)
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(nums=[12, 23, -2, 5, 0], sep=4):
+    ans = [sep] * (2 * len(nums) - 1)
+    ans[::2] = nums
+    return ans
+```
+
+</details>
+
+### DeepestParens
+([codex](#codex) 8/16)
+
+**Description:**
+Given a string consisting of groups of matched nested parentheses separated by parentheses,
+compute the depth of each group.
+
+Sample Input:
+'(()) ((()()())) (()) ()'
+
+Sample Output:
+[2, 3, 2, 1]
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/6
+
+**Problem:**
+
+```python
+def sat(depths: List[int], parens: str="() (()) ((()()())) (())"):
+    groups = parens.split()
+    for depth, group in zip(depths, groups):
+        budget = depth
+        success = False
+        for c in group:
+            if c == '(':
+                budget -= 1
+                if budget == 0:
+                    success = True
+                assert budget >= 0
+            else:
+                assert c == ')'
+                budget += 1
+        assert success
+
+    return len(groups) == len(depths)
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(parens="() (()) ((()()())) (())"):
+    def max_depth(s):
+        m = 0
+        depth = 0
+        for c in s:
+            if c == '(':
+                depth += 1
+                m = max(m, depth)
+            else:
+                assert c == ')'
+                depth -= 1
+        assert depth == 0
+        return m
+
+    return [max_depth(s) for s in parens.split()]
+```
+
+</details>
+
+### FindContainers
+([codex](#codex) 9/16)
+
+**Description:**
+Find the strings in a list containing a given substring
+
+Sample Input:
+['cat', 'dog', 'bear'], 'a'
+
+Sample Output:
+['cat', 'bear']
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/7
+
+**Problem:**
+
+```python
+def sat(containers: List[str], strings: List[str]=['cat', 'dog', 'shatter', 'bear', 'at', 'ta'], substring: str="at"):
+    i = 0
+    for s in strings:
+        if substring in s:
+            assert containers[i] == s
+            i += 1
+    return i == len(containers)
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(strings=['cat', 'dog', 'shatter', 'bear', 'at', 'ta'], substring="at"):
+    return [s for s in strings if substring in s]
+```
+
+</details>
+
+### SumProduct
+([codex](#codex) 10/16)
+
+**Description:**
+Find a list of numbers with a given sum and a given product.
+
+Sample Input:
+12, 32
+
+Sample Output:
+[2, 8, 2]
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/8
+
+**Problem:**
+
+```python
+def sat(nums: List[int], tot: int=14, prod: int=99):
+    assert sum(nums) == tot
+    p = 1
+    for n in nums:
+        p *= n
+    return p == prod
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(tot=14, prod=99):
+    ans = [prod]
+    while sum(ans) > tot:
+        ans += [-1, -1]
+    ans += [1] * (tot - sum(ans))
+    return ans
+```
+
+</details>
+
+### SumProduct_Trivial
+([codex](#codex) 11/16)
+
+**Description:**
+Find the sum and product of a list of numbers.
+
+Sample Input:
+[2, 8, 2]
+
+Sample Output:
+[12, 32]
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/8
+
+**Problem:**
+
+```python
+def sat(sum_prod: List[int], nums: List[int]=[1, 3, 2, -6, 19]):
+    p = 1
+    for n in nums:
+        p *= n
+    return sum_prod == [sum(nums), p]
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(nums=[1, 3, 2, -6, 19]):
+    p = 1
+    for n in nums:
+        p *= n
+    return [sum(nums), p]
+```
+
+</details>
+
+### RollingMax
+([codex](#codex) 12/16)
+
+**Description:**
+Find a list whose ith element is the maximum of the first i elements of the input list.
+
+Sample Input:
+[2, 8, 2]
+
+Sample Output:
+[2, 8, 8]
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/9
+
+**Problem:**
+
+```python
+def sat(maxes: List[int], nums: List[int]=[1, 4, 3, -6, 19]):
+    assert len(maxes) == len(nums)
+    for i in range(len(nums)):
+        if i > 0:
+            assert maxes[i] == max(maxes[i - 1], nums[i])
+        else:
+            assert maxes[0] == nums[0]
+    return True
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(nums=[1, 4, 3, -6, 19]):
+    return [max(nums[:i]) for i in range(1, len(nums) + 1)]
+```
+
+```python
+def sol(nums=[1, 4, 3, -6, 19]):
+    ans = []
+    if nums:
+        m = nums[0]
+        for n in nums:
+            m = max(n, m)
+            ans.append(m)
+    return ans
+```
+
+</details>
+
+### PalindromeStartingWith
+([codex](#codex) 13/16)
+
+**Description:**
+Find a palindrome of a given length starting with a given string.
+
+Sample Input:
+"foo", 4
+
+Sample Output:
+"foof"
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/10
+
+**Problem:**
+
+```python
+def sat(ans: str, s: str="so easy", length: int=20):
+    return ans == ans[::-1] and len(ans) == length and ans.startswith(s)
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(s="so easy", length=20):
+    if length > len(s) * 2:
+        return s + 'a' * (length - len(s) * 2) + s[::-1]
+    if length % 2 == 0:
+        return s[:length // 2] + s[:length // 2][::-1]
+    else:
+        return s[:length // 2] + s[:length // 2 + 1][::-1]
+```
+
+</details>
+
+### PalindromeContaining
+([codex](#codex) 14/16)
+
+**Description:**
+Find a palindrome of a given length containing a given string.
+
+Sample Input:
+"abba", 6
+
+Sample Output:
+"cabbac"
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/10
+
+**Problem:**
+
+```python
+def sat(ans: str, s: str="so easy", length: int=20):
+    return ans == ans[::-1] and len(ans) == length and s in ans
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(s="so easy", length=20):
+    ls = list(s)
+    for i in range(length - len(s) + 1):
+        arr = ['x'] * length
+        arr[i:i + len(s)] = ls
+        a = length - i-1
+        b = length - (i + len(s))-1
+        if b == -1:
+            b = None
+        arr[a:b:-1] = ls
+        if arr == arr[::-1]:
+            ans = "".join(arr)
+            if s in ans:
+                return ans
+    assert False, "shouldn't reach here"
+```
+
+</details>
+
+### BinaryStrXOR
+([codex](#codex) 15/16)
+
+**Description:**
+Find a the XOR of two given strings interpreted as binary numbers.
+
+Sample Input:
+"0001", "1011"
+
+Sample Output:
+"1010"
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/11
+
+**Problem:**
+
+```python
+def sat(str_num: str, nums: List[str]=['100011101100001', '100101100101110']):
+    a, b = nums
+    return int(str_num, 2) == int(a, 2) ^ int(b, 2)
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(nums=['100011101100001', '100101100101110']):
+    a, b = nums
+    ans = int(a, 2) ^ int(b, 2)
+    return format(ans, "b")
+```
+
+</details>
+
+### LongestStr
+([codex](#codex) 16/16)
+
+**Description:**
+Find a the longest of a list of strings
+
+Sample Input:
+["cat", "dog", "sheep", "chimp"]
+
+Sample Output:
+"sheep"
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/12
+
+**Problem:**
+
+```python
+def sat(ans: str, words: List[str]=['these', 'are', 'some', 'pretty', 'long', 'words']):
+    return ans in words and all(len(ans) >= len(w) for w in words)
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(words=['these', 'are', 'some', 'pretty', 'long', 'words']):
+    return max(words, key=len)
+```
+
+</details>
+
+[^^ Top](#files)
 ## codeforces
 
 Problems inspired by [codeforces](https://codeforces.com).
@@ -1940,7 +2276,6 @@ Inspired by [Codeforces Problem 4 A](https://codeforces.com/problemset/problem/4
 
 ```python
 def sat(b: bool, n: int=10):
-    assert type(b) is bool, 'b must be of type bool'
     i = 0
     while i <= n:
         if i + i == n:
@@ -1970,7 +2305,6 @@ Inspired by [Codeforces Problem 71 A](https://codeforces.com/problemset/problem/
 
 ```python
 def sat(s: str, word: str="antidisestablishmentarianism", max_len: int=10):
-    assert type(s) is str, 's must be of type str'
     if len(word) <= max_len:
         return word == s
     return int(s[1:-1]) == len(word[1:-1]) and word[0] == s[0] and word[-1] == s[-1]
@@ -2008,7 +2342,6 @@ Inspired by [Codeforces Problem 1 A](https://codeforces.com/problemset/problem/1
 
 ```python
 def sat(corners: List[List[int]], m: int=10, n: int=9, a: int=5, target: int=4):
-    assert type(corners) is list and all(type(a) is list and all(type(b) is int for b in a) for a in corners), 'corners must be of type List[List[int]]'
     covered = {(i + x, j + y) for i, j in corners for x in range(a) for y in range(a)}
     assert len(covered) == len(corners) * a * a, "Double coverage"
     return len(corners) <= target and covered.issuperset({(x, y) for x in range(m) for y in range(n)})
@@ -2035,7 +2368,6 @@ Inspired by [Codeforces Problem 231 A](https://codeforces.com/problemset/problem
 
 ```python
 def sat(lb: List[bool], trips: List[List[int]]=[[1, 1, 0], [1, 0, 0], [0, 0, 0], [0, 1, 1], [0, 1, 1], [1, 1, 1], [1, 0, 1]]):
-    assert type(lb) is list and all(type(a) is bool for a in lb), 'lb must be of type List[bool]'
     return len(lb) == len(trips) and all(
         (b is True) if sum(s) >= 2 else (b is False) for b, s in zip(lb, trips))
 ```
@@ -2061,7 +2393,6 @@ Inspired by [Codeforces Problem 158 A](https://codeforces.com/problemset/problem
 
 ```python
 def sat(n: int, scores: List[int]=[100, 95, 80, 70, 65, 9, 9, 9, 4, 2, 1], k: int=6):
-    assert type(n) is int, 'n must be of type int'
     assert all(scores[i] >= scores[i + 1] for i in range(len(scores) - 1)), "Hint: scores are non-decreasing"
     return all(s >= scores[k] and s > 0 for s in scores[:n]) and all(s < scores[k] or s <= 0 for s in scores[n:])
 ```
@@ -2094,7 +2425,6 @@ Inspired by [Codeforces Problem 118 A](https://codeforces.com/problemset/problem
 
 ```python
 def sat(t: str, s: str="Problems"):
-    assert type(t) is str, 't must be of type str'
     i = 0
     for c in s.lower():
         if c in "aeiouy":
@@ -2127,7 +2457,6 @@ Inspired by [Codeforces Problem 50 A](https://codeforces.com/problemset/problem/
 
 ```python
 def sat(squares: List[List[int]], m: int=10, n: int=5, target: int=50):
-    assert type(squares) is list and all(type(a) is list and all(type(b) is int for b in a) for a in squares), 'squares must be of type List[List[int]]'
     covered = []
     for i1, j1, i2, j2 in squares:
         assert (0 <= i1 <= i2 < m) and (0 <= j1 <= j2 < n) and (j2 - j1 + i2 - i1 == 1)
@@ -2171,7 +2500,6 @@ Inspired by [Codeforces Problem 282 A](https://codeforces.com/problemset/problem
 
 ```python
 def sat(n: int, ops: List[str]=['x++', '--x', '--x'], target: int=19143212):
-    assert type(n) is int, 'n must be of type int'
     for op in ops:
         if op in ["++x", "x++"]:
             n += 1
@@ -2201,7 +2529,6 @@ Inspired by [Codeforces Problem 112 A](https://codeforces.com/problemset/problem
 
 ```python
 def sat(n: int, s: str="aaAab", t: str="aAaaB"):
-    assert type(n) is int, 'n must be of type int'
     if n == 0:
         return s.lower() == t.lower()
     if n == 1:
@@ -2244,7 +2571,6 @@ Inspired by [Codeforces Problem 263 A](https://codeforces.com/problemset/problem
 
 ```python
 def sat(s: str, matrix: List[List[int]]=[[0, 0, 0, 0, 0], [0, 0, 0, 0, 1], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]], max_moves: int=3):
-    assert type(s) is str, 's must be of type str'
     matrix = [m[:] for m in matrix]  # copy
     for c in s:
         if c in "01234":
@@ -2293,7 +2619,6 @@ Inspired by [Codeforces Problem 339 A](https://codeforces.com/problemset/problem
 
 ```python
 def sat(s: str, inp: str="1+1+3+1+3+2+2+1+3+1+2"):
-    assert type(s) is str, 's must be of type str'
     return all(s.count(c) == inp.count(c) for c in inp + s) and all(s[i - 2] <= s[i] for i in range(2, len(s), 2))
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -2317,7 +2642,6 @@ Inspired by [Codeforces Problem 281 A](https://codeforces.com/problemset/problem
 
 ```python
 def sat(s: str, word: str="konjac"):
-    assert type(s) is str, 's must be of type str'
     for i in range(len(word)):
         if i == 0:
             if s[i] != word[i].upper():
@@ -2355,7 +2679,6 @@ Inspired by [Codeforces Problem 266 A](https://codeforces.com/problemset/problem
 
 ```python
 def sat(t: str, s: str="abbbcabbac", target: int=7):
-    assert type(t) is str, 't must be of type str'
     i = 0
     for c in t:
         while c != s[i]:
@@ -2392,7 +2715,6 @@ Inspired by [Codeforces Problem 96 A](https://codeforces.com/problemset/problem/
 
 ```python
 def sat(n: int, s: str="0000111111100000", k: int=5):
-    assert type(n) is int, 'n must be of type int'
     return s[n:n + k] == s[n] * k
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -2438,7 +2760,6 @@ Inspired by [Codeforces Problem 630 A](https://codeforces.com/problemset/problem
 
 ```python
 def sat(delta: List[int], nums: List[List[int]]=[[1, 2, 3], [9, -2, 8], [17, 2, 50]]):
-    assert type(delta) is list and all(type(a) is int for a in delta), 'delta must be of type List[int]'
     return all(sum(vec[i] for vec in nums) + delta[i] == 0 for i in range(3))
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -2462,7 +2783,6 @@ Inspired by [Codeforces Problem 546 A](https://codeforces.com/problemset/problem
 
 ```python
 def sat(n: int, a: int=17, b: int=100, c: int=20):
-    assert type(n) is int, 'n must be of type int'
     return n + a == sum([b * i for i in range(c)])
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -2486,7 +2806,6 @@ Inspired by [Codeforces Problem 791 A](https://codeforces.com/problemset/problem
 
 ```python
 def sat(n: int, v: int=17, w: int=100):
-    assert type(n) is int, 'n must be of type int'
     for i in range(n):
         assert v <= w
         v *= 3
@@ -2520,7 +2839,6 @@ Inspired by [Codeforces Problem 977 A](https://codeforces.com/problemset/problem
 
 ```python
 def sat(res: int, m: int=1234578987654321, n: int=4):
-    assert type(res) is int, 'res must be of type int'
     for i in range(n):
         m = (m - 1 if m % 10 else m // 10)
     return res == m
@@ -2549,7 +2867,6 @@ Inspired by [Codeforces Problem 617 A](https://codeforces.com/problemset/problem
 
 ```python
 def sat(li: List[int], n: int=149, upper: int=14):
-    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'
     return len(li) <= upper and all(abs(a - b) <= 10 for a, b in zip([1] + li, li + [n]))
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -2580,7 +2897,6 @@ Inspired by [Codeforces Problem 116 A](https://codeforces.com/problemset/problem
 
 ```python
 def sat(n: int, pairs: List[List[int]]=[[3, 0], [17, 1], [9254359, 19], [123, 9254359], [0, 123]]):
-    assert type(n) is int, 'n must be of type int'
     assert sum(p - m for p, m in pairs) == 0, "oo"
     tot = 0
     success = False
@@ -2620,7 +2936,6 @@ Inspired by [Codeforces Problem 59 A](https://codeforces.com/problemset/problem/
 
 ```python
 def sat(s_case: str, s: str="CanYouTellIfItHASmoreCAPITALS"):
-    assert type(s_case) is str, 's_case must be of type str'
     caps = 0
     for c in s:
         if c != c.lower():
@@ -2655,7 +2970,6 @@ Inspired by [Codeforces Problem 58 A](https://codeforces.com/problemset/problem/
 
 ```python
 def sat(inds: List[int], string: str="Sssuubbstriiingg"):
-    assert type(inds) is list and all(type(a) is int for a in inds), 'inds must be of type List[int]'
     return inds == sorted(inds) and "".join(string[i] for i in inds) == "substring"
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -2687,7 +3001,6 @@ Inspired by [Codeforces Problem 58 A](https://codeforces.com/problemset/problem/
 
 ```python
 def sat(inds: List[int], string: str="enlightenment"):
-    assert type(inds) is list and all(type(a) is int for a in inds), 'inds must be of type List[int]'
     return inds == sorted(inds) and "".join(string[i] for i in inds) == "intelligent"
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -2720,7 +3033,6 @@ Inspired by [Codeforces Problem 266 B](https://codeforces.com/problemset/problem
 
 ```python
 def sat(seq: List[int], target: List[int]=[1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0], n_steps: int=4):
-    assert type(seq) is list and all(type(a) is int for a in seq), 'seq must be of type List[int]'
     s = seq[:]  # copy
     for step in range(n_steps):
         for i in range(len(seq) - 1):
@@ -2754,7 +3066,6 @@ Inspired by [Codeforces Problem 122 A](https://codeforces.com/problemset/problem
 
 ```python
 def sat(d: int, n: int=6002685529):
-    assert type(d) is int, 'd must be of type int'
     return n % d == 0 and set(str(d)) <= {"4", "7"}
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -2787,7 +3098,6 @@ Inspired by [Codeforces Problem 110 A](https://codeforces.com/problemset/problem
 
 ```python
 def sat(d: int, n: int=123456789):
-    assert type(d) is int, 'd must be of type int'
     return d > n and set(str(str(d).count("4") + str(d).count("7"))) <= {"4", "7"}
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -2811,7 +3121,6 @@ Inspired by [Codeforces Problem 41 A](https://codeforces.com/problemset/problem/
 
 ```python
 def sat(s: str, target: str="reverse me", reverse: bool=True):
-    assert type(s) is str, 's must be of type str'
     return (s[::-1] == target) == reverse
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -2835,7 +3144,6 @@ Inspired by [Codeforces Problem 160 A](https://codeforces.com/problemset/problem
 
 ```python
 def sat(taken: List[int], val_counts: List[List[int]]=[[4, 3], [5, 2], [9, 3], [13, 13], [8, 11], [56, 1]], upper: int=11):
-    assert type(taken) is list and all(type(a) is int for a in taken), 'taken must be of type List[int]'
     advantage = 0
     for i, (val, count) in zip(taken, val_counts):
         assert 0 <= i <= count
@@ -2873,7 +3181,6 @@ Inspired by [Codeforces Problem 734 A](https://codeforces.com/problemset/problem
 
 ```python
 def sat(s: str, a: int=5129, d: int=17):
-    assert type(s) is str, 's must be of type str'
     return s.count("a") == a and s.count("d") == d and len(s) == a + d
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -2897,7 +3204,6 @@ Inspired by [Codeforces Problem 271 A](https://codeforces.com/problemset/problem
 
 ```python
 def sat(nums: List[int], a: int=100, b: int=1000, count: int=1):
-    assert type(nums) is list and all(type(a) is int for a in nums), 'nums must be of type List[int]'
     return sum(len(str(n)) == len(set(str(n))) and a <= n <= b for n in set(nums)) >= count
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -2921,7 +3227,6 @@ Inspired by [Codeforces Problem 677 A](https://codeforces.com/problemset/problem
 
 ```python
 def sat(tot: int, nums: List[int]=[2, 8, 25, 18, 99, 11, 17, 16], thresh: int=17):
-    assert type(tot) is int, 'tot must be of type int'
     return tot == sum(1 if i < thresh else 2 for i in nums)
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -2946,7 +3251,6 @@ Inspired by [Codeforces Problem 467 A](https://codeforces.com/problemset/problem
 
 ```python
 def sat(ans: List[List[int]], target: int=17):
-    assert type(ans) is list and all(type(a) is list and all(type(b) is int for b in a) for a in ans), 'ans must be of type List[List[int]]'
     for i in range(len(ans)):
         a, b = ans[i]
         if b - a >= 2:
@@ -2965,7 +3269,6 @@ Inspired by [Codeforces Problem 136 A](https://codeforces.com/problemset/problem
 
 ```python
 def sat(indexes: List[int], target: List[int]=[1, 3, 4, 2, 5, 6, 7]):
-    assert type(indexes) is list and all(type(a) is int for a in indexes), 'indexes must be of type List[int]'
     for i in range(1, len(target) + 1):
         if target[indexes[i - 1] - 1] != i:
             return False
@@ -2983,7 +3286,6 @@ Inspired by [Codeforces Problem 630 A](https://codeforces.com/problemset/problem
 
 ```python
 def sat(s: str, n: int=7):
-    assert type(s) is str, 's must be of type str'
     return int(str(5 ** n)[:-2] + s) == 5 ** n
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -3014,7 +3316,6 @@ Inspired by [Codeforces Problem 540 A](https://codeforces.com/problemset/problem
 
 ```python
 def sat(states: List[str], start: str="012", combo: str="329", target_len: int=6):
-    assert type(states) is list and all(type(a) is str for a in states), 'states must be of type List[str]'
     assert all(len(s) == len(start) for s in states) and all(c in "0123456789" for s in states for c in s)
     for a, b in zip([start] + states, states + [combo]):
         assert sum(i != j for i, j in zip(a, b)) == 1
@@ -3049,7 +3350,6 @@ An obfuscated version of CombinationLock above
 
 ```python
 def sat(states: List[str], start: str="012", combo: str="329", target_len: int=6):
-    assert type(states) is list and all(type(a) is str for a in states), 'states must be of type List[str]'
     return all(sum((int(a[i]) - int(b[i])) ** 2 % 10 for i in range(len(start))) == 1
                for a, b in zip([start] + states, states[:target_len] + [combo]))
 ```
@@ -3082,7 +3382,6 @@ Inspired by [Codeforces Problem 474 A](https://codeforces.com/problemset/problem
 
 ```python
 def sat(s: str, perm: str="qwertyuiopasdfghjklzxcvbnm", target: str="hello are you there?"):
-    assert type(s) is str, 's must be of type str'
     return "".join((perm[(perm.index(c) + 1) % len(perm)] if c in perm else c) for c in s) == target
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -3109,7 +3408,6 @@ Inspired by [Codeforces Problem 1335 C](https://codeforces.com/problemset/proble
 
 ```python
 def sat(lists: List[List[int]], items: List[int]=[5, 4, 9, 4, 5, 5, 5, 1, 5, 5], length: int=4):
-    assert type(lists) is list and all(type(a) is list and all(type(b) is int for b in a) for a in lists), 'lists must be of type List[List[int]]'
     a, b = lists
     assert len(set(a)) == len(a) == len(b) == length and len(set(b)) == 1 and set(a + b) <= set(items)
     i = b[0]
@@ -3141,7 +3439,6 @@ Inspired by [Codeforces Problem 476 A](https://codeforces.com/problemset/problem
 
 ```python
 def sat(seq: List[int], n: int=10000, length: int=5017):
-    assert type(seq) is list and all(type(a) is int for a in seq), 'seq must be of type List[int]'
     return set(seq) <= {1, 2} and sum(seq) == n and len(seq) == length
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -3165,7 +3462,6 @@ Inspired by [Codeforces Problem 363 B](https://codeforces.com/problemset/problem
 
 ```python
 def sat(start: int, k: int=3, upper: int=6, seq: List[int]=[17, 1, 2, 65, 18, 91, -30, 100, 3, 1, 2]):
-    assert type(start) is int, 'start must be of type int'
     return 0 <= start <= len(seq) - k and sum(seq[start:start + k]) <= upper
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -3189,7 +3485,6 @@ Inspired by [Codeforces Problem 363 B](https://codeforces.com/problemset/problem
 
 ```python
 def sat(start: int, k: int=3, lower: int=150, seq: List[int]=[3, 1, 2, 65, 18, 91, -30, 100, 0, 19, 52]):
-    assert type(start) is int, 'start must be of type int'
     return 0 <= start <= len(seq) - k and sum(seq[start:start + k]) >= lower
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -3213,7 +3508,6 @@ Inspired by [Codeforces Problem 363 B](https://codeforces.com/problemset/problem
 
 ```python
 def sat(start: int, k: int=3, lower: int=100000, seq: List[int]=[91, 1, 2, 64, 18, 91, -30, 100, 3, 65, 18]):
-    assert type(start) is int, 'start must be of type int'
     prod = 1
     for i in range(start, start + k):
         prod *= seq[i]
@@ -3246,7 +3540,6 @@ Inspired by [Codeforces Problem 1327 A](https://codeforces.com/problemset/proble
 
 ```python
 def sat(nums: List[int], tot: int=12345, n: int=5):
-    assert type(nums) is list and all(type(a) is int for a in nums), 'nums must be of type List[int]'
     return len(nums) == len(set(nums)) == n and sum(nums) == tot and all(i >= i % 2 > 0 for i in nums)
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -3276,7 +3569,6 @@ Inspired by [Codeforces Problem 731 A](https://codeforces.com/problemset/problem
 
 ```python
 def sat(rotations: List[int], target: str="dad", upper: int=9):
-    assert type(rotations) is list and all(type(a) is int for a in rotations), 'rotations must be of type List[int]'
     s = "abcdefghijklmnopqrstuvwxyz"
     assert len(rotations) == len(target)
     for r, c in zip(rotations, target):
@@ -3303,6 +3595,912 @@ def sol(target="dad", upper=9):
 </details>
 
 [^^ Top](#files)
+## algebra
+
+Roots of polynomials
+
+[^ Top](#files)
+
+### QuadraticRoot
+([algebra](#algebra) 1/4)
+
+**Description:**
+Find any (real) solution for a [quadratic equation](https://en.wikipedia.org/wiki/Quadratic_formula)
+a x^2 + b x + c
+
+**Problem:**
+
+```python
+def sat(x: float, coeffs: List[float]=[2.5, 1.3, -0.5]):
+    a, b, c = coeffs
+    return abs(a * x ** 2 + b * x + c) < 1e-6
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(coeffs=[2.5, 1.3, -0.5]):
+    a, b, c = coeffs
+    if a == 0:
+        ans = -c / b if b != 0 else 0.0
+    else:
+        ans = ((-b + (b ** 2 - 4 * a * c) ** 0.5) / (2 * a))
+    return ans
+```
+
+```python
+def sol(coeffs=[2.5, 1.3, -0.5]):
+    a, b, c = coeffs
+    if a == 0:
+        ans = -c / b if b != 0 else 0.0
+    else:
+        ans = (-b - (b ** 2 - 4 * a * c) ** 0.5) / (2 * a)
+    return ans
+```
+
+</details>
+
+### AllQuadraticRoots
+([algebra](#algebra) 2/4)
+
+**Description:**
+Find all (real) solutions for a [quadratic equation](https://en.wikipedia.org/wiki/Quadratic_formula)
+x^2 + b x + c (i.e., factor into roots)
+
+**Problem:**
+
+```python
+def sat(roots: List[float], coeffs: List[float]=[1.3, -0.5]):
+    b, c = coeffs
+    r1, r2 = roots
+    return abs(r1 + r2 + b) + abs(r1 * r2 - c) < 1e-6
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(coeffs=[1.3, -0.5]):
+    b, c = coeffs
+    delta = (b ** 2 - 4 * c) ** 0.5
+    return [(-b + delta) / 2, (-b - delta) / 2]
+```
+
+</details>
+
+### CubicRoot
+([algebra](#algebra) 3/4)
+
+**Description:**
+Find any (real) solution for a [cubic equation](https://en.wikipedia.org/wiki/Cubic_formula)
+a x^3 + b x^2 + c x + d
+
+**Problem:**
+
+```python
+def sat(x: float, coeffs: List[float]=[2.0, 1.0, 0.0, 8.0]):
+    return abs(sum(c * x ** (3 - i) for i, c in enumerate(coeffs))) < 1e-6
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(coeffs=[2.0, 1.0, 0.0, 8.0]):
+    a2, a1, a0 = [c / coeffs[0] for c in coeffs[1:]]
+    p = (3 * a1 - a2 ** 2) / 3
+    q = (9 * a1 * a2 - 27 * a0 - 2 * a2 ** 3) / 27
+    delta = (q ** 2 + 4 * p ** 3 / 27) ** 0.5
+    omega = (-(-1) ** (1 / 3))
+    answers = []
+    for cube in [(q + delta) / 2, (q - delta) / 2]:
+        c = cube ** (1 / 3)
+        for w in [c, c * omega, c * omega.conjugate()]:
+            if w != 0:
+                x = complex(w - p / (3 * w) - a2 / 3).real
+                if abs(sum(c * x ** (3 - i) for i, c in enumerate(coeffs))) < 1e-6:
+                    return x
+```
+
+</details>
+
+### AllCubicRoots
+([algebra](#algebra) 4/4)
+
+**Description:**
+Find all 3 distinct real roots of x^3 + a x^2 + b x + c, i.e., factor into (x-r1)(x-r2)(x-r3)
+
+**Problem:**
+
+```python
+def sat(roots: List[float], coeffs: List[float]=[1.0, -2.0, -1.0]):
+    r1, r2, r3 = roots
+    a, b, c = coeffs
+    return abs(r1 + r2 + r3 + a) + abs(r1 * r2 + r1 * r3 + r2 * r3 - b) + abs(r1 * r2 * r3 + c) < 1e-6
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(coeffs=[1.0, -2.0, -1.0]):
+    a, b, c = coeffs
+    p = (3 * b - a ** 2) / 3
+    q = (9 * b * a - 27 * c - 2 * a ** 3) / 27
+    delta = (q ** 2 + 4 * p ** 3 / 27) ** 0.5
+    omega = (-(-1) ** (1 / 3))
+    ans = []
+    for cube in [(q + delta) / 2, (q - delta) / 2]:
+        v = cube ** (1 / 3)
+        for w in [v, v * omega, v * omega.conjugate()]:
+            if w != 0.0:
+                x = complex(w - p / (3 * w) - a / 3).real
+                if abs(x ** 3 + a * x ** 2 + b * x + c) < 1e-4:
+                    if not ans or min(abs(z - x) for z in ans) > 1e-6:
+                        ans.append(x)
+    if len(ans) == 3:
+        return ans
+```
+
+</details>
+
+[^^ Top](#files)
+## basic
+
+Problems testing basic knowledge -- easy to solve if you understand what is being asked
+
+[^ Top](#files)
+
+### SumOfDigits
+([basic](#basic) 1/22)
+
+**Description:**
+Find a number that its digits sum to a specific value.
+
+**Problem:**
+
+```python
+def sat(x: str, s: int=679):
+    return s == sum([int(d) for d in x])
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(s=679):
+    return int(s / 9) * '9' + str(s % 9)
+```
+
+</details>
+
+### FloatWithDecimalValue
+([basic](#basic) 2/22)
+
+**Description:**
+Create a float with a specific decimal.
+
+**Problem:**
+
+```python
+def sat(z: float, v: int=9, d: float=0.0001):
+    return int(z * 1 / d % 10) == v
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(v=9, d=0.0001):
+    return v * d
+```
+
+</details>
+
+### ArithmeticSequence
+([basic](#basic) 3/22)
+
+**Description:**
+Create a list that is a subrange of an arithmetic sequence.
+
+**Problem:**
+
+```python
+def sat(x: List[int], a: int=7, s: int=5, e: int=200):
+    return x[0] == a and x[-1] <= e and (x[-1] + s > e) and all([x[i] + s == x[i + 1] for i in range(len(x) - 1)])
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(a=7, s=5, e=200):
+    return list(range(a, e + 1, s))
+```
+
+</details>
+
+### GeometricSequence
+([basic](#basic) 4/22)
+
+**Description:**
+Create a list that is a subrange of an gemoetric sequence.
+
+**Problem:**
+
+```python
+def sat(x: List[int], a: int=8, r: int=2, l: int=50):
+    return x[0] == a and len(x) == l and all([x[i] * r == x[i + 1] for i in range(len(x) - 1)])
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(a=8, r=2, l=50):
+    return [a * r ** i for i in range(l)]
+```
+
+</details>
+
+### LineIntersection
+([basic](#basic) 5/22)
+
+**Description:**
+Find the intersection of two lines.
+Solution should be a list of the (x,y) coordinates.
+Accuracy of fifth decimal digit is required.
+
+**Problem:**
+
+```python
+def sat(e: List[int], a: int=2, b: int=-1, c: int=1, d: int=2021):
+    x = e[0] / e[1]
+    return abs(a * x + b - c * x - d) < 10 ** -5
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(a=2, b=-1, c=1, d=2021):
+    return [d - b, a - c]
+```
+
+</details>
+
+### IfProblem
+([basic](#basic) 6/22)
+
+**Description:**
+Simple if statement
+
+**Problem:**
+
+```python
+def sat(x: int, a: int=324554, b: int=1345345):
+    if a < 50:
+        return x + a == b
+    else:
+        return x - 2 * a == b
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(a=324554, b=1345345):
+    if a < 50:
+        return b - a
+    else:
+        return b + 2 * a
+```
+
+</details>
+
+### IfProblemWithAnd
+([basic](#basic) 7/22)
+
+**Description:**
+Simple if statement with and clause
+
+**Problem:**
+
+```python
+def sat(x: int, a: int=9384594, b: int=1343663):
+    if x > 0 and a > 50:
+        return x - a == b
+    else:
+        return x + a == b
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(a=9384594, b=1343663):
+    if a > 50 and b > a:
+        return b + a
+    else:
+        return b - a
+```
+
+</details>
+
+### IfProblemWithOr
+([basic](#basic) 8/22)
+
+**Description:**
+Simple if statement with or clause
+
+**Problem:**
+
+```python
+def sat(x: int, a: int=253532, b: int=1230200):
+    if x > 0 or a > 50:
+        return x - a == b
+    else:
+        return x + a == b
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(a=253532, b=1230200):
+    if a > 50 or b > a:
+        return b + a
+    else:
+        return b - a
+```
+
+</details>
+
+### IfCases
+([basic](#basic) 9/22)
+
+**Description:**
+Simple if statement with multiple cases
+
+**Problem:**
+
+```python
+def sat(x: int, a: int=4, b: int=54368639):
+    if a == 1:
+        return x % 2 == 0
+    elif a == -1:
+        return x % 2 == 1
+    else:
+        return x + a == b
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(a=4, b=54368639):
+    if a == 1:
+        x = 0
+    elif a == -1:
+        x = 1
+    else:
+        x = b - a
+    return x
+```
+
+</details>
+
+### ListPosSum
+([basic](#basic) 10/22)
+
+**Description:**
+Construct a list of non-negative integers that sum up to some value
+
+**Problem:**
+
+```python
+def sat(x: List[int], n: int=5, s: int=19):
+    return len(x) == n and sum(x) == s and all([a > 0 for a in x])
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(n=5, s=19):
+    x = [1] * n
+    x[0] = s - n + 1
+    return x
+```
+
+</details>
+
+### ListDistinctSum
+([basic](#basic) 11/22)
+
+**Description:**
+Construct a list of distinct integers that sum up to some value
+
+**Problem:**
+
+```python
+def sat(x: List[int], n: int=4, s: int=2021):
+    return len(x) == n and sum(x) == s and len(set(x)) == n
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(n=4, s=2021):
+    a = 1
+    x = []
+    while len(x) < n - 1:
+        x.append(a)
+        a = -a
+        if a in x:
+            a += 1
+
+    if s - sum(x) in x:
+        x = [i for i in range(n - 1)]
+
+    x = x + [s - sum(x)]
+    return x
+```
+
+</details>
+
+### ConcatStrings
+([basic](#basic) 12/22)
+
+**Description:**
+Concatenate list of characters
+
+**Problem:**
+
+```python
+def sat(x: str, s: List[str]=['a', 'b', 'c', 'd', 'e', 'f'], n: int=4):
+    return len(x) == n and all([x[i] == s[i] for i in range(n)])
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(s=['a', 'b', 'c', 'd', 'e', 'f'], n=4):
+    return ''.join([s[i] for i in range(n)])
+```
+
+</details>
+
+### SublistSum
+([basic](#basic) 13/22)
+
+**Description:**
+Sum values of sublist by range specifications
+
+**Problem:**
+
+```python
+def sat(x: List[int], t: int=677, a: int=43, e: int=125, s: int=10):
+    non_zero = [z for z in x if z != 0]
+    return t == sum([x[i] for i in range(a, e, s)]) and len(set(non_zero)) == len(non_zero) and all(
+        [x[i] != 0 for i in range(a, e, s)])
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(t=677, a=43, e=125, s=10):
+    x = [0] * e
+    for i in range(a, e, s):
+        x[i] = i
+    correction = t - sum(x) + x[i]
+    if correction in x:
+        x[correction] = -1 * correction
+        x[i] = 3 * correction
+    else:
+        x[i] = correction
+    return x
+```
+
+</details>
+
+### CumulativeSum
+([basic](#basic) 14/22)
+
+**Description:**
+Number of values with cumulative sum less than target
+
+**Problem:**
+
+```python
+def sat(x: List[int], t: int=50, n: int=10):
+    assert all([v > 0 for v in x])
+    s = 0
+    i = 0
+    for v in sorted(x):
+        s += v
+        if s > t:
+            return i == n
+        i += 1
+    return i == n
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(t=50, n=10):
+    return [1] * n + [t]
+```
+
+</details>
+
+### BasicStrCounts
+([basic](#basic) 15/22)
+
+**Description:**
+Find a string that has `count1` occurrences of `s1` and `count1` occurrences of `s1` and starts and ends with
+the same 10 characters
+
+**Problem:**
+
+```python
+def sat(s: str, s1: str="a", s2: str="b", count1: int=50, count2: int=30):
+    return s.count(s1) == count1 and s.count(s2) == count2 and s[:10] == s[-10:]
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(s1="a", s2="b", count1=50, count2=30):
+    if s1 == s2:
+        ans = (s1 + "?") * count1
+    elif s1.count(s2):
+        ans = (s1 + "?") * count1
+        ans += (s2 + "?") * (count2 - ans.count(s2))
+    else:
+        ans = (s2 + "?") * count2
+        ans += (s1 + "?") * (count1 - ans.count(s1))
+    return "?" * 10 + ans + "?" * 10
+```
+
+</details>
+
+### ZipStr
+([basic](#basic) 16/22)
+
+**Description:**
+Find a string that contains all the `substrings` alternating, e.g., 'cdaotg' for 'cat' and 'dog'
+
+**Problem:**
+
+```python
+def sat(s: str, substrings: List[str]=['foo', 'bar', 'baz']):
+    return all(sub in s[i::len(substrings)] for i, sub in enumerate(substrings))
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(substrings=['foo', 'bar', 'baz']):
+    m = max(len(s) for s in substrings)
+    return "".join([(s[i] if i < len(s) else " ") for i in range(m) for s in substrings])
+```
+
+</details>
+
+### ReverseCat
+([basic](#basic) 17/22)
+
+**Description:**
+Find a string that contains all the `substrings` reversed and forward
+
+**Problem:**
+
+```python
+def sat(s: str, substrings: List[str]=['foo', 'bar', 'baz']):
+    return all(sub in s and sub[::-1] in s for sub in substrings)
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(substrings=['foo', 'bar', 'baz']):
+    return "".join(substrings + [s[::-1] for s in substrings])
+```
+
+</details>
+
+### EngineerNumbers
+([basic](#basic) 18/22)
+
+**Description:**
+Find a list of `n` strings starting with `a` and ending with `b`
+
+**Problem:**
+
+```python
+def sat(ls: List[str], n: int=100, a: str="bar", b: str="foo"):
+    return len(ls) == len(set(ls)) == n and ls[0] == a and ls[-1] == b and ls == sorted(ls)
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(n=100, a="bar", b="foo"):
+    return sorted([a] + [a + chr(0) + str(i) for i in range(n - 2)] + [b])
+```
+
+</details>
+
+### PenultimateString
+([basic](#basic) 19/22)
+
+**Description:**
+Find the alphabetically second to last last string in a list.
+
+**Problem:**
+
+```python
+def sat(s: str, strings: List[str]=['cat', 'dog', 'bird', 'fly', 'moose']):
+    return s in strings and sum(t > s for t in strings) == 1
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(strings=['cat', 'dog', 'bird', 'fly', 'moose']):
+    return sorted(strings)[-2]
+```
+
+</details>
+
+### PenultimateRevString
+([basic](#basic) 20/22)
+
+**Description:**
+Find the reversed version of the alphabetically second string in a list.
+
+**Problem:**
+
+```python
+def sat(s: str, strings: List[str]=['cat', 'dog', 'bird', 'fly', 'moose']):
+    return s[::-1] in strings and sum(t < s[::-1] for t in strings) == 1
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(strings=['cat', 'dog', 'bird', 'fly', 'moose']):
+    return sorted(strings)[1][::-1]
+```
+
+</details>
+
+### CenteredString
+([basic](#basic) 21/22)
+
+**Description:**
+Find a substring of length `length` centered within `target`.
+
+**Problem:**
+
+```python
+def sat(s: str, target: str="foobarbazwow", length: int=6):
+    return target[(len(target) - length) // 2:(len(target) + length) // 2] == s
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(target="foobarbazwow", length=6):
+    return target[(len(target) - length) // 2:(len(target) + length) // 2]
+```
+
+</details>
+
+### SubstrCount
+([basic](#basic) 22/22)
+
+**Description:**
+Find a substring with a certain count in a given string
+
+**Problem:**
+
+```python
+def sat(substring: str, string: str="moooboooofasd", count: int=2):
+    return string.count(substring) == count
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(string="moooboooofasd", count=2):
+    for i in range(len(string)):
+        for j in range(i+1, len(string)):
+            substring = string[i:j]
+            c = string.count(substring)
+            if c == count:
+                return substring
+            if c < count:
+                break
+    assert False
+```
+
+</details>
+
+[^^ Top](#files)
+## chess
+
+Classic chess problems
+
+[^ Top](#files)
+
+### EightQueensOrFewer
+([chess](#chess) 1/5)
+
+**Description:**
+Eight (or fewer) Queens Puzzle
+
+Position min(m, n) <= 8 queens on an m x n chess board so that no pair is attacking each other. Hint:
+a brute force approach works on this puzzle.
+
+See the MoreQueens puzzle for another (longer but clearer) equivalent definition of sat
+
+See Wikipedia entry on
+[Eight Queens puzzle](https://en.wikipedia.org/w/index.php?title=Eight_queens_puzzle).
+
+**Problem:**
+
+```python
+def sat(squares: List[List[int]], m: int=8, n: int=8):
+    k = min(m, n)
+    assert all(i in range(m) and j in range(n) for i, j in squares) and len(squares) == k
+    return 4 * k == len({t for i, j in squares for t in [('row', i), ('col', j), ('SE', i + j), ('NE', i - j)]})
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(m=8, n=8):  # brute force
+    k = min(m, n)
+
+    from itertools import permutations
+    for p in permutations(range(k)):
+        if 4 * k == len(
+                {t for i, j in enumerate(p) for t in [('row', i), ('col', j), ('SE', i + j), ('NE', i - j)]}):
+            return [[i, j] for i, j in enumerate(p)]
+```
+
+</details>
+
+### MoreQueens
+([chess](#chess) 2/5)
+
+**Description:**
+More Queens Puzzle
+
+Position min(m, n) > 8 queens on an m x n chess board so that no pair is attacking each other. A brute force
+approach will not work on many of these problems. Here, we use a different
+
+See Wikipedia entry on
+[Eight Queens puzzle](https://en.wikipedia.org/w/index.php?title=Eight_queens_puzzle).
+
+**Problem:**
+
+```python
+def sat(squares: List[List[int]], m: int=9, n: int=9):
+    k = min(m, n)
+    assert all(i in range(m) and j in range(n) for i, j in squares), "queen off board"
+    assert len(squares) == k, "Wrong number of queens"
+    assert len({i for i, j in squares}) == k, "Queens on same row"
+    assert len({j for i, j in squares}) == k, "Queens on same file"
+    assert len({i + j for i, j in squares}) == k, "Queens on same SE diagonal"
+    assert len({i - j for i, j in squares}) == k, "Queens on same NE diagonal"
+    return True
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(m=9, n=9):
+    t = min(m, n)
+    ans = []
+    if t % 2 == 1:  # odd k, put a queen in the lower right corner (and decrement k)
+        ans.append([t - 1, t - 1])
+        t -= 1
+    if t % 6 == 2:  # do something special for 8x8, 14x14 etc:
+        ans += [[i, (2 * i + t // 2 - 1) % t] for i in range(t // 2)]
+        ans += [[i + t // 2, (2 * i - t // 2 + 2) % t] for i in range(t // 2)]
+    else:
+        ans += [[i, 2 * i + 1] for i in range(t // 2)]
+        ans += [[i + t // 2, 2 * i] for i in range(t // 2)]
+    return ans
+```
+
+</details>
+
+### KnightsTour
+([chess](#chess) 3/5)
+
+**Description:**
+Knights Tour
+
+Find an (open) tour of knight moves on an m x n chess-board that visits each square once.
+
+See Wikipedia entry on [Knight's tour](https://en.wikipedia.org/w/index.php?title=Knight%27s_tour)
+
+**Problem:**
+
+```python
+def sat(tour: List[List[int]], m: int=8, n: int=8):
+    assert all({abs(i1 - i2), abs(j1 - j2)} == {1, 2} for [i1, j1], [i2, j2] in zip(tour, tour[1:])), 'legal moves'
+    return sorted(tour) == [[i, j] for i in range(m) for j in range(n)]  # cover every square once
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(m=8, n=8):  # using Warnsdorff's heuristic, breaking ties randomly 
+    import random
+    for seed in range(100):
+        r = random.Random(seed)
+        ans = [(0, 0)]
+        free = {(i, j) for i in range(m) for j in range(n)} - {(0, 0)}
+
+        def possible(i, j):
+            moves = [(i + s * a, j + t * b) for (a, b) in [(1, 2), (2, 1)] for s in [-1, 1] for t in [-1, 1]]
+            return [z for z in moves if z in free]
+
+        while True:
+            if not free:
+                return [[a, b] for (a, b) in ans]
+            candidates = possible(*ans[-1])
+            if not candidates:
+                break
+            ans.append(min(candidates, key=lambda z: len(possible(*z)) + r.random()))
+            free.remove(ans[-1])
+```
+
+</details>
+
+### UncrossedKnightsPath
+([chess](#chess) 4/5)
+
+**Description:**
+Uncrossed Knights Path (known solvable, but no solution given)
+
+Find long (open) tour of knight moves on an m x n chess-board whose edges don't cross.
+The goal of these problems is to match the nxn_records from [http://ukt.alex-black.ru/](http://ukt.alex-black.ru/)
+(accessed 2020-11-29).
+
+A more precise description is in this
+[Wikipedia article](https://en.wikipedia.org/w/index.php?title=Longest_uncrossed_knight%27s_path).
+
+**Problem:**
+
+```python
+def sat(path: List[List[int]], m: int=8, n: int=8, target: int=35):
+    def legal_move(m):
+        (a, b), (i, j) = m
+        return {abs(i - a), abs(j - b)} == {1, 2}
+
+    def legal_quad(m1, m2):  # non-overlapping test: parallel or bounding box has (width - 1) * (height - 1) >= 5
+        (i1, j1), (i2, j2) = m1
+        (a1, b1), (a2, b2) = m2
+        return (len({(i1, j1), (i2, j2), (a1, b1), (a2, b2)}) < 4  # adjacent edges in path, ignore
+                or (i1 - i2) * (b1 - b2) == (j1 - j2) * (a1 - a2)  # parallel
+                or (max(a1, a2, i1, i2) - min(a1, a2, i1, i2)) * (max(b1, b2, j1, j2) - min(b1, b2, j1, j2)) >= 5
+                # far
+                )
+
+    assert all(i in range(m) and j in range(n) for i, j in path), "move off board"
+    assert len({(i, j) for i, j in path}) == len(path), "visited same square twice"
+
+    moves = list(zip(path, path[1:]))
+    assert all(legal_move(m) for m in moves), "illegal move"
+    assert all(legal_quad(m1, m2) for m1 in moves for m2 in moves), "intersecting move pair"
+
+    return len(path) >= target
+```
+### UNSOLVED_UncrossedKnightsPath
+([chess](#chess) 5/5)
+
+**Description:**
+Uncrossed Knights Path (open problem, unsolved)
+
+Find long (open) tour of knight moves on an m x n chess-board whose edges don't cross.
+The goal of these problems is to *beat* the nxn_records from
+[http://ukt.alex-black.ru/](http://ukt.alex-black.ru/)
+(accessed 2020-11-29).
+
+A more precise description is in this
+[Wikipedia article](https://en.wikipedia.org/w/index.php?title=Longest_uncrossed_knight%27s_path).
+
+**Problem:**
+
+```python
+def sat(path: List[List[int]], m: int=8, n: int=8, target: int=35):
+    def legal_move(m):
+        (a, b), (i, j) = m
+        return {abs(i - a), abs(j - b)} == {1, 2}
+
+    def legal_quad(m1, m2):  # non-overlapping test: parallel or bounding box has (width - 1) * (height - 1) >= 5
+        (i1, j1), (i2, j2) = m1
+        (a1, b1), (a2, b2) = m2
+        return (len({(i1, j1), (i2, j2), (a1, b1), (a2, b2)}) < 4  # adjacent edges in path, ignore
+                or (i1 - i2) * (b1 - b2) == (j1 - j2) * (a1 - a2)  # parallel
+                or (max(a1, a2, i1, i2) - min(a1, a2, i1, i2)) * (max(b1, b2, j1, j2) - min(b1, b2, j1, j2)) >= 5
+                # far
+                )
+
+    assert all(i in range(m) and j in range(n) for i, j in path), "move off board"
+    assert len({(i, j) for i, j in path}) == len(path), "visited same square twice"
+
+    moves = list(zip(path, path[1:]))
+    assert all(legal_move(m) for m in moves), "illegal move"
+    assert all(legal_quad(m1, m2) for m1 in moves for m2 in moves), "intersecting move pair"
+
+    return len(path) >= target
+```
+[^^ Top](#files)
 ## compression
 
 Invert a given de/compression algorithm.
@@ -3322,7 +4520,6 @@ so the solution is the *compression* algorithm.
 
 ```python
 def sat(seq: List[int], compressed_len: int=17, text: str="Hellooooooooooooooooooooo world!"):
-    assert type(seq) is list and all(type(a) is int for a in seq), 'seq must be of type List[int]'
     index = [chr(i) for i in range(256)]
     pieces = [""]
     for i in seq:
@@ -3365,7 +4562,6 @@ so the solution is the *decompression* algorithm.
 
 ```python
 def sat(text: str, seq: List[int]=[72, 101, 108, 108, 111, 32, 119, 111, 114, 100, 262, 264, 266, 263, 265, 33]):
-    assert type(text) is str, 'text must be of type str'
     index = {chr(i): i for i in range(256)}
     seq2 = []
     buffer = ""
@@ -3408,7 +4604,6 @@ This is a [classic problem](https://en.wikipedia.org/wiki/Sphere_packing#Other_s
 
 ```python
 def sat(words: List[str], num: int=100, bits: int=100, dist: int=34):
-    assert type(words) is list and all(type(a) is str for a in words), 'words must be of type List[str]'
     assert len(words) == num and all(len(word) == bits and set(word) <= {"0", "1"} for word in words)
     return all(sum([a != b for a, b in zip(words[i], words[j])]) >= dist for i in range(num) for j in range(i))
 ```
@@ -3450,7 +4645,6 @@ in Wikipedia article on Cellular Automaton Oscillators.
 
 ```python
 def sat(init: List[List[int]], period: int=3):
-    assert type(init) is list and all(type(a) is list and all(type(b) is int for b in a) for a in init), 'init must be of type List[List[int]]'
     target = {x + y * 1j for x, y in init}  # complex numbers encode live cells
 
     deltas = (1j, -1j, 1, -1, 1 + 1j, 1 - 1j, -1 + 1j, -1 - 1j)
@@ -3524,7 +4718,6 @@ This is an *unsolved* problem for periods 33, 34.
 
 ```python
 def sat(init: List[List[int]], period: int=4):
-    assert type(init) is list and all(type(a) is list and all(type(b) is int for b in a) for a in init), 'init must be of type List[List[int]]'
     live = {x + y * 1j for x, y in init}  # use complex numbers
     init_tot = sum(live)
     target = {z * len(live) - init_tot for z in live}
@@ -3560,7 +4753,6 @@ for optimal play based on the xor of the bits.
 
 ```python
 def sat(cert: List[List[int]], heaps: List[int]=[5, 9]):
-    assert type(cert) is list and all(type(a) is list and all(type(b) is int for b in a) for a in cert), 'cert must be of type List[List[int]]'  # cert is a sufficient list of desirable states to leave for opponent
     good_leaves = {tuple(h) for h in cert}  # for efficiency, we keep track of h as a tuple of n non-negative ints
     cache = {}
 
@@ -3626,7 +4818,6 @@ those partial transcripts.
 
 ```python
 def sat(transcripts: List[str], max_moves: int=10):
-    assert type(transcripts) is list and all(type(a) is str for a in transcripts), 'transcripts must be of type List[str]'
     COLORS = "ABCDEF"
 
     def helper(secret: str, transcript=""):
@@ -3710,7 +4901,6 @@ is always good board that X can get to with a single move.
 
 ```python
 def sat(good_boards: List[str]):
-    assert type(good_boards) is list and all(type(a) is str for a in good_boards), 'good_boards must be of type List[str]'
     board_bit_reps = {tuple(sum(1 << i for i in range(9) if b[i] == c) for c in "XO") for b in good_boards}
     win = [any(i & w == w for w in [7, 56, 73, 84, 146, 273, 292, 448]) for i in range(512)]
 
@@ -3771,7 +4961,6 @@ is always good board that O can get to with a single move.
 
 ```python
 def sat(good_boards: List[str]):
-    assert type(good_boards) is list and all(type(a) is str for a in good_boards), 'good_boards must be of type List[str]'
     board_bit_reps = {tuple(sum(1 << i for i in range(9) if b[i] == c) for c in "XO") for b in good_boards}
     win = [any(i & w == w for w in [7, 56, 73, 84, 146, 273, 292, 448]) for i in range(512)]
 
@@ -3830,7 +5019,6 @@ Find the distribution that guarantees maximum expected value of 0
 
 ```python
 def sat(probs: List[float]):
-    assert type(probs) is list and all(type(a) is float for a in probs), 'probs must be of type List[float]'  # rock prob, paper prob, scissors prob
     assert len(probs) == 3 and abs(sum(probs) - 1) < 1e-6
     return max(probs[(i + 2) % 3] - probs[(i + 1) % 3] for i in range(3)) < 1e-6
 ```
@@ -3865,7 +5053,6 @@ PPAD-hard in general. In fact the challenge is be much easier for an approximate
 
 ```python
 def sat(strategies: List[List[float]], A: List[List[float]]=[[-1.0, -3.0], [0.0, -2.0]], B: List[List[float]]=[[-1.0, 0.0], [-3.0, -2.0]], eps: float=0.01):
-    assert type(strategies) is list and all(type(a) is list and all(type(b) is float for b in a) for a in strategies), 'strategies must be of type List[List[float]]'  # error tolerance
     m, n = len(A), len(A[0])
     p, q = strategies
     assert len(B) == m and all(len(row) == n for row in A + B), "inputs are a bimatrix game"
@@ -3925,7 +5112,6 @@ more efficient algorithms would be needed.
 
 ```python
 def sat(strategies: List[List[float]], A: List[List[float]]=[[0.0, -1.0, 1.0], [1.0, 0.0, -1.0], [-1.0, 1.0, 0.0]], eps: float=0.1):
-    assert type(strategies) is list and all(type(a) is list and all(type(b) is float for b in a) for a in strategies), 'strategies must be of type List[List[float]]'  # error tolerance
     m, n = len(A), len(A[0])
     p, q = strategies
     assert all(len(row) == n for row in A), "inputs are a matrix"
@@ -3989,7 +5175,6 @@ See also this [Wikipedia article](https://en.wikipedia.org/w/index.php?title=Con
 
 ```python
 def sat(edges: List[List[int]]):
-    assert type(edges) is list and all(type(a) is list and all(type(b) is int for b in a) for a in edges), 'edges must be of type List[List[int]]'
     N = {i: {j for j in range(99) if j != i and ([i, j] in edges or [j, i] in edges)} for i in
          range(99)}  # neighbor sets
     return all(len(N[i].intersection(N[j])) == (1 if j in N[i] else 2) for i in range(99) for j in range(i))
@@ -4004,7 +5189,6 @@ Find any edge in a given [graph](https://en.wikipedia.org/w/index.php?title=Grap
 
 ```python
 def sat(e: List[int], edges: List[List[int]]=[[0, 217], [40, 11], [17, 29], [11, 12], [31, 51]]):
-    assert type(e) is list and all(type(a) is int for a in e), 'e must be of type List[int]'
     return e in edges
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -4026,7 +5210,6 @@ Find a [triangle](https://en.wikipedia.org/w/index.php?title=Triangle_graph) in 
 
 ```python
 def sat(tri: List[int], edges: List[List[int]]=[[0, 17], [0, 22], [17, 22], [17, 31], [22, 31], [31, 17]]):
-    assert type(tri) is list and all(type(a) is int for a in tri), 'tri must be of type List[int]'
     a, b, c = tri
     return [a, b] in edges and [b, c] in edges and [c, a] in edges and a != b != c != a
 ```
@@ -4065,7 +5248,6 @@ some time.
 
 ```python
 def sat(nodes: List[int], size: int=3, edges: List[List[int]]=[[0, 17], [0, 22], [17, 22], [17, 31], [22, 31], [31, 17]]):
-    assert type(nodes) is list and all(type(a) is int for a in nodes), 'nodes must be of type List[int]'
     assert len(nodes) == len(set(nodes)) >= size
     edge_set = {(a, b) for (a, b) in edges}
     for a in nodes:
@@ -4119,7 +5301,6 @@ See (Dijkstra's algorithm)[https://en.wikipedia.org/w/index.php?title=Dijkstra%2
 
 ```python
 def sat(path: List[int], weights: List[Dict[int, int]]=[{1: 20, 2: 1}, {2: 2, 3: 5}, {1: 10}], bound: int=11):
-    assert type(path) is list and all(type(a) is int for a in path), 'path must be of type List[int]'
     return path[0] == 0 and path[-1] == 1 and sum(weights[a][b] for a, b in zip(path, path[1:])) <= bound
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -4165,7 +5346,6 @@ See (Dijkstra's algorithm)[https://en.wikipedia.org/w/index.php?title=Dijkstra%2
 
 ```python
 def sat(path: List[int], edges: List[List[int]]=[[0, 11], [0, 22], [11, 22], [11, 33], [22, 33]], u: int=0, v: int=33, bound: int=3):
-    assert type(path) is list and all(type(a) is int for a in path), 'path must be of type List[int]'
     assert path[0] == u and path[-1] == v and all([i, j] in edges for i, j in zip(path, path[1:]))
     return len(path) <= bound
 ```
@@ -4213,7 +5393,6 @@ Find any path from node 0 to node n in a given graph on vertices 0, 1,..., n.
 
 ```python
 def sat(path: List[int], edges: List[List[int]]=[[0, 1], [0, 2], [1, 2], [1, 3], [2, 3]]):
-    assert type(path) is list and all(type(a) is int for a in path), 'path must be of type List[int]'
     for i in range(len(path) - 1):
         assert [path[i], path[i + 1]] in edges
     assert path[0] == 0
@@ -4247,7 +5426,6 @@ Find any path with an even number of nodes from node 0 to node n in a given grap
 
 ```python
 def sat(path: List[int], edges: List[List[int]]=[[0, 2], [0, 1], [2, 1], [2, 3], [1, 3]]):
-    assert type(path) is list and all(type(a) is int for a in path), 'path must be of type List[int]'
     assert path[0] == 0 and path[-1] == max(max(e) for e in edges)
     assert all([[a, b] in edges for a, b in zip(path, path[1:])])
     return len(path) % 2 == 0
@@ -4284,7 +5462,6 @@ Find any path with an odd number of nodes from node 0 to node 1 in a given graph
 
 ```python
 def sat(p: List[int], edges: List[List[int]]=[[0, 1], [0, 2], [1, 2], [3, 1], [2, 3]]):
-    assert type(p) is list and all(type(a) is int for a in p), 'p must be of type List[int]'
     return p[0] == 0 and p[-1] == 1 == len(p) % 2 and all([[a, b] in edges for a, b in zip(p, p[1:])])
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -4317,7 +5494,6 @@ Find a bipartite graph with 4 vertices on each side, 13 edges, and no K_3,3 subg
 
 ```python
 def sat(edges: List[List[int]]):
-    assert type(edges) is list and all(type(a) is list and all(type(b) is int for b in a) for a in edges), 'edges must be of type List[List[int]]'
     assert len(edges) == len({(a, b) for a, b in edges}) == 13  # weights
     assert all(i in range(4) for li in edges for i in li)  # 4 nodes on each side
     for i in range(4):
@@ -4352,7 +5528,6 @@ Each graph is specified by a list of edges where each edge is a pair of integer 
 
 ```python
 def sat(bi: List[int], g1: List[List[int]]=[[0, 1], [1, 2], [2, 3], [3, 4]], g2: List[List[int]]=[[0, 4], [4, 1], [1, 2], [2, 3]]):
-    assert type(bi) is list and all(type(a) is int for a in bi), 'bi must be of type List[int]'
     return len(bi) == len(set(bi)) and {(i, j) for i, j in g1} == {(bi[i], bi[j]) for i, j in g2}
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -4395,7 +5570,6 @@ which is 2,287 characters.
 
 ```python
 def sat(perms: List[List[int]], prices0: List[int]=[7, 7, 9, 5, 3, 7, 1, 2], prices1: List[int]=[5, 5, 5, 4, 2, 5, 1, 1], heights0: List[int]=[2, 4, 9, 3, 8, 5, 5, 4], heights1: List[int]=[1, 3, 8, 1, 5, 4, 4, 2]):
-    assert type(perms) is list and all(type(a) is list and all(type(b) is int for b in a) for a in perms), 'perms must be of type List[List[int]]'
     n = len(prices0)
     perm0, perm1 = perms
     assert sorted(perm0) == sorted(perm1) == list(range(n)), "Solution must be two permutations"
@@ -4453,7 +5627,6 @@ which is 3,003 characters.
 
 ```python
 def sat(indices: List[int], H: int=60, alpha: int=18, beta: int=2, xs: List[int]=[0, 10, 20, 30, 50, 80, 100, 120, 160, 190, 200], ys: List[int]=[0, 30, 10, 30, 50, 40, 10, 20, 20, 55, 10], thresh: int=26020):
-    assert type(indices) is list and all(type(a) is int for a in indices), 'indices must be of type List[int]'
     assert sorted({0, len(xs) - 1, *indices}) == indices, f"Ans. should be sorted list [0, ..., {len(xs) - 1}]"
     cost = alpha * (H - ys[0])
     for i, j in zip(indices, indices[1:]):
@@ -4524,7 +5697,6 @@ Inspired by
 
 ```python
 def sat(position: List[List[int]], transcript: List[List[List[int]]]=[[[3, 3], [5, 5], [3, 7]], [[5, 3], [6, 4]]]):
-    assert type(position) is list and all(type(a) is list and all(type(b) is int for b in a) for a in position), 'position must be of type List[List[int]]'
     board = {(x, y): 0 for x in range(8) for y in range(8) if (x + y) % 2 == 0}  # empty board, 0 = empty
     for x, y, p in position:
         assert -2 <= p <= 2 and board[x, y] == 0  # -1, 1 is regular piece, -2, 2 is king
@@ -4705,7 +5877,6 @@ Inspired by
 
 ```python
 def sat(cut_position: int, ring: str="yRrsmOkLCHSDJywpVDEDsjgCwSUmtvHMefxxPFdmBIpM", lower: int=5):
-    assert type(cut_position) is int, 'cut_position must be of type int'
     line = ring[cut_position:] + ring[:cut_position]
     matches = {c: 0 for c in line.lower()}
     for c in line:
@@ -4784,7 +5955,6 @@ Inspired by [IMO 2010 Problem 5](https://www.imo-official.org/problems.aspx)
 
 ```python
 def sat(states: List[List[int]], n: int=10):
-    assert type(states) is list and all(type(a) is list and all(type(b) is int for b in a) for a in states), 'states must be of type List[List[int]]'  # list of 5-tuple states
     assert states[0] == [1] * 5 and all(len(li) == 5 for li in states) and all(i >= 0 for li in states for i in li)
     for prev, cur in zip(states, states[1:]):
         for i in range(5):
@@ -4858,7 +6028,6 @@ Inspired by [IMO 2016 Problem 4](https://www.imo-official.org/problems.aspx)
 
 ```python
 def sat(nums: List[int], b: int=6, m: int=2):
-    assert type(nums) is list and all(type(a) is int for a in nums), 'nums must be of type List[int]'
     assert len(nums) == len(set(nums)) == m and min(nums) >= 0
 
     def gcd(i, j):
@@ -4943,7 +6112,6 @@ Inspired by [IMO 2017 Problem 1](https://www.imo-official.org/problems.aspx)
 
 ```python
 def sat(indices: List[int], a0: int=123):
-    assert type(indices) is list and all(type(a) is int for a in indices), 'indices must be of type List[int]'
     assert a0 >= 0 and a0 % 3 == 0, "Hint: a_0 is a multiple of 3."
     s = [a0]
     for i in range(max(indices)):
@@ -4993,7 +6161,6 @@ Inspired by [IMO 2017 Problem 5](https://www.imo-official.org/problems.aspx)
 
 ```python
 def sat(keep: List[bool], heights: List[int]=[10, 2, 14, 1, 8, 19, 16, 6, 12, 3, 17, 0, 9, 18, 5, 7, 11, 13, 15, 4]):
-    assert type(keep) is list and all(type(a) is bool for a in keep), 'keep must be of type List[bool]'
     n = int(len(heights) ** 0.5)
     assert sorted(heights) == list(range(n * n + n)), "hint: heights is a permutation of range(n * n + n)"
     kept = [i for i, k in zip(heights, keep) if k]
@@ -5051,7 +6218,6 @@ Inspired by [IMO 2010 Problem 5](https://www.imo-official.org/problems.aspx)
 
 ```python
 def sat(li: List[int], n: int=6):
-    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'
     assert n % 3 == 0, "Hint: n is a multiple of 3"
     return len(li) == n and all(li[(i + 2) % n] == 1 + li[(i + 1) % n] * li[i] for i in range(n))
 ```
@@ -5088,7 +6254,6 @@ Inspired by [IMO 2020 Problem 3](https://www.imo-official.org/problems.aspx)
 
 ```python
 def sat(li: List[int], n: int=3, tags: List[int]=[0, 1, 2, 0, 0, 1, 1, 1, 2, 2, 0, 2]):
-    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'
     assert sorted(tags) == sorted(list(range(n)) * 4), "hint: each tag occurs exactly four times"
     assert len(li) == len(set(li)) and min(li) >= 0
     return sum(li) * 2 == sum(range(4 * n)) and sorted([tags[i] for i in li]) == [i // 2 for i in range(2 * n)]
@@ -5182,7 +6347,6 @@ The vectors are encoded as binary integers for succinctness.
 
 ```python
 def sat(inds: List[int], vecs: List[int]=[169, 203, 409, 50, 37, 479, 370, 133, 53, 159, 161, 367, 474, 107, 82, 447, 385]):
-    assert type(inds) is list and all(type(a) is int for a in inds), 'inds must be of type List[int]'
     return all(sum((v >> i) & 1 for i in inds) % 2 == 1 for v in vecs)
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -5235,7 +6399,6 @@ runs in time $2^(d/(log d))$
 
 ```python
 def sat(inds: List[int], vecs: List[int]=[26, 5, 16, 3, 15, 18, 31, 13, 24, 25, 6, 5, 15, 24, 16, 13, 0, 27, 13]):
-    assert type(inds) is list and all(type(a) is int for a in inds), 'inds must be of type List[int]'
     return sum(sum((v >> i) & 1 for i in inds) % 2 for v in vecs) >= len(vecs) * 3 / 4
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -5282,7 +6445,6 @@ See [Wiles, Andrew. "Modular elliptic curves and Fermat's last theorem." Annals 
 
 ```python
 def sat(nums: List[int]):
-    assert type(nums) is list and all(type(a) is int for a in nums), 'nums must be of type List[int]'
     a, b, c, n = nums
     return (a ** n + b ** n == c ** n) and min(a, b, c) > 0 and n > 2
 ```
@@ -5301,7 +6463,6 @@ See also the [Euclidean algorithm](https://en.wikipedia.org/wiki/Euclidean_algor
 
 ```python
 def sat(n: int, a: int=15482, b: int=23223, lower_bound: int=5):
-    assert type(n) is int, 'n must be of type int'
     return a % n == 0 and b % n == 0 and n >= lower_bound
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -5343,7 +6504,6 @@ See also the [Euclidean algorithm](https://en.wikipedia.org/wiki/Euclidean_algor
 
 ```python
 def sat(n: int, nums: List[int]=[77410, 23223, 54187], lower_bound: int=2):
-    assert type(n) is int, 'n must be of type int'
     return all(i % n == 0 for i in nums) and n >= lower_bound
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -5375,7 +6535,6 @@ See also the [Euclidean algorithm](https://en.wikipedia.org/wiki/Euclidean_algor
 
 ```python
 def sat(n: int, a: int=15, b: int=27, upper_bound: int=150):
-    assert type(n) is int, 'n must be of type int'
     return n % a == 0 and n % b == 0 and 0 < n <= upper_bound
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -5405,7 +6564,6 @@ See also the [Euclidean algorithm](https://en.wikipedia.org/wiki/Euclidean_algor
 
 ```python
 def sat(n: int, nums: List[int]=[15, 27, 102], upper_bound: int=5000):
-    assert type(n) is int, 'n must be of type int'
     return all(n % i == 0 for i in nums) and n <= upper_bound
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -5440,7 +6598,6 @@ See [Richard K. Guy "The strong law of small numbers", (problem 13)](https://doi
 
 ```python
 def sat(n: int, b: int=2, target: int=5):
-    assert type(n) is int, 'n must be of type int'
     return (b ** n) % n == target
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -5471,7 +6628,6 @@ See [wikipedia entry](https://en.wikipedia.org/wiki/Sums_of_three_cubes) or
 
 ```python
 def sat(nums: List[int], target: int=10):
-    assert type(nums) is list and all(type(a) is int for a in nums), 'nums must be of type List[int]'
     assert target % 9 not in [4, 5], "Hint"
     return len(nums) == 3 and sum([i ** 3 for i in nums]) == target
 ```
@@ -5513,7 +6669,6 @@ The first half of the problems involve small numbers and the second half involve
 
 ```python
 def sat(nums: List[int], n: int=12345):
-    assert type(nums) is list and all(type(a) is int for a in nums), 'nums must be of type List[int]'
     return len(nums) <= 4 and sum(i ** 2 for i in nums) == n
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -5554,7 +6709,6 @@ unless considerable advances are made in integer factorization or computational 
 
 ```python
 def sat(i: int, n: int=62710561):
-    assert type(i) is int, 'i must be of type int'
     return 1 < i < n and n % i == 0
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -5597,7 +6751,6 @@ We include McCurley's discrete log challenge from
 
 ```python
 def sat(n: int, g: int=3, p: int=17, t: int=13):
-    assert type(n) is int, 'n must be of type int'
     return pow(g, n, p) == t
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -5627,7 +6780,6 @@ solution is 8424432925592889329288197322308900672459420460792433
 
 ```python
 def sat(n: int):
-    assert type(n) is int, 'n must be of type int'
     i = n ** 17 + 9
     j = (n + 1) ** 17 + 9
 
@@ -5650,7 +6802,6 @@ For example [2, 3, 7, 47, 395] is a solution for k=5
 
 ```python
 def sat(li: List[int], k: int=5):
-    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'
     def prod(nums):
         ans = 1
         for i in nums:
@@ -5699,7 +6850,6 @@ there is either a cycle or a sequence that increases without bound. This problem
 
 ```python
 def sat(n: int):
-    assert type(n) is int, 'n must be of type int'
     m = n
     while n > 4:
         n = 3 * n + 1 if n % 2 else n // 2
@@ -5722,7 +6872,6 @@ See the [Wikipedia article](https://en.wikipedia.org/wiki/Collatz_conjecture)
 
 ```python
 def sat(start: int):
-    assert type(start) is int, 'start must be of type int'
     n = start  # could be positive or negative ...
     while abs(n) > 1000:
         n = 3 * n + 1 if n % 2 else n // 2
@@ -5748,7 +6897,6 @@ See [this webpage](http://www.ericr.nl/wondrous/delrecs.html) for up-to-date rec
 
 ```python
 def sat(n: int, t: int=100, upper: int=10):
-    assert type(n) is int, 'n must be of type int'
     m = n
     for i in range(t):
         if n <= 1:
@@ -5792,7 +6940,6 @@ According to [The Strong Law of Large Numbers](https://doi.org/10.2307/2322249) 
 
 ```python
 def sat(n: int):
-    assert type(n) is int, 'n must be of type int'
     return pow(2, n, n) == 3
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -5823,7 +6970,6 @@ See [Birthday Problem](https://en.wikipedia.org/wiki/Birthday_problem (Mathemati
 
 ```python
 def sat(n: int, year_len: int=365):
-    assert type(n) is int, 'n must be of type int'
     prob = 1.0
     for i in range(n):
         prob *= (year_len - i) / year_len
@@ -5856,7 +7002,6 @@ A slower, Monte Carlo version of the above Birthday Paradox problem.
 
 ```python
 def sat(n: int, year_len: int=365):
-    assert type(n) is int, 'n must be of type int'
     import random
     random.seed(0)
     K = 1000  # number of samples
@@ -5897,7 +7042,6 @@ Springer, Berlin, Heidelberg.](https://doi.org/10.1007/978-3-540-77200-2_1)
 
 ```python
 def sat(counts: List[int], target_prob: float=0.5):
-    assert type(counts) is list and all(type(a) is int for a in counts), 'counts must be of type List[int]'
     m, n = counts  # m = num 1's, n = num -1's
     probs = [1.0] + [0.0] * n  # probs[n] is probability for current m, starting with m = 1
     for i in range(2, m + 1):  # compute probs using dynamic programming for m = i
@@ -5935,7 +7079,6 @@ See [Binomial distribution](https://en.wikipedia.org/wiki/Binomial_distribution)
 
 ```python
 def sat(counts: List[int], p: float=0.5, target_prob: float=0.0625):
-    assert type(counts) is list and all(type(a) is int for a in counts), 'counts must be of type List[int]'
     from itertools import product
     a, b = counts
     n = a + b
@@ -5970,7 +7113,6 @@ See [Exponential distribution](https://en.wikipedia.org/wiki/Exponential_distrib
 
 ```python
 def sat(p_stop: float, steps: int=10, target_prob: float=0.5):
-    assert type(p_stop) is float, 'p_stop must be of type float'
     prob = sum(p_stop*(1-p_stop)**t for t in range(steps))
     return abs(prob - target_prob) < 1e-6
 ```
@@ -5979,708 +7121,6 @@ def sat(p_stop: float, steps: int=10, target_prob: float=0.5):
 ```python
 def sol(steps=10, target_prob=0.5):
     return 1 - (1 - target_prob) ** (1.0/steps)
-```
-
-</details>
-
-[^^ Top](#files)
-## study
-
-
-Problems used for the study.
-
-
-[^ Top](#files)
-
-### Study_1
-([study](#study) 1/30)
-
-**Description:**
-Find a string with 1000 'o's but no two adjacent 'o's.
-
-**Problem:**
-
-```python
-def sat(s: str):
-    assert type(s) is str, 's must be of type str'
-    return s.count('o') == 1000 and s.count('oo') == 0
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol():
-    return ('h' + 'o') * 1000
-```
-
-</details>
-
-### Study_2
-([study](#study) 2/30)
-
-**Description:**
-Find a string with 1000 'o's, 100 pairs of adjacent 'o's and 801 copies of 'ho'.
-
-**Problem:**
-
-```python
-def sat(s: str):
-    assert type(s) is str, 's must be of type str'
-    return s.count('o') == 1000 and s.count('oo') == 100 and s.count('ho') == 801
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol():
-    return 'ho' * (800 + 1) + 'o' * (100 * 2 - 1)
-```
-
-</details>
-
-### Study_3
-([study](#study) 3/30)
-
-**Description:**
-Find a permutation of [0, 1, ..., 998] such that the ith element is *not* i, for all i=0, 1, ..., 998.
-
-**Problem:**
-
-```python
-def sat(li: List[int]):
-    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'
-    return sorted(li) == list(range(999)) and all(li[i] != i for i in range(len(li)))
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol():
-    return [((i + 1) % 999) for i in range(999)]
-```
-
-</details>
-
-### Study_4
-([study](#study) 4/30)
-
-**Description:**
-Find a list of length 10 where the fourth element occurs exactly twice.
-
-**Problem:**
-
-```python
-def sat(li: List[int]):
-    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'
-    return len(li) == 10 and li.count(li[3]) == 2
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol():
-    return list(range(10 // 2)) * 2
-```
-
-</details>
-
-### Study_5
-([study](#study) 5/30)
-
-**Description:**
-Find a list integers such that the integer i occurs i times, for i = 0, 1, 2, ..., 9.
-
-**Problem:**
-
-```python
-def sat(li: List[int]):
-    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'
-    return all([li.count(i) == i for i in range(10)])
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol():
-    return [i for i in range(10) for j in range(i)]
-```
-
-</details>
-
-### Study_6
-([study](#study) 6/30)
-
-**Description:**
-Find an integer greater than 10^10 which is 4 mod 123.
-
-**Problem:**
-
-```python
-def sat(i: int):
-    assert type(i) is int, 'i must be of type int'
-    return i % 123 == 4 and i > 10 ** 10
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol():
-    return 4 + 10 ** 10 + 123 - 10 ** 10 % 123
-```
-
-</details>
-
-### Study_7
-([study](#study) 7/30)
-
-**Description:**
-Find a three-digit pattern  that occurs more than 8 times in the decimal representation of 8^2888.
-
-**Problem:**
-
-```python
-def sat(s: str):
-    assert type(s) is str, 's must be of type str'
-    return str(8 ** 2888).count(s) > 8 and len(s) == 3
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol():
-    s = str(8 ** 2888)
-    return max({s[i: i + 3] for i in range(len(s) - 2)}, key=lambda t: s.count(t))
-```
-
-</details>
-
-### Study_8
-([study](#study) 8/30)
-
-**Description:**
-Find a list of more than 1235 strings such that the 1234th string is a proper substring of the 1235th.
-
-**Problem:**
-
-```python
-def sat(ls: List[str]):
-    assert type(ls) is list and all(type(a) is str for a in ls), 'ls must be of type List[str]'
-    return ls[1234] in ls[1235] and ls[1234] != ls[1235]
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol():
-    return [''] * 1235 + ['a']
-```
-
-</details>
-
-### Study_9
-([study](#study) 9/30)
-
-**Description:**
-Find a way to rearrange the letters in the pangram "The quick brown fox jumps over the lazy dog" to
-get the pangram "The five boxing wizards jump quickly". The answer should be represented as a list of index
-mappings.
-
-**Problem:**
-
-```python
-def sat(li: List[int]):
-    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'
-    return ["The quick brown fox jumps over the lazy dog"[i] for i in li] == list(
-        "The five boxing wizards jump quickly")
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol():
-    return ['The quick brown fox jumps over the lazy dog'.index(t) for t in 'The five boxing wizards jump quickly']
-```
-
-</details>
-
-### Study_10
-([study](#study) 10/30)
-
-**Description:**
-Find a palindrome of length greater than 11 in the decimal representation of 8^1818.
-
-**Problem:**
-
-```python
-def sat(s: str):
-    assert type(s) is str, 's must be of type str'
-    return s in str(8 ** 1818) and s == s[::-1] and len(s) > 11
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol():
-    s = str(8 ** 1818)
-    return next(s[i: i + le]
-                for le in range(12, len(s) + 1)
-                for i in range(len(s) - le + 1)
-                if s[i: i + le] == s[i: i + le][::-1]
-                )
-```
-
-</details>
-
-### Study_11
-([study](#study) 11/30)
-
-**Description:**
-Find a list of strings whose length (viewed as a string) is equal to the lexicographically largest element
-and is equal to the lexicographically smallest element.
-
-**Problem:**
-
-```python
-def sat(ls: List[str]):
-    assert type(ls) is list and all(type(a) is str for a in ls), 'ls must be of type List[str]'
-    return min(ls) == max(ls) == str(len(ls))
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol():
-    return ['1']
-```
-
-</details>
-
-### Study_12
-([study](#study) 12/30)
-
-**Description:**
-Find a list of 1,000 integers where every two adjacent integers sum to 9, and where the first
-integer plus 4 is 9.
-
-**Problem:**
-
-```python
-def sat(li: List[int]):
-    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'
-    return all(i + j == 9 for i, j in zip([4] + li, li)) and len(li) == 1000
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol():
-    return [9 - 4, 4] * (1000 // 2)
-```
-
-</details>
-
-### Study_13
-([study](#study) 13/30)
-
-**Description:**
-Find a real number which, when you subtract 3.1415, has a decimal representation starting with 123.456.
-
-**Problem:**
-
-```python
-def sat(x: float):
-    assert type(x) is float, 'x must be of type float'
-    return str(x - 3.1415).startswith("123.456")
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol():
-    return 123.456 + 3.1415
-```
-
-</details>
-
-### Study_14
-([study](#study) 14/30)
-
-**Description:**
-Find a list of integers such that the sum of the first i integers is i, for i=0, 1, 2, ..., 19.
-
-**Problem:**
-
-```python
-def sat(li: List[int]):
-    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'
-    return all([sum(li[:i]) == i for i in range(20)])
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol():
-    return [1] * 20
-```
-
-</details>
-
-### Study_15
-([study](#study) 15/30)
-
-**Description:**
-Find a list of integers such that the sum of the first i integers is 2^i -1, for i = 0, 1, 2, ..., 19.
-
-**Problem:**
-
-```python
-def sat(li: List[int]):
-    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'
-    return all(sum(li[:i]) == 2 ** i - 1 for i in range(20))
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol():
-    return [(2 ** i) for i in range(20)]
-```
-
-</details>
-
-### Study_16
-([study](#study) 16/30)
-
-**Description:**
-Find a real number such that when you add the length of its decimal representation to it, you get 4.5.
-Your answer should be the string form of the number in its decimal representation.
-
-**Problem:**
-
-```python
-def sat(s: str):
-    assert type(s) is str, 's must be of type str'
-    return float(s) + len(s) == 4.5
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol():
-    return str(4.5 - len(str(4.5)))
-```
-
-</details>
-
-### Study_17
-([study](#study) 17/30)
-
-**Description:**
-Find a number whose decimal representation is *a longer string* when you add 1,000 to it than when you add 1,001.
-
-**Problem:**
-
-```python
-def sat(i: int):
-    assert type(i) is int, 'i must be of type int'
-    return len(str(i + 1000)) > len(str(i + 1001))
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol():
-    return -1001
-```
-
-</details>
-
-### Study_18
-([study](#study) 18/30)
-
-**Description:**
-Find a list of strings that when you combine them in all pairwise combinations gives the six strings:
-'berlin', 'berger', 'linber', 'linger', 'gerber', 'gerlin'
-
-**Problem:**
-
-```python
-def sat(ls: List[str]):
-    assert type(ls) is list and all(type(a) is str for a in ls), 'ls must be of type List[str]'
-    return [s + t for s in ls for t in ls if s != t] == 'berlin berger linber linger gerber gerlin'.split()
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol():
-    seen = set()
-    ans = []
-    for s in 'berlin berger linber linger gerber gerlin'.split():
-        t = s[:3]
-        if t not in seen:
-            ans.append(t)
-            seen.add(t)
-    return ans
-```
-
-</details>
-
-### Study_19
-([study](#study) 19/30)
-
-**Description:**
-Find a set of integers whose pairwise sums make the set {0, 1, 2, 3, 4, 5, 6, 17, 18, 19, 20, 34}.
-That is find set S such that, { i + j | i, j in S } = {0, 1, 2, 3, 4, 5, 6, 17, 18, 19, 20, 34}.
-
-**Problem:**
-
-```python
-def sat(si: Set[int]):
-    assert type(si) is set and all(type(a) is int for a in si), 'si must be of type Set[int]'
-    return {i + j for i in si for j in si} == {0, 1, 2, 3, 4, 5, 6, 17, 18, 19, 20, 34}
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol():
-    return {0, 1, 2, 3, 17}
-```
-
-</details>
-
-### Study_20
-([study](#study) 20/30)
-
-**Description:**
-Find a list of integers, starting with 0 and ending with 128, such that each integer either differs from
-the previous one by one or is thrice the previous one.
-
-**Problem:**
-
-```python
-def sat(li: List[int]):
-    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'
-    return all(j in {i - 1, i + 1, 3 * i} for i, j in zip([0] + li, li + [128]))
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol():
-    return [1, 3, 4, 12, 13, 14, 42, 126, 127]
-```
-
-</details>
-
-### Study_21
-([study](#study) 21/30)
-
-**Description:**
-Find a list integers containing exactly three distinct values, such that no integer repeats
-twice consecutively among the first eleven entries. (So the list needs to have length greater than ten.)
-
-**Problem:**
-
-```python
-def sat(li: List[int]):
-    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'
-    return all([li[i] != li[i + 1] for i in range(10)]) and len(set(li)) == 3
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol():
-    return list(range(3)) * 10
-```
-
-</details>
-
-### Study_22
-([study](#study) 22/30)
-
-**Description:**
-Find a string s containing exactly five distinct characters which also contains as a substring every other
-character of s (e.g., if the string s were 'parrotfish' every other character would be 'profs').
-
-**Problem:**
-
-```python
-def sat(s: str):
-    assert type(s) is str, 's must be of type str'
-    return s[::2] in s and len(set(s)) == 5
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol():
-    return """abacadaeaaaaaaaaaa"""
-```
-
-</details>
-
-### Study_23
-([study](#study) 23/30)
-
-**Description:**
-Find a list of characters which are aligned at the same indices of the three strings 'dee', 'doo', and 'dah!'.
-
-**Problem:**
-
-```python
-def sat(ls: List[str]):
-    assert type(ls) is list and all(type(a) is str for a in ls), 'ls must be of type List[str]'
-    return tuple(ls) in zip('dee', 'doo', 'dah!')
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol():
-    return list(next(zip('dee', 'doo', 'dah!')))
-```
-
-</details>
-
-### Study_24
-([study](#study) 24/30)
-
-**Description:**
-Find a list of integers with exactly three occurrences of seventeen and at least two occurrences of three.
-
-**Problem:**
-
-```python
-def sat(li: List[int]):
-    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'
-    return li.count(17) == 3 and li.count(3) >= 2
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol():
-    return [17] * 3 + [3] * 2
-```
-
-</details>
-
-### Study_25
-([study](#study) 25/30)
-
-**Description:**
-Find a permutation of the string 'Permute me true' which is a palindrome.
-
-**Problem:**
-
-```python
-def sat(s: str):
-    assert type(s) is str, 's must be of type str'
-    return sorted(s) == sorted('Permute me true') and s == s[::-1]
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol():
-    return """""".join(sorted('Permute me true'[1:])[::2] + ['P'] + sorted('Permute me true'[1:])[::2][::-1])
-```
-
-</details>
-
-### Study_26
-([study](#study) 26/30)
-
-**Description:**
-Divide the decimal representation of 8^88 up into strings of length eight.
-
-**Problem:**
-
-```python
-def sat(ls: List[str]):
-    assert type(ls) is list and all(type(a) is str for a in ls), 'ls must be of type List[str]'
-    return "".join(ls) == str(8 ** 88) and all(len(s) == 8 for s in ls)
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol():
-    return [str(8 ** 88)[i:i + 8] for i in range(0, len(str(8 ** 88)), 8)]
-```
-
-</details>
-
-### Study_27
-([study](#study) 27/30)
-
-**Description:**
-Consider a digraph where each node has exactly one outgoing edge. For each edge (u, v), call u the parent and
-v the child. Then find such a digraph where the grandchildren of the first and second nodes differ but they
-share the same great-grandchildren. Represented this digraph by the list of children indices.
-
-**Problem:**
-
-```python
-def sat(li: List[int]):
-    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'
-    return li[li[0]] != li[li[1]] and li[li[li[0]]] == li[li[li[1]]]
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol():
-    return [1, 2, 3, 3]
-```
-
-</details>
-
-### Study_28
-([study](#study) 28/30)
-
-**Description:**
-Find a set of one hundred integers between 0 and 999 which all differ by at least ten from one another.
-
-**Problem:**
-
-```python
-def sat(si: Set[int]):
-    assert type(si) is set and all(type(a) is int for a in si), 'si must be of type Set[int]'
-    return all(i in range(1000) and abs(i - j) >= 10 for i in si for j in si if i != j) and len(si) == 100
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol():
-    return set(range(0, 1000, 10))
-```
-
-</details>
-
-### Study_29
-([study](#study) 29/30)
-
-**Description:**
-Find a set of more than 995 integers between 0 and 999, inclusive, such that each pair of integers have
-squares that differ by at least 10.
-
-**Problem:**
-
-```python
-def sat(si: Set[int]):
-    assert type(si) is set and all(type(a) is int for a in si), 'si must be of type Set[int]'
-    return all(i in range(1000) and abs(i * i - j * j) >= 10 for i in si for j in si if i != j) and len(si) > 995
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol():
-    return set(range(6, 1000)).union({0, 4})
-```
-
-</details>
-
-### Study_30
-([study](#study) 30/30)
-
-**Description:**
-Define f(n) to be the residue of 123 times n mod 1000. Find a list of integers such that the first twenty one
-are between 0 and 999, inclusive, and are strictly increasing in terms of f(n).
-
-**Problem:**
-
-```python
-def sat(li: List[int]):
-    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'
-    return all([123 * li[i] % 1000 < 123 * li[i + 1] % 1000 and li[i] in range(1000) for i in range(20)])
-```
-<details><summary><strong>Reveal solution(s):</strong></summary>
-
-```python
-def sol():
-    return sorted(range(1000), key=lambda n: 123 * n % 1000)[:21]
-```
-
-```python
-def sol():
-    return list(range(1000))[::8][::-1]
 ```
 
 </details>
@@ -6704,7 +7144,6 @@ Trivial example, no solutions provided
 
 ```python
 def sat(s: str):
-    assert type(s) is str, 's must be of type str'
     return s + 'world' == 'Hello world'
 ```
 ### BackWorlds
@@ -6717,7 +7156,6 @@ Two solutions, no inputs
 
 ```python
 def sat(s: str):
-    assert type(s) is str, 's must be of type str'
     return s[::-1] + 'world' == 'Hello world'
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -6744,7 +7182,6 @@ Solve simple string addition problem.
 
 ```python
 def sat(st: str, a: str="world", b: str="Hello world"):
-    assert type(st) is str, 'st must be of type str'
     return st + a == b
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -6766,7 +7203,6 @@ Find a string with `dups` duplicate chars
 
 ```python
 def sat(s: str, dups: int=2021):
-    assert type(s) is str, 's must be of type str'
     return len(set(s)) == len(s) - dups
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -6788,7 +7224,6 @@ Find a string which when repeated `n` times gives `target`
 
 ```python
 def sat(s: str, target: str="foofoofoofoo", n: int=2):
-    assert type(s) is str, 's must be of type str'
     return s * n == target
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -6812,7 +7247,6 @@ Find `n` such that `s` repeated `n` times gives `target`
 
 ```python
 def sat(n: int, target: str="foofoofoofoo", s: str="foofoo"):
-    assert type(n) is int, 'n must be of type int'
     return s * n == target
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -6836,7 +7270,6 @@ Find a string of length `n`
 
 ```python
 def sat(s: str, n: int=1000):
-    assert type(s) is str, 's must be of type str'
     return len(s) == n
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -6858,7 +7291,6 @@ Find the index of `target` in string `s`
 
 ```python
 def sat(i: int, s: str="cat", target: str="a"):
-    assert type(i) is int, 'i must be of type int'
     return s[i] == target
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -6880,7 +7312,6 @@ Find the index of `target` in `s` using a negative index.
 
 ```python
 def sat(i: int, s: str="cat", target: str="a"):
-    assert type(i) is int, 'i must be of type int'
     return s[i] == target and i < 0
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -6902,7 +7333,6 @@ Find the three slice indices that give the specific `target` in string `s`
 
 ```python
 def sat(inds: List[int], s: str="hello world", target: str="do"):
-    assert type(inds) is list and all(type(a) is int for a in inds), 'inds must be of type List[int]'
     i, j, k = inds
     return s[i:j:k] == target
 ```
@@ -6931,7 +7361,6 @@ Find a string whose *first* index in `big_str` is `index`
 
 ```python
 def sat(s: str, big_str: str="foobar", index: int=2):
-    assert type(s) is str, 's must be of type str'
     return big_str.index(s) == index
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -6953,7 +7382,6 @@ Find a string whose *first* index of `sub_str` is `index`
 
 ```python
 def sat(big_str: str, sub_str: str="foobar", index: int=2):
-    assert type(big_str) is str, 'big_str must be of type str'
     return big_str.index(sub_str) == index
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -6978,7 +7406,6 @@ Find a string of length `length` that is in both strings `a` and `b`
 
 ```python
 def sat(s: str, a: str="hello", b: str="yellow", length: int=4):
-    assert type(s) is str, 's must be of type str'
     return len(s) == length and s in a and s in b
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -7002,7 +7429,6 @@ Find a list of >= `count` distinct strings that are all contained in `s`
 
 ```python
 def sat(substrings: List[str], s: str="hello", count: int=15):
-    assert type(substrings) is list and all(type(a) is str for a in substrings), 'substrings must be of type List[str]'
     return len(substrings) == len(set(substrings)) >= count and all(sub in s for sub in substrings)
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -7024,7 +7450,6 @@ Find a string with a certain number of copies of a given substring and of a give
 
 ```python
 def sat(string: str, substring: str="a", count: int=10, length: int=100):
-    assert type(string) is str, 'string must be of type str'
     return string.count(substring) == count and len(string) == length
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -7047,7 +7472,6 @@ Find a string of a given length with a certain split
 
 ```python
 def sat(x: str, parts: List[str]=['I', 'love', 'dumplings', '!'], length: int=100):
-    assert type(x) is str, 'x must be of type str'
     return len(x) == length and x.split() == parts
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -7070,7 +7494,6 @@ Find a separator that when used to split a given string gives a certain result
 
 ```python
 def sat(x: str, parts: List[str]=['I', 'love', 'dumplings', '!', ''], string: str="I_love_dumplings_!_"):
-    assert type(x) is str, 'x must be of type str'
     return string.split(x) == parts
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -7097,7 +7520,6 @@ This is related to the previous problem but there are some edge cases that diffe
 
 ```python
 def sat(x: str, parts: List[str]=['I!!', '!love', 'dumplings', '!', ''], string: str="I!!!!!love!!dumplings!!!!!"):
-    assert type(x) is str, 'x must be of type str'
     return x.join(parts) == string
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -7123,7 +7545,6 @@ Find parts that when joined give a specific string.
 
 ```python
 def sat(parts: List[str], sep: str="!!", string: str="I!!!!!love!!dumplings!!!!!"):
-    assert type(parts) is list and all(type(a) is str for a in parts), 'parts must be of type List[str]'
     return sep.join(parts) == string and all(sep not in p for p in parts)
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -7145,7 +7566,6 @@ Find a list with a certain number of duplicate items
 
 ```python
 def sat(li: List[int], dups: int=42155):
-    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'
     return len(set(li)) == len(li) - dups
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -7167,7 +7587,6 @@ Find a list that when multiplied n times gives the target list
 
 ```python
 def sat(li: List[int], target: List[int]=[17, 9, -1, 17, 9, -1], n: int=2):
-    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'
     return li * n == target
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -7191,7 +7610,6 @@ Find a list of a given length n
 
 ```python
 def sat(li: List[int], n: int=85012):
-    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'
     return len(li) == n
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -7213,7 +7631,6 @@ Find the index of an item in a list. Any such index is fine.
 
 ```python
 def sat(i: int, li: List[int]=[17, 31, 91, 18, 42, 1, 9], target: int=18):
-    assert type(i) is int, 'i must be of type int'
     return li[i] == target
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -7235,7 +7652,6 @@ Find the index of an item in a list using negative indexing.
 
 ```python
 def sat(i: int, li: List[int]=[17, 31, 91, 18, 42, 1, 9], target: int=91):
-    assert type(i) is int, 'i must be of type int'
     return li[i] == target and i < 0
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -7257,7 +7673,6 @@ Find three slice indices to achieve a given list slice
 
 ```python
 def sat(inds: List[int], li: List[int]=[42, 18, 21, 103, -2, 11], target: List[int]=[-2, 21, 42]):
-    assert type(inds) is list and all(type(a) is int for a in inds), 'inds must be of type List[int]'
     i, j, k = inds
     return li[i:j:k] == target
 ```
@@ -7286,7 +7701,6 @@ Find the item whose first index in `li` is `index`
 
 ```python
 def sat(item: int, li: List[int]=[17, 2, 3, 9, 11, 11], index: int=4):
-    assert type(item) is int, 'item must be of type int'
     return li.index(item) == index
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -7308,7 +7722,6 @@ Find a list that contains `i` first at index `index`
 
 ```python
 def sat(li: List[int], i: int=29, index: int=10412):
-    assert type(li) is list and all(type(a) is int for a in li), 'li must be of type List[int]'
     return li.index(i) == index
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -7330,7 +7743,6 @@ Find an item that is in both lists `a` and `b`
 
 ```python
 def sat(s: str, a: List[str]=['cat', 'dot', 'bird'], b: List[str]=['tree', 'fly', 'dot']):
-    assert type(s) is str, 's must be of type str'
     return s in a and s in b
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -7352,7 +7764,6 @@ Solve unary negation problem
 
 ```python
 def sat(x: int, a: int=93252338):
-    assert type(x) is int, 'x must be of type int'
     return -x == a
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -7374,7 +7785,6 @@ Solve sum problem
 
 ```python
 def sat(x: int, a: int=1073258, b: int=72352549):
-    assert type(x) is int, 'x must be of type int'
     return a + x == b
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -7396,7 +7806,6 @@ Solve subtraction problem
 
 ```python
 def sat(x: int, a: int=-382, b: int=14546310):
-    assert type(x) is int, 'x must be of type int'
     return x - a == b
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -7418,7 +7827,6 @@ Solve subtraction problem
 
 ```python
 def sat(x: int, a: int=8665464, b: int=-93206):
-    assert type(x) is int, 'x must be of type int'
     return a - x == b
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -7440,7 +7848,6 @@ Solve multiplication problem
 
 ```python
 def sat(n: int, a: int=14302, b: int=5):
-    assert type(n) is int, 'n must be of type int'
     return b * n + (a % b) == a
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -7462,7 +7869,6 @@ Solve division problem
 
 ```python
 def sat(n: int, a: int=3, b: int=23463462):
-    assert type(n) is int, 'n must be of type int'
     return b // n == a
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -7488,7 +7894,6 @@ Find `n` that when divided by `b` is `a`
 
 ```python
 def sat(n: int, a: int=345346363, b: int=10):
-    assert type(n) is int, 'n must be of type int'
     return n // b == a
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -7511,7 +7916,6 @@ The target has a round (integer) square root.
 
 ```python
 def sat(x: int, a: int=10201202001):
-    assert type(x) is int, 'x must be of type int'
     return x ** 2 == a
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -7534,7 +7938,6 @@ The target has a round (integer) square root.
 
 ```python
 def sat(n: int, a: int=10000200001):
-    assert type(n) is int, 'n must be of type int'
     return a == n * n and n < 0
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -7558,7 +7961,6 @@ Accuracy of third decimal digit is required.
 
 ```python
 def sat(x: float, a: int=1020):
-    assert type(x) is float, 'x must be of type float'
     return abs(x ** 2 - a) < 10 ** -3
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -7582,7 +7984,6 @@ Accuracy of third decimal digit is required.
 
 ```python
 def sat(x: float, a: int=1020):
-    assert type(x) is float, 'x must be of type float'
     return abs(x ** 2 - a) < 10 ** -3 and x < 0
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -7613,7 +8014,6 @@ Find a string that when concatenated onto 'Hello ' gives 'Hello world'.
 
 ```python
 def sat(s: str):
-    assert type(s) is str, 's must be of type str'
     return "Hello " + s == "Hello world"
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -7635,7 +8035,6 @@ Find a string that when reversed and concatenated onto 'Hello ' gives 'Hello wor
 
 ```python
 def sat(s: str):
-    assert type(s) is str, 's must be of type str'
     return "Hello " + s[::-1] == "Hello world"
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -7657,7 +8056,6 @@ Find a list of two integers whose sum is 3.
 
 ```python
 def sat(x: List[int]):
-    assert type(x) is list and all(type(a) is int for a in x), 'x must be of type List[int]'
     return len(x) == 2 and sum(x) == 3
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -7679,7 +8077,6 @@ Find a list of 1000 distinct strings which each have more 'a's than 'b's and at 
 
 ```python
 def sat(s: List[str]):
-    assert type(s) is list and all(type(a) is str for a in s), 's must be of type List[str]'
     return len(set(s)) == 1000 and all((x.count("a") > x.count("b")) and ('b' in x) for x in s)
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>
@@ -7701,7 +8098,6 @@ Find an integer whose perfect square begins with 123456789 in its decimal repres
 
 ```python
 def sat(n: int):
-    assert type(n) is int, 'n must be of type int'
     return str(n * n).startswith("123456789")
 ```
 <details><summary><strong>Reveal solution(s):</strong></summary>

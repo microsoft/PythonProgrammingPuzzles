@@ -278,6 +278,7 @@ class CompareInAnyCase(Problem):
             t = self.mix_case(s)
         self.add(dict(s=s, t=t))
 
+# note, to get the 0/1 array to print correctly in the readme we need trailing spaces
 
 class SlidingOne(Problem):
     """We are given a 5x5 bimatrix with a single 1 like:
@@ -1300,6 +1301,7 @@ class MinRotations(Problem):
         target = self.random.pseudo_word()
         upper = sum(abs(r) for r in self.sol(target, None))
         self.add(dict(target=target, upper=upper))
+
 
 
 if __name__ == "__main__":
