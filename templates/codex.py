@@ -1,5 +1,7 @@
 """Problems inspired by [HumanEval dataset](https://github.com/openai/human-eval) described
-in the [codex paper](https://arxiv.org/abs/2107.03374)."""
+in the [codex paper](https://arxiv.org/abs/2107.03374), specifically,
+[this](https://github.com/openai/human-eval/blob/fa06031e684fbe1ee429c7433809460c159b66ad/data/HumanEval.jsonl.gz)
+version."""
 
 from problems import Problem
 from typing import List
@@ -388,16 +390,16 @@ class FindContainers(Problem):
 
 class SumProduct(Problem):
     """
-     Find a list of numbers with a given sum and a given product.
+    Find a list of numbers with a given sum and a given product.
 
-     Sample Input:
-     12, 32
+    Sample Input:
+    12, 32
 
-     Sample Output:
-     [2, 8, 2]
+    Sample Output:
+    [2, 8, 2]
 
-     Inspired by [HumanEval](https://github.com/openai/human-eval)/8
-     """
+    Inspired by [HumanEval](https://github.com/openai/human-eval)/8
+    """
 
     @staticmethod
     def sat(nums: List[int], tot=14, prod=99):
@@ -499,14 +501,14 @@ class PalindromeStartingWith(Problem):
     """
     Find a palindrome of a given length starting with a given string.
 
-     Sample Input:
-     "foo", 4
+    Sample Input:
+    "foo", 4
 
-     Sample Output:
-     "foof"
+    Sample Output:
+    "foof"
 
-     Inspired by [HumanEval](https://github.com/openai/human-eval)/10
-     """
+    Inspired by [HumanEval](https://github.com/openai/human-eval)/10
+    """
 
     @staticmethod
     def sat(ans: str, s="so easy", length=20):
@@ -533,14 +535,14 @@ class PalindromeContaining(Problem):
     """
     Find a palindrome of a given length containing a given string.
 
-     Sample Input:
-     "abba", 6
+    Sample Input:
+    "abba", 6
 
-     Sample Output:
-     "cabbac"
+    Sample Output:
+    "cabbac"
 
-     Inspired by [HumanEval](https://github.com/openai/human-eval)/10
-     """
+    Inspired by [HumanEval](https://github.com/openai/human-eval)/10
+    """
 
     @staticmethod
     def sat(ans: str, s="so easy", length=20):
@@ -552,8 +554,8 @@ class PalindromeContaining(Problem):
         for i in range(length - len(s) + 1):
             arr = ['x'] * length
             arr[i:i + len(s)] = ls
-            a = length - i-1
-            b = length - (i + len(s))-1
+            a = length - i - 1
+            b = length - (i + len(s)) - 1
             if b == -1:
                 b = None
             arr[a:b:-1] = ls
@@ -576,14 +578,14 @@ class BinaryStrXOR(Problem):
     """
     Find a the XOR of two given strings interpreted as binary numbers.
 
-     Sample Input:
-     "0001", "1011"
+    Sample Input:
+    "0001", "1011"
 
-     Sample Output:
-     "1010"
+    Sample Output:
+    "1010"
 
-     Inspired by [HumanEval](https://github.com/openai/human-eval)/11
-     """
+    Inspired by [HumanEval](https://github.com/openai/human-eval)/11
+    """
 
     @staticmethod
     def sat(str_num: str, nums=["100011101100001", "100101100101110"]):
@@ -601,18 +603,19 @@ class BinaryStrXOR(Problem):
         self.add(dict(nums=nums))
 
 
+# In the HumanEval dataset, tie breaking needs to be specified because each problem must have a unique answer
 class LongestStr(Problem):
     """
     Find a the longest of a list of strings
 
-     Sample Input:
-     ["cat", "dog", "sheep", "chimp"]
+    Sample Input:
+    ["cat", "dog", "sheep", "chimp"]
 
-     Sample Output:
-     "sheep"
+    Sample Output:
+    "sheep"
 
-     Inspired by [HumanEval](https://github.com/openai/human-eval)/12
-     """
+    Inspired by [HumanEval](https://github.com/openai/human-eval)/12
+    """
 
     @staticmethod
     def sat(ans: str, words=["these", "are", "some", "pretty", "long", "words"]):
@@ -627,40 +630,741 @@ class LongestStr(Problem):
         self.add(dict(words=words))
 
 
-# # This problem is quite different, only loosely inspired
-# class MD5(Problem):
-#     """
-#     Find a string whose md5 hash ends in a certain 3 characters
-#
-#     Sample Input:
-#     'c62'
-#
-#     Sample Output:
-#     'Hello World'
-#
-#     Inspired by [HumanEval](https://github.com/openai/human-eval)/162
-#     """
-#
-#     @staticmethod
-#     def sat(s: str, end='82'):
-#         import hashlib
-#         return hashlib.md5(s.encode('ascii')).hexdigest().endswith(end)
-#
-#     @staticmethod
-#     def sol(end):
-#         import hashlib
-#         for i in range(10**6):
-#             if hashlib.md5(str(i).encode('ascii')).hexdigest().endswith(end):
-#                 return str(i)
-#         assert False
-#
-#     def gen_random(self):
-#         import hashlib
-#         s = self.random.pseudo_word()
-#         n = self.random.choice([2,3,4])
-#         end = hashlib.md5(s.encode('ascii')).hexdigest()[-n:]
-#         self.add(dict(end=end))
+class CertifiedGCD(Problem):
+    """
+    Find the greatest common divisor of two integers m, n and a certificate a, b such that m*a + n*b = gcd
+
+    Sample Input:
+    20, 30
+
+    Sample Output:
+    10, -1, 1
+
+    Inspired by [HumanEval](https://github.com/openai/human-eval)/13
+    """
+
+    @staticmethod
+    def sat(ans: List[int], m=1408862, n=2113293):
+        gcd, a, b = ans
+        return m % gcd == n % gcd == 0 and a * m + b * n == gcd and gcd > 0
+
+    @staticmethod
+    def sol(m, n):
+        def gcd_cert(small, big):
+            """Returns gcd, a, b, such that small * a + big * b == gcd
+            """
+            assert 0 < small <= big
+            if big % small == 0:
+                return [small, 1, 0]
+            d = big // small
+            gcd, a, b = gcd_cert(big % small, small)
+            # above guarantees a * (big % small) + b * small == gcd
+            # combined with (big % small) == big - small * d
+            # gives a * (big - small * d) + b * small == gcd
+            # or equivalently (b - a * d) * small + a * big == gcd
+            return [gcd, (b - a * d), a]
+
+        if m < n:
+            return gcd_cert(m, n)
+        gcd, a, b = gcd_cert(n, m)
+        return [gcd, b, a]
+
+    def gen_random(self):
+        factor, r1, r2 = [1 + self.random.randrange(10 ** self.random.randrange(10)) for _ in range(3)]
+        m = r1 * factor
+        n = r2 * factor
+        self.add(dict(m=m, n=n))
+
+
+class AllPrefixes(Problem):
+    """
+    Find all prefixes of a given string
+
+    Sample Input:
+    "aabcd"
+
+    Sample Output:
+    ["", "a", "aa", "aab", "aabc", "aabcd"]
+
+    Inspired by [HumanEval](https://github.com/openai/human-eval)/14
+    """
+
+    @staticmethod
+    def sat(prefixes: List[str], s="donesezichethofalij"):
+        return all(s.startswith(p) for p in prefixes) and len(set(prefixes)) > len(s)
+
+    @staticmethod
+    def sol(s):
+        return [s[:i] for i in range(len(s) + 1)]
+
+    def gen_random(self):
+        s = self.random.pseudo_word(min_len=0, max_len=30)
+        self.add(dict(s=s))
+
+
+class SpaceyRange(Problem):
+    """
+    Find a string consisting of the non-negative integers up to n inclusive
+
+    Sample Input:
+    4
+
+    Sample Output:
+    '0 1 2 3 4'
+
+    Inspired by [HumanEval](https://github.com/openai/human-eval)/15
+    """
+
+    @staticmethod
+    def sat(ans: str, n=15):
+        return [int(i) for i in ans.split(' ')] == list(range(n + 1))
+
+    @staticmethod
+    def sol(n):
+        return ' '.join(str(i) for i in range(n + 1))
+
+    def gen_random(self):
+        n = self.random.randrange(10 ** 5)
+        self.add(dict(n=n))
+
+
+class DistinctChars(Problem):
+    """
+    Find the set of distinct characters in a string, ignoring case
+
+    Sample Input:
+    'HELlo', 4
+
+    Sample Output:
+    ['h', 'e', 'l', 'o']
+
+    Inspired by [HumanEval](https://github.com/openai/human-eval)/16
+    """
+
+    @staticmethod
+    def sat(ans: List[str], s='The quick brown fox jumps over the lazy dog!', n=28):
+        return all(c.lower() in ans for c in s) and len(ans) <= 28
+
+    @staticmethod
+    def sol(s, n):
+        return list(set(s.lower()))
+
+    def gen_random(self):
+        s = self.random.pseudo_word()
+        s = s[0].upper() + s[1:]
+        n = len(set(s.lower()))
+        self.add(dict(s=s, n=n))
+
+
+class ParseMusic(Problem):
+    """
+    Parse a string of notes to beats, 'o'=4, 'o|'=2, '.|'=1
+
+    Example input:
+    'o o .| o|'
+
+    Example output:
+    [4, 4, 1, 2]
+
+    Inspired by [HumanEval](https://github.com/openai/human-eval)/17
+    """
+
+    @staticmethod
+    def sat(beats: List[int], score="o o o| o| .| .| .| o| o| o o o| .|"):
+        return " ".join({1: '.|', 2: 'o|', 4: 'o'}[b] for b in beats) == score
+
+    @staticmethod
+    def sol(score):
+        mapping = {'.|': 1, 'o|': 2, 'o': 4}
+        return [mapping[note] for note in score.split()]
+
+    def gen_random(self):
+        n = self.random.randrange(12)
+        score = ' '.join(self.random.choice(['.|', 'o|', 'o']) for _ in range(n))
+        self.add(dict(score=score))
+
+
+class OverlappingCount(Problem):
+    """
+    Find occurrences of a substring in a parent string *including overlaps*
+
+    Sample Input:
+    'helllo', 'll'
+
+    Sample Output:
+    [2, 3]
+
+    Inspired by [HumanEval](https://github.com/openai/human-eval)/18
+    """
+
+    @staticmethod
+    def sat(ans: List[int], s='Bananannanaannanaanananananana', sub='anan', count=7):
+        return all(sub == s[i:i + len(sub)] for i in ans) and len(set(ans)) >= count
+
+    @staticmethod
+    def sol(s, sub, count):
+        ans = []
+        for i in range(len(s) + 1):
+            if s[i:i + len(sub)] == sub:
+                ans.append(i)
+        return ans
+
+    def gen_random(self):
+        s = self.random.pseudo_word(max_len=100)
+        j = self.random.randrange(1, len(s) + 1)
+        i = self.random.randrange(j)
+        sub = s[i:j]
+        count = len(self.sol(s, sub, None))
+        self.add(dict(s=s, sub=sub, count=count))
+
+
+class SortNumbers(Problem):
+    """
+    Sort numbers based on strings
+
+    Sample input
+    ---
+    "six one four"
+
+    Sample output
+    ---
+    "one four six"
+
+    Inspired by [HumanEval](https://github.com/openai/human-eval)/19
+    """
+
+    @staticmethod
+    def sat(ans: str, s="six one four"):
+        nums = 'zero one two three four five six seven eight nine'.split()
+        return [nums.index(x) for x in ans.split(" ")] == sorted([nums.index(x) for x in s.split(" ")])
+
+    @staticmethod
+    def sol(s):
+        nums = 'zero one two three four five six seven eight nine'.split()
+        arr = [nums.index(x) for x in s.split()]
+        arr.sort()
+        ans = " ".join([nums[i] for i in arr])
+        return ans
+
+    def gen_random(self):
+        nums = 'zero one two three four five six seven eight nine'.split()
+        n = self.random.randrange(3, 9)
+        ans = ""
+        for _ in range(n):
+            ans += self.random.choice(nums) + " "
+        ans = ans[:-1]
+        s = ans
+        self.add(dict(s=s))
+
+
+class FindClosePair(Problem):
+    """
+    Given a list of numbers, find the indices of the closest pair.
+
+    Sample Input:
+    [1.2, 5.25, 0.89, 21.0, 5.23]
+
+    Sample Output:
+    [4, 1]
+
+    Inspired by [HumanEval](https://github.com/openai/human-eval)/20
+    """
+
+    @staticmethod
+    def sat(inds: List[int], nums=[0.31, 21.3, 5.0, 9.0, 11.0, 5.01, 17.2]):
+        a, b = inds
+        assert a != b and a >= 0 and b >= 0
+        for i in range(len(nums)):
+            for j in range(i):
+                assert abs(nums[i] - nums[j]) >= abs(nums[b] - nums[a])
+        return True
+
+    @staticmethod
+    def sol(nums):
+        best = [0, 1]
+        best_score = abs(nums[1] - nums[0])
+        for i in range(len(nums)):
+            for j in range(i):
+                score = abs(nums[i] - nums[j])
+                if score < best_score:
+                    best_score = score
+                    best = [i, j]
+        return best
+
+    def gen_random(self):
+        nums = [self.random.uniform(-10, 10) for _ in range(self.random.randrange(2, 10))]
+        if self.random.random() < 0.2:
+            nums.append(nums[0])
+        self.random.shuffle(nums)
+        self.add(dict(nums=nums))
+
+
+class Rescale(Problem):
+    """
+    Rescale and shift numbers so that they cover the range [0, 1]
+
+    Sample input
+    ---
+    [18.5, 17.0, 18.0, 19.0, 18.0]
+
+    Sample output
+    ---
+    [0.75, 0.0, 0.5, 1.0, 0.5]
+
+    Inspired by [HumanEval](https://github.com/openai/human-eval)/21
+    """
+
+    @staticmethod
+    def sat(ans: List[float], nums=[13.0, 17.0, 17.0, 15.5, 2.94]):
+        assert min(ans) == 0.0 and max(ans) == 1.0
+        a = min(nums)
+        b = max(nums)
+        for i in range(len(nums)):
+            x = a + (b - a) * ans[i]
+            assert abs(nums[i] - x) < 1e-6
+        return True
+
+    @staticmethod
+    def sol(nums):
+        nums = nums.copy()
+
+        a = min(nums)
+        b = max(nums)
+        if b - a == 0:
+            return [0.0] + [1.0] * (len(nums) - 1)
+        for i in range(len(nums)):
+            nums[i] = (nums[i] - a) / (b - a)
+        return nums
+
+    def gen_random(self):
+        nums = [self.random.heavy_tail_float() for _ in range(self.random.randrange(2, 10))]
+        if self.random.random() < 0.2:
+            nums = [nums[0]] * len(nums)
+        self.add(dict(nums=nums))
+
+
+class FilterInts(Problem):
+    """
+    Find the indices of valid python integers in a list of strings
+
+    Sample input
+    ---
+    ["18.5", "-1", "2+2", "7", "foo"]
+
+    Sample output
+    ---
+    [1, 3]
+
+    Inspired by [HumanEval](https://github.com/openai/human-eval)/22
+    """
+
+    @staticmethod
+    def sat(indexes: List[int], li=["Hello", "5", "10", "bye"], num=2):
+        [int(li[i]) for i in indexes]
+        return len(set(indexes)) >= num and min(indexes) >= 0
+
+    @staticmethod
+    def sol(li, num):
+        ans = []
+        for i in range(len(li)):
+            try:
+                int(li[i])
+                ans.append(i)
+            except:
+                pass
+        return ans
+
+    def gen_random(self):
+        chars = "0123456789+-*'e. "
+        ans = []
+        length = self.random.randrange(10)
+        for _ in range(length):
+            ans.append("".join(self.random.choice(chars) for i in range(self.random.randrange(10))))
+
+
+class StrLen(Problem):
+    """
+    Find the length of a string
+
+    Sample input
+    ---
+    "foo"
+
+    Sample output
+    ---
+    3
+
+    Inspired by [HumanEval](https://github.com/openai/human-eval)/23
+    """
+
+    @staticmethod
+    def sat(length: int, s="pneumonoultramicroscopicsilicovolcanoconiosis"):
+        try:
+            s[length]
+        except IndexError:
+            return length == 0 or length >= len(s[length - 1])
+
+    @staticmethod
+    def sol(s):
+        return len(s)
+
+    def gen_random(self):
+        s = self.random.pseudo_word(min_len=0, max_len=50)
+        self.add(dict(s=s))
+
+
+class LargestDivisor(Problem):
+    """
+    Find the largest integer divisor of a number n that is less than n
+
+    Sample input
+    ---
+    1000
+
+    Sample output
+    ---
+    500
+
+    Inspired by [HumanEval](https://github.com/openai/human-eval)/24
+    """
+
+    @staticmethod
+    def sat(d: int, n=123456):
+        return n % d == 0 and d < n and all(n % e for e in range(d + 1, n))
+
+    @staticmethod
+    def sol(n):
+        return next(d for d in range(n - 1, 0, -1) if n % d == 0)
+
+    def gen_random(self):
+        n = self.random.randrange(1, 10 ** 5)
+        self.add(dict(n=n))
+
+
+class PrimeFactorization(Problem):
+    """
+    Factor number n into a given number of non-trivial factors
+
+    Sample input
+    ---
+    1000, 6
+
+    Sample output
+    ---
+    [2, 2, 2, 5, 5, 5]
+
+    Inspired by [HumanEval](https://github.com/openai/human-eval)/25
+    """
+
+    @staticmethod
+    def sat(factors: List[int], n=123456, num_factors=8):
+        assert len(factors) == num_factors
+        prod = 1
+        for d in factors:
+            prod *= d
+            assert d > 1
+        return prod == n
+
+    @staticmethod
+    def sol(n, num_factors):
+        if num_factors == 0:
+            return []
+        if num_factors == 1:
+            return [n]
+        ans = []
+        for d in range(2, n):
+            while n % d == 0:
+                n //= d
+                ans.append(d)
+                if len(ans) == num_factors - 1:
+                    ans.append(n)
+                    return ans
+        assert False
+
+    def gen_random(self):
+        num_factors = self.random.randrange(10)
+        n = 2 ** num_factors
+        for _ in range(self.random.randrange(10)):
+            n *= self.random.choice([3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47])
+            num_factors += 1
+        self.add(dict(n=n, num_factors=num_factors))
+
+
+class Dedup(Problem):
+    """
+    Remove duplicates from a list of integers, preserving order
+
+    Sample input
+    ---
+    [1, 3, 2, 9, 2, 1, 55]
+
+    Sample output
+    ---
+    [1, 3, 2, 9, 55]
+
+    Inspired by [HumanEval](https://github.com/openai/human-eval)/26
+    """
+
+    @staticmethod
+    def sat(ans: List[int], li=[2, 19, 2, 53, 1, 1, 2, 44, 17, 0, 19, 31]):
+        return set(ans) == set(li) and all(li.index(ans[i]) < li.index(ans[i + 1]) for i in range(len(ans) - 1))
+
+    @staticmethod
+    def sol(li):
+        seen = set()
+        ans = []
+        for n in li:
+            if n not in seen:
+                ans.append(n)
+                seen.add(n)
+        return ans
+
+    def gen_random(self):
+        n = self.random.randrange(20)
+        li = [self.random.randrange(10) for _ in range(n)]
+        self.add(dict(li=li))
+
+
+class FlipCase(Problem):
+    """
+    Flip case
+
+    Sample input
+    ---
+    'cAt'
+
+    Sample output
+    ---
+    'CaT'
+
+    Inspired by [HumanEval](https://github.com/openai/human-eval)/27
+    """
+
+    @staticmethod
+    def sat(ans: str, s="FlIp ME!"):
+        return len(ans) == len(s) and all({c, d} == {d.upper(), d.lower()} for c, d in zip(ans, s))
+
+    @staticmethod
+    def sol(s):
+        return "".join(c.lower() if c.upper() == c else c.upper() for c in s)
+
+    def gen_random(self):
+        w = self.random.pseudo_word()
+        s = "".join(self.random.choice([c.upper(), c.lower()] * 5 + [' ', '!', '3']) for c in w)
+        self.add(dict(s=s))
+
+
+class CatStrings(Problem):
+    """
+    Concatenate a list of strings
+
+    Sample input
+    ---
+    ['cat', 'dog', 'bird']
+
+    Sample output
+    ---
+    'catdogbird'
+
+    Inspired by [HumanEval](https://github.com/openai/human-eval)/28
+    """
+
+    @staticmethod
+    def sat(cat: str, strings=["Will", "i", "am", "Now", "here"]):
+        i = 0
+        for s in strings:
+            for c in s:
+                assert cat[i] == c
+                i += 1
+        return i == len(cat)
+
+    @staticmethod
+    def sol(strings):
+        return "".join(strings)
+
+    def gen_random(self):
+        strings = [self.random.pseudo_word() for _ in range(self.random.randrange(10))]
+        self.add(dict(strings=strings))
+
+
+class FindExtensions(Problem):
+    """
+    Find the strings in a list startings with a given prefix
+
+    Sample Input:
+    ['cat', 'car', 'fear', 'center'], 'ca'
+
+    Sample Output:
+    ['cat', 'car']
+
+    Inspired by [HumanEval](https://github.com/openai/human-eval)/29
+    """
+
+    @staticmethod
+    def sat(extensions: List[str], strings=['cat', 'dog', 'shatter', 'donut', 'at', 'ta'], prefix='do'):
+        i = 0
+        for s in strings:
+            if s.startswith(prefix):
+                assert extensions[i] == s
+                i += 1
+        return i == len(extensions)
+
+    @staticmethod
+    def sol(strings, prefix):
+        return [s for s in strings if s.startswith(prefix)]
+
+    def gen_random(self):
+        prefix = self.random.pseudo_word(min_len=0, max_len=3)
+
+        def gen():
+            return self.random.choice(["", prefix]) + self.random.pseudo_word(min_len=0, max_len=5)
+
+        strings = [gen() for _ in range(self.random.randrange(6))]
+        self.add(dict(strings=strings, prefix=prefix))
+
+
+class FindPositives(Problem):
+    """
+    Find the positive integers in a list
+
+    Sample Input:
+    [-1, 3, 19, -2, 0, 44, 0, 44, 11]
+
+    Sample Output:
+    [3, 19, 44, 44, 11]
+
+    Inspired by [HumanEval](https://github.com/openai/human-eval)/30
+    """
+
+    @staticmethod
+    def sat(positives: List[int], nums=[2, 2342, -2, 32, -8, -5, 2342, 0, -9, 44, 11]):
+        stack = positives[::-1]
+        for n in nums:
+            assert n < 0 or n == stack.pop()
+        return stack == []
+
+    @staticmethod
+    def sol(nums):
+        return [i for i in nums if i > 0]
+
+    def gen_random(self):
+        nums = [self.random.randrange(-100, 100) for _ in range(self.random.randrange(10))]
+
+        self.add(dict(nums=nums))
+
+
+class FermatComposite(Problem):
+    """
+    Find a Fermat composite certificate for a number n > 1
+
+    Sample Input:
+    1469
+
+    Sample Output:
+    3  # because (3 ** 1468) % 1469 != 1
+
+    Inspired by [HumanEval](https://github.com/openai/human-eval)/31
+    """
+
+    @staticmethod
+    def sat(certificate: int, n=1449):
+        return pow(certificate, n - 1, n) > 1
+
+    @staticmethod
+    def sol(n):
+        return next(i for i in range(2, n) if pow(i, n - 1, n) > 1)
+
+    def gen_random(self):
+        a, b = [self.random.randrange(3, 10 ** 5, 2) for _ in range(2)]
+        if not self.random.randrange(10):
+            a += 1
+        n = a * b
+        self.add(dict(n=n))
+
+
+class OddDegreePolynomialRoot(Problem):
+    """
+    Find a real root of an odd degree polynomial from its coefficeints
+
+    Sample Input:
+    [1, 0, 8]
+
+    Sample Output:
+    -2.0  # 1*(-2.0)^3 + 8 == 0
+
+    Inspired by [HumanEval](https://github.com/openai/human-eval)/32
+    """
+
+    @staticmethod
+    def sat(root: float, coeffs = [1, 2, 3, 17]):
+        return abs(sum(coeff * (root ** i) for i, coeff in enumerate(coeffs))) < 1e-4
+
+    @staticmethod
+    def sol(coeffs):
+        def p(x):
+            return sum(coeff * (x ** i) for i, coeff in enumerate(coeffs))
+
+        for attempt in range(100):
+            a, b = -(10 ** attempt), (10 ** attempt)
+            p_a, p_b = p(a), p(b)
+            while p_a * p_b <= 0:
+                mid = (a+b) / 2
+                p_mid = p(mid)
+                if abs(p_mid) < 1e-4:
+                    return mid
+                assert mid not in [a, b]
+                if p_mid*p_a > 0:
+                    a, p_a = mid, p_mid
+                else:
+                    b, p_b = mid, p_mid
+
+        assert False, "Root finder failed on 100 attempts"
+
+
+    def gen_random(self):
+        degree = self.random.randrange(1, 10, 2)
+        coeffs = [self.random.randrange(-10, 10) for _ in range(degree)]
+        coeffs.append(self.random.randrange(1, 10))
+        self.add(dict(coeffs=coeffs))
+
+
+
+# slightly modified for convenience
+class TwoThirdsSorted(Problem.Debug):
+    """
+    Start with a list of integers, keep every third element in place and otherwise sort the list
+
+    Sample Input:
+    [8, 0, 7, 2, 9, 4, 1, 2, 8, 3]
+
+    Sample Output:
+    [8, 0, 2, 2, 4, 8, 1, 8, 9, 3]
+
+    Inspired by [HumanEval](https://github.com/openai/human-eval)/33
+    """
+
+    @staticmethod
+    def sat(li: float, orig = [1, -2, 3, 17, 8, 4, 12, 3, 18, 5, -29, 0]):
+        assert orig[::3] == li[::3], "Keep every third entry fixed"
+        assert sorted(li) == sorted(orig), "Not even a permutation"
+        return all(li[i] <= li[i+(i % 3)] for i in range(len(li)-1))
+
+
+    @staticmethod
+    def sol(orig):
+        ans = sorted(li[1::3] + li[2::3])
+        ans += ans[::2]
+        ans.sort()
+
+
+    def gen_random(self):
+        degree = self.random.randrange(1, 10, 2)
+        coeffs = [self.random.randrange(-10, 10) for _ in range(degree)]
+        coeffs.append(self.random.randrange(1, 10))
+        self.add(dict(coeffs=coeffs))
+
 
 
 if __name__ == "__main__":
     Problem.debug_problems()
+

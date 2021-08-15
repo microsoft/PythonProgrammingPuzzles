@@ -79,6 +79,7 @@ The problems in this repo are based on:
 and [math problems](https://en.wikipedia.org/wiki/List_of_unsolved_problems_in_mathematics).
 * The website [codeforces.com](https://codeforces.com), a popular website for programming competition problems
 * Olympiad problems from the [International Collegiate Programming Contest](https://icpc.global) and [International Mathematical Olympiad](https://en.wikipedia.org/wiki/International_Mathematical_Olympiad).
+* (NEW!) Problems inspired by the [human-eval dataset](https://github.com/openai/human-eval) from the [codex paper](https://arxiv.org/abs/2107.03374).  
 
 
 ## Notebooks

@@ -23,6 +23,8 @@ class FermatsLastTheorem(Problem):
         return (a ** n + b ** n == c ** n) and min(a, b, c) > 0 and n > 2
 
 
+# see also class CertifyGCD in codex.py for an alternate puzzle without lower_bound
+
 class GCD(Problem):
     """[Greatest Common Divisor](https://en.wikipedia.org/w/index.php?title=Greatest_common_divisor&oldid=990943381)
     (GCD)
@@ -274,6 +276,8 @@ class FourSquares(Problem):
         n = self.random.randrange(10 ** self.random.randrange(50))
         self.add(dict(n=n), test=(n < 10 ** 5))
 
+
+# see class FermatComposite in codex.py for an easier composite test puzzle
 
 class Factoring(Problem):
     """[Factoring](https://en.wikipedia.org/w/index.php?title=Integer_factorization) and
