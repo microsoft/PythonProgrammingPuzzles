@@ -982,9 +982,9 @@ class FilterInts(Problem):
             ans.append("".join(self.random.choice(chars) for i in range(self.random.randrange(10))))
 
 
-class StrLen(Problem):
+class StrLength(Problem):
     """
-    Find the length of a string
+    Find the length of a non-empty string
 
     Sample input
     ---
@@ -1002,14 +1002,15 @@ class StrLen(Problem):
         try:
             s[length]
         except IndexError:
-            return length == 0 or length >= len(s[length - 1])
+            s[length - 1]
+            return True
 
     @staticmethod
     def sol(s):
         return len(s)
 
     def gen_random(self):
-        s = self.random.pseudo_word(min_len=0, max_len=50)
+        s = self.random.pseudo_word(min_len=1, max_len=50)
         self.add(dict(s=s))
 
 
@@ -1240,7 +1241,7 @@ class FindPositives(Problem):
     def sat(positives: List[int], nums=[2, 2342, -2, 32, -8, -5, 2342, 0, -9, 44, 11]):
         stack = positives[::-1]
         for n in nums:
-            assert n < 0 or n == stack.pop()
+            assert n <= 0 or n == stack.pop()
         return stack == []
 
     @staticmethod
@@ -1249,7 +1250,6 @@ class FindPositives(Problem):
 
     def gen_random(self):
         nums = [self.random.randrange(-100, 100) for _ in range(self.random.randrange(10))]
-
         self.add(dict(nums=nums))
 
 
@@ -1296,7 +1296,7 @@ class OddDegreePolynomialRoot(Problem):
     """
 
     @staticmethod
-    def sat(root: float, coeffs = [1, 2, 3, 17]):
+    def sat(root: float, coeffs=[1, 2, 3, 17]):
         return abs(sum(coeff * (root ** i) for i, coeff in enumerate(coeffs))) < 1e-4
 
     @staticmethod
@@ -1308,18 +1308,17 @@ class OddDegreePolynomialRoot(Problem):
             a, b = -(10 ** attempt), (10 ** attempt)
             p_a, p_b = p(a), p(b)
             while p_a * p_b <= 0:
-                mid = (a+b) / 2
+                mid = (a + b) / 2
                 p_mid = p(mid)
                 if abs(p_mid) < 1e-4:
                     return mid
                 assert mid not in [a, b]
-                if p_mid*p_a > 0:
+                if p_mid * p_a > 0:
                     a, p_a = mid, p_mid
                 else:
                     b, p_b = mid, p_mid
 
         assert False, "Root finder failed on 100 attempts"
-
 
     def gen_random(self):
         degree = self.random.randrange(1, 10, 2)
@@ -1328,9 +1327,8 @@ class OddDegreePolynomialRoot(Problem):
         self.add(dict(coeffs=coeffs))
 
 
-
 # slightly modified for convenience
-class TwoThirdsSorted(Problem.Debug):
+class TwoThirdsSorted(Problem):
     """
     Start with a list of integers, keep every third element in place and otherwise sort the list
 
@@ -1344,27 +1342,138 @@ class TwoThirdsSorted(Problem.Debug):
     """
 
     @staticmethod
-    def sat(li: float, orig = [1, -2, 3, 17, 8, 4, 12, 3, 18, 5, -29, 0]):
+    def sat(li: List[int], orig=[1, -2, 3, 17, 8, 4, 12, 3, 18, 5, -29, 0, 0]):
         assert orig[::3] == li[::3], "Keep every third entry fixed"
         assert sorted(li) == sorted(orig), "Not even a permutation"
-        return all(li[i] <= li[i+(i % 3)] for i in range(len(li)-1))
-
+        assert all(li[i] <= li[i + 1] for i in range(1, len(li) - 1, 3))
+        assert all(li[i] <= li[i + 2] for i in range(2, len(li) - 2, 3))
+        return True
 
     @staticmethod
     def sol(orig):
-        ans = sorted(li[1::3] + li[2::3])
-        ans += ans[::2]
-        ans.sort()
-
+        n = len(orig)
+        your_list = orig[::3]
+        sub = orig[:]
+        for i in range(int((len(sub) + 2) / 3)):
+            sub.pop((2 * i))
+        sub = sorted(sub)
+        answ = []
+        for i in range(int(n / 3)):
+            answ.append(your_list[i])
+            answ.append(sub[i * 2])
+            answ.append(sub[i * 2 + 1])
+        if n % 3 == 1:
+            answ.append(your_list[-1])
+        if n % 3 == 2:
+            answ.append(your_list[-1])
+            answ.append(sub[-1])
+        return answ
 
     def gen_random(self):
-        degree = self.random.randrange(1, 10, 2)
-        coeffs = [self.random.randrange(-10, 10) for _ in range(degree)]
-        coeffs.append(self.random.randrange(1, 10))
-        self.add(dict(coeffs=coeffs))
+        list_length = self.random.randrange(20)
+        orig = []
+        for _ in range(list_length):
+            orig.append(self.random.randrange(-10, 10))
+        self.add(dict(orig=orig))
 
+
+class UniqueSorted(Problem):
+    """
+    Find an increasing sequence which contains all the elements of the original list.
+
+    Sample Input:
+    [8, 0, 7, 2, 9, 4, 4, -2, 8, 3]
+
+    Sample Output:
+    [-2, 0, 2, 3, 4, 7, 8, 9]
+
+    Inspired by [HumanEval](https://github.com/openai/human-eval)/34
+    """
+
+    @staticmethod
+    def sat(li: List[int], orig=[1, 1, 3, 2, 0, 8, 32, -4, 0]):
+        for i in range(len(li) - 1):
+            assert li[i] < li[i + 1]
+            assert li[i] in orig
+        for n in orig:
+            assert n in li
+        return True
+
+    @staticmethod
+    def sol(orig):
+        my_list = sorted(set(orig))
+        return my_list
+
+    def gen_random(self):
+        list_length = self.random.randrange(20)
+        orig = []
+        for _ in range(list_length):
+            orig.append(self.random.randrange(-10, 10))
+        self.add(dict(orig=orig))
+
+
+class MaxInt(Problem):
+    """
+    Find the largest integer in a sequence
+
+    Sample Input:
+    [8, 0, 1, 4, 9, 3, 4, -2, 8, 3]
+
+    Sample Output:
+    9
+
+    Inspired by [HumanEval](https://github.com/openai/human-eval)/35
+    """
+
+    @staticmethod
+    def sat(m: int, hello=[1, 32, 3, 2, 0, 18, 32, -4, 0]):
+        return m in hello and not any(m < i for i in hello)
+
+    @staticmethod
+    def sol(hello):
+        return max(hello)
+
+    def gen_random(self):
+        list_length = self.random.randrange(1, 20)
+        hello = []
+        for _ in range(list_length):
+            hello.append(self.random.randrange(-10, 10))
+        self.add(dict(hello=hello))
+
+
+class SevenElevenThirteen(Problem):
+    """
+    Find all 7's in integers less than n that are divisible by 11 or 13
+
+    Sample Input:
+    79
+
+    Sample Output:
+    [[77, 0], [77, 1], [78, 0]]
+
+    Inspired by [HumanEval](https://github.com/openai/human-eval)/36
+    """
+
+    @staticmethod
+    def sat(li: List[List[int]], n=19723, lower=3):
+        assert len({(i, j) for i, j in li}) >= lower, "not enough 7's (ignoring duplicates)"
+        return all(str(i)[j] == '7' and (i % 11 == 0 or i % 13 == 0) and 0 <= i < n and 0 <= j for i, j in li)
+
+    @staticmethod
+    def sol(n, lower):
+        return [[i, j] for i in range(n) if (i % 11 == 0 or i % 13 == 0) for j in range(len(str(i))) if
+                str(i)[j] == '7']
+
+    def gen(self, target_num_instances):
+        lower = 0
+        n = 0
+        while len(self.instances) < target_num_instances:
+            if n % 11 == 0 or n % 13 == 0:
+                lower += str(n).count('7')
+            n += 1
+            if self.random.randrange(10) == 0:
+                self.add(dict(n=n, lower=lower))
 
 
 if __name__ == "__main__":
     Problem.debug_problems()
-

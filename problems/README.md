@@ -11,7 +11,7 @@ assertions have been removed below for readability.) The only import required fo
 
 - [study (30 problems, 30 instances)](#study)
 - [classic_puzzles (22 problems, 11,370 instances)](#classic_puzzles)
-- [codex (16 problems, 16,000 instances)](#codex)
+- [codex (40 problems, 39,001 instances)](#codex)
 - [codeforces (44 problems, 43,025 instances)](#codeforces)
 - [algebra (4 problems, 4,000 instances)](#algebra)
 - [basic (22 problems, 22,000 instances)](#basic)
@@ -29,7 +29,7 @@ assertions have been removed below for readability.) The only import required fo
 - [trivial_inverse (39 problems, 37,002 instances)](#trivial_inverse)
 - [tutorial (5 problems, 5 instances)](#tutorial)
 
-Total (243 problems, 182,069 instances)
+Total (267 problems, 205,070 instances)
 
 
 ----
@@ -1644,12 +1644,14 @@ def sol(start=[[5, 0, 2, 3], [1, 9, 6, 7], [4, 14, 8, 11], [12, 13, 10, 15]]):
 ## codex
 
 Problems inspired by [HumanEval dataset](https://github.com/openai/human-eval) described
-in the [codex paper](https://arxiv.org/abs/2107.03374).
+in the [codex paper](https://arxiv.org/abs/2107.03374), specifically,
+[this](https://github.com/openai/human-eval/blob/fa06031e684fbe1ee429c7433809460c159b66ad/data/HumanEval.jsonl.gz)
+version.
 
 [^ Top](#files)
 
 ### FindCloseElements
-([codex](#codex) 1/16)
+([codex](#codex) 1/40)
 
 **Description:**
 Given a list of numbers and a threshold, find two distinct numbers in the list that
@@ -1681,7 +1683,7 @@ def sol(nums=[0.17, 21.3, 5.0, 9.0, 11.0, 4.99, 17.0], thresh=0.1):
 </details>
 
 ### SeparateParenGroups
-([codex](#codex) 2/16)
+([codex](#codex) 2/40)
 
 **Description:**
 Given a string consisting of whitespace and groups of matched parentheses, split it
@@ -1735,7 +1737,7 @@ def sol(combined="() (()) ((() () ())) (() )"):
 </details>
 
 ### Frac
-([codex](#codex) 3/16)
+([codex](#codex) 3/40)
 
 **Description:**
 Given a floating point number, find its fractional part.
@@ -1764,7 +1766,7 @@ def sol(v=523.12892):
 </details>
 
 ### FirstNegCumulative
-([codex](#codex) 4/16)
+([codex](#codex) 4/40)
 
 **Description:**
 Given a list of numbers which represent bank deposits and withdrawals, find the *first* negative balance.
@@ -1802,7 +1804,7 @@ def sol(balances=[2, 7, -2, 4, 3, -15, 10, -45, 3]):
 </details>
 
 ### NegCumulative_Trivial
-([codex](#codex) 5/16)
+([codex](#codex) 5/40)
 
 **Description:**
 Given a list of numbers which represent bank deposits and withdrawals,
@@ -1843,7 +1845,7 @@ def sol(balances=[2, 7, -2, 4, 3, -15, 10, -45, 3]):
 </details>
 
 ### MinRMS
-([codex](#codex) 6/16)
+([codex](#codex) 6/40)
 
 **Description:**
 Given a list of numbers, find x whose root mean squared deviation is less than a given threshold.
@@ -1875,7 +1877,7 @@ def sol(nums=[12, -2, 14, 3, -15, 10, -45, 3, 30], thresh=20.003):
 </details>
 
 ### Intersperse
-([codex](#codex) 7/16)
+([codex](#codex) 7/40)
 
 **Description:**
 Given a list of numbers and a number to inject, create a list containing that number in between each pair of
@@ -1911,7 +1913,7 @@ def sol(nums=[12, 23, -2, 5, 0], sep=4):
 </details>
 
 ### DeepestParens
-([codex](#codex) 8/16)
+([codex](#codex) 8/40)
 
 **Description:**
 Given a string consisting of groups of matched nested parentheses separated by parentheses,
@@ -1969,7 +1971,7 @@ def sol(parens="() (()) ((()()())) (())"):
 </details>
 
 ### FindContainers
-([codex](#codex) 9/16)
+([codex](#codex) 9/40)
 
 **Description:**
 Find the strings in a list containing a given substring
@@ -2003,7 +2005,7 @@ def sol(strings=['cat', 'dog', 'shatter', 'bear', 'at', 'ta'], substring="at"):
 </details>
 
 ### SumProduct
-([codex](#codex) 10/16)
+([codex](#codex) 10/40)
 
 **Description:**
 Find a list of numbers with a given sum and a given product.
@@ -2040,7 +2042,7 @@ def sol(tot=14, prod=99):
 </details>
 
 ### SumProduct_Trivial
-([codex](#codex) 11/16)
+([codex](#codex) 11/40)
 
 **Description:**
 Find the sum and product of a list of numbers.
@@ -2075,7 +2077,7 @@ def sol(nums=[1, 3, 2, -6, 19]):
 </details>
 
 ### RollingMax
-([codex](#codex) 12/16)
+([codex](#codex) 12/40)
 
 **Description:**
 Find a list whose ith element is the maximum of the first i elements of the input list.
@@ -2121,7 +2123,7 @@ def sol(nums=[1, 4, 3, -6, 19]):
 </details>
 
 ### PalindromeStartingWith
-([codex](#codex) 13/16)
+([codex](#codex) 13/40)
 
 **Description:**
 Find a palindrome of a given length starting with a given string.
@@ -2155,7 +2157,7 @@ def sol(s="so easy", length=20):
 </details>
 
 ### PalindromeContaining
-([codex](#codex) 14/16)
+([codex](#codex) 14/40)
 
 **Description:**
 Find a palindrome of a given length containing a given string.
@@ -2182,8 +2184,8 @@ def sol(s="so easy", length=20):
     for i in range(length - len(s) + 1):
         arr = ['x'] * length
         arr[i:i + len(s)] = ls
-        a = length - i-1
-        b = length - (i + len(s))-1
+        a = length - i - 1
+        b = length - (i + len(s)) - 1
         if b == -1:
             b = None
         arr[a:b:-1] = ls
@@ -2197,7 +2199,7 @@ def sol(s="so easy", length=20):
 </details>
 
 ### BinaryStrXOR
-([codex](#codex) 15/16)
+([codex](#codex) 15/40)
 
 **Description:**
 Find a the XOR of two given strings interpreted as binary numbers.
@@ -2229,7 +2231,7 @@ def sol(nums=['100011101100001', '100101100101110']):
 </details>
 
 ### LongestStr
-([codex](#codex) 16/16)
+([codex](#codex) 16/40)
 
 **Description:**
 Find a the longest of a list of strings
@@ -2253,6 +2255,868 @@ def sat(ans: str, words: List[str]=['these', 'are', 'some', 'pretty', 'long', 'w
 ```python
 def sol(words=['these', 'are', 'some', 'pretty', 'long', 'words']):
     return max(words, key=len)
+```
+
+</details>
+
+### CertifiedGCD
+([codex](#codex) 17/40)
+
+**Description:**
+Find the greatest common divisor of two integers m, n and a certificate a, b such that m*a + n*b = gcd
+
+Sample Input:
+20, 30
+
+Sample Output:
+10, -1, 1
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/13
+
+**Problem:**
+
+```python
+def sat(ans: List[int], m: int=1408862, n: int=2113293):
+    gcd, a, b = ans
+    return m % gcd == n % gcd == 0 and a * m + b * n == gcd and gcd > 0
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(m=1408862, n=2113293):
+    def gcd_cert(small, big):
+        """Returns gcd, a, b, such that small * a + big * b == gcd
+        """
+        assert 0 < small <= big
+        if big % small == 0:
+            return [small, 1, 0]
+        d = big // small
+        gcd, a, b = gcd_cert(big % small, small)
+        # above guarantees a * (big % small) + b * small == gcd
+        # combined with (big % small) == big - small * d
+        # gives a * (big - small * d) + b * small == gcd
+        # or equivalently (b - a * d) * small + a * big == gcd
+        return [gcd, (b - a * d), a]
+
+    if m < n:
+        return gcd_cert(m, n)
+    gcd, a, b = gcd_cert(n, m)
+    return [gcd, b, a]
+```
+
+</details>
+
+### AllPrefixes
+([codex](#codex) 18/40)
+
+**Description:**
+Find all prefixes of a given string
+
+Sample Input:
+"aabcd"
+
+Sample Output:
+["", "a", "aa", "aab", "aabc", "aabcd"]
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/14
+
+**Problem:**
+
+```python
+def sat(prefixes: List[str], s: str="donesezichethofalij"):
+    return all(s.startswith(p) for p in prefixes) and len(set(prefixes)) > len(s)
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(s="donesezichethofalij"):
+    return [s[:i] for i in range(len(s) + 1)]
+```
+
+</details>
+
+### SpaceyRange
+([codex](#codex) 19/40)
+
+**Description:**
+Find a string consisting of the non-negative integers up to n inclusive
+
+Sample Input:
+4
+
+Sample Output:
+'0 1 2 3 4'
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/15
+
+**Problem:**
+
+```python
+def sat(ans: str, n: int=15):
+    return [int(i) for i in ans.split(' ')] == list(range(n + 1))
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(n=15):
+    return ' '.join(str(i) for i in range(n + 1))
+```
+
+</details>
+
+### DistinctChars
+([codex](#codex) 20/40)
+
+**Description:**
+Find the set of distinct characters in a string, ignoring case
+
+Sample Input:
+'HELlo', 4
+
+Sample Output:
+['h', 'e', 'l', 'o']
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/16
+
+**Problem:**
+
+```python
+def sat(ans: List[str], s: str="The quick brown fox jumps over the lazy dog!", n: int=28):
+    return all(c.lower() in ans for c in s) and len(ans) <= 28
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(s="The quick brown fox jumps over the lazy dog!", n=28):
+    return list(set(s.lower()))
+```
+
+</details>
+
+### ParseMusic
+([codex](#codex) 21/40)
+
+**Description:**
+Parse a string of notes to beats, 'o'=4, 'o|'=2, '.|'=1
+
+Example input:
+'o o .| o|'
+
+Example output:
+[4, 4, 1, 2]
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/17
+
+**Problem:**
+
+```python
+def sat(beats: List[int], score: str="o o o| o| .| .| .| o| o| o o o| .|"):
+    return " ".join({1: '.|', 2: 'o|', 4: 'o'}[b] for b in beats) == score
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(score="o o o| o| .| .| .| o| o| o o o| .|"):
+    mapping = {'.|': 1, 'o|': 2, 'o': 4}
+    return [mapping[note] for note in score.split()]
+```
+
+</details>
+
+### OverlappingCount
+([codex](#codex) 22/40)
+
+**Description:**
+Find occurrences of a substring in a parent string *including overlaps*
+
+Sample Input:
+'helllo', 'll'
+
+Sample Output:
+[2, 3]
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/18
+
+**Problem:**
+
+```python
+def sat(ans: List[int], s: str="Bananannanaannanaanananananana", sub: str="anan", count: int=7):
+    return all(sub == s[i:i + len(sub)] for i in ans) and len(set(ans)) >= count
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(s="Bananannanaannanaanananananana", sub="anan", count=7):
+    ans = []
+    for i in range(len(s) + 1):
+        if s[i:i + len(sub)] == sub:
+            ans.append(i)
+    return ans
+```
+
+</details>
+
+### SortNumbers
+([codex](#codex) 23/40)
+
+**Description:**
+Sort numbers based on strings
+
+Sample input
+---
+"six one four"
+
+Sample output
+---
+"one four six"
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/19
+
+**Problem:**
+
+```python
+def sat(ans: str, s: str="six one four"):
+    nums = 'zero one two three four five six seven eight nine'.split()
+    return [nums.index(x) for x in ans.split(" ")] == sorted([nums.index(x) for x in s.split(" ")])
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(s="six one four"):
+    nums = 'zero one two three four five six seven eight nine'.split()
+    arr = [nums.index(x) for x in s.split()]
+    arr.sort()
+    ans = " ".join([nums[i] for i in arr])
+    return ans
+```
+
+</details>
+
+### FindClosePair
+([codex](#codex) 24/40)
+
+**Description:**
+Given a list of numbers, find the indices of the closest pair.
+
+Sample Input:
+[1.2, 5.25, 0.89, 21.0, 5.23]
+
+Sample Output:
+[4, 1]
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/20
+
+**Problem:**
+
+```python
+def sat(inds: List[int], nums: List[float]=[0.31, 21.3, 5.0, 9.0, 11.0, 5.01, 17.2]):
+    a, b = inds
+    assert a != b and a >= 0 and b >= 0
+    for i in range(len(nums)):
+        for j in range(i):
+            assert abs(nums[i] - nums[j]) >= abs(nums[b] - nums[a])
+    return True
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(nums=[0.31, 21.3, 5.0, 9.0, 11.0, 5.01, 17.2]):
+    best = [0, 1]
+    best_score = abs(nums[1] - nums[0])
+    for i in range(len(nums)):
+        for j in range(i):
+            score = abs(nums[i] - nums[j])
+            if score < best_score:
+                best_score = score
+                best = [i, j]
+    return best
+```
+
+</details>
+
+### Rescale
+([codex](#codex) 25/40)
+
+**Description:**
+Rescale and shift numbers so that they cover the range [0, 1]
+
+Sample input
+---
+[18.5, 17.0, 18.0, 19.0, 18.0]
+
+Sample output
+---
+[0.75, 0.0, 0.5, 1.0, 0.5]
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/21
+
+**Problem:**
+
+```python
+def sat(ans: List[float], nums: List[float]=[13.0, 17.0, 17.0, 15.5, 2.94]):
+    assert min(ans) == 0.0 and max(ans) == 1.0
+    a = min(nums)
+    b = max(nums)
+    for i in range(len(nums)):
+        x = a + (b - a) * ans[i]
+        assert abs(nums[i] - x) < 1e-6
+    return True
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(nums=[13.0, 17.0, 17.0, 15.5, 2.94]):
+    nums = nums.copy()
+
+    a = min(nums)
+    b = max(nums)
+    if b - a == 0:
+        return [0.0] + [1.0] * (len(nums) - 1)
+    for i in range(len(nums)):
+        nums[i] = (nums[i] - a) / (b - a)
+    return nums
+```
+
+</details>
+
+### FilterInts
+([codex](#codex) 26/40)
+
+**Description:**
+Find the indices of valid python integers in a list of strings
+
+Sample input
+---
+["18.5", "-1", "2+2", "7", "foo"]
+
+Sample output
+---
+[1, 3]
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/22
+
+**Problem:**
+
+```python
+def sat(indexes: List[int], li: List[str]=['Hello', '5', '10', 'bye'], num: int=2):
+    [int(li[i]) for i in indexes]
+    return len(set(indexes)) >= num and min(indexes) >= 0
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(li=['Hello', '5', '10', 'bye'], num=2):
+    ans = []
+    for i in range(len(li)):
+        try:
+            int(li[i])
+            ans.append(i)
+        except:
+            pass
+    return ans
+```
+
+</details>
+
+### StrLength
+([codex](#codex) 27/40)
+
+**Description:**
+Find the length of a non-empty string
+
+Sample input
+---
+"foo"
+
+Sample output
+---
+3
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/23
+
+**Problem:**
+
+```python
+def sat(length: int, s: str="pneumonoultramicroscopicsilicovolcanoconiosis"):
+    try:
+        s[length]
+    except IndexError:
+        s[length - 1]
+        return True
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(s="pneumonoultramicroscopicsilicovolcanoconiosis"):
+    return len(s)
+```
+
+</details>
+
+### LargestDivisor
+([codex](#codex) 28/40)
+
+**Description:**
+Find the largest integer divisor of a number n that is less than n
+
+Sample input
+---
+1000
+
+Sample output
+---
+500
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/24
+
+**Problem:**
+
+```python
+def sat(d: int, n: int=123456):
+    return n % d == 0 and d < n and all(n % e for e in range(d + 1, n))
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(n=123456):
+    return next(d for d in range(n - 1, 0, -1) if n % d == 0)
+```
+
+</details>
+
+### PrimeFactorization
+([codex](#codex) 29/40)
+
+**Description:**
+Factor number n into a given number of non-trivial factors
+
+Sample input
+---
+1000, 6
+
+Sample output
+---
+[2, 2, 2, 5, 5, 5]
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/25
+
+**Problem:**
+
+```python
+def sat(factors: List[int], n: int=123456, num_factors: int=8):
+    assert len(factors) == num_factors
+    prod = 1
+    for d in factors:
+        prod *= d
+        assert d > 1
+    return prod == n
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(n=123456, num_factors=8):
+    if num_factors == 0:
+        return []
+    if num_factors == 1:
+        return [n]
+    ans = []
+    for d in range(2, n):
+        while n % d == 0:
+            n //= d
+            ans.append(d)
+            if len(ans) == num_factors - 1:
+                ans.append(n)
+                return ans
+    assert False
+```
+
+</details>
+
+### Dedup
+([codex](#codex) 30/40)
+
+**Description:**
+Remove duplicates from a list of integers, preserving order
+
+Sample input
+---
+[1, 3, 2, 9, 2, 1, 55]
+
+Sample output
+---
+[1, 3, 2, 9, 55]
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/26
+
+**Problem:**
+
+```python
+def sat(ans: List[int], li: List[int]=[2, 19, 2, 53, 1, 1, 2, 44, 17, 0, 19, 31]):
+    return set(ans) == set(li) and all(li.index(ans[i]) < li.index(ans[i + 1]) for i in range(len(ans) - 1))
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(li=[2, 19, 2, 53, 1, 1, 2, 44, 17, 0, 19, 31]):
+    seen = set()
+    ans = []
+    for n in li:
+        if n not in seen:
+            ans.append(n)
+            seen.add(n)
+    return ans
+```
+
+</details>
+
+### FlipCase
+([codex](#codex) 31/40)
+
+**Description:**
+Flip case
+
+Sample input
+---
+'cAt'
+
+Sample output
+---
+'CaT'
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/27
+
+**Problem:**
+
+```python
+def sat(ans: str, s: str="FlIp ME!"):
+    return len(ans) == len(s) and all({c, d} == {d.upper(), d.lower()} for c, d in zip(ans, s))
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(s="FlIp ME!"):
+    return "".join(c.lower() if c.upper() == c else c.upper() for c in s)
+```
+
+</details>
+
+### CatStrings
+([codex](#codex) 32/40)
+
+**Description:**
+Concatenate a list of strings
+
+Sample input
+---
+['cat', 'dog', 'bird']
+
+Sample output
+---
+'catdogbird'
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/28
+
+**Problem:**
+
+```python
+def sat(cat: str, strings: List[str]=['Will', 'i', 'am', 'Now', 'here']):
+    i = 0
+    for s in strings:
+        for c in s:
+            assert cat[i] == c
+            i += 1
+    return i == len(cat)
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(strings=['Will', 'i', 'am', 'Now', 'here']):
+    return "".join(strings)
+```
+
+</details>
+
+### FindExtensions
+([codex](#codex) 33/40)
+
+**Description:**
+Find the strings in a list startings with a given prefix
+
+Sample Input:
+['cat', 'car', 'fear', 'center'], 'ca'
+
+Sample Output:
+['cat', 'car']
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/29
+
+**Problem:**
+
+```python
+def sat(extensions: List[str], strings: List[str]=['cat', 'dog', 'shatter', 'donut', 'at', 'ta'], prefix: str="do"):
+    i = 0
+    for s in strings:
+        if s.startswith(prefix):
+            assert extensions[i] == s
+            i += 1
+    return i == len(extensions)
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(strings=['cat', 'dog', 'shatter', 'donut', 'at', 'ta'], prefix="do"):
+    return [s for s in strings if s.startswith(prefix)]
+```
+
+</details>
+
+### FindPositives
+([codex](#codex) 34/40)
+
+**Description:**
+Find the positive integers in a list
+
+Sample Input:
+[-1, 3, 19, -2, 0, 44, 0, 44, 11]
+
+Sample Output:
+[3, 19, 44, 44, 11]
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/30
+
+**Problem:**
+
+```python
+def sat(positives: List[int], nums: List[int]=[2, 2342, -2, 32, -8, -5, 2342, 0, -9, 44, 11]):
+    stack = positives[::-1]
+    for n in nums:
+        assert n <= 0 or n == stack.pop()
+    return stack == []
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(nums=[2, 2342, -2, 32, -8, -5, 2342, 0, -9, 44, 11]):
+    return [i for i in nums if i > 0]
+```
+
+</details>
+
+### FermatComposite
+([codex](#codex) 35/40)
+
+**Description:**
+Find a Fermat composite certificate for a number n > 1
+
+Sample Input:
+1469
+
+Sample Output:
+3  # because (3 ** 1468) % 1469 != 1
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/31
+
+**Problem:**
+
+```python
+def sat(certificate: int, n: int=1449):
+    return pow(certificate, n - 1, n) > 1
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(n=1449):
+    return next(i for i in range(2, n) if pow(i, n - 1, n) > 1)
+```
+
+</details>
+
+### OddDegreePolynomialRoot
+([codex](#codex) 36/40)
+
+**Description:**
+Find a real root of an odd degree polynomial from its coefficeints
+
+Sample Input:
+[1, 0, 8]
+
+Sample Output:
+-2.0  # 1*(-2.0)^3 + 8 == 0
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/32
+
+**Problem:**
+
+```python
+def sat(root: float, coeffs: List[int]=[1, 2, 3, 17]):
+    return abs(sum(coeff * (root ** i) for i, coeff in enumerate(coeffs))) < 1e-4
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(coeffs=[1, 2, 3, 17]):
+    def p(x):
+        return sum(coeff * (x ** i) for i, coeff in enumerate(coeffs))
+
+    for attempt in range(100):
+        a, b = -(10 ** attempt), (10 ** attempt)
+        p_a, p_b = p(a), p(b)
+        while p_a * p_b <= 0:
+            mid = (a + b) / 2
+            p_mid = p(mid)
+            if abs(p_mid) < 1e-4:
+                return mid
+            assert mid not in [a, b]
+            if p_mid * p_a > 0:
+                a, p_a = mid, p_mid
+            else:
+                b, p_b = mid, p_mid
+
+    assert False, "Root finder failed on 100 attempts"
+```
+
+</details>
+
+### TwoThirdsSorted
+([codex](#codex) 37/40)
+
+**Description:**
+Start with a list of integers, keep every third element in place and otherwise sort the list
+
+Sample Input:
+[8, 0, 7, 2, 9, 4, 1, 2, 8, 3]
+
+Sample Output:
+[8, 0, 2, 2, 4, 8, 1, 8, 9, 3]
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/33
+
+**Problem:**
+
+```python
+def sat(li: List[int], orig: List[int]=[1, -2, 3, 17, 8, 4, 12, 3, 18, 5, -29, 0, 0]):
+    assert orig[::3] == li[::3], "Keep every third entry fixed"
+    assert sorted(li) == sorted(orig), "Not even a permutation"
+    assert all(li[i] <= li[i + 1] for i in range(1, len(li) - 1, 3))
+    assert all(li[i] <= li[i + 2] for i in range(2, len(li) - 2, 3))
+    return True
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(orig=[1, -2, 3, 17, 8, 4, 12, 3, 18, 5, -29, 0, 0]):
+    n = len(orig)
+    your_list = orig[::3]
+    sub = orig[:]
+    for i in range(int((len(sub) + 2) / 3)):
+        sub.pop((2 * i))
+    sub = sorted(sub)
+    answ = []
+    for i in range(int(n / 3)):
+        answ.append(your_list[i])
+        answ.append(sub[i * 2])
+        answ.append(sub[i * 2 + 1])
+    if n % 3 == 1:
+        answ.append(your_list[-1])
+    if n % 3 == 2:
+        answ.append(your_list[-1])
+        answ.append(sub[-1])
+    return answ
+```
+
+</details>
+
+### UniqueSorted
+([codex](#codex) 38/40)
+
+**Description:**
+Find an increasing sequence which contains all the elements of the original list.
+
+Sample Input:
+[8, 0, 7, 2, 9, 4, 4, -2, 8, 3]
+
+Sample Output:
+[-2, 0, 2, 3, 4, 7, 8, 9]
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/34
+
+**Problem:**
+
+```python
+def sat(li: List[int], orig: List[int]=[1, 1, 3, 2, 0, 8, 32, -4, 0]):
+    for i in range(len(li) - 1):
+        assert li[i] < li[i + 1]
+        assert li[i] in orig
+    for n in orig:
+        assert n in li
+    return True
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(orig=[1, 1, 3, 2, 0, 8, 32, -4, 0]):
+    my_list = sorted(set(orig))
+    return my_list
+```
+
+</details>
+
+### MaxInt
+([codex](#codex) 39/40)
+
+**Description:**
+Find the largest integer in a sequence
+
+Sample Input:
+[8, 0, 1, 4, 9, 3, 4, -2, 8, 3]
+
+Sample Output:
+9
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/35
+
+**Problem:**
+
+```python
+def sat(m: int, hello: List[int]=[1, 32, 3, 2, 0, 18, 32, -4, 0]):
+    return m in hello and not any(m < i for i in hello)
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(hello=[1, 32, 3, 2, 0, 18, 32, -4, 0]):
+    return max(hello)
+```
+
+</details>
+
+### SevenElevenThirteen
+([codex](#codex) 40/40)
+
+**Description:**
+Find all 7's in integers less than n that are divisible by 11 or 13
+
+Sample Input:
+79
+
+Sample Output:
+[[77, 0], [77, 1], [78, 0]]
+
+Inspired by [HumanEval](https://github.com/openai/human-eval)/36
+
+**Problem:**
+
+```python
+def sat(li: List[List[int]], n: int=19723, lower: int=3):
+    assert len({(i, j) for i, j in li}) >= lower, "not enough 7's (ignoring duplicates)"
+    return all(str(i)[j] == '7' and (i % 11 == 0 or i % 13 == 0) and 0 <= i < n and 0 <= j for i, j in li)
+```
+<details><summary><strong>Reveal solution(s):</strong></summary>
+
+```python
+def sol(n=19723, lower=3):
+    return [[i, j] for i in range(n) if (i % 11 == 0 or i % 13 == 0) for j in range(len(str(i))) if
+            str(i)[j] == '7']
 ```
 
 </details>
