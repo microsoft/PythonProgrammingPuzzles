@@ -2285,18 +2285,12 @@ def sat(ans: List[int], m: int=1408862, n: int=2113293):
 ```python
 def sol(m=1408862, n=2113293):
     def gcd_cert(small, big):
-        """Returns gcd, a, b, such that small * a + big * b == gcd
-        """
+        """Returns gcd, a, b, such that small * a + big * b == gcd"""
         assert 0 < small <= big
         if big % small == 0:
             return [small, 1, 0]
-        d = big // small
         gcd, a, b = gcd_cert(big % small, small)
-        # above guarantees a * (big % small) + b * small == gcd
-        # combined with (big % small) == big - small * d
-        # gives a * (big - small * d) + b * small == gcd
-        # or equivalently (b - a * d) * small + a * big == gcd
-        return [gcd, (b - a * d), a]
+        return [gcd, b - a * (big // small), a]
 
     if m < n:
         return gcd_cert(m, n)
