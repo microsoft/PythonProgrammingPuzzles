@@ -755,12 +755,14 @@ def inject_into_src(src, spec, new_function_name=None, defaults={}, types={}):
     def need_explicit_type(var):
         if var not in types:
             return False
-        if var not in defaults:
-            return True
-        val = defaults[var] # also make type explicit for [], [[]], [[[]]], etc. since empty-list types are not clear
-        while isinstance(val, list) and len(val) == 1:
-            val = val[0]
-        return val == []
+
+        # also make type explicit for [], [[]], [[[]]], etc. since empty-list types are not clear
+        def hollow(li):  # like [[], [[], []]]
+            if type(li) != list:
+                return False
+            return all(hollow(i) for i in li)
+        return var not in defaults or hollow(defaults[var])
+
 
     arg_st = ", ".join([var +
                         (f": {type_str(types[var])}" if need_explicit_type(var) else "") +
