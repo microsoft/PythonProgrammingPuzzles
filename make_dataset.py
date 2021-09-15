@@ -1,15 +1,11 @@
 import argparse
-import fnmatch
 import time
 import sys
-
-import problems
-import utils
-import templates  # This loads all the problem templates
 import inspect
 
-TARGET_NUM_PER_PROBLEM = 1000
-
+import puzzle_generator
+import utils
+import generators  # This loads all the problem generators
 
 parser = argparse.ArgumentParser(
     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -17,43 +13,134 @@ parser = argparse.ArgumentParser(
 parser.add_argument('--target_num_per_problem',
                     '-n',
                     type=int,
-                    default=TARGET_NUM_PER_PROBLEM,
+                    default=10,
                     help='Target number of variants to generate per problem.')
 
-parser.add_argument('--templates',
-                    '-t',
+parser.add_argument('--json',
+                    '-j',
                     type=str,
-                    default='*',
-                    help='Glob phrase to select the template files to generate from.')
+                    default="puzzles/puzzles.json",
+                    help='Filename to store puzzles.')
+
+parser.add_argument('--readme',
+                    '-r',
+                    type=str,
+                    default="puzzles/README.md",
+                    help='Filename to store README description of puzzles.')
+
+TOP = """# Python Programming Puzzles: dataset summary
+This document summarizes the dataset stored in the `puzzles.json` file in this directory. 
+These files are generated from the `generators/*.py` files.
+The only import required for puzzles is: 
+```from typing import List```    
+
+## Files:
+
+{}
+
+----
+
+"""
+
+
+def save_readme(gen_modules, filename):
+    table = ""
+    content = ""
+    tot_instances = 0
+    tot_instances = 0
+    for name, module_stuff in gen_modules.items():
+        section = ""
+        sec_name = name.split(".")[-1]
+        section += f"## {sec_name}\n\n"
+        section += f"{module_stuff['docstring']}\n\n"
+        puzzles = module_stuff['examples']
+        n = len(puzzles)
+        link = f"[{sec_name}](#{sec_name.lower().replace(' ', '-')})"
+        section += "[^ Top](#files)\n\n"
+        n_instances = sum(p["n_instances"] for p in puzzles)
+        tot_instances += len(puzzles)
+        tot_instances += n_instances
+        table += f"- [{sec_name} ({len(puzzles):,} problems, {n_instances:,} instances)](#{sec_name.lower().replace(' ', '-')})\n"
+        for i, puzzle in enumerate(puzzles):
+            section += f"### {puzzle['name']}\n({link} {i + 1:,}/{n:,}" + \
+                       f", {puzzle['n_instances']:,} instance{'s' if puzzle['n_instances'] > 1 else ''})\n\n"
+            section += f"{puzzle['desc']}\n\n"
+            section += f"**Puzzle:**\n\n```python\n{puzzle['sat']}\n```\n"
+            if len(puzzle['sols']) > 0:
+                section += "<details><summary><strong>Reveal solution(s):</strong></summary>\n\n"
+                for sol in puzzle['sols']:
+                    section += f"```python\n{sol}\n```\n\n"
+                section += "</details>\n\n"
+
+            # section += f"[^ Back](#{sec_name.lower().replace(' ', '-')})\n\n"
+            # Replaced with link in the header
+
+        section += "[^^ Top](#files)\n"
+        content += section
+
+    table += f"\nTotal ({tot_instances:,} problems, {tot_instances:,} instances)\n"
+
+    content = TOP.format(table) + content
+
+    with open(filename, "w", encoding='utf8') as f:
+        f.write(content)
 
 
 def main(args):
     start_time = time.perf_counter()
-    if problems.Problem.Debug.subclass_descendents(): # if there are debug problems, don't make the dataset
-        problems.Problem.debug_problems()
+    if puzzle_generator.PuzzleGenerator.Debug.subclass_descendents():  # if there are debug problems, don't make the dataset
+        puzzle_generator.PuzzleGenerator.debug_problems()
         print("Didn't make dataset because there are `Problem.Debug` problems, remove the `.Debug` to proceed.")
         return
 
-    all_probs = problems.Problem.subclass_descendents()
+    try:
+        last_version = utils.load_json(args.json)
+        already_tested_cache = {puz["sat"]: {sol for sol in puz["sols"]} for puz in last_version}
+    except:
+        already_tested_cache = {}
 
-    probs_by_template = utils.inv_dict({p: p.__module__.split(".")[-1] for p in all_probs})
+    utils.info(f"Using {len(already_tested_cache):,} last puzzle testings for speeding up (to avoid re-testing)")
 
-    used_templates = fnmatch.filter(probs_by_template, args.templates)
+    gens = puzzle_generator.PuzzleGenerator.subclass_descendents()
+
+    gens_by_module = utils.inv_dict({g: g.__module__.split(".")[-1] for g in gens})
+
     utils.info(f"Python version {sys.version}")
-    utils.info(f"Generating from templates: {used_templates}")
-    problem_sets = []
-    for name in used_templates:  # order determined by import order in templates/__init__.py
-        probs = probs_by_template[name]
-        ps = problems.ProblemSet(name, inspect.getmodule(probs[0]).__doc__)
-        for cls in probs:
-            problem = cls()
-            problem.build(args.target_num_per_problem, ps.get_already_tested())
-            ps.add(problem)
-        ps.save()
-        problem_sets.append(ps)
+    utils.info(f"Generating from templates: {list(gens_by_module)}")
+    puzzles = []
+    summaries = {}
 
-    problems.save_readme(problem_sets)
-    utils.info(f"Elapsed time: {(time.perf_counter()-start_time)/60:.2f} minutes")
+    for module_name, gens in gens_by_module.items():  # order determined by generators/__init__.py
+        examples = []
+        for cls in gens:
+            gen = cls()
+            gen.build(args.target_num_per_problem, already_tested_cache)
+            instances = [
+                {
+                    "name": i.name,
+                    "sat": i.src,
+                    "sols": i.sol_srcs,
+                    "module": module_name
+                }
+                for i in gen.instances]
+            puzzles.extend(instances)
+            examples.append({
+                "name": gen.name,
+                "desc": gen.desc,
+                "sat": gen.instances[0].src,
+                "sols": gen.instances[0].sol_srcs,
+                "n_instances": len(instances)
+            })
+
+        summaries[module_name] = {
+            "docstring": inspect.getmodule(gens[0]).__doc__,
+            "examples": examples
+        }
+
+    utils.save_json(puzzles, args.json, make_dirs_if_necessary=True, indent=2)
+    save_readme(summaries, args.readme)
+    utils.info(f"Elapsed time: {(time.perf_counter() - start_time) / 60:.2f} minutes")
+
 
 if __name__ == "__main__":
     args = parser.parse_args()

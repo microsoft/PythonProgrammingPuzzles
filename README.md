@@ -72,7 +72,7 @@ For more information on the motivation and how programming puzzles can help AI l
 the paper:  
 *Programming Puzzles*, by Tal Schuster, Ashwin Kalyan, Alex Polozov, and Adam Tauman Kalai. 2021 (Link to be added shortly)  
 
-# [Click here to browse the puzzles](/problems/README.md)
+# [Click here to browse the puzzles](/puzzles/README.md)
 
 The problems in this repo are based on:
 * Wikipedia articles about [algorithms](https://en.wikipedia.org/wiki/List_of_algorithms), [puzzles](https://en.wikipedia.org/wiki/Category:Logic_puzzles),
@@ -94,7 +94,7 @@ and see how your programming compares to the AI baselines!
 
 ### Hackathon
 During a Microsoft hackathon July 27-29, 2020, several people completed 30 user 
-[study puzzles](/problems/README.md#study). We also had tons of fun making the puzzles in 
+[study puzzles](/puzzles/README.md#study). We also had tons of fun making the puzzles in 
 [Hackathon_puzzles.ipynb](/notebooks/Hackathon_puzzles.ipynb). These are of a somewhat
 different flavor as they are more often `hacks` like 
 ```python

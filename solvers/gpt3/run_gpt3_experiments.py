@@ -29,7 +29,7 @@ BOOTSTRAP_PARAMS = dict(
     iterations=(PARAMS["n"] + 31) // 32,
 )
 
-STUDY = range(107, 137)  # the range of problems used in the study
+STUDY = range(107, 137)  # the range of puzzles used in the study
 
 PREFIX = """
 def f1(s: str):
