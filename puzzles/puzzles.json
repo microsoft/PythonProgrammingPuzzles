@@ -7458,6 +7458,326 @@
     "module": "human_eval"
   },
   {
+    "name": "IntegerLog_0",
+    "sat": "def sat(x: int, a=3, n=1290070078170102666248196035845070394933441741644993085810116441344597492642263849):\n    \"\"\"Find an integer exponent x such that a^x = n\"\"\"\n    return a ** x == n",
+    "sols": [
+      "def sol(a=3, n=1290070078170102666248196035845070394933441741644993085810116441344597492642263849):\n    m = 1\n    x = 0\n    while m != n:\n        x += 1\n        m *= a\n    return x"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "IntegerLog_1",
+    "sat": "def sat(x: int, a=7, n=18730491019721178760387354371114745047443028824998645259304527116270420929911508038943577371138551443843688603222041665028779874304350829344120037501143):\n    \"\"\"Find an integer exponent x such that a^x = n\"\"\"\n    return a ** x == n",
+    "sols": [
+      "def sol(a=7, n=18730491019721178760387354371114745047443028824998645259304527116270420929911508038943577371138551443843688603222041665028779874304350829344120037501143):\n    m = 1\n    x = 0\n    while m != n:\n        x += 1\n        m *= a\n    return x"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "IntegerLog_2",
+    "sat": "def sat(x: int, a=3, n=328256967394537077627):\n    \"\"\"Find an integer exponent x such that a^x = n\"\"\"\n    return a ** x == n",
+    "sols": [
+      "def sol(a=3, n=328256967394537077627):\n    m = 1\n    x = 0\n    while m != n:\n        x += 1\n        m *= a\n    return x"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "IntegerLog_3",
+    "sat": "def sat(x: int, a=5, n=607716335728627119838287505251965257870141813351676477841905919413056526761267914178119611633370470405953768511242429894991801120340824127197265625):\n    \"\"\"Find an integer exponent x such that a^x = n\"\"\"\n    return a ** x == n",
+    "sols": [
+      "def sol(a=5, n=607716335728627119838287505251965257870141813351676477841905919413056526761267914178119611633370470405953768511242429894991801120340824127197265625):\n    m = 1\n    x = 0\n    while m != n:\n        x += 1\n        m *= a\n    return x"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "IntegerLog_4",
+    "sat": "def sat(x: int, a=9, n=870997420821645996450176192295491311314912958182559453862607693941507229031888076007151833696878199483394473269448838418110244358911414403631420795735003173184694880540250780153620781902321):\n    \"\"\"Find an integer exponent x such that a^x = n\"\"\"\n    return a ** x == n",
+    "sols": [
+      "def sol(a=9, n=870997420821645996450176192295491311314912958182559453862607693941507229031888076007151833696878199483394473269448838418110244358911414403631420795735003173184694880540250780153620781902321):\n    m = 1\n    x = 0\n    while m != n:\n        x += 1\n        m *= a\n    return x"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "IntegerLog_5",
+    "sat": "def sat(x: int, a=8, n=6097165137335922326917182089439777940915230747392521779021790936768304177382354726797472857545882756171536974846497310342671827498609932238848):\n    \"\"\"Find an integer exponent x such that a^x = n\"\"\"\n    return a ** x == n",
+    "sols": [
+      "def sol(a=8, n=6097165137335922326917182089439777940915230747392521779021790936768304177382354726797472857545882756171536974846497310342671827498609932238848):\n    m = 1\n    x = 0\n    while m != n:\n        x += 1\n        m *= a\n    return x"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "IntegerLog_6",
+    "sat": "def sat(x: int, a=2, n=170141183460469231731687303715884105728):\n    \"\"\"Find an integer exponent x such that a^x = n\"\"\"\n    return a ** x == n",
+    "sols": [
+      "def sol(a=2, n=170141183460469231731687303715884105728):\n    m = 1\n    x = 0\n    while m != n:\n        x += 1\n        m *= a\n    return x"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "IntegerLog_7",
+    "sat": "def sat(x: int, a=1, n=1):\n    \"\"\"Find an integer exponent x such that a^x = n\"\"\"\n    return a ** x == n",
+    "sols": [
+      "def sol(a=1, n=1):\n    m = 1\n    x = 0\n    while m != n:\n        x += 1\n        m *= a\n    return x"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "IntegerLog_8",
+    "sat": "def sat(x: int, a=6, n=4106235085356176790881933410001953374457349698379717405707288768610021327226311378205681072732760890756998910318294859776):\n    \"\"\"Find an integer exponent x such that a^x = n\"\"\"\n    return a ** x == n",
+    "sols": [
+      "def sol(a=6, n=4106235085356176790881933410001953374457349698379717405707288768610021327226311378205681072732760890756998910318294859776):\n    m = 1\n    x = 0\n    while m != n:\n        x += 1\n        m *= a\n    return x"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "IntegerLog_9",
+    "sat": "def sat(x: int, a=3, n=4498196224760364601242719132174628305800834098010033971355568455673974002968757862019419449):\n    \"\"\"Find an integer exponent x such that a^x = n\"\"\"\n    return a ** x == n",
+    "sols": [
+      "def sol(a=3, n=4498196224760364601242719132174628305800834098010033971355568455673974002968757862019419449):\n    m = 1\n    x = 0\n    while m != n:\n        x += 1\n        m *= a\n    return x"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "CubeRoot_0",
+    "sat": "def sat(x: int, n=42714774173606970182754018064350848294149432972747296768):\n    \"\"\"Find an integer that when cubed is n\"\"\"\n    return x ** 3 == n",
+    "sols": [
+      "def sol(n=42714774173606970182754018064350848294149432972747296768):  # Using Newton's method\n    m = abs(n)\n    x = round(abs(n) ** (1 / 3))\n    while x ** 3 != m:\n        x += (m - x ** 3) // (3 * x ** 2)\n    return -x if n < 0 else x"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "CubeRoot_1",
+    "sat": "def sat(x: int, n=379141393578595822993177075668587):\n    \"\"\"Find an integer that when cubed is n\"\"\"\n    return x ** 3 == n",
+    "sols": [
+      "def sol(n=379141393578595822993177075668587):  # Using Newton's method\n    m = abs(n)\n    x = round(abs(n) ** (1 / 3))\n    while x ** 3 != m:\n        x += (m - x ** 3) // (3 * x ** 2)\n    return -x if n < 0 else x"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "CubeRoot_2",
+    "sat": "def sat(x: int, n=469923180811651641371950949742423854358832315483546758247071151324388511669052171875):\n    \"\"\"Find an integer that when cubed is n\"\"\"\n    return x ** 3 == n",
+    "sols": [
+      "def sol(n=469923180811651641371950949742423854358832315483546758247071151324388511669052171875):  # Using Newton's method\n    m = abs(n)\n    x = round(abs(n) ** (1 / 3))\n    while x ** 3 != m:\n        x += (m - x ** 3) // (3 * x ** 2)\n    return -x if n < 0 else x"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "CubeRoot_3",
+    "sat": "def sat(x: int, n=-468671954961893202282210390547524527216911414192337576353068666028073923):\n    \"\"\"Find an integer that when cubed is n\"\"\"\n    return x ** 3 == n",
+    "sols": [
+      "def sol(n=-468671954961893202282210390547524527216911414192337576353068666028073923):  # Using Newton's method\n    m = abs(n)\n    x = round(abs(n) ** (1 / 3))\n    while x ** 3 != m:\n        x += (m - x ** 3) // (3 * x ** 2)\n    return -x if n < 0 else x"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "CubeRoot_4",
+    "sat": "def sat(x: int, n=72178112972871772137395404274243339018452172147194936300802048):\n    \"\"\"Find an integer that when cubed is n\"\"\"\n    return x ** 3 == n",
+    "sols": [
+      "def sol(n=72178112972871772137395404274243339018452172147194936300802048):  # Using Newton's method\n    m = abs(n)\n    x = round(abs(n) ** (1 / 3))\n    while x ** 3 != m:\n        x += (m - x ** 3) // (3 * x ** 2)\n    return -x if n < 0 else x"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "CubeRoot_5",
+    "sat": "def sat(x: int, n=61373212200998571489688504529258057571433362401591353):\n    \"\"\"Find an integer that when cubed is n\"\"\"\n    return x ** 3 == n",
+    "sols": [
+      "def sol(n=61373212200998571489688504529258057571433362401591353):  # Using Newton's method\n    m = abs(n)\n    x = round(abs(n) ** (1 / 3))\n    while x ** 3 != m:\n        x += (m - x ** 3) // (3 * x ** 2)\n    return -x if n < 0 else x"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "CubeRoot_6",
+    "sat": "def sat(x: int, n=-924381149773257170560799605834533819310034647056238180568604547340658972875):\n    \"\"\"Find an integer that when cubed is n\"\"\"\n    return x ** 3 == n",
+    "sols": [
+      "def sol(n=-924381149773257170560799605834533819310034647056238180568604547340658972875):  # Using Newton's method\n    m = abs(n)\n    x = round(abs(n) ** (1 / 3))\n    while x ** 3 != m:\n        x += (m - x ** 3) // (3 * x ** 2)\n    return -x if n < 0 else x"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "CubeRoot_7",
+    "sat": "def sat(x: int, n=23084436588100021881251178286568467677005064701197472518041760959781033000):\n    \"\"\"Find an integer that when cubed is n\"\"\"\n    return x ** 3 == n",
+    "sols": [
+      "def sol(n=23084436588100021881251178286568467677005064701197472518041760959781033000):  # Using Newton's method\n    m = abs(n)\n    x = round(abs(n) ** (1 / 3))\n    while x ** 3 != m:\n        x += (m - x ** 3) // (3 * x ** 2)\n    return -x if n < 0 else x"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "CubeRoot_8",
+    "sat": "def sat(x: int, n=-52015917309451645238872868269279014010783347412510679586228669000):\n    \"\"\"Find an integer that when cubed is n\"\"\"\n    return x ** 3 == n",
+    "sols": [
+      "def sol(n=-52015917309451645238872868269279014010783347412510679586228669000):  # Using Newton's method\n    m = abs(n)\n    x = round(abs(n) ** (1 / 3))\n    while x ** 3 != m:\n        x += (m - x ** 3) // (3 * x ** 2)\n    return -x if n < 0 else x"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "CubeRoot_9",
+    "sat": "def sat(x: int, n=-242970624):\n    \"\"\"Find an integer that when cubed is n\"\"\"\n    return x ** 3 == n",
+    "sols": [
+      "def sol(n=-242970624):  # Using Newton's method\n    m = abs(n)\n    x = round(abs(n) ** (1 / 3))\n    while x ** 3 != m:\n        x += (m - x ** 3) // (3 * x ** 2)\n    return -x if n < 0 else x"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "HexPrimes_0",
+    "sat": "def sat(primes: List[bool], n=\"A4D4455214122CE192CCBE3\"):\n    \"\"\"Determine which characters of a hexidecimal correspond to prime numbers\"\"\"\n    return all(primes[i] == (c in \"2357BD\") for i, c in enumerate(n))",
+    "sols": [
+      "def sol(n=\"A4D4455214122CE192CCBE3\"):\n    return [c in \"2357BD\" for c in n]"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "HexPrimes_1",
+    "sat": "def sat(primes: List[bool], n=\"13096c8a9d\"):\n    \"\"\"Determine which characters of a hexidecimal correspond to prime numbers\"\"\"\n    return all(primes[i] == (c in \"2357BD\") for i, c in enumerate(n))",
+    "sols": [
+      "def sol(n=\"13096c8a9d\"):\n    return [c in \"2357BD\" for c in n]"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "HexPrimes_2",
+    "sat": "def sat(primes: List[bool], n=\"1352a7cb8\"):\n    \"\"\"Determine which characters of a hexidecimal correspond to prime numbers\"\"\"\n    return all(primes[i] == (c in \"2357BD\") for i, c in enumerate(n))",
+    "sols": [
+      "def sol(n=\"1352a7cb8\"):\n    return [c in \"2357BD\" for c in n]"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "HexPrimes_3",
+    "sat": "def sat(primes: List[bool], n=\"4bd6aecc26f854b7a887\"):\n    \"\"\"Determine which characters of a hexidecimal correspond to prime numbers\"\"\"\n    return all(primes[i] == (c in \"2357BD\") for i, c in enumerate(n))",
+    "sols": [
+      "def sol(n=\"4bd6aecc26f854b7a887\"):\n    return [c in \"2357BD\" for c in n]"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "HexPrimes_4",
+    "sat": "def sat(primes: List[bool], n=\"66f0\"):\n    \"\"\"Determine which characters of a hexidecimal correspond to prime numbers\"\"\"\n    return all(primes[i] == (c in \"2357BD\") for i, c in enumerate(n))",
+    "sols": [
+      "def sol(n=\"66f0\"):\n    return [c in \"2357BD\" for c in n]"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "HexPrimes_5",
+    "sat": "def sat(primes: List[bool], n=\"90c643519b47c1af506\"):\n    \"\"\"Determine which characters of a hexidecimal correspond to prime numbers\"\"\"\n    return all(primes[i] == (c in \"2357BD\") for i, c in enumerate(n))",
+    "sols": [
+      "def sol(n=\"90c643519b47c1af506\"):\n    return [c in \"2357BD\" for c in n]"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "HexPrimes_6",
+    "sat": "def sat(primes: List[bool], n=\"1025a\"):\n    \"\"\"Determine which characters of a hexidecimal correspond to prime numbers\"\"\"\n    return all(primes[i] == (c in \"2357BD\") for i, c in enumerate(n))",
+    "sols": [
+      "def sol(n=\"1025a\"):\n    return [c in \"2357BD\" for c in n]"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "HexPrimes_7",
+    "sat": "def sat(primes: List[bool], n=\"53a535e651ff\"):\n    \"\"\"Determine which characters of a hexidecimal correspond to prime numbers\"\"\"\n    return all(primes[i] == (c in \"2357BD\") for i, c in enumerate(n))",
+    "sols": [
+      "def sol(n=\"53a535e651ff\"):\n    return [c in \"2357BD\" for c in n]"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "HexPrimes_8",
+    "sat": "def sat(primes: List[bool], n=\"65144f040\"):\n    \"\"\"Determine which characters of a hexidecimal correspond to prime numbers\"\"\"\n    return all(primes[i] == (c in \"2357BD\") for i, c in enumerate(n))",
+    "sols": [
+      "def sol(n=\"65144f040\"):\n    return [c in \"2357BD\" for c in n]"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "HexPrimes_9",
+    "sat": "def sat(primes: List[bool], n=\"105b561b049532630b2dda\"):\n    \"\"\"Determine which characters of a hexidecimal correspond to prime numbers\"\"\"\n    return all(primes[i] == (c in \"2357BD\") for i, c in enumerate(n))",
+    "sols": [
+      "def sol(n=\"105b561b049532630b2dda\"):\n    return [c in \"2357BD\" for c in n]"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "Binarize_0",
+    "sat": "def sat(b: str, n=5324680297138495285):\n    \"\"\"Write n base 2 followed and preceded by 'bits'\"\"\"\n    assert b[:4] == b[-4:] == 'bits'\n    inside = b[4:-4]\n    assert all(c in \"01\" for c in inside)\n    assert inside[0] == \"1\" or len(inside) == 1\n    m = 0\n    for c in inside:\n        m = 2*m + int(c)\n    return m == n",
+    "sols": [
+      "def sol(n=5324680297138495285):\n    s = bin(n)[2:]\n    return f'bits{s}bits'"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "Binarize_1",
+    "sat": "def sat(b: str, n=298045832217558973706069431):\n    \"\"\"Write n base 2 followed and preceded by 'bits'\"\"\"\n    assert b[:4] == b[-4:] == 'bits'\n    inside = b[4:-4]\n    assert all(c in \"01\" for c in inside)\n    assert inside[0] == \"1\" or len(inside) == 1\n    m = 0\n    for c in inside:\n        m = 2*m + int(c)\n    return m == n",
+    "sols": [
+      "def sol(n=298045832217558973706069431):\n    s = bin(n)[2:]\n    return f'bits{s}bits'"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "Binarize_2",
+    "sat": "def sat(b: str, n=23999008407):\n    \"\"\"Write n base 2 followed and preceded by 'bits'\"\"\"\n    assert b[:4] == b[-4:] == 'bits'\n    inside = b[4:-4]\n    assert all(c in \"01\" for c in inside)\n    assert inside[0] == \"1\" or len(inside) == 1\n    m = 0\n    for c in inside:\n        m = 2*m + int(c)\n    return m == n",
+    "sols": [
+      "def sol(n=23999008407):\n    s = bin(n)[2:]\n    return f'bits{s}bits'"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "Binarize_3",
+    "sat": "def sat(b: str, n=485926220547):\n    \"\"\"Write n base 2 followed and preceded by 'bits'\"\"\"\n    assert b[:4] == b[-4:] == 'bits'\n    inside = b[4:-4]\n    assert all(c in \"01\" for c in inside)\n    assert inside[0] == \"1\" or len(inside) == 1\n    m = 0\n    for c in inside:\n        m = 2*m + int(c)\n    return m == n",
+    "sols": [
+      "def sol(n=485926220547):\n    s = bin(n)[2:]\n    return f'bits{s}bits'"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "Binarize_4",
+    "sat": "def sat(b: str, n=6489141964736758614927):\n    \"\"\"Write n base 2 followed and preceded by 'bits'\"\"\"\n    assert b[:4] == b[-4:] == 'bits'\n    inside = b[4:-4]\n    assert all(c in \"01\" for c in inside)\n    assert inside[0] == \"1\" or len(inside) == 1\n    m = 0\n    for c in inside:\n        m = 2*m + int(c)\n    return m == n",
+    "sols": [
+      "def sol(n=6489141964736758614927):\n    s = bin(n)[2:]\n    return f'bits{s}bits'"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "Binarize_5",
+    "sat": "def sat(b: str, n=99560359):\n    \"\"\"Write n base 2 followed and preceded by 'bits'\"\"\"\n    assert b[:4] == b[-4:] == 'bits'\n    inside = b[4:-4]\n    assert all(c in \"01\" for c in inside)\n    assert inside[0] == \"1\" or len(inside) == 1\n    m = 0\n    for c in inside:\n        m = 2*m + int(c)\n    return m == n",
+    "sols": [
+      "def sol(n=99560359):\n    s = bin(n)[2:]\n    return f'bits{s}bits'"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "Binarize_6",
+    "sat": "def sat(b: str, n=193365576692):\n    \"\"\"Write n base 2 followed and preceded by 'bits'\"\"\"\n    assert b[:4] == b[-4:] == 'bits'\n    inside = b[4:-4]\n    assert all(c in \"01\" for c in inside)\n    assert inside[0] == \"1\" or len(inside) == 1\n    m = 0\n    for c in inside:\n        m = 2*m + int(c)\n    return m == n",
+    "sols": [
+      "def sol(n=193365576692):\n    s = bin(n)[2:]\n    return f'bits{s}bits'"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "Binarize_7",
+    "sat": "def sat(b: str, n=5):\n    \"\"\"Write n base 2 followed and preceded by 'bits'\"\"\"\n    assert b[:4] == b[-4:] == 'bits'\n    inside = b[4:-4]\n    assert all(c in \"01\" for c in inside)\n    assert inside[0] == \"1\" or len(inside) == 1\n    m = 0\n    for c in inside:\n        m = 2*m + int(c)\n    return m == n",
+    "sols": [
+      "def sol(n=5):\n    s = bin(n)[2:]\n    return f'bits{s}bits'"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "Binarize_8",
+    "sat": "def sat(b: str, n=47366914920):\n    \"\"\"Write n base 2 followed and preceded by 'bits'\"\"\"\n    assert b[:4] == b[-4:] == 'bits'\n    inside = b[4:-4]\n    assert all(c in \"01\" for c in inside)\n    assert inside[0] == \"1\" or len(inside) == 1\n    m = 0\n    for c in inside:\n        m = 2*m + int(c)\n    return m == n",
+    "sols": [
+      "def sol(n=47366914920):\n    s = bin(n)[2:]\n    return f'bits{s}bits'"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "Binarize_9",
+    "sat": "def sat(b: str, n=87795075165321):\n    \"\"\"Write n base 2 followed and preceded by 'bits'\"\"\"\n    assert b[:4] == b[-4:] == 'bits'\n    inside = b[4:-4]\n    assert all(c in \"01\" for c in inside)\n    assert inside[0] == \"1\" or len(inside) == 1\n    m = 0\n    for c in inside:\n        m = 2*m + int(c)\n    return m == n",
+    "sols": [
+      "def sol(n=87795075165321):\n    s = bin(n)[2:]\n    return f'bits{s}bits'"
+    ],
+    "module": "human_eval"
+  },
+  {
     "name": "IsEven_0",
     "sat": "def sat(b: bool, n=10):\n    \"\"\"Determine if n can be evenly divided into two equal numbers. (Easy)\"\"\"\n    i = 0\n    while i <= n:\n        if i + i == n:\n            return b == True\n        i += 1\n    return b == False",
     "sols": [
