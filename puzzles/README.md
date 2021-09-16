@@ -26,7 +26,7 @@ through `check_solution_type` from `puzzle_generator.py` before certifying corre
 - [trivial_inverse (39 problems, 372 instances)](#trivial_inverse)
 - [tutorial (5 problems, 5 instances)](#tutorial)
 
-Total (19 problems, 2,853 instances)
+Total (309 problems, 2,853 instances)
 
 
 ----

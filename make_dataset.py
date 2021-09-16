@@ -59,9 +59,9 @@ def save_readme(gen_modules, filename):
         n_instances = sum(p["n_instances"] for p in puzzles)
         tot_instances += len(puzzles)
         tot_instances += n_instances
-        tot_puzzles += 1
         table += f"- [{sec_name} ({len(puzzles):,} problems, {n_instances:,} instances)](#{sec_name.lower().replace(' ', '-')})\n"
         for i, puzzle in enumerate(puzzles):
+            tot_puzzles += 1
             section += f"### {puzzle['name']}\n"
             section += f"{puzzle['desc']}\n\n"
             section += f"```python\n{puzzle['sat']}\n```\n"

@@ -2508,5 +2508,99 @@ class ThreePrimes(PuzzleGenerator):
         return [[p, q, r] for p in primes for q in primes if p <= q for r in primes if q <= r and p * q * r < 1000]
 
 
+class IntegerLog(PuzzleGenerator):
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#76"""
+
+    @staticmethod
+    def sat(x: int, a=3, n=1290070078170102666248196035845070394933441741644993085810116441344597492642263849):
+        """Find an integer exponent x such that a^x = n"""
+        return a ** x == n
+
+    @staticmethod
+    def sol(a, n):
+        m = 1
+        x = 0
+        while m != n:
+            x += 1
+            m *= a
+        return x
+
+    def gen_random(self):
+        a = self.random.randrange(1, 10)
+        n = a ** self.random.randrange(255)
+        self.add(dict(a=a, n=n))
+
+
+class CubeRoot(PuzzleGenerator):
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#77
+
+    We made it harder by giving very large n for which `round(n ** (1/3))`
+    """
+
+    @staticmethod
+    def sat(x: int, n=42714774173606970182754018064350848294149432972747296768):
+        """Find an integer that when cubed is n"""
+        return x ** 3 == n
+
+    @staticmethod
+    def sol(n):  # Using Newton's method
+        m = abs(n)
+        x = round(abs(n) ** (1 / 3))
+        while x ** 3 != m:
+            x += (m - x ** 3) // (3 * x ** 2)
+        return -x if n < 0 else x
+
+    def gen_random(self):
+        digits = self.random.randrange(30)
+        n = self.random.randrange(-10 ** digits, 10 ** digits) ** 3
+        self.add(dict(n=n))
+
+
+
+class HexPrimes(PuzzleGenerator):
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#78"""
+
+    @staticmethod
+    def sat(primes: List[bool], n="A4D4455214122CE192CCBE3"):
+        """Determine which characters of a hexidecimal correspond to prime numbers"""
+        return all(primes[i] == (c in "2357BD") for i, c in enumerate(n))
+
+    @staticmethod
+    def sol(n):
+        return [c in "2357BD" for c in n]
+
+    def gen_random(self):
+        digits = self.random.randrange(30)
+        n = hex(self.random.randrange(10 ** digits))[2:]
+        self.add(dict(n=n))
+
+
+class Binarize(PuzzleGenerator):
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#79"""
+
+    @staticmethod
+    def sat(b: str, n=5324680297138495285):
+        """Write n base 2 followed and preceded by 'bits'"""
+        assert b[:4] == b[-4:] == 'bits'
+        inside = b[4:-4]
+        assert all(c in "01" for c in inside)
+        assert inside[0] == "1" or len(inside) == 1
+        m = 0
+        for c in inside:
+            m = 2*m + int(c)
+        return m == n
+
+    @staticmethod
+    def sol(n):
+        s = bin(n)[2:]
+        return f'bits{s}bits'
+
+    def gen_random(self):
+        digits = self.random.randrange(30)
+        n = self.random.randrange(10 ** digits)
+        self.add(dict(n=n))
+
+
+
 if __name__ == "__main__":
     PuzzleGenerator.debug_problems()
