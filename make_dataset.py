@@ -68,14 +68,14 @@ def save_readme(gen_modules, filename):
             if len(puzzle['sols']) > 0:
                 section += "<details><summary>"
             section += f"{len(puzzle['sols'])} solution{'s' if len(puzzle['sols'])!=1 else ''} "
-            section += f"to puzzle {link} {i + 1:,}/{n:,}"
-            section += f", {puzzle['n_instances']:,} instance{'s' if puzzle['n_instances'] > 1 else ''}"
+            section += f"to {sec_name} {i + 1:,}/{n:,}"
             if len(puzzle['sols']) > 0:
                 section += "</summary>\n\n"
-            for sol in puzzle['sols']:
-                section += f"```python\n{sol}\n```\n\n"
-                if len(puzzle['sols']) > 0:
+                for sol in puzzle['sols']:
+                    section += f"```python\n{sol}\n```\n\n"
                     section += "</details>\n\n"
+            else:
+                section += "\n\n"
 
         content += section
 

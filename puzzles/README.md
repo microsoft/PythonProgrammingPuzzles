@@ -45,7 +45,7 @@ def sat(s: str):
     """Find a string with 1000 'o's but no two adjacent 'o's."""
     return s.count('o') == 1000 and s.count('oo') == 0
 ```
-<details><summary>1 solution to puzzle [study](#study) 1/30, 1 instance</summary>
+<details><summary>1 solution to study 1/30</summary>
 
 ```python
 def sol():
@@ -62,7 +62,7 @@ def sat(s: str):
     """Find a string with 1000 'o's, 100 pairs of adjacent 'o's and 801 copies of 'ho'."""
     return s.count('o') == 1000 and s.count('oo') == 100 and s.count('ho') == 801
 ```
-<details><summary>1 solution to puzzle [study](#study) 2/30, 1 instance</summary>
+<details><summary>1 solution to study 2/30</summary>
 
 ```python
 def sol():
@@ -79,7 +79,7 @@ def sat(li: List[int]):
     """Find a permutation of [0, 1, ..., 998] such that the ith element is *not* i, for all i=0, 1, ..., 998."""
     return sorted(li) == list(range(999)) and all(li[i] != i for i in range(len(li)))
 ```
-<details><summary>1 solution to puzzle [study](#study) 3/30, 1 instance</summary>
+<details><summary>1 solution to study 3/30</summary>
 
 ```python
 def sol():
@@ -96,7 +96,7 @@ def sat(li: List[int]):
     """Find a list of length 10 where the fourth element occurs exactly twice."""
     return len(li) == 10 and li.count(li[3]) == 2
 ```
-<details><summary>1 solution to puzzle [study](#study) 4/30, 1 instance</summary>
+<details><summary>1 solution to study 4/30</summary>
 
 ```python
 def sol():
@@ -113,7 +113,7 @@ def sat(li: List[int]):
     """Find a list integers such that the integer i occurs i times, for i = 0, 1, 2, ..., 9."""
     return all([li.count(i) == i for i in range(10)])
 ```
-<details><summary>1 solution to puzzle [study](#study) 5/30, 1 instance</summary>
+<details><summary>1 solution to study 5/30</summary>
 
 ```python
 def sol():
@@ -130,7 +130,7 @@ def sat(i: int):
     """Find an integer greater than 10^10 which is 4 mod 123."""
     return i % 123 == 4 and i > 10 ** 10
 ```
-<details><summary>1 solution to puzzle [study](#study) 6/30, 1 instance</summary>
+<details><summary>1 solution to study 6/30</summary>
 
 ```python
 def sol():
@@ -147,7 +147,7 @@ def sat(s: str):
     """Find a three-digit pattern  that occurs more than 8 times in the decimal representation of 8^2888."""
     return str(8 ** 2888).count(s) > 8 and len(s) == 3
 ```
-<details><summary>1 solution to puzzle [study](#study) 7/30, 1 instance</summary>
+<details><summary>1 solution to study 7/30</summary>
 
 ```python
 def sol():
@@ -165,7 +165,7 @@ def sat(ls: List[str]):
     """Find a list of more than 1235 strings such that the 1234th string is a proper substring of the 1235th."""
     return ls[1234] in ls[1235] and ls[1234] != ls[1235]
 ```
-<details><summary>1 solution to puzzle [study](#study) 8/30, 1 instance</summary>
+<details><summary>1 solution to study 8/30</summary>
 
 ```python
 def sol():
@@ -187,7 +187,7 @@ def sat(li: List[int]):
     return ["The quick brown fox jumps over the lazy dog"[i] for i in li] == list(
         "The five boxing wizards jump quickly")
 ```
-<details><summary>1 solution to puzzle [study](#study) 9/30, 1 instance</summary>
+<details><summary>1 solution to study 9/30</summary>
 
 ```python
 def sol():
@@ -205,7 +205,7 @@ def sat(s: str):
     """Find a palindrome of length greater than 11 in the decimal representation of 8^1818."""
     return s in str(8 ** 1818) and s == s[::-1] and len(s) > 11
 ```
-<details><summary>1 solution to puzzle [study](#study) 10/30, 1 instance</summary>
+<details><summary>1 solution to study 10/30</summary>
 
 ```python
 def sol():
@@ -230,7 +230,7 @@ def sat(ls: List[str]):
     """
     return min(ls) == max(ls) == str(len(ls))
 ```
-<details><summary>1 solution to puzzle [study](#study) 11/30, 1 instance</summary>
+<details><summary>1 solution to study 11/30</summary>
 
 ```python
 def sol():
@@ -248,7 +248,7 @@ def sat(li: List[int]):
     integer plus 4 is 9."""
     return all(i + j == 9 for i, j in zip([4] + li, li)) and len(li) == 1000
 ```
-<details><summary>1 solution to puzzle [study](#study) 12/30, 1 instance</summary>
+<details><summary>1 solution to study 12/30</summary>
 
 ```python
 def sol():
@@ -265,7 +265,7 @@ def sat(x: float):
     """Find a real number which, when you subtract 3.1415, has a decimal representation starting with 123.456."""
     return str(x - 3.1415).startswith("123.456")
 ```
-<details><summary>1 solution to puzzle [study](#study) 13/30, 1 instance</summary>
+<details><summary>1 solution to study 13/30</summary>
 
 ```python
 def sol():
@@ -282,7 +282,7 @@ def sat(li: List[int]):
     """Find a list of integers such that the sum of the first i integers is i, for i=0, 1, 2, ..., 19."""
     return all([sum(li[:i]) == i for i in range(20)])
 ```
-<details><summary>1 solution to puzzle [study](#study) 14/30, 1 instance</summary>
+<details><summary>1 solution to study 14/30</summary>
 
 ```python
 def sol():
@@ -299,7 +299,7 @@ def sat(li: List[int]):
     """Find a list of integers such that the sum of the first i integers is 2^i -1, for i = 0, 1, 2, ..., 19."""
     return all(sum(li[:i]) == 2 ** i - 1 for i in range(20))
 ```
-<details><summary>1 solution to puzzle [study](#study) 15/30, 1 instance</summary>
+<details><summary>1 solution to study 15/30</summary>
 
 ```python
 def sol():
@@ -317,7 +317,7 @@ def sat(s: str):
     Your answer should be the string form of the number in its decimal representation."""
     return float(s) + len(s) == 4.5
 ```
-<details><summary>1 solution to puzzle [study](#study) 16/30, 1 instance</summary>
+<details><summary>1 solution to study 16/30</summary>
 
 ```python
 def sol():
@@ -334,7 +334,7 @@ def sat(i: int):
     """Find a number whose decimal representation is *a longer string* when you add 1,000 to it than when you add 1,001."""
     return len(str(i + 1000)) > len(str(i + 1001))
 ```
-<details><summary>1 solution to puzzle [study](#study) 17/30, 1 instance</summary>
+<details><summary>1 solution to study 17/30</summary>
 
 ```python
 def sol():
@@ -354,7 +354,7 @@ def sat(ls: List[str]):
     """
     return [s + t for s in ls for t in ls if s != t] == 'berlin berger linber linger gerber gerlin'.split()
 ```
-<details><summary>1 solution to puzzle [study](#study) 18/30, 1 instance</summary>
+<details><summary>1 solution to study 18/30</summary>
 
 ```python
 def sol():
@@ -381,7 +381,7 @@ def sat(li: List[int]):
     """
     return {i + j for i in li for j in li} == {0, 1, 2, 3, 4, 5, 6, 17, 18, 19, 20, 34}
 ```
-<details><summary>1 solution to puzzle [study](#study) 19/30, 1 instance</summary>
+<details><summary>1 solution to study 19/30</summary>
 
 ```python
 def sol():
@@ -401,7 +401,7 @@ def sat(li: List[int]):
     """
     return all(j in {i - 1, i + 1, 3 * i} for i, j in zip([0] + li, li + [128]))
 ```
-<details><summary>1 solution to puzzle [study](#study) 20/30, 1 instance</summary>
+<details><summary>1 solution to study 20/30</summary>
 
 ```python
 def sol():
@@ -421,7 +421,7 @@ def sat(li: List[int]):
     """
     return all([li[i] != li[i + 1] for i in range(10)]) and len(set(li)) == 3
 ```
-<details><summary>1 solution to puzzle [study](#study) 21/30, 1 instance</summary>
+<details><summary>1 solution to study 21/30</summary>
 
 ```python
 def sol():
@@ -441,7 +441,7 @@ def sat(s: str):
     """
     return s[::2] in s and len(set(s)) == 5
 ```
-<details><summary>1 solution to puzzle [study](#study) 22/30, 1 instance</summary>
+<details><summary>1 solution to study 22/30</summary>
 
 ```python
 def sol():
@@ -460,7 +460,7 @@ def sat(ls: List[str]):
     """
     return tuple(ls) in zip('dee', 'doo', 'dah!')
 ```
-<details><summary>1 solution to puzzle [study](#study) 23/30, 1 instance</summary>
+<details><summary>1 solution to study 23/30</summary>
 
 ```python
 def sol():
@@ -477,7 +477,7 @@ def sat(li: List[int]):
     """Find a list of integers with exactly three occurrences of seventeen and at least two occurrences of three."""
     return li.count(17) == 3 and li.count(3) >= 2
 ```
-<details><summary>1 solution to puzzle [study](#study) 24/30, 1 instance</summary>
+<details><summary>1 solution to study 24/30</summary>
 
 ```python
 def sol():
@@ -494,7 +494,7 @@ def sat(s: str):
     """Find a permutation of the string 'Permute me true' which is a palindrome."""
     return sorted(s) == sorted('Permute me true') and s == s[::-1]
 ```
-<details><summary>1 solution to puzzle [study](#study) 25/30, 1 instance</summary>
+<details><summary>1 solution to study 25/30</summary>
 
 ```python
 def sol():
@@ -512,7 +512,7 @@ def sat(ls: List[str]):
     """Divide the decimal representation of 8^88 up into strings of length eight."""
     return "".join(ls) == str(8 ** 88) and all(len(s) == 8 for s in ls)
 ```
-<details><summary>1 solution to puzzle [study](#study) 26/30, 1 instance</summary>
+<details><summary>1 solution to study 26/30</summary>
 
 ```python
 def sol():
@@ -533,7 +533,7 @@ def sat(li: List[int]):
     """
     return li[li[0]] != li[li[1]] and li[li[li[0]]] == li[li[li[1]]]
 ```
-<details><summary>1 solution to puzzle [study](#study) 27/30, 1 instance</summary>
+<details><summary>1 solution to study 27/30</summary>
 
 ```python
 def sol():
@@ -550,7 +550,7 @@ def sat(li: List[int]):
     """Find a list of one hundred integers between 0 and 999 which all differ by at least ten from one another."""
     return all(i in range(1000) and abs(i - j) >= 10 for i in li for j in li if i != j) and len(set(li)) == 100
 ```
-<details><summary>1 solution to puzzle [study](#study) 28/30, 1 instance</summary>
+<details><summary>1 solution to study 28/30</summary>
 
 ```python
 def sol():
@@ -570,7 +570,7 @@ def sat(l: List[int]):
     """
     return all(i in range(1000) and abs(i * i - j * j) >= 10 for i in l for j in l if i != j) and len(set(l)) > 995
 ```
-<details><summary>1 solution to puzzle [study](#study) 29/30, 1 instance</summary>
+<details><summary>1 solution to study 29/30</summary>
 
 ```python
 def sol():
@@ -590,7 +590,7 @@ def sat(li: List[int]):
     """
     return all([123 * li[i] % 1000 < 123 * li[i + 1] % 1000 and li[i] in range(1000) for i in range(20)])
 ```
-<details><summary>2 solutions to puzzle [study](#study) 30/30, 1 instance</summary>
+<details><summary>2 solutions to study 30/30</summary>
 
 ```python
 def sol():
@@ -630,7 +630,7 @@ def sat(moves: List[List[int]]):  # moves is list of [from, to] pairs
         assert rods[j][-1] == min(rods[j]), "larger disk on top of smaller disk"
     return rods[0] == rods[1] == []
 ```
-<details><summary>1 solution to puzzle [classic_puzzles](#classic_puzzles) 1/22, 1 instance</summary>
+<details><summary>1 solution to classic_puzzles 1/22</summary>
 
 ```python
 def sol():
@@ -665,7 +665,7 @@ def sat(moves: List[List[int]], source=[[0, 7], [4, 5, 6], [1, 2, 3, 8]], target
 
     return state == target
 ```
-<details><summary>1 solution to puzzle [classic_puzzles](#classic_puzzles) 2/22, 10 instances</summary>
+<details><summary>1 solution to classic_puzzles 2/22</summary>
 
 ```python
 def sol(source=[[0, 7], [4, 5, 6], [1, 2, 3, 8]], target=[[0, 1, 2, 3, 8], [4, 5], [6, 7]]):
@@ -709,7 +709,7 @@ def sat(x: List[int], length=13, s="Dynamic programming solves this puzzle!!!"):
     """
     return all(s[x[i]] <= s[x[i + 1]] and x[i + 1] > x[i] >= 0 for i in range(length - 1))
 ```
-<details><summary>1 solution to puzzle [classic_puzzles](#classic_puzzles) 3/22, 10 instances</summary>
+<details><summary>1 solution to classic_puzzles 3/22</summary>
 
 ```python
 def sol(length=13, s="Dynamic programming solves this puzzle!!!"):  # O(N^2) method. Todo: add binary search solution which is O(n log n)
@@ -740,7 +740,7 @@ def sat(x: List[int], length=20, s="Dynamic programming solves this classic job-
     """Find the indices of the longest substring with characters in sorted order"""
     return all(s[x[i]] <= s[x[i + 1]] and x[i + 1] > x[i] for i in range(length - 1))
 ```
-<details><summary>1 solution to puzzle [classic_puzzles](#classic_puzzles) 4/22, 10 instances</summary>
+<details><summary>1 solution to classic_puzzles 4/22</summary>
 
 ```python
 def sol(length=20, s="Dynamic programming solves this classic job-interview puzzle!!!"):  # O(N^2) method. Todo: add binary search solution which is O(n log n)
@@ -771,7 +771,7 @@ def sat(quine: str):
     """Find a string that when evaluated as a Python expression is that string itself."""
     return eval(quine) == quine
 ```
-<details><summary>2 solutions to puzzle [classic_puzzles](#classic_puzzles) 5/22, 1 instance</summary>
+<details><summary>2 solutions to classic_puzzles 5/22</summary>
 
 ```python
 def sol():
@@ -795,7 +795,7 @@ def sat(rev_quine: str):
     """Find a string that, when reversed and evaluated gives you back that same string."""
     return eval(rev_quine[::-1]) == rev_quine
 ```
-<details><summary>1 solution to puzzle [classic_puzzles](#classic_puzzles) 6/22, 1 instance</summary>
+<details><summary>1 solution to classic_puzzles 6/22</summary>
 
 ```python
 def sol():
@@ -818,7 +818,7 @@ def sat(colors: List[int], n=100):
     squares = {i ** 2: colors[i] for i in range(1, len(colors))}
     return not any(c == d == squares.get(i + j) for i, c in squares.items() for j, d in squares.items())
 ```
-<details><summary>1 solution to puzzle [classic_puzzles](#classic_puzzles) 7/22, 10 instances</summary>
+<details><summary>1 solution to classic_puzzles 7/22</summary>
 
 ```python
 def sol(n=100):
@@ -849,7 +849,7 @@ def sat(hands: List[int], target_angle=45):
     hour, min = hands
     return 0 < hour <= 12 and 0 <= min < 60 and ((60 * hour + min) - 12 * min) % 720 == 2 * target_angle
 ```
-<details><summary>1 solution to puzzle [classic_puzzles](#classic_puzzles) 8/22, 10 instances</summary>
+<details><summary>1 solution to classic_puzzles 8/22</summary>
 
 ```python
 def sol(target_angle=45):
@@ -874,7 +874,7 @@ def sat(daygroups: List[List[List[int]]]):
     assert all(len(g) == 3 for groups in daygroups for g in groups)
     return len({(i, j) for groups in daygroups for g in groups for i in g for j in g}) == 15 * 15
 ```
-<details><summary>1 solution to puzzle [classic_puzzles](#classic_puzzles) 9/22, 1 instance</summary>
+<details><summary>1 solution to classic_puzzles 9/22</summary>
 
 ```python
 def sol():
@@ -942,7 +942,7 @@ def sat(n: int):
         n -= 1 + (n - 1) // 5
     return n > 0 and n % 5 == 1
 ```
-<details><summary>1 solution to puzzle [classic_puzzles](#classic_puzzles) 10/22, 1 instance</summary>
+<details><summary>1 solution to classic_puzzles 10/22</summary>
 
 ```python
 def sol():
@@ -976,7 +976,7 @@ def sat(coords: List[List[int]], side=10, num_points=20):
                 assert x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2) != 0
     return len({(a, b) for a, b in coords}) == len(coords) >= num_points
 ```
-<details><summary>1 solution to puzzle [classic_puzzles](#classic_puzzles) 11/22, 10 instances</summary>
+<details><summary>1 solution to classic_puzzles 11/22</summary>
 
 ```python
 def sol(side=10, num_points=20):
@@ -1012,7 +1012,7 @@ def sat(stamps: List[int], target=80, max_stamps=4, options=[10, 32, 8]):
         assert s in options
     return len(stamps) <= max_stamps and sum(stamps) == target
 ```
-<details><summary>1 solution to puzzle [classic_puzzles](#classic_puzzles) 12/22, 10 instances</summary>
+<details><summary>1 solution to classic_puzzles 12/22</summary>
 
 ```python
 def sol(target=80, max_stamps=4, options=[10, 32, 8]):
@@ -1049,7 +1049,7 @@ def sat(xy_sides: List[List[int]]):  # List of (x, y, side)
 
     return sum(side ** 2 for x, y, side in xy_sides) == n ** 2
 ```
-<details><summary>1 solution to puzzle [classic_puzzles](#classic_puzzles) 13/22, 1 instance</summary>
+<details><summary>1 solution to classic_puzzles 13/22</summary>
 
 ```python
 def sol():
@@ -1072,7 +1072,7 @@ def sat(n: int, lace="bbbbrrbrbrbbrrrr"):
     sub = lace[n: n + len(lace) // 2]
     return n >= 0 and lace.count("r") == 2 * sub.count("r") and lace.count("b") == 2 * sub.count("b")
 ```
-<details><summary>1 solution to puzzle [classic_puzzles](#classic_puzzles) 14/22, 10 instances</summary>
+<details><summary>1 solution to classic_puzzles 14/22</summary>
 
 ```python
 def sol(lace="bbbbrrbrbrbbrrrr"):
@@ -1094,7 +1094,7 @@ def sat(n: int):
         assert s.count(i) == 1
     return True
 ```
-<details><summary>1 solution to puzzle [classic_puzzles](#classic_puzzles) 15/22, 1 instance</summary>
+<details><summary>1 solution to classic_puzzles 15/22</summary>
 
 ```python
 def sol():
@@ -1113,7 +1113,7 @@ def sat(nums: List[int]):
     """Find all 174 integers whose 10-digit square has all digits 0-9 just once."""
     return [sorted([int(s) for s in str(n * n)]) for n in set(nums)] == [list(range(10))] * 174
 ```
-<details><summary>1 solution to puzzle [classic_puzzles](#classic_puzzles) 16/22, 1 instance</summary>
+<details><summary>1 solution to classic_puzzles 16/22</summary>
 
 ```python
 def sol():
@@ -1144,7 +1144,7 @@ def sat(expr: str, nums=[3, 7, 3, 7]):
     assert sorted(int(s) for s in digits.split()) == sorted(nums), "Each number must occur exactly once"
     return abs(eval(expr) - 24.0) < 1e-6
 ```
-<details><summary>1 solution to puzzle [classic_puzzles](#classic_puzzles) 17/22, 10 instances</summary>
+<details><summary>1 solution to classic_puzzles 17/22</summary>
 
 ```python
 def sol(nums=[3, 7, 3, 7]):
@@ -1192,7 +1192,7 @@ def sat(s: str):
     """Find a formula using two 8s and two 1's and -+*/ that evaluates to 1."""
     return set(s) <= set("18-+*/") and s.count("8") == 2 and s.count("1") == 1 and eval(s) == 63
 ```
-<details><summary>1 solution to puzzle [classic_puzzles](#classic_puzzles) 18/22, 1 instance</summary>
+<details><summary>1 solution to classic_puzzles 18/22</summary>
 
 ```python
 def sol():
@@ -1209,7 +1209,7 @@ def sat(s: str):
     """Find an expression using two 8s and two 1's and -+*/ that evaluates to 1."""
     return set(s) <= set("18-+*/") and s.count("8") == 3 and s.count("1") == 1 and eval(s) == 63
 ```
-<details><summary>1 solution to puzzle [classic_puzzles](#classic_puzzles) 19/22, 1 instance</summary>
+<details><summary>1 solution to classic_puzzles 19/22</summary>
 
 ```python
 def sol():
@@ -1237,7 +1237,7 @@ def sat(moves: List[List[int]], capacities=[8, 5, 3], init=[8, 0, 0], goal=[4, 4
 
     return state == goal
 ```
-<details><summary>1 solution to puzzle [classic_puzzles](#classic_puzzles) 20/22, 10 instances</summary>
+<details><summary>1 solution to classic_puzzles 20/22</summary>
 
 ```python
 def sol(capacities=[8, 5, 3], init=[8, 0, 0], goal=[4, 4, 0]):
@@ -1286,7 +1286,7 @@ def sat(li: List[int], words=['SEND', 'MORE', 'MONEY']):
     assert len({c for w in words for c in w}) == len({(d, c) for i, w in zip(li, words) for d, c in zip(str(i), w)})
     return sum(li[:-1]) == li[-1]
 ```
-<details><summary>1 solution to puzzle [classic_puzzles](#classic_puzzles) 21/22, 10 instances</summary>
+<details><summary>1 solution to classic_puzzles 21/22</summary>
 
 ```python
 def sol(words=['SEND', 'MORE', 'MONEY']):
@@ -1386,7 +1386,7 @@ def sat(moves: List[int], start=[[5, 0, 2, 3], [1, 9, 6, 7], [4, 14, 8, 11], [12
         locs[0], locs[i] = locs[i], locs[0]
     return all(locs[i] == [i % len(start[0]), i // len(start)] for i in locs)
 ```
-<details><summary>1 solution to puzzle [classic_puzzles](#classic_puzzles) 22/22, 10 instances</summary>
+<details><summary>1 solution to classic_puzzles 22/22</summary>
 
 ```python
 def sol(start=[[5, 0, 2, 3], [1, 9, 6, 7], [4, 14, 8, 11], [12, 13, 10, 15]]):
@@ -1488,7 +1488,7 @@ def sat(pair: List[float], nums=[0.17, 21.3, 5.0, 9.0, 11.0, 4.99, 17.0, 17.0, 1
     assert a in nums and b in nums
     return abs(a - b) == min({abs(x - y) for x in nums for y in nums} - {0})
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 1/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 1/79</summary>
 
 ```python
 def sol(nums=[0.17, 21.3, 5.0, 9.0, 11.0, 4.99, 17.0, 17.0, 12.4, 6.8]):
@@ -1526,7 +1526,7 @@ def sat(ls: List[str], combined="() (()) ((() () ())) (() )"):
         assert depth == 1 and s[-1] == ')'
     return True
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 2/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 2/79</summary>
 
 ```python
 def sol(combined="() (()) ((() () ())) (() )"):
@@ -1564,7 +1564,7 @@ def sat(x: float, v=523.12892):
     """
     return 0 <= x < 1 and (v - x).is_integer()
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 3/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 3/79</summary>
 
 ```python
 def sol(v=523.12892):
@@ -1593,7 +1593,7 @@ def sat(n: int, balances=[2, 7, -2, 4, 3, -15, 10, -45, 3]):
         if total < 0:
             return total == n
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 4/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 4/79</summary>
 
 ```python
 def sol(balances=[2, 7, -2, 4, 3, -15, 10, -45, 3]):
@@ -1632,7 +1632,7 @@ def sat(neg: bool, balances=[2, 7, -2, 4, 3, -15, 10, -45, 3]):
             return neg == True
     return neg == False
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 5/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 5/79</summary>
 
 ```python
 def sol(balances=[2, 7, -2, 4, 3, -15, 10, -45, 3]):
@@ -1670,7 +1670,7 @@ def sat(x: float, nums=[12, -2, 14, 3, -15, 10, -45, 3, 30]):
     """
     return sum((n - x) ** 2 for n in nums) <= sum((m - n) ** 2 for m in nums for n in nums) * 0.501 / len(nums)
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 6/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 6/79</summary>
 
 ```python
 def sol(nums=[12, -2, 14, 3, -15, 10, -45, 3, 30]):
@@ -1703,7 +1703,7 @@ def sat(li: List[int], nums=[12, 23, -2, 5, 0], sep=4):
             assert li[2 * i - 1] == sep
     return True
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 7/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 7/79</summary>
 
 ```python
 def sol(nums=[12, 23, -2, 5, 0], sep=4):
@@ -1746,7 +1746,7 @@ def sat(depths: List[int], parens="() (()) ((()()())) (())"):
 
     return len(groups) == len(depths)
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 8/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 8/79</summary>
 
 ```python
 def sol(parens="() (()) ((()()())) (())"):
@@ -1789,7 +1789,7 @@ def sat(containers: List[str], strings=['cat', 'dog', 'shatter', 'bear', 'at', '
             i += 1
     return i == len(containers)
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 9/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 9/79</summary>
 
 ```python
 def sol(strings=['cat', 'dog', 'shatter', 'bear', 'at', 'ta'], substring="at"):
@@ -1818,7 +1818,7 @@ def sat(nums: List[int], tot=14, prod=99):
         p *= n
     return p == prod
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 10/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 10/79</summary>
 
 ```python
 def sol(tot=14, prod=99):
@@ -1850,7 +1850,7 @@ def sat(sum_prod: List[int], nums=[1, 3, 2, -6, 19]):
         p *= n
     return sum_prod == [sum(nums), p]
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 11/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 11/79</summary>
 
 ```python
 def sol(nums=[1, 3, 2, -6, 19]):
@@ -1884,7 +1884,7 @@ def sat(maxes: List[int], nums=[1, 4, 3, -6, 19]):
             assert maxes[0] == nums[0]
     return True
 ```
-<details><summary>2 solutions to puzzle [human_eval](#human_eval) 12/79, 10 instances</summary>
+<details><summary>2 solutions to human_eval 12/79</summary>
 
 ```python
 def sol(nums=[1, 4, 3, -6, 19]):
@@ -1922,7 +1922,7 @@ def sat(ans: str, s="so easy", length=13):
     """
     return ans == ans[::-1] and len(ans) == length and ans.startswith(s)
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 13/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 13/79</summary>
 
 ```python
 def sol(s="so easy", length=13):
@@ -1947,7 +1947,7 @@ def sat(ans: str, s="so easy", length=20):
     """
     return ans == ans[::-1] and len(ans) == length and s in ans
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 14/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 14/79</summary>
 
 ```python
 def sol(s="so easy", length=20):
@@ -1986,7 +1986,7 @@ def sat(str_num: str, nums=['100011101100001', '100101100101110']):
     a, b = nums
     return int(str_num, 2) == int(a, 2) ^ int(b, 2)
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 15/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 15/79</summary>
 
 ```python
 def sol(nums=['100011101100001', '100101100101110']):
@@ -2013,7 +2013,7 @@ def sat(ans: str, words=['these', 'are', 'some', 'pretty', 'long', 'words']):
     """
     return ans in words and all(len(ans) >= len(w) for w in words)
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 16/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 16/79</summary>
 
 ```python
 def sol(words=['these', 'are', 'some', 'pretty', 'long', 'words']):
@@ -2039,7 +2039,7 @@ def sat(ans: List[int], m=1408862, n=2113293):
     gcd, a, b = ans
     return m % gcd == n % gcd == 0 and a * m + b * n == gcd and gcd > 0
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 17/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 17/79</summary>
 
 ```python
 def sol(m=1408862, n=2113293):
@@ -2083,7 +2083,7 @@ def sat(prefixes: List[str], s="donesezichethofalij"):
     """
     return all(s.startswith(p) for p in prefixes) and len(set(prefixes)) > len(s)
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 18/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 18/79</summary>
 
 ```python
 def sol(s="donesezichethofalij"):
@@ -2108,7 +2108,7 @@ def sat(ans: str, n=15):
     """
     return [int(i) for i in ans.split(' ')] == list(range(n + 1))
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 19/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 19/79</summary>
 
 ```python
 def sol(n=15):
@@ -2136,7 +2136,7 @@ def sat(ans: List[str], s="The quick brown fox jumps over the lazy dog!", n=28):
     assert all(c in s.lower() for c in ans)
     return True
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 20/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 20/79</summary>
 
 ```python
 def sol(s="The quick brown fox jumps over the lazy dog!", n=28):
@@ -2161,7 +2161,7 @@ def sat(beats: List[int], score="o o o| o| .| .| .| o| o| o o o| .|"):
     """
     return " ".join({1: '.|', 2: 'o|', 4: 'o'}[b] for b in beats) == score
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 21/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 21/79</summary>
 
 ```python
 def sol(score="o o o| o| .| .| .| o| o| o o o| .|"):
@@ -2187,7 +2187,7 @@ def sat(ans: List[int], s="Bananannanaannanaanananananana", sub="anan", count=7)
     """
     return all(sub == s[i:i + len(sub)] and i >= 0 for i in ans) and len(set(ans)) >= count
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 22/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 22/79</summary>
 
 ```python
 def sol(s="Bananannanaannanaanananananana", sub="anan", count=7):
@@ -2219,7 +2219,7 @@ def sat(ans: str, s="six one four three two nine eight"):
     nums = 'zero one two three four five six seven eight nine'.split()
     return [nums.index(x) for x in ans.split(" ")] == sorted([nums.index(x) for x in s.split(" ")])
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 23/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 23/79</summary>
 
 ```python
 def sol(s="six one four three two nine eight"):
@@ -2253,7 +2253,7 @@ def sat(inds: List[int], nums=[0.31, 21.3, 5.0, 9.0, 11.0, 5.01, 17.2]):
             assert abs(nums[i] - nums[j]) >= abs(nums[b] - nums[a])
     return True
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 24/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 24/79</summary>
 
 ```python
 def sol(nums=[0.31, 21.3, 5.0, 9.0, 11.0, 5.01, 17.2]):
@@ -2294,7 +2294,7 @@ def sat(ans: List[float], nums=[13.0, 17.0, 17.0, 15.5, 2.94]):
         assert abs(nums[i] - x) < 1e-6
     return True
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 25/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 25/79</summary>
 
 ```python
 def sol(nums=[13.0, 17.0, 17.0, 15.5, 2.94]):
@@ -2330,7 +2330,7 @@ def sat(indexes: List[int], li=['Hello', '5', '10', 'bye'], num=2):
     [int(li[i]) for i in indexes]
     return len(set(indexes)) >= num and min(indexes) >= 0
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 26/79, 1 instance</summary>
+<details><summary>1 solution to human_eval 26/79</summary>
 
 ```python
 def sol(li=['Hello', '5', '10', 'bye'], num=2):
@@ -2368,7 +2368,7 @@ def sat(length: int, s="pneumonoultramicroscopicsilicovolcanoconiosis"):
         s[length - 1]
         return True
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 27/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 27/79</summary>
 
 ```python
 def sol(s="pneumonoultramicroscopicsilicovolcanoconiosis"):
@@ -2395,7 +2395,7 @@ def sat(d: int, n=123456):
     """
     return n % d == 0 and d < n and all(n % e for e in range(d + 1, n))
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 28/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 28/79</summary>
 
 ```python
 def sol(n=123456):
@@ -2427,7 +2427,7 @@ def sat(factors: List[int], n=123456, num_factors=8):
         assert d > 1
     return prod == n
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 29/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 29/79</summary>
 
 ```python
 def sol(n=123456, num_factors=8):
@@ -2466,7 +2466,7 @@ def sat(ans: List[int], li=[2, 19, 2, 53, 1, 1, 2, 44, 17, 0, 19, 31]):
     """
     return set(ans) == set(li) and all(li.index(ans[i]) < li.index(ans[i + 1]) for i in range(len(ans) - 1))
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 30/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 30/79</summary>
 
 ```python
 def sol(li=[2, 19, 2, 53, 1, 1, 2, 44, 17, 0, 19, 31]):
@@ -2499,7 +2499,7 @@ def sat(ans: str, s="FlIp ME!"):
     """
     return len(ans) == len(s) and all({c, d} == {d.upper(), d.lower()} for c, d in zip(ans, s))
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 31/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 31/79</summary>
 
 ```python
 def sol(s="FlIp ME!"):
@@ -2531,7 +2531,7 @@ def sat(cat: str, strings=['Will', 'i', 'am', 'Now', 'here']):
             i += 1
     return i == len(cat)
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 32/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 32/79</summary>
 
 ```python
 def sol(strings=['Will', 'i', 'am', 'Now', 'here']):
@@ -2561,7 +2561,7 @@ def sat(extensions: List[str], strings=['cat', 'dog', 'shatter', 'donut', 'at', 
             i += 1
     return i == len(extensions)
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 33/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 33/79</summary>
 
 ```python
 def sol(strings=['cat', 'dog', 'shatter', 'donut', 'at', 'todo'], prefix="do"):
@@ -2589,7 +2589,7 @@ def sat(positives: List[int], nums=[2, 2342, -2, 32, -8, -5, 2342, 0, -9, 44, 11
         assert n <= 0 or n == stack.pop()
     return stack == []
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 34/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 34/79</summary>
 
 ```python
 def sol(nums=[2, 2342, -2, 32, -8, -5, 2342, 0, -9, 44, 11]):
@@ -2614,7 +2614,7 @@ def sat(certificate: int, n=1449):
     """
     return pow(certificate, n - 1, n) > 1
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 35/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 35/79</summary>
 
 ```python
 def sol(n=1449):
@@ -2641,7 +2641,7 @@ def sat(root: float, coeffs=[1, 2, 3, 17]):
     """
     return abs(sum(coeff * (root ** i) for i, coeff in enumerate(coeffs))) < 1e-4
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 36/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 36/79</summary>
 
 ```python
 def sol(coeffs=[1, 2, 3, 17]):
@@ -2687,7 +2687,7 @@ def sat(li: List[int], orig=[1, -2, 3, 17, 8, 4, 12, 3, 18, 5, -29, 0, 0]):
     assert all(li[i] <= li[i + 2] for i in range(2, len(li) - 2, 3))
     return True
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 37/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 37/79</summary>
 
 ```python
 def sol(orig=[1, -2, 3, 17, 8, 4, 12, 3, 18, 5, -29, 0, 0]):
@@ -2733,7 +2733,7 @@ def sat(li: List[int], orig=[1, 1, 3, 2, 0, 8, 32, -4, 0]):
         assert n in li
     return True
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 38/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 38/79</summary>
 
 ```python
 def sol(orig=[1, 1, 3, 2, 0, 8, 32, -4, 0]):
@@ -2759,7 +2759,7 @@ def sat(m: int, hello=[1, 31, 3, 2, 0, 18, 32, -4, 2, -1000, 35, 35, 21, 18, 2, 
     """
     return m in hello and not any(m < i for i in hello)
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 39/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 39/79</summary>
 
 ```python
 def sol(hello=[1, 31, 3, 2, 0, 18, 32, -4, 2, -1000, 35, 35, 21, 18, 2, 60]):
@@ -2785,7 +2785,7 @@ def sat(li: List[List[int]], n=19723, lower=1000):
     assert len({(i, j) for i, j in li}) >= lower, "not enough 7's (ignoring duplicates)"
     return all(str(i)[j] == '7' and (i % 11 == 0 or i % 13 == 0) and 0 <= i < n and 0 <= j for i, j in li)
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 40/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 40/79</summary>
 
 ```python
 def sol(n=19723, lower=1000):
@@ -2810,7 +2810,7 @@ def sat(li: List[int], orig=[1, 6, 3, 41, 19, 4, 12, 3, 18, 5, -29, 0, 19521]):
     """
     return orig[1::2] == li[1::2] and li[::2] == sorted(orig[::2])
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 41/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 41/79</summary>
 
 ```python
 def sol(orig=[1, 6, 3, 41, 19, 4, 12, 3, 18, 5, -29, 0, 19521]):
@@ -2842,7 +2842,7 @@ def sat(s: str, target="Hello world"):
 
     return target == "".join(cycle3(s[i: i + 3]) for i in range(0, len(s), 3))
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 42/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 42/79</summary>
 
 ```python
 def sol(target="Hello world"):
@@ -2868,7 +2868,7 @@ def sat(n: int, lower=123456):
     assert all(n % i for i in range(2, int(n ** 0.5) + 1)), "n must be prime"
     return n > lower
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 43/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 43/79</summary>
 
 ```python
 def sol(lower=123456):
@@ -2891,7 +2891,7 @@ def sat(inds: List[int], nums=[12, -10452, 18242, 10440]):
     """
     return len(inds) == 3 and sum(nums[i] for i in inds) == 0 and min(inds) >= 0
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 44/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 44/79</summary>
 
 ```python
 def sol(nums=[12, -10452, 18242, 10440]):
@@ -2918,7 +2918,7 @@ def sat(count: int, n=981):
             count -= 1
     return count == 0
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 45/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 45/79</summary>
 
 ```python
 def sol(n=981):
@@ -2939,7 +2939,7 @@ def sat(new_list: List[int], old_list=[321, 12, 532, 129, 9, -12, 4, 56, 90, 0])
     """
     return [i - 1 for i in new_list] == old_list
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 46/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 46/79</summary>
 
 ```python
 def sol(old_list=[321, 12, 532, 129, 9, -12, 4, 56, 90, 0]):
@@ -2959,7 +2959,7 @@ def sat(inds: List[int], nums=[12, -10452, 18242, 10440, 81, 241, 525, -18242, 9
     a, b = inds
     return nums[a] + nums[b] == 0
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 47/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 47/79</summary>
 
 ```python
 def sol(nums=[12, -10452, 18242, 10440, 81, 241, 525, -18242, 91, 20]):
@@ -2981,7 +2981,7 @@ def sat(s: str, n=142, base=7):
     """
     return int(s, base) == n
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 48/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 48/79</summary>
 
 ```python
 def sol(n=142, base=7):
@@ -3005,7 +3005,7 @@ def sat(height: int, area=1319098728582, base=45126):
     """
     return base * height == 2 * area
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 49/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 49/79</summary>
 
 ```python
 def sol(area=1319098728582, base=45126):
@@ -3031,7 +3031,7 @@ def sat(init: List[int], target=2021):
         a, b, c, d = b, c, d, (a + b + c + d)
     return a == target
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 50/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 50/79</summary>
 
 ```python
 def sol(target=2021):
@@ -3057,7 +3057,7 @@ def sat(x: int, nums=[132666041, 237412, 28141, -12, 11939, 912414, 17], upper=1
     dev = sum(n - x for n in nums)
     return dev <= upper
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 51/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 51/79</summary>
 
 ```python
 def sol(nums=[132666041, 237412, 28141, -12, 11939, 912414, 17], upper=133658965):
@@ -3076,7 +3076,7 @@ def sat(p: bool, s="This problem is trivial but common"):
     """
     return p == (s == s[::-1])
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 52/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 52/79</summary>
 
 ```python
 def sol(s="This problem is trivial but common"):
@@ -3103,7 +3103,7 @@ def sat(exp_poly: List[int], d=74152093423, poly=[1, 6, 3, 1, 0, 4, 4]):
 
     return all(val(exp_poly, n) == pow(val(poly, n), d, p) for n in range(p))
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 53/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 53/79</summary>
 
 ```python
 def sol(d=74152093423, poly=[1, 6, 3, 1, 0, 4, 4]):
@@ -3147,7 +3147,7 @@ def sat(orig: str, result="Hello, world!", shift=7):
     assert len(orig) == n
     return all(ord(orig[i]) + shift == ord(result[i]) for i in range(n))
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 54/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 54/79</summary>
 
 ```python
 def sol(result="Hello, world!", shift=7):
@@ -3172,7 +3172,7 @@ def sat(txt: str, text="Hello, world!"):
     assert n == len(txt)
     return True
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 55/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 55/79</summary>
 
 ```python
 def sol(text="Hello, world!"):
@@ -3197,7 +3197,7 @@ def sat(indexes: List[int], nums=[0, 2, 17, 4, 4213, 322, 102, 29, 15, 39, 55], 
     assert j == len(indexes)
     return True
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 56/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 56/79</summary>
 
 ```python
 def sol(nums=[0, 2, 17, 4, 4213, 322, 102, 29, 15, 39, 55], thresh=100):
@@ -3216,7 +3216,7 @@ def sat(n: int, nums=[10, 42, 17, 9, 1315182, 184, 102, 29, 15, 39, 755]):
     """
     return sum(nums + [-n]) == 0
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 57/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 57/79</summary>
 
 ```python
 def sol(nums=[10, 42, 17, 9, 1315182, 184, 102, 29, 15, 39, 755]):
@@ -3235,7 +3235,7 @@ def sat(c: str, a="the quick brown fox jumped over the lazy dog", b="how vexingl
     """
     return (c in a) != (c in b)
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 58/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 58/79</summary>
 
 ```python
 def sol(a="the quick brown fox jumped over the lazy dog", b="how vexingly quick daft zebras jump"):
@@ -3254,7 +3254,7 @@ def sat(nums: List[int], n=1402):
     """
     return nums[0] == nums[1] == 1 and all(nums[i + 2] == nums[i + 1] + nums[i] for i in range(n - 2))
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 59/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 59/79</summary>
 
 ```python
 def sol(n=1402):
@@ -3280,7 +3280,7 @@ def sat(matches: List[int], brackets="<<>><<<><>><<>>>"):
         assert brackets[j] != c and matches[j] == i and all(i < matches[k] < j for k in range(i + 1, j))
     return len(matches) == len(brackets)
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 60/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 60/79</summary>
 
 ```python
 def sol(brackets="<<>><<<><>><<>>>"):
@@ -3312,7 +3312,7 @@ def sat(direction: str, nums=[2, 4, 17, 29, 31, 1000, 416629]):
     if direction == "decreasing":
         return all(nums[i + 1] < nums[i] for i in range(len(nums) - 1))
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 61/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 61/79</summary>
 
 ```python
 def sol(nums=[2, 4, 17, 29, 31, 1000, 416629]):
@@ -3331,7 +3331,7 @@ def sat(common: List[int], a=[2, 416629, 2, 4, 17, 29, 31, 1000], b=[31, 2, 4, 1
     """
     return all((i in common) == (i in a and i in b) for i in a + b + common)
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 62/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 62/79</summary>
 
 ```python
 def sol(a=[2, 416629, 2, 4, 17, 29, 31, 1000], b=[31, 2, 4, 17, 29, 41205]):
@@ -3354,7 +3354,7 @@ def sat(p: int, n=101076):
 
     return is_prime(p) and n % p == 0 and p > 0 and all(n % i or not is_prime(i) for i in range(p + 1, n))
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 63/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 63/79</summary>
 
 ```python
 def sol(n=101076):
@@ -3376,7 +3376,7 @@ def sat(sums: List[int], n=104):
     """
     return all(sums[i + 1] - sums[i] == i for i in range(n)) and sums[0] == 0
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 64/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 64/79</summary>
 
 ```python
 def sol(n=104):
@@ -3402,7 +3402,7 @@ def sat(matches: List[int], parens="((())()(()()))(())"):
         assert parens[j] != c and matches[j] == i and all(i < matches[k] < j for k in range(i + 1, j))
     return len(matches) == len(parens)
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 65/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 65/79</summary>
 
 ```python
 def sol(parens="((())()(()()))(())"):
@@ -3435,7 +3435,7 @@ def sat(derivative: List[int], poly=[2, 1, 0, 4, 19, 231, 0, 5]):
 
     return all(abs(val(poly, x + 1e-8) - val(poly, x) - 1e-8 * val(derivative, x)) < 1e-4 for x in range(len(poly)))
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 66/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 66/79</summary>
 
 ```python
 def sol(poly=[2, 1, 0, 4, 19, 231, 0, 5]):
@@ -3461,7 +3461,7 @@ def sat(init: List[int], target=124156):
         a, b, c = b, c, (a + b + c)
     return a == target
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 67/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 67/79</summary>
 
 ```python
 def sol(target=124156):
@@ -3489,7 +3489,7 @@ def sat(vowels: str, text="Hello, world!"):
             i += 1
     return i == len(vowels)
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 68/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 68/79</summary>
 
 ```python
 def sol(text="Hello, world!"):
@@ -3511,7 +3511,7 @@ def sat(shifted: str, n=124582369835, shift=3):
         return n == int(shifted[::-1])
     return n == int(shifted[-shift:] + shifted[:-shift])
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 69/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 69/79</summary>
 
 ```python
 def sol(n=124582369835, shift=3):
@@ -3536,7 +3536,7 @@ def sat(tot: int, s="Add ME uP AND YOU WILL GET A BIG NUMBER!"):
             tot -= ord(c)
     return tot == 0
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 70/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 70/79</summary>
 
 ```python
 def sol(s="Add ME uP AND YOU WILL GET A BIG NUMBER!"):
@@ -3556,7 +3556,7 @@ def sat(bananas: int, bowl="5024 apples and 12189 oranges", total=12491241):
     bowl += f" and {bananas} bananas"
     return sum([int(s) for s in bowl.split() if s.isdigit()]) == total
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 71/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 71/79</summary>
 
 ```python
 def sol(bowl="5024 apples and 12189 oranges", total=12491241):
@@ -3581,7 +3581,7 @@ def sat(val_index: List[int], nums=[125123, 422323, 141, 5325, 812152, 9, 42145,
     assert v % 2 == 0
     return all(n > v or n % 2 == 1 for n in nums[:i]) and all(n >= v or n % 2 == 1 for n in nums[i:])
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 72/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 72/79</summary>
 
 ```python
 def sol(nums=[125123, 422323, 141, 5325, 812152, 9, 42145, 5313, 421, 812152]):
@@ -3606,7 +3606,7 @@ def sat(h: int, seq=[3, 1, 4, 17, 5, 17, 2, 1, 41, 32, 2, 5, 5, 5, 5]):
         assert not (i > 0 and i > h and seq.count(i) >= i)
     return h == -1 or seq.count(h) >= h > 0
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 73/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 73/79</summary>
 
 ```python
 def sol(seq=[3, 1, 4, 17, 5, 17, 2, 1, 41, 32, 2, 5, 5, 5, 5]):
@@ -3632,7 +3632,7 @@ def sat(strange: List[int], li=[30, 12, 42, 717, 45, 317, 200, -1, 491, 32, 15])
         bounds[i % 2] = n
     return sorted(strange) == sorted(li)  # permutation check
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 74/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 74/79</summary>
 
 ```python
 def sol(li=[30, 12, 42, 717, 45, 317, 200, -1, 491, 32, 15]):
@@ -3668,7 +3668,7 @@ def sat(coords: List[List[float]], sides=[8.9, 10.8, 17.0]):
     sides2 = [((x - x2) ** 2 + (y - y2) ** 2) ** 0.5 for i, (x, y) in enumerate(coords) for x2, y2 in coords[:i]]
     return all(abs(a - b) < 1e-6 for a, b in zip(sorted(sides), sorted(sides2)))
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 75/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 75/79</summary>
 
 ```python
 def sol(sides=[8.9, 10.8, 17.0]):
@@ -3697,7 +3697,7 @@ def sat(problem: int, weights=[1, 2, 5, 2, 1, 17], max_weight=100):
         return sum(weights) > max_weight
     return weights[problem] != weights[- 1 - problem]
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 76/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 76/79</summary>
 
 ```python
 def sol(weights=[1, 2, 5, 2, 1, 17], max_weight=100):
@@ -3719,7 +3719,7 @@ def sat(pal: str, s="palindromordinals"):
     assert pal == pal[::-1] and len(pal) == len(s)
     return sum(a != b for a, b in zip(pal, s)) == sum(a != b for a, b in zip(s, s[::-1])) // 2
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 77/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 77/79</summary>
 
 ```python
 def sol(s="palindromordinals"):
@@ -3742,7 +3742,7 @@ def sat(li: List[str], lists=[['this', 'list', 'is', 'narrow'], ['I', 'am', 'sho
         assert width <= sum(len(s) for s in li2)
     return li in lists
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 78/79, 10 instances</summary>
+<details><summary>1 solution to human_eval 78/79</summary>
 
 ```python
 def sol(lists=[['this', 'list', 'is', 'narrow'], ['I', 'am', 'shorter but wider']]):
@@ -3768,7 +3768,7 @@ def sat(factors: List[List[int]]):
     nums = {p * q * r for p, q, r in factors}
     return max(nums) < 1000 and len(nums) == 247
 ```
-<details><summary>1 solution to puzzle [human_eval](#human_eval) 79/79, 1 instance</summary>
+<details><summary>1 solution to human_eval 79/79</summary>
 
 ```python
 def sol():
@@ -3798,7 +3798,7 @@ def sat(b: bool, n=10):
         i += 1
     return b == False
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 1/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 1/45</summary>
 
 ```python
 def sol(n=10):
@@ -3820,7 +3820,7 @@ def sat(s: str, word="antidisestablishmentarianism", max_len=10):
         return word == s
     return int(s[1:-1]) == len(word[1:-1]) and word[0] == s[0] and word[-1] == s[-1]
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 2/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 2/45</summary>
 
 ```python
 def sol(word="antidisestablishmentarianism", max_len=10):
@@ -3852,7 +3852,7 @@ def sat(corners: List[List[int]], m=10, n=9, a=5, target=4):
     assert len(covered) == len(corners) * a * a, "Double coverage"
     return len(corners) <= target and covered.issuperset({(x, y) for x in range(m) for y in range(n)})
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 3/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 3/45</summary>
 
 ```python
 def sol(m=10, n=9, a=5, target=4):
@@ -3873,7 +3873,7 @@ def sat(lb: List[bool], trips=[[1, 1, 0], [1, 0, 0], [0, 0, 0], [0, 1, 1], [0, 1
     return len(lb) == len(trips) and all(
         (b is True) if sum(s) >= 2 else (b is False) for b, s in zip(lb, trips))
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 4/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 4/45</summary>
 
 ```python
 def sol(trips=[[1, 1, 0], [1, 0, 0], [0, 0, 0], [0, 1, 1], [0, 1, 1], [1, 1, 1], [1, 0, 1]]):
@@ -3894,7 +3894,7 @@ def sat(n: int, scores=[100, 95, 80, 70, 65, 9, 9, 9, 4, 2, 1], k=6):
     assert all(scores[i] >= scores[i + 1] for i in range(len(scores) - 1)), "Hint: scores are non-decreasing"
     return all(s >= scores[k] and s > 0 for s in scores[:n]) and all(s < scores[k] or s <= 0 for s in scores[n:])
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 5/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 5/45</summary>
 
 ```python
 def sol(scores=[100, 95, 80, 70, 65, 9, 9, 9, 4, 2, 1], k=6):
@@ -3929,7 +3929,7 @@ def sat(t: str, s="Problems"):
         i += 1
     return i == len(t)
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 6/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 6/45</summary>
 
 ```python
 def sol(s="Problems"):
@@ -3951,7 +3951,7 @@ def sat(squares: List[List[int]], m=10, n=5, target=50):
         covered += [(i1, j1), (i2, j2)]
     return len(set(covered)) == len(covered) == target
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 7/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 7/45</summary>
 
 ```python
 def sol(m=10, n=5, target=50):
@@ -3993,7 +3993,7 @@ def sat(n: int, ops=['x++', '--x', '--x'], target=19143212):
             n -= 1
     return n == target
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 8/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 8/45</summary>
 
 ```python
 def sol(ops=['x++', '--x', '--x'], target=19143212):
@@ -4016,7 +4016,7 @@ def sat(n: int, s="aaAab", t="aAaaB"):
         return s.lower() < t.lower()
     return False
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 9/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 9/45</summary>
 
 ```python
 def sol(s="aaAab", t="aAaaB"):
@@ -4058,7 +4058,7 @@ def sat(s: str, matrix=[[0, 0, 0, 0, 0], [0, 0, 0, 0, 1], [0, 0, 0, 0, 0], [0, 0
 
     return len(s) <= max_moves and matrix[2][2] == 1
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 10/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 10/45</summary>
 
 ```python
 def sol(matrix=[[0, 0, 0, 0, 0], [0, 0, 0, 0, 1], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]], max_moves=3):
@@ -4090,7 +4090,7 @@ def sat(s: str, inp="1+1+3+1+3+2+2+1+3+1+2"):
     """Sort numbers in a sum of digits, e.g., 1+3+2+1 -> 1+1+2+3"""
     return all(s.count(c) == inp.count(c) for c in inp + s) and all(s[i - 2] <= s[i] for i in range(2, len(s), 2))
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 11/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 11/45</summary>
 
 ```python
 def sol(inp="1+1+3+1+3+2+2+1+3+1+2"):
@@ -4114,7 +4114,7 @@ def sat(s: str, word="konjac"):
                 return False
     return True
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 12/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 12/45</summary>
 
 ```python
 def sol(word="konjac"):
@@ -4145,7 +4145,7 @@ def sat(t: str, s="abbbcabbac", target=7):
         i += 1
     return len(t) >= target and all(t[i] != t[i + 1] for i in range(len(t) - 1))
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 13/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 13/45</summary>
 
 ```python
 def sol(s="abbbcabbac", target=7):  # target is ignored
@@ -4172,7 +4172,7 @@ def sat(n: int, s="0000101111111000010", k=5):
     """
     return s[n:n + k] == s[n] * k
 ```
-<details><summary>4 solutions to puzzle [codeforces](#codeforces) 14/45, 10 instances</summary>
+<details><summary>4 solutions to codeforces 14/45</summary>
 
 ```python
 def sol(s="0000101111111000010", k=5):
@@ -4217,7 +4217,7 @@ def sat(delta: List[int], nums=[[1, 2, 3], [9, -2, 8], [17, 2, 50]]):
     """Find the missing triple of integers to make them all add up to 0 coordinatewise"""
     return all(sum(vec[i] for vec in nums) + delta[i] == 0 for i in range(3))
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 15/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 15/45</summary>
 
 ```python
 def sol(nums=[[1, 2, 3], [9, -2, 8], [17, 2, 50]]):
@@ -4234,7 +4234,7 @@ def sat(n: int, a=17, b=100, c=20):
     """Find n such that n + a == b * (the sum of the first c integers)"""
     return n + a == sum([b * i for i in range(c)])
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 16/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 16/45</summary>
 
 ```python
 def sol(a=17, b=100, c=20):
@@ -4255,7 +4255,7 @@ def sat(n: int, v=17, w=100):
         w *= 2
     return v > w
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 17/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 17/45</summary>
 
 ```python
 def sol(v=17, w=100):
@@ -4282,7 +4282,7 @@ def sat(res: int, m=1234578987654321, n=4):
         m = (m - 1 if m % 10 else m // 10)
     return res == m
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 18/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 18/45</summary>
 
 ```python
 def sol(m=1234578987654321, n=4):
@@ -4304,7 +4304,7 @@ def sat(li: List[int], n=149432, upper=14943):
     """
     return len(li) <= upper and all(abs(a - b) <= 10 for a, b in zip([1] + li, li + [n]))
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 19/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 19/45</summary>
 
 ```python
 def sol(n=149432, upper=14943):
@@ -4339,7 +4339,7 @@ def sat(n: int, pairs=[[3, 0], [17, 1], [9254359, 19], [123, 9254359], [0, 123]]
             success = True
     return success
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 20/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 20/45</summary>
 
 ```python
 def sol(pairs=[[3, 0], [17, 1], [9254359, 19], [123, 9254359], [0, 123]]):
@@ -4372,7 +4372,7 @@ def sat(s_case: str, s="CanYouTellIfItHASmoreCAPITALS"):
             caps += 1
     return s_case == (s.upper() if caps > len(s) // 2 else s.lower())
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 21/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 21/45</summary>
 
 ```python
 def sol(s="CanYouTellIfItHASmoreCAPITALS"):
@@ -4393,7 +4393,7 @@ def sat(inds: List[int], string="Sssuubbstriiingg"):
     """Find increasing indices to make the substring "substring"""
     return inds == sorted(inds) and "".join(string[i] for i in inds) == "substring"
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 22/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 22/45</summary>
 
 ```python
 def sol(string="Sssuubbstriiingg"):
@@ -4418,7 +4418,7 @@ def sat(inds: List[int], string="enlightenment"):
     """Find increasing indices to make the substring "intelligent" (with a surprise twist)"""
     return inds == sorted(inds) and "".join(string[i] for i in inds) == "intelligent"
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 23/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 23/45</summary>
 
 ```python
 def sol(string="enlightenment"):
@@ -4451,7 +4451,7 @@ def sat(seq: List[int], target=[1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0], n_steps=
                 (s[i], s[i + 1]) = (1, 0)
     return s == target
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 24/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 24/45</summary>
 
 ```python
 def sol(target=[1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0], n_steps=4):
@@ -4473,7 +4473,7 @@ def sat(d: int, n=6002685529):
     """Find a integer factor of n whose decimal representation consists only of 7's and 4's."""
     return n % d == 0 and all(i in "47" for i in str(d))
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 25/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 25/45</summary>
 
 ```python
 def sol(n=6002685529):
@@ -4501,7 +4501,7 @@ def sat(d: int, n=123456789):
     """
     return d > n and all(i in "47" for i in str(str(d).count("4") + str(d).count("7")))
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 26/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 26/45</summary>
 
 ```python
 def sol(n=123456789):
@@ -4518,7 +4518,7 @@ def sat(s: str, target="reverse me", reverse=True):
     """Either reverse a string or don't based on the reverse flag"""
     return (s[::-1] == target) == reverse
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 27/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 27/45</summary>
 
 ```python
 def sol(target="reverse me", reverse=True):
@@ -4545,7 +4545,7 @@ def sat(taken: List[int], val_counts=[[4, 3], [5, 2], [9, 3], [13, 13], [8, 11],
         advantage += val * i - val * count / 2
     return advantage > 0
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 28/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 28/45</summary>
 
 ```python
 def sol(val_counts=[[4, 3], [5, 2], [9, 3], [13, 13], [8, 11], [56, 1]], upper=11):
@@ -4572,7 +4572,7 @@ def sat(s: str, a=5129, d=17):
     """Find a string with a given number of a's and d's"""
     return s.count("a") == a and s.count("d") == d and len(s) == a + d
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 29/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 29/45</summary>
 
 ```python
 def sol(a=5129, d=17):
@@ -4590,7 +4590,7 @@ def sat(nums: List[int], a=100, b=1000, count=648):
     assert all(len(str(n)) == len(set(str(n))) and a <= n <= b for n in nums)
     return len(set(nums)) >= count
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 30/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 30/45</summary>
 
 ```python
 def sol(a=100, b=1000, count=648):
@@ -4607,7 +4607,7 @@ def sat(tot: int, nums=[2, 8, 25, 18, 99, 11, 17, 16], thresh=17):
     """Add up 1 or 2 for numbers in a list depending on whether they exceed a threshold"""
     return tot == sum(1 if i < thresh else 2 for i in nums)
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 31/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 31/45</summary>
 
 ```python
 def sol(nums=[2, 8, 25, 18, 99, 11, 17, 16], thresh=17):
@@ -4627,7 +4627,9 @@ def sat(s: str, chars=['o', 'h', 'e', 'l', ' ', 'w', '!', 'r', 'd']):
             return False
     return True
 ```
-0 solutions to puzzle [codeforces](#codeforces) 32/45, 10 instances### HalfPairs
+0 solutions to codeforces 32/45
+
+### HalfPairs
 Inspired by [Codeforces Problem 467 A](https://codeforces.com/problemset/problem/467/A)
 
 ```python
@@ -4642,7 +4644,7 @@ def sat(ans: List[List[int]], target=17):
             target -= 1
     return target == 0
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 33/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 33/45</summary>
 
 ```python
 def sol(target=17):
@@ -4662,7 +4664,9 @@ def sat(indexes: List[int], target=[1, 3, 4, 2, 5, 6, 7, 13, 12, 11, 9, 10, 8]):
             return False
     return True
 ```
-0 solutions to puzzle [codeforces](#codeforces) 34/45, 10 instances### FivePowers
+0 solutions to codeforces 34/45
+
+### FivePowers
 Inspired by [Codeforces Problem 630 A](https://codeforces.com/problemset/problem/630/A)
 
 ```python
@@ -4670,7 +4674,7 @@ def sat(s: str, n=7012):
     """What are the last two digits of 5^n?"""
     return int(str(5 ** n)[:-2] + s) == 5 ** n
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 35/45, 11 instances</summary>
+<details><summary>1 solution to codeforces 35/45</summary>
 
 ```python
 def sol(n=7012):
@@ -4702,7 +4706,7 @@ def sat(states: List[str], start="424", combo="778", target_len=12):
 
     return len(states) <= target_len
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 36/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 36/45</summary>
 
 ```python
 def sol(start="424", combo="778", target_len=12):
@@ -4729,7 +4733,7 @@ def sat(states: List[str], start="424", combo="778", target_len=12):
     return all(sum((int(a[i]) - int(b[i])) ** 2 % 10 for i in range(len(start))) == 1
                for a, b in zip([start] + states, states[:target_len] + [combo]))
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 37/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 37/45</summary>
 
 ```python
 def sol(start="424", combo="778", target_len=12):
@@ -4754,7 +4758,7 @@ def sat(s: str, perm="qwertyuiopasdfghjklzxcvbnm", target="hello are you there?"
     """Find a string that, when a given permutation of characters is applied, has a given result."""
     return "".join((perm[(perm.index(c) + 1) % len(perm)] if c in perm else c) for c in s) == target
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 38/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 38/45</summary>
 
 ```python
 def sol(perm="qwertyuiopasdfghjklzxcvbnm", target="hello are you there?"):
@@ -4782,7 +4786,7 @@ def sat(lists: List[List[int]], items=[5, 4, 9, 4, 5, 5, 5, 1, 5, 5], length=4):
         assert (a + b).count(i) <= items.count(i)
     return True
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 39/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 39/45</summary>
 
 ```python
 def sol(items=[5, 4, 9, 4, 5, 5, 5, 1, 5, 5], length=4):
@@ -4804,7 +4808,7 @@ def sat(seq: List[int], n=10000, length=5017):
     """Find a sequence of 1's and 2's of a given length that that adds up to n"""
     return all(i in [1, 2] for i in seq) and sum(seq) == n and len(seq) == length
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 40/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 40/45</summary>
 
 ```python
 def sol(n=10000, length=5017):
@@ -4821,7 +4825,7 @@ def sat(start: int, k=3, upper=6, seq=[17, 1, 2, 65, 18, 91, -30, 100, 3, 1, 2])
     """Find a sequence of k consecutive indices whose sum is minimal"""
     return 0 <= start <= len(seq) - k and sum(seq[start:start + k]) <= upper
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 41/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 41/45</summary>
 
 ```python
 def sol(k=3, upper=6, seq=[17, 1, 2, 65, 18, 91, -30, 100, 3, 1, 2]):
@@ -4838,7 +4842,7 @@ def sat(start: int, k=3, lower=150, seq=[3, 1, 2, 65, 18, 91, -30, 100, 0, 19, 5
     """Find a sequence of k consecutive indices whose sum is maximal"""
     return 0 <= start <= len(seq) - k and sum(seq[start:start + k]) >= lower
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 42/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 42/45</summary>
 
 ```python
 def sol(k=3, lower=150, seq=[3, 1, 2, 65, 18, 91, -30, 100, 0, 19, 52]):
@@ -4858,7 +4862,7 @@ def sat(start: int, k=3, lower=100000, seq=[91, 1, 2, 64, 18, 91, -30, 100, 3, 6
         prod *= seq[i]
     return prod >= lower
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 43/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 43/45</summary>
 
 ```python
 def sol(k=3, lower=100000, seq=[91, 1, 2, 64, 18, 91, -30, 100, 3, 65, 18]):
@@ -4881,7 +4885,7 @@ def sat(nums: List[int], tot=12345, n=5):
     """Find n distinct positive odd integers that sum to tot"""
     return len(nums) == len(set(nums)) == n and sum(nums) == tot and all(i >= i % 2 > 0 for i in nums)
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 44/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 44/45</summary>
 
 ```python
 def sol(tot=12345, n=5):
@@ -4912,7 +4916,7 @@ def sat(rotations: List[int], target="wonderful", upper=69):
 
     return sum(abs(r) for r in rotations) <= upper
 ```
-<details><summary>1 solution to puzzle [codeforces](#codeforces) 45/45, 10 instances</summary>
+<details><summary>1 solution to codeforces 45/45</summary>
 
 ```python
 def sol(target="wonderful", upper=69):
@@ -4945,7 +4949,7 @@ def sat(x: float, coeffs=[2.5, 1.3, -0.5]):
     a, b, c = coeffs
     return abs(a * x ** 2 + b * x + c) < 1e-6
 ```
-<details><summary>2 solutions to puzzle [algebra](#algebra) 1/4, 10 instances</summary>
+<details><summary>2 solutions to algebra 1/4</summary>
 
 ```python
 def sol(coeffs=[2.5, 1.3, -0.5]):
@@ -4981,7 +4985,7 @@ def sat(roots: List[float], coeffs=[1.3, -0.5]):
     r1, r2 = roots
     return abs(r1 + r2 + b) + abs(r1 * r2 - c) < 1e-6
 ```
-<details><summary>1 solution to puzzle [algebra](#algebra) 2/4, 10 instances</summary>
+<details><summary>1 solution to algebra 2/4</summary>
 
 ```python
 def sol(coeffs=[1.3, -0.5]):
@@ -5003,7 +5007,7 @@ def sat(x: float, coeffs=[2.0, 1.0, 0.0, 8.0]):
     """
     return abs(sum(c * x ** (3 - i) for i, c in enumerate(coeffs))) < 1e-6
 ```
-<details><summary>1 solution to puzzle [algebra](#algebra) 3/4, 10 instances</summary>
+<details><summary>1 solution to algebra 3/4</summary>
 
 ```python
 def sol(coeffs=[2.0, 1.0, 0.0, 8.0]):
@@ -5036,7 +5040,7 @@ def sat(roots: List[float], coeffs=[1.0, -2.0, -1.0]):
     a, b, c = coeffs
     return abs(r1 + r2 + r3 + a) + abs(r1 * r2 + r1 * r3 + r2 * r3 - b) + abs(r1 * r2 * r3 + c) < 1e-6
 ```
-<details><summary>1 solution to puzzle [algebra](#algebra) 4/4, 10 instances</summary>
+<details><summary>1 solution to algebra 4/4</summary>
 
 ```python
 def sol(coeffs=[1.0, -2.0, -1.0]):
@@ -5072,7 +5076,7 @@ def sat(x: str, s=679):
     """Find a number that its digits sum to a specific value."""
     return s == sum([int(d) for d in x])
 ```
-<details><summary>1 solution to puzzle [basic](#basic) 1/22, 10 instances</summary>
+<details><summary>1 solution to basic 1/22</summary>
 
 ```python
 def sol(s=679):
@@ -5089,7 +5093,7 @@ def sat(z: float, v=9, d=0.0001):
     """Create a float with a specific decimal."""
     return int(z * 1 / d % 10) == v
 ```
-<details><summary>1 solution to puzzle [basic](#basic) 2/22, 10 instances</summary>
+<details><summary>1 solution to basic 2/22</summary>
 
 ```python
 def sol(v=9, d=0.0001):
@@ -5106,7 +5110,7 @@ def sat(x: List[int], a=7, s=5, e=200):
     """Create a list that is a subrange of an arithmetic sequence."""
     return x[0] == a and x[-1] <= e and (x[-1] + s > e) and all([x[i] + s == x[i + 1] for i in range(len(x) - 1)])
 ```
-<details><summary>1 solution to puzzle [basic](#basic) 3/22, 10 instances</summary>
+<details><summary>1 solution to basic 3/22</summary>
 
 ```python
 def sol(a=7, s=5, e=200):
@@ -5123,7 +5127,7 @@ def sat(x: List[int], a=8, r=2, l=50):
     """Create a list that is a subrange of an gemoetric sequence."""
     return x[0] == a and len(x) == l and all([x[i] * r == x[i + 1] for i in range(len(x) - 1)])
 ```
-<details><summary>1 solution to puzzle [basic](#basic) 4/22, 10 instances</summary>
+<details><summary>1 solution to basic 4/22</summary>
 
 ```python
 def sol(a=8, r=2, l=50):
@@ -5145,7 +5149,7 @@ def sat(e: List[int], a=2, b=-1, c=1, d=2021):
     x = e[0] / e[1]
     return abs(a * x + b - c * x - d) < 10 ** -5
 ```
-<details><summary>1 solution to puzzle [basic](#basic) 5/22, 10 instances</summary>
+<details><summary>1 solution to basic 5/22</summary>
 
 ```python
 def sol(a=2, b=-1, c=1, d=2021):
@@ -5165,7 +5169,7 @@ def sat(x: int, a=324554, b=1345345):
     else:
         return x - 2 * a == b
 ```
-<details><summary>1 solution to puzzle [basic](#basic) 6/22, 10 instances</summary>
+<details><summary>1 solution to basic 6/22</summary>
 
 ```python
 def sol(a=324554, b=1345345):
@@ -5188,7 +5192,7 @@ def sat(x: int, a=9384594, b=1343663):
     else:
         return x + a == b
 ```
-<details><summary>1 solution to puzzle [basic](#basic) 7/22, 10 instances</summary>
+<details><summary>1 solution to basic 7/22</summary>
 
 ```python
 def sol(a=9384594, b=1343663):
@@ -5211,7 +5215,7 @@ def sat(x: int, a=253532, b=1230200):
     else:
         return x + a == b
 ```
-<details><summary>1 solution to puzzle [basic](#basic) 8/22, 10 instances</summary>
+<details><summary>1 solution to basic 8/22</summary>
 
 ```python
 def sol(a=253532, b=1230200):
@@ -5236,7 +5240,7 @@ def sat(x: int, a=4, b=54368639):
     else:
         return x + a == b
 ```
-<details><summary>1 solution to puzzle [basic](#basic) 9/22, 10 instances</summary>
+<details><summary>1 solution to basic 9/22</summary>
 
 ```python
 def sol(a=4, b=54368639):
@@ -5259,7 +5263,7 @@ def sat(x: List[int], n=5, s=19):
     """Find a list of n non-negative integers that sum up to s"""
     return len(x) == n and sum(x) == s and all([a > 0 for a in x])
 ```
-<details><summary>1 solution to puzzle [basic](#basic) 10/22, 10 instances</summary>
+<details><summary>1 solution to basic 10/22</summary>
 
 ```python
 def sol(n=5, s=19):
@@ -5278,7 +5282,7 @@ def sat(x: List[int], n=4, s=2021):
     """Construct a list of n distinct integers that sum up to s"""
     return len(x) == n and sum(x) == s and len(set(x)) == n
 ```
-<details><summary>1 solution to puzzle [basic](#basic) 11/22, 10 instances</summary>
+<details><summary>1 solution to basic 11/22</summary>
 
 ```python
 def sol(n=4, s=2021):
@@ -5307,7 +5311,7 @@ def sat(x: str, s=['a', 'b', 'c', 'd', 'e', 'f'], n=4):
     """Concatenate the list of characters in s"""
     return len(x) == n and all([x[i] == s[i] for i in range(n)])
 ```
-<details><summary>1 solution to puzzle [basic](#basic) 12/22, 10 instances</summary>
+<details><summary>1 solution to basic 12/22</summary>
 
 ```python
 def sol(s=['a', 'b', 'c', 'd', 'e', 'f'], n=4):
@@ -5326,7 +5330,7 @@ def sat(x: List[int], t=677, a=43, e=125, s=10):
     return t == sum([x[i] for i in range(a, e, s)]) and len(set(non_zero)) == len(non_zero) and all(
         [x[i] != 0 for i in range(a, e, s)])
 ```
-<details><summary>1 solution to puzzle [basic](#basic) 13/22, 10 instances</summary>
+<details><summary>1 solution to basic 13/22</summary>
 
 ```python
 def sol(t=677, a=43, e=125, s=10):
@@ -5360,7 +5364,7 @@ def sat(x: List[int], t=50, n=10):
         i += 1
     return i == n
 ```
-<details><summary>1 solution to puzzle [basic](#basic) 14/22, 10 instances</summary>
+<details><summary>1 solution to basic 14/22</summary>
 
 ```python
 def sol(t=50, n=10):
@@ -5380,7 +5384,7 @@ def sat(s: str, s1="a", s2="b", count1=50, count2=30):
     """
     return s.count(s1) == count1 and s.count(s2) == count2 and s[:10] == s[-10:]
 ```
-<details><summary>1 solution to puzzle [basic](#basic) 15/22, 10 instances</summary>
+<details><summary>1 solution to basic 15/22</summary>
 
 ```python
 def sol(s1="a", s2="b", count1=50, count2=30):
@@ -5407,7 +5411,7 @@ def sat(s: str, substrings=['foo', 'bar', 'baz', 'oddball']):
     """
     return all(sub in s[i::len(substrings)] for i, sub in enumerate(substrings))
 ```
-<details><summary>1 solution to puzzle [basic](#basic) 16/22, 10 instances</summary>
+<details><summary>1 solution to basic 16/22</summary>
 
 ```python
 def sol(substrings=['foo', 'bar', 'baz', 'oddball']):
@@ -5427,7 +5431,7 @@ def sat(s: str, substrings=['foo', 'bar', 'baz']):
     """
     return all(sub in s and sub[::-1] in s for sub in substrings)
 ```
-<details><summary>1 solution to puzzle [basic](#basic) 17/22, 10 instances</summary>
+<details><summary>1 solution to basic 17/22</summary>
 
 ```python
 def sol(substrings=['foo', 'bar', 'baz']):
@@ -5446,7 +5450,7 @@ def sat(ls: List[str], n=100, a="bar", b="foo"):
     """
     return len(ls) == len(set(ls)) == n and ls[0] == a and ls[-1] == b and ls == sorted(ls)
 ```
-<details><summary>1 solution to puzzle [basic](#basic) 18/22, 10 instances</summary>
+<details><summary>1 solution to basic 18/22</summary>
 
 ```python
 def sol(n=100, a="bar", b="foo"):
@@ -5463,7 +5467,7 @@ def sat(s: str, strings=['cat', 'dog', 'bird', 'fly', 'moose']):
     """Find the alphabetically second to last last string in a list."""
     return s in strings and sum(t > s for t in strings) == 1
 ```
-<details><summary>1 solution to puzzle [basic](#basic) 19/22, 10 instances</summary>
+<details><summary>1 solution to basic 19/22</summary>
 
 ```python
 def sol(strings=['cat', 'dog', 'bird', 'fly', 'moose']):
@@ -5480,7 +5484,7 @@ def sat(s: str, strings=['cat', 'dog', 'bird', 'fly', 'moose']):
     """Find the reversed version of the alphabetically second string in a list."""
     return s[::-1] in strings and sum(t < s[::-1] for t in strings) == 1
 ```
-<details><summary>1 solution to puzzle [basic](#basic) 20/22, 10 instances</summary>
+<details><summary>1 solution to basic 20/22</summary>
 
 ```python
 def sol(strings=['cat', 'dog', 'bird', 'fly', 'moose']):
@@ -5497,7 +5501,7 @@ def sat(s: str, target="foobarbazwow", length=6):
     """Find a substring of the given length centered within the target string."""
     return target[(len(target) - length) // 2:(len(target) + length) // 2] == s
 ```
-<details><summary>1 solution to puzzle [basic](#basic) 21/22, 10 instances</summary>
+<details><summary>1 solution to basic 21/22</summary>
 
 ```python
 def sol(target="foobarbazwow", length=6):
@@ -5514,7 +5518,7 @@ def sat(substring: str, string="moooboooofasd", count=2):
     """Find a substring with a certain count in a given string"""
     return string.count(substring) == count
 ```
-<details><summary>1 solution to puzzle [basic](#basic) 22/22, 10 instances</summary>
+<details><summary>1 solution to basic 22/22</summary>
 
 ```python
 def sol(string="moooboooofasd", count=2):
@@ -5552,7 +5556,7 @@ def sat(squares: List[List[int]], m=8, n=8):
     assert all(i in range(m) and j in range(n) for i, j in squares) and len(squares) == k
     return 4 * k == len({t for i, j in squares for t in [('row', i), ('col', j), ('SE', i + j), ('NE', i - j)]})
 ```
-<details><summary>1 solution to puzzle [chess](#chess) 1/5, 10 instances</summary>
+<details><summary>1 solution to chess 1/5</summary>
 
 ```python
 def sol(m=8, n=8):  # brute force
@@ -5586,7 +5590,7 @@ def sat(squares: List[List[int]], m=9, n=9):
     assert len({i - j for i, j in squares}) == k, "Queens on same NE diagonal"
     return True
 ```
-<details><summary>1 solution to puzzle [chess](#chess) 2/5, 10 instances</summary>
+<details><summary>1 solution to chess 2/5</summary>
 
 ```python
 def sol(m=9, n=9):
@@ -5615,7 +5619,7 @@ def sat(tour: List[List[int]], m=8, n=8):
     assert all({abs(i1 - i2), abs(j1 - j2)} == {1, 2} for [i1, j1], [i2, j2] in zip(tour, tour[1:])), 'legal moves'
     return sorted(tour) == [[i, j] for i in range(m) for j in range(n)]  # cover every square once
 ```
-<details><summary>1 solution to puzzle [chess](#chess) 3/5, 10 instances</summary>
+<details><summary>1 solution to chess 3/5</summary>
 
 ```python
 def sol(m=8, n=8):  # using Warnsdorff's heuristic, breaking ties randomly 
@@ -5675,7 +5679,9 @@ def sat(path: List[List[int]], m=8, n=8, target=35):
 
     return len(path) >= target
 ```
-0 solutions to puzzle [chess](#chess) 4/5, 10 instances### UNSOLVED_UncrossedKnightsPath
+0 solutions to chess 4/5
+
+### UNSOLVED_UncrossedKnightsPath
 Uncrossed Knights Path (open problem, unsolved)
 
 The goal of these problems is to *beat* the nxn_records from
@@ -5710,7 +5716,9 @@ def sat(path: List[List[int]], m=8, n=8, target=35):
 
     return len(path) >= target
 ```
-0 solutions to puzzle [chess](#chess) 5/5, 10 instances## compression
+0 solutions to chess 5/5
+
+## compression
 
 Puzzles relating to de/compression.
 
@@ -5732,7 +5740,7 @@ def sat(seq: List[int], compressed_len=17, text="Hellooooooooooooooooooooo world
         index.append(pieces[-2] + pieces[-1][0])
     return "".join(pieces) == text and len(seq) <= compressed_len
 ```
-<details><summary>1 solution to puzzle [compression](#compression) 1/3, 10 instances</summary>
+<details><summary>1 solution to compression 1/3</summary>
 
 ```python
 def sol(compressed_len=17, text="Hellooooooooooooooooooooo world!"):  # compressed_len is ignored
@@ -5782,7 +5790,7 @@ def sat(text: str, seq=[72, 101, 108, 108, 111, 32, 119, 111, 114, 100, 262, 264
 
     return seq2 == seq
 ```
-<details><summary>1 solution to puzzle [compression](#compression) 2/3, 10 instances</summary>
+<details><summary>1 solution to compression 2/3</summary>
 
 ```python
 def sol(seq=[72, 101, 108, 108, 111, 32, 119, 111, 114, 100, 262, 264, 266, 263, 265, 33]):
@@ -5806,7 +5814,7 @@ def sat(words: List[str], num=100, bits=100, dist=34):
     assert len(words) == num and all(len(word) == bits and set(word) <= {"0", "1"} for word in words)
     return all(sum([a != b for a, b in zip(words[i], words[j])]) >= dist for i in range(num) for j in range(i))
 ```
-<details><summary>1 solution to puzzle [compression](#compression) 3/3, 10 instances</summary>
+<details><summary>1 solution to compression 3/3</summary>
 
 ```python
 def sol(num=100, bits=100, dist=34):
@@ -5849,7 +5857,7 @@ def sat(init: List[List[int]], period=3):
         if live == target:
             return t + 1 == period
 ```
-<details><summary>1 solution to puzzle [conways_game_of_life](#conways_game_of_life) 1/3, 10 instances</summary>
+<details><summary>1 solution to conways_game_of_life 1/3</summary>
 
 ```python
 def sol(period=3):  # generate random patterns, slow solution
@@ -5911,7 +5919,7 @@ def sat(position: List[List[int]], target=[[1, 3], [1, 4], [2, 5]]):
     next_step = {z for z in visible if sum(z + d in live for d in deltas) in ([2, 3] if z in live else [3])}
     return next_step == {x + y * 1j for x, y in target}
 ```
-<details><summary>1 solution to puzzle [conways_game_of_life](#conways_game_of_life) 2/3, 10 instances</summary>
+<details><summary>1 solution to conways_game_of_life 2/3</summary>
 
 ```python
 def sol(target=[[1, 3], [1, 4], [2, 5]]):  # fixed-temperature MC optimization
@@ -5970,7 +5978,9 @@ def sat(init: List[List[int]], period=4):
         if {z * len(live) - tot for z in live} == target:
             return t + 1 == period and tot != init_tot
 ```
-0 solutions to puzzle [conways_game_of_life](#conways_game_of_life) 3/3, 10 instances## games
+0 solutions to conways_game_of_life 3/3
+
+## games
 
 
 Solve some two-player games
@@ -6012,7 +6022,7 @@ def sat(cert: List[List[int]], heaps=[5, 9]):
     init_leave = tuple(heaps)
     return is_good_leave(init_leave) == (init_leave in good_leaves)
 ```
-<details><summary>1 solution to puzzle [games](#games) 1/5, 10 instances</summary>
+<details><summary>1 solution to games 1/5</summary>
 
 ```python
 def sol(heaps=[5, 9]):
@@ -6075,7 +6085,7 @@ def sat(transcripts: List[str], max_moves=10):
 
     return all(helper(r + s + t + u) for r in COLORS for s in COLORS for t in COLORS for u in COLORS)
 ```
-<details><summary>1 solution to puzzle [games](#games) 2/5, 3 instances</summary>
+<details><summary>1 solution to games 2/5</summary>
 
 ```python
 def sol(max_moves=10):
@@ -6149,7 +6159,7 @@ def sat(good_boards: List[str]):
 
     return tie(0, 0)
 ```
-<details><summary>1 solution to puzzle [games](#games) 3/5, 1 instance</summary>
+<details><summary>1 solution to games 3/5</summary>
 
 ```python
 def sol():
@@ -6207,7 +6217,7 @@ def sat(good_boards: List[str]):
 
     return all(tie(1 << i, 0) for i in range(9))
 ```
-<details><summary>1 solution to puzzle [games](#games) 4/5, 1 instance</summary>
+<details><summary>1 solution to games 4/5</summary>
 
 ```python
 def sol():
@@ -6252,7 +6262,7 @@ def sat(probs: List[float]):
     assert len(probs) == 3 and abs(sum(probs) - 1) < 1e-6
     return max(probs[(i + 2) % 3] - probs[(i + 1) % 3] for i in range(3)) < 1e-6
 ```
-<details><summary>1 solution to puzzle [games](#games) 5/5, 1 instance</summary>
+<details><summary>1 solution to games 5/5</summary>
 
 ```python
 def sol():
@@ -6291,7 +6301,7 @@ def sat(strategies: List[List[float]], A=[[-1.0, -3.0], [0.0, -2.0]], B=[[-1.0, 
     return (all(sum(A[i][j] * q[j] for j in range(n)) <= v + eps for i in range(m)) and
             all(sum(B[i][j] * p[i] for i in range(m)) <= w + eps for j in range(n)))
 ```
-<details><summary>1 solution to puzzle [game_theory](#game_theory) 1/2, 10 instances</summary>
+<details><summary>1 solution to game_theory 1/2</summary>
 
 ```python
 def sol(A=[[-1.0, -3.0], [0.0, -2.0]], B=[[-1.0, 0.0], [-3.0, -2.0]], eps=0.01):
@@ -6349,7 +6359,7 @@ def sat(strategies: List[List[float]], A=[[0.0, -0.5, 1.0], [0.75, 0.0, -1.0], [
     return (all(sum(A[i][j] * q[j] for j in range(n)) <= v + eps for i in range(m)) and
             all(sum(A[i][j] * p[i] for i in range(m)) >= v - eps for j in range(n)))
 ```
-<details><summary>1 solution to puzzle [game_theory](#game_theory) 2/2, 10 instances</summary>
+<details><summary>1 solution to game_theory 2/2</summary>
 
 ```python
 def sol(A=[[0.0, -0.5, 1.0], [0.75, 0.0, -1.0], [-1.0, 0.4, 0.0]], eps=0.01):
@@ -6401,7 +6411,9 @@ def sat(edges: List[List[int]]):
     N = {i: {j for j in range(99) if j != i and ([i, j] in edges or [j, i] in edges)} for i in range(99)}
     return all(len(N[i].intersection(N[j])) == (1 if j in N[i] else 2) for i in range(99) for j in range(i))
 ```
-0 solutions to puzzle [graphs](#graphs) 1/12, 1 instance### AnyEdge
+0 solutions to graphs 1/12
+
+### AnyEdge
 Trivial [graph](https://en.wikipedia.org/w/index.php?title=Graph_(discrete_mathematics)) problem.
 
 ```python
@@ -6409,7 +6421,7 @@ def sat(e: List[int], edges=[[0, 217], [40, 11], [17, 29], [11, 12], [31, 51]]):
     """Find any edge in edges."""
     return e in edges
 ```
-<details><summary>1 solution to puzzle [graphs](#graphs) 2/12, 10 instances</summary>
+<details><summary>1 solution to graphs 2/12</summary>
 
 ```python
 def sol(edges=[[0, 217], [40, 11], [17, 29], [11, 12], [31, 51]]):
@@ -6428,7 +6440,7 @@ def sat(tri: List[int], edges=[[0, 17], [0, 22], [17, 22], [17, 31], [22, 31], [
     a, b, c = tri
     return [a, b] in edges and [b, c] in edges and [c, a] in edges and a != b != c != a
 ```
-<details><summary>1 solution to puzzle [graphs](#graphs) 3/12, 10 instances</summary>
+<details><summary>1 solution to graphs 3/12</summary>
 
 ```python
 def sol(edges=[[0, 17], [0, 22], [17, 22], [17, 31], [22, 31], [31, 17]]):
@@ -6467,7 +6479,7 @@ def sat(nodes: List[int], size=3, edges=[[0, 17], [0, 22], [17, 22], [17, 31], [
 
     return True
 ```
-<details><summary>1 solution to puzzle [graphs](#graphs) 4/12, 10 instances</summary>
+<details><summary>1 solution to graphs 4/12</summary>
 
 ```python
 def sol(size=3, edges=[[0, 17], [0, 22], [17, 22], [17, 31], [22, 31], [31, 17]]):  # brute force (finds list in increasing order), but with a tiny bit of speedup
@@ -6509,7 +6521,7 @@ def sat(path: List[int], weights=[{1: 20, 2: 1}, {2: 2, 3: 5}, {1: 10}], bound=1
     """
     return path[0] == 0 and path[-1] == 1 and sum(weights[a][b] for a, b in zip(path, path[1:])) <= bound
 ```
-<details><summary>1 solution to puzzle [graphs](#graphs) 5/12, 10 instances</summary>
+<details><summary>1 solution to graphs 5/12</summary>
 
 ```python
 def sol(weights=[{1: 20, 2: 1}, {2: 2, 3: 5}, {1: 10}], bound=11):  # Dijkstra's algorithm (bound is ignored)
@@ -6549,7 +6561,7 @@ def sat(path: List[int], edges=[[0, 11], [0, 7], [7, 5], [0, 22], [11, 22], [11,
     assert path[0] == u and path[-1] == v and all([i, j] in edges for i, j in zip(path, path[1:]))
     return len(path) <= bound
 ```
-<details><summary>1 solution to puzzle [graphs](#graphs) 6/12, 10 instances</summary>
+<details><summary>1 solution to graphs 6/12</summary>
 
 ```python
 def sol(edges=[[0, 11], [0, 7], [7, 5], [0, 22], [11, 22], [11, 33], [22, 33]], u=0, v=33, bound=3):  # Dijkstra's algorithm
@@ -6593,7 +6605,7 @@ def sat(path: List[int], edges=[[0, 1], [0, 2], [1, 2], [1, 3], [2, 3]]):
     assert path[-1] == max(max(edge) for edge in edges)
     return True
 ```
-<details><summary>1 solution to puzzle [graphs](#graphs) 7/12, 10 instances</summary>
+<details><summary>1 solution to graphs 7/12</summary>
 
 ```python
 def sol(edges=[[0, 1], [0, 2], [1, 2], [1, 3], [2, 3]]):
@@ -6618,7 +6630,7 @@ def sat(path: List[int], edges=[[0, 2], [0, 1], [2, 1], [2, 3], [1, 3]]):
     assert all([[a, b] in edges for a, b in zip(path, path[1:])])
     return len(path) % 2 == 0
 ```
-<details><summary>1 solution to puzzle [graphs](#graphs) 8/12, 10 instances</summary>
+<details><summary>1 solution to graphs 8/12</summary>
 
 ```python
 def sol(edges=[[0, 2], [0, 1], [2, 1], [2, 3], [1, 3]]):
@@ -6644,7 +6656,7 @@ def sat(p: List[int], edges=[[0, 1], [0, 2], [1, 2], [3, 1], [2, 3]]):
     """Find a path with an even number of nodes from nodes 0 to 1 in the given digraph on vertices 0, 1,..., n."""
     return p[0] == 0 and p[-1] == 1 == len(p) % 2 and all([[a, b] in edges for a, b in zip(p, p[1:])])
 ```
-<details><summary>1 solution to puzzle [graphs](#graphs) 9/12, 10 instances</summary>
+<details><summary>1 solution to graphs 9/12</summary>
 
 ```python
 def sol(edges=[[0, 1], [0, 2], [1, 2], [3, 1], [2, 3]]):
@@ -6678,7 +6690,7 @@ def sat(edges: List[List[int]]):
                 return False
     return True
 ```
-<details><summary>1 solution to puzzle [graphs](#graphs) 10/12, 1 instance</summary>
+<details><summary>1 solution to graphs 10/12</summary>
 
 ```python
 def sol():
@@ -6711,7 +6723,7 @@ def sat(bi: List[int], g1=[[0, 1], [1, 2], [2, 3], [3, 4]], g2=[[0, 4], [4, 1], 
     """
     return len(bi) == len(set(bi)) and {(i, j) for i, j in g1} == {(bi[i], bi[j]) for i, j in g2}
 ```
-<details><summary>1 solution to puzzle [graphs](#graphs) 11/12, 10 instances</summary>
+<details><summary>1 solution to graphs 11/12</summary>
 
 ```python
 def sol(g1=[[0, 1], [1, 2], [2, 3], [3, 4]], g2=[[0, 4], [4, 1], [1, 2], [2, 3]]):  # exponentially slow
@@ -6738,7 +6750,7 @@ def sat(li: List[int]):
     """
     return all(j in {i - 1, i + 1, 3 * i} for i, j in zip([0] + li, li + [128])) and len(li) == 9
 ```
-<details><summary>1 solution to puzzle [graphs](#graphs) 12/12, 1 instance</summary>
+<details><summary>1 solution to graphs 12/12</summary>
 
 ```python
 def sol():
@@ -6773,7 +6785,7 @@ def sat(perms: List[List[int]], prices0=[7, 7, 9, 5, 3, 7, 1, 2], prices1=[5, 5,
         assert prices1[perm1[i]] <= prices1[perm1[i + 1]], "Permuted prices must be nondecreasing (row 1)"
     return all(heights0[i] > heights1[j] for i, j in zip(perm0, perm1))
 ```
-<details><summary>1 solution to puzzle [ICPC](#icpc) 1/4, 10 instances</summary>
+<details><summary>1 solution to ICPC 1/4</summary>
 
 ```python
 def sol(prices0=[7, 7, 9, 5, 3, 7, 1, 2], prices1=[5, 5, 5, 4, 2, 5, 1, 1], heights0=[2, 4, 9, 3, 8, 5, 5, 4], heights1=[1, 3, 8, 1, 5, 4, 4, 2]):
@@ -6828,7 +6840,7 @@ def sat(indices: List[int], H=60, alpha=18, beta=2, xs=[0, 10, 20, 30, 50, 80, 1
         cost += alpha * (H - ys[j]) + beta * (b - a) ** 2
     return cost <= thresh
 ```
-<details><summary>1 solution to puzzle [ICPC](#icpc) 2/4, 10 instances</summary>
+<details><summary>1 solution to ICPC 2/4</summary>
 
 ```python
 def sol(H=60, alpha=18, beta=2, xs=[0, 10, 20, 30, 50, 80, 100, 120, 160, 190, 200], ys=[0, 30, 10, 30, 50, 40, 10, 20, 20, 55, 10], thresh=26020):  # thresh is ignored
@@ -6919,7 +6931,7 @@ def sat(position: List[List[int]], transcript=[[[3, 3], [5, 5], [3, 7]], [[5, 3]
 
     return True
 ```
-<details><summary>1 solution to puzzle [ICPC](#icpc) 3/4, 10 instances</summary>
+<details><summary>1 solution to ICPC 3/4</summary>
 
 ```python
 def sol(transcript=[[[3, 3], [5, 5], [3, 7]], [[5, 3], [6, 4]]]):
@@ -7071,7 +7083,7 @@ def sat(cut_position: int, ring="yRrsmOkLCHSDJywpVDEDsjgCwSUmtvHMefxxPFdmBIpM", 
             matches[c.lower()] += 1
     return sum(i == 0 for i in matches.values()) >= lower
 ```
-<details><summary>1 solution to puzzle [ICPC](#icpc) 4/4, 10 instances</summary>
+<details><summary>1 solution to ICPC 4/4</summary>
 
 ```python
 def sol(ring="yRrsmOkLCHSDJywpVDEDsjgCwSUmtvHMefxxPFdmBIpM", lower=5):
@@ -7149,7 +7161,7 @@ def sat(states: List[List[int]], n=16385):
 
     return states[-1][-1] == 2 ** n
 ```
-<details><summary>1 solution to puzzle [IMO](#imo) 1/6, 10 instances</summary>
+<details><summary>1 solution to IMO 1/6</summary>
 
 ```python
 def sol(n=16385):
@@ -7220,7 +7232,7 @@ def sat(nums: List[int], b=6, m=2):
 
     return True
 ```
-<details><summary>1 solution to puzzle [IMO](#imo) 2/6, 10 instances</summary>
+<details><summary>1 solution to IMO 2/6</summary>
 
 ```python
 def sol(b=6, m=2):
@@ -7292,7 +7304,7 @@ def sat(indices: List[int], a0=123):
         s.append(int(s[-1] ** 0.5) if int(s[-1] ** 0.5) ** 2 == s[-1] else s[-1] + 3)
     return len(indices) == len(set(indices)) == 1000 and min(indices) >= 0 and len({s[i] for i in indices}) == 1
 ```
-<details><summary>1 solution to puzzle [IMO](#imo) 3/6, 10 instances</summary>
+<details><summary>1 solution to IMO 3/6</summary>
 
 ```python
 def sol(a0=123):
@@ -7340,7 +7352,7 @@ def sat(keep: List[bool], heights=[10, 2, 14, 1, 8, 19, 16, 6, 12, 3, 17, 0, 9, 
     pi = sorted(range(2 * n), key=lambda i: kept[i])  # the sort indices
     return all(abs(pi[2 * i] - pi[2 * i + 1]) == 1 for i in range(n))
 ```
-<details><summary>1 solution to puzzle [IMO](#imo) 4/6, 10 instances</summary>
+<details><summary>1 solution to IMO 4/6</summary>
 
 ```python
 def sol(heights=[10, 2, 14, 1, 8, 19, 16, 6, 12, 3, 17, 0, 9, 18, 5, 7, 11, 13, 15, 4]): # Based on the judge's solution.
@@ -7389,7 +7401,7 @@ def sat(li: List[int], n=18):
     assert n % 3 == 0, "Hint: n is a multiple of 3"
     return len(li) == n and all(li[(i + 2) % n] == 1 + li[(i + 1) % n] * li[i] for i in range(n))
 ```
-<details><summary>1 solution to puzzle [IMO](#imo) 5/6, 10 instances</summary>
+<details><summary>1 solution to IMO 5/6</summary>
 
 ```python
 def sol(n=18):
@@ -7422,7 +7434,7 @@ def sat(li: List[int], n=3, tags=[0, 1, 2, 0, 0, 1, 1, 1, 2, 2, 0, 2]):
     assert len(li) == len(set(li)) and min(li) >= 0
     return sum(li) * 2 == sum(range(4 * n)) and sorted([tags[i] for i in li]) == [i // 2 for i in range(2 * n)]
 ```
-<details><summary>1 solution to puzzle [IMO](#imo) 6/6, 10 instances</summary>
+<details><summary>1 solution to IMO 6/6</summary>
 
 ```python
 def sol(n=3, tags=[0, 1, 2, 0, 0, 1, 1, 1, 2, 2, 0, 2]):
@@ -7506,7 +7518,7 @@ def sat(inds: List[int], vecs=[169, 203, 409, 50, 37, 479, 370, 133, 53, 159, 16
     """
     return all(sum((v >> i) & 1 for i in inds) % 2 == 1 for v in vecs)
 ```
-<details><summary>1 solution to puzzle [lattices](#lattices) 1/2, 10 instances</summary>
+<details><summary>1 solution to lattices 1/2</summary>
 
 ```python
 def sol(vecs=[169, 203, 409, 50, 37, 479, 370, 133, 53, 159, 161, 367, 474, 107, 82, 447, 385]):  # Gaussian elimination
@@ -7554,7 +7566,7 @@ def sat(inds: List[int], vecs=[26, 5, 16, 3, 15, 18, 31, 13, 24, 25, 6, 5, 15, 2
     """
     return sum(sum((v >> i) & 1 for i in inds) % 2 for v in vecs) >= len(vecs) * 3 / 4
 ```
-<details><summary>1 solution to puzzle [lattices](#lattices) 2/2, 10 instances</summary>
+<details><summary>1 solution to lattices 2/2</summary>
 
 ```python
 def sol(vecs=[26, 5, 16, 3, 15, 18, 31, 13, 24, 25, 6, 5, 15, 24, 16, 13, 0, 27, 13]):  # brute force
@@ -7593,7 +7605,9 @@ def sat(nums: List[int]):
     a, b, c, n = nums
     return (a ** n + b ** n == c ** n) and min(a, b, c) > 0 and n > 2
 ```
-0 solutions to puzzle [number_theory](#number_theory) 1/16, 1 instance### GCD
+0 solutions to number_theory 1/16
+
+### GCD
 [Greatest Common Divisor](https://en.wikipedia.org/w/index.php?title=Greatest_common_divisor&oldid=990943381)
 (GCD)
 
@@ -7605,7 +7619,7 @@ See also the [Euclidean algorithm](https://en.wikipedia.org/wiki/Euclidean_algor
 def sat(n: int, a=15482, b=23223, lower_bound=5):
     return a % n == 0 and b % n == 0 and n >= lower_bound
 ```
-<details><summary>2 solutions to puzzle [number_theory](#number_theory) 2/16, 10 instances</summary>
+<details><summary>2 solutions to number_theory 2/16</summary>
 
 ```python
 def sol(a=15482, b=23223, lower_bound=5):
@@ -7643,7 +7657,7 @@ See also the [Euclidean algorithm](https://en.wikipedia.org/wiki/Euclidean_algor
 def sat(n: int, nums=[77410, 23223, 54187], lower_bound=2):
     return all(i % n == 0 for i in nums) and n >= lower_bound
 ```
-<details><summary>1 solution to puzzle [number_theory](#number_theory) 3/16, 10 instances</summary>
+<details><summary>1 solution to number_theory 3/16</summary>
 
 ```python
 def sol(nums=[77410, 23223, 54187], lower_bound=2):
@@ -7669,7 +7683,7 @@ See also the [Euclidean algorithm](https://en.wikipedia.org/wiki/Euclidean_algor
 def sat(n: int, a=15, b=27, upper_bound=150):
     return n % a == 0 and n % b == 0 and 0 < n <= upper_bound
 ```
-<details><summary>1 solution to puzzle [number_theory](#number_theory) 4/16, 10 instances</summary>
+<details><summary>1 solution to number_theory 4/16</summary>
 
 ```python
 def sol(a=15, b=27, upper_bound=150):
@@ -7693,7 +7707,7 @@ See also the [Euclidean algorithm](https://en.wikipedia.org/wiki/Euclidean_algor
 def sat(n: int, nums=[15, 27, 102], upper_bound=5000):
     return all(n % i == 0 for i in nums) and n <= upper_bound
 ```
-<details><summary>1 solution to puzzle [number_theory](#number_theory) 5/16, 10 instances</summary>
+<details><summary>1 solution to number_theory 5/16</summary>
 
 ```python
 def sol(nums=[15, 27, 102], upper_bound=5000):
@@ -7722,7 +7736,7 @@ See [Richard K. Guy "The strong law of small numbers", (problem 13)](https://doi
 def sat(n: int, b=2, target=5):
     return (b ** n) % n == target
 ```
-<details><summary>1 solution to puzzle [number_theory](#number_theory) 6/16, 10 instances</summary>
+<details><summary>1 solution to number_theory 6/16</summary>
 
 ```python
 def sol(b=2, target=5):
@@ -7748,7 +7762,7 @@ def sat(nums: List[int], target=10):
     assert target % 9 not in [4, 5], "Hint"
     return len(nums) == 3 and sum([i ** 3 for i in nums]) == target
 ```
-<details><summary>1 solution to puzzle [number_theory](#number_theory) 7/16, 10 instances</summary>
+<details><summary>1 solution to number_theory 7/16</summary>
 
 ```python
 def sol(target=10):
@@ -7784,7 +7798,7 @@ def sat(nums: List[int], n=12345):
     """Find four integers whose squares sum to n"""
     return len(nums) <= 4 and sum(i ** 2 for i in nums) == n
 ```
-<details><summary>1 solution to puzzle [number_theory](#number_theory) 8/16, 10 instances</summary>
+<details><summary>1 solution to number_theory 8/16</summary>
 
 ```python
 def sol(n=12345):
@@ -7822,7 +7836,7 @@ def sat(i: int, n=62710561):
     """Find a non-trivial factor of integer n"""
     return 1 < i < n and n % i == 0
 ```
-<details><summary>1 solution to puzzle [number_theory](#number_theory) 9/16, 10 instances</summary>
+<details><summary>1 solution to number_theory 9/16</summary>
 
 ```python
 def sol(n=62710561):
@@ -7860,7 +7874,7 @@ def sat(n: int, g=3, p=17, t=13):
     """Find n such that g^n is congruent to t mod n"""
     return pow(g, n, p) == t
 ```
-<details><summary>1 solution to puzzle [number_theory](#number_theory) 10/16, 10 instances</summary>
+<details><summary>1 solution to number_theory 10/16</summary>
 
 ```python
 def sol(g=3, p=17, t=13):
@@ -7887,7 +7901,9 @@ def sat(n: int):
 
     return n >= 0 and j != 1
 ```
-0 solutions to puzzle [number_theory](#number_theory) 11/16, 1 instance### Znam
+0 solutions to number_theory 11/16
+
+### Znam
 [Znam's Problem](https://en.wikipedia.org/wiki/Zn%C3%A1m%27s_problem)
 
 For example [2, 3, 7, 47, 395] is a solution for k=5
@@ -7903,7 +7919,7 @@ def sat(li: List[int], k=5):
 
     return min(li) > 1 and len(li) == k and all((1 + prod(li[:i] + li[i + 1:])) % li[i] == 0 for i in range(k))
 ```
-<details><summary>1 solution to puzzle [number_theory](#number_theory) 12/16, 10 instances</summary>
+<details><summary>1 solution to number_theory 12/16</summary>
 
 ```python
 def sol(k=5):
@@ -7950,7 +7966,9 @@ def sat(n: int):
         if n == m:
             return True
 ```
-0 solutions to puzzle [number_theory](#number_theory) 13/16, 1 instance### CollatzGeneralizedUnsolved
+0 solutions to number_theory 13/16
+
+### CollatzGeneralizedUnsolved
 Generalized Collatz Conjecture
 
 This version, permits negative n and seek a cycle with a number of magnitude greater than 1000,
@@ -7973,7 +7991,9 @@ def sat(start: int):
         if n == start:
             return True
 ```
-0 solutions to puzzle [number_theory](#number_theory) 14/16, 1 instance### CollatzDelay
+0 solutions to number_theory 14/16
+
+### CollatzDelay
 Collatz Delay
 
 Consider the following process. Start with an integer `n` and repeatedly applying the operation:
@@ -8006,7 +8026,7 @@ def sat(n: int, t=100, upper=10):
         n = 3 * n + 1 if n % 2 else n // 2
     return n == 1 and m <= 2 ** upper
 ```
-<details><summary>1 solution to puzzle [number_theory](#number_theory) 15/16, 10 instances</summary>
+<details><summary>1 solution to number_theory 15/16</summary>
 
 ```python
 def sol(t=100, upper=10):  # Faster solution for simultaneously solving multiple problems is of course possible
@@ -8038,7 +8058,7 @@ def sat(n: int):
     """Find n  such that 2^n mod n = 3"""
     return pow(2, n, n) == 3
 ```
-<details><summary>1 solution to puzzle [number_theory](#number_theory) 16/16, 1 instance</summary>
+<details><summary>1 solution to number_theory 16/16</summary>
 
 ```python
 def sol():
@@ -8065,7 +8085,7 @@ def sat(n: int, year_len=365):
         prob *= (year_len - i) / year_len
     return (prob - 0.5) ** 2 <= 1/year_len
 ```
-<details><summary>1 solution to puzzle [probability](#probability) 1/5, 10 instances</summary>
+<details><summary>1 solution to probability 1/5</summary>
 
 ```python
 def sol(year_len=365):
@@ -8094,7 +8114,7 @@ def sat(n: int, year_len=365):
     prob = sum(len({random.randrange(year_len) for i in range(n)}) < n for j in range(K)) / K
     return (prob - 0.5) ** 2 <= year_len
 ```
-<details><summary>1 solution to puzzle [probability](#probability) 2/5, 10 instances</summary>
+<details><summary>1 solution to probability 2/5</summary>
 
 ```python
 def sol(year_len=365):
@@ -8137,7 +8157,7 @@ def sat(counts: List[int], target_prob=0.5):
             )
     return abs(probs[n] - target_prob) < 1e-6
 ```
-<details><summary>1 solution to puzzle [probability](#probability) 3/5, 10 instances</summary>
+<details><summary>1 solution to probability 3/5</summary>
 
 ```python
 def sol(target_prob=0.5):
@@ -8162,7 +8182,7 @@ def sat(counts: List[int], p=0.5, target_prob=0.0625):
     tot = sum([prob for sample in product([0, 1], repeat=n) if sum(sample) == a])
     return abs(tot - target_prob) < 1e-6
 ```
-<details><summary>1 solution to puzzle [probability](#probability) 4/5, 10 instances</summary>
+<details><summary>1 solution to probability 4/5</summary>
 
 ```python
 def sol(p=0.5, target_prob=0.0625):
@@ -8189,7 +8209,7 @@ def sat(p_stop: float, steps=10, target_prob=0.5):
     prob = sum(p_stop*(1-p_stop)**t for t in range(steps))
     return abs(prob - target_prob) < 1e-6
 ```
-<details><summary>1 solution to puzzle [probability](#probability) 5/5, 10 instances</summary>
+<details><summary>1 solution to probability 5/5</summary>
 
 ```python
 def sol(steps=10, target_prob=0.5):
@@ -8212,7 +8232,9 @@ def sat(s: str):
     """Find a string that when concatenated onto 'world' gives 'Hello world'."""
     return s + 'world' == 'Hello world'
 ```
-0 solutions to puzzle [trivial_inverse](#trivial_inverse) 1/39, 1 instance### BackWorlds
+0 solutions to trivial_inverse 1/39
+
+### BackWorlds
 We provide two solutions
 
 ```python
@@ -8220,7 +8242,7 @@ def sat(s: str):
     """Find a string that when reversed and concatenated onto 'world' gives 'Hello world'."""
     return s[::-1] + 'world' == 'Hello world'
 ```
-<details><summary>2 solutions to puzzle [trivial_inverse](#trivial_inverse) 2/39, 1 instance</summary>
+<details><summary>2 solutions to trivial_inverse 2/39</summary>
 
 ```python
 def sol():
@@ -8244,7 +8266,7 @@ def sat(st: str, a="world", b="Hello world"):
     """Solve simple string addition problem."""
     return st + a == b
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 3/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 3/39</summary>
 
 ```python
 def sol(a="world", b="Hello world"):
@@ -8261,7 +8283,7 @@ def sat(s: str, dups=2021):
     """Find a string with dups duplicate chars"""
     return len(set(s)) == len(s) - dups
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 4/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 4/39</summary>
 
 ```python
 def sol(dups=2021):
@@ -8278,7 +8300,7 @@ def sat(s: str, target="foofoofoofoo", n=2):
     """Find a string which when repeated n times gives target"""
     return s * n == target
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 5/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 5/39</summary>
 
 ```python
 def sol(target="foofoofoofoo", n=2):
@@ -8297,7 +8319,7 @@ def sat(n: int, target="foofoofoofoo", s="foofoo"):
     """Find n such that s repeated n times gives target"""
     return s * n == target
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 6/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 6/39</summary>
 
 ```python
 def sol(target="foofoofoofoo", s="foofoo"):
@@ -8316,7 +8338,7 @@ def sat(s: str, n=1000):
     """Find a string of length n"""
     return len(s) == n
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 7/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 7/39</summary>
 
 ```python
 def sol(n=1000):
@@ -8333,7 +8355,7 @@ def sat(i: int, s="cat", target="a"):
     """Find the index of target in string s"""
     return s[i] == target
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 8/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 8/39</summary>
 
 ```python
 def sol(s="cat", target="a"):
@@ -8350,7 +8372,7 @@ def sat(i: int, s="cat", target="a"):
     """Find the index of target in s using a negative index."""
     return s[i] == target and i < 0
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 9/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 9/39</summary>
 
 ```python
 def sol(s="cat", target="a"):
@@ -8368,7 +8390,7 @@ def sat(inds: List[int], s="hello world", target="do"):
     i, j, k = inds
     return s[i:j:k] == target
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 10/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 10/39</summary>
 
 ```python
 def sol(s="hello world", target="do"):
@@ -8391,7 +8413,7 @@ def sat(s: str, big_str="foobar", index=2):
     """Find a string whose *first* index in big_str is index"""
     return big_str.index(s) == index
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 11/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 11/39</summary>
 
 ```python
 def sol(big_str="foobar", index=2):
@@ -8408,7 +8430,7 @@ def sat(big_str: str, sub_str="foobar", index=2):
     """Find a string whose *first* index of sub_str is index"""
     return big_str.index(sub_str) == index
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 12/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 12/39</summary>
 
 ```python
 def sol(sub_str="foobar", index=2):
@@ -8428,7 +8450,7 @@ def sat(s: str, a="hello", b="yellow", length=4):
     """Find a string of length length that is in both strings a and b"""
     return len(s) == length and s in a and s in b
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 13/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 13/39</summary>
 
 ```python
 def sol(a="hello", b="yellow", length=4):
@@ -8447,7 +8469,7 @@ def sat(substrings: List[str], s="hello", count=15):
     """Find a list of >= count distinct strings that are all contained in s"""
     return len(substrings) == len(set(substrings)) >= count and all(sub in s for sub in substrings)
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 14/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 14/39</summary>
 
 ```python
 def sol(s="hello", count=15):
@@ -8464,7 +8486,7 @@ def sat(string: str, substring="a", count=10, length=100):
     """Find a string with a certain number of copies of a given substring and of a given length"""
     return string.count(substring) == count and len(string) == length
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 15/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 15/39</summary>
 
 ```python
 def sol(substring="a", count=10, length=100):
@@ -8482,7 +8504,7 @@ def sat(x: str, parts=['I', 'love', 'dumplings', '!'], length=100):
     """Find a string of a given length with a certain split"""
     return len(x) == length and x.split() == parts
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 16/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 16/39</summary>
 
 ```python
 def sol(parts=['I', 'love', 'dumplings', '!'], length=100):
@@ -8500,7 +8522,7 @@ def sat(x: str, parts=['I', 'love', 'dumplings', '!', ''], string="I_love_dumpli
     """Find a separator that when used to split a given string gives a certain result"""
     return string.split(x) == parts
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 17/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 17/39</summary>
 
 ```python
 def sol(parts=['I', 'love', 'dumplings', '!', ''], string="I_love_dumplings_!_"):
@@ -8524,7 +8546,7 @@ def sat(x: str, parts=['I!!', '!love', 'dumplings', '!', ''], string="I!!!!!love
     """
     return x.join(parts) == string
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 18/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 18/39</summary>
 
 ```python
 def sol(parts=['I!!', '!love', 'dumplings', '!', ''], string="I!!!!!love!!dumplings!!!!!"):
@@ -8545,7 +8567,7 @@ def sat(parts: List[str], sep="!!", string="I!!!!!love!!dumplings!!!!!"):
     """Find parts that when joined give a specific string."""
     return sep.join(parts) == string and all(sep not in p for p in parts)
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 19/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 19/39</summary>
 
 ```python
 def sol(sep="!!", string="I!!!!!love!!dumplings!!!!!"):
@@ -8562,7 +8584,7 @@ def sat(li: List[int], dups=42155):
     """Find a list with a certain number of duplicate items"""
     return len(set(li)) == len(li) - dups
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 20/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 20/39</summary>
 
 ```python
 def sol(dups=42155):
@@ -8579,7 +8601,7 @@ def sat(li: List[int], target=[17, 9, -1, 17, 9, -1], n=2):
     """Find a list that when multiplied n times gives the target list"""
     return li * n == target
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 21/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 21/39</summary>
 
 ```python
 def sol(target=[17, 9, -1, 17, 9, -1], n=2):
@@ -8598,7 +8620,7 @@ def sat(li: List[int], n=85012):
     """Find a list of a given length n"""
     return len(li) == n
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 22/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 22/39</summary>
 
 ```python
 def sol(n=85012):
@@ -8615,7 +8637,7 @@ def sat(i: int, li=[17, 31, 91, 18, 42, 1, 9], target=18):
     """Find the index of an item in a list. Any such index is fine."""
     return li[i] == target
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 23/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 23/39</summary>
 
 ```python
 def sol(li=[17, 31, 91, 18, 42, 1, 9], target=18):
@@ -8632,7 +8654,7 @@ def sat(i: int, li=[17, 31, 91, 18, 42, 1, 9], target=91):
     """Find the index of an item in a list using negative indexing."""
     return li[i] == target and i < 0
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 24/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 24/39</summary>
 
 ```python
 def sol(li=[17, 31, 91, 18, 42, 1, 9], target=91):
@@ -8650,7 +8672,7 @@ def sat(inds: List[int], li=[42, 18, 21, 103, -2, 11], target=[-2, 21, 42]):
     i, j, k = inds
     return li[i:j:k] == target
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 25/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 25/39</summary>
 
 ```python
 def sol(li=[42, 18, 21, 103, -2, 11], target=[-2, 21, 42]):
@@ -8673,7 +8695,7 @@ def sat(item: int, li=[17, 2, 3, 9, 11, 11], index=4):
     """Find the item whose first index in li is index"""
     return li.index(item) == index
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 26/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 26/39</summary>
 
 ```python
 def sol(li=[17, 2, 3, 9, 11, 11], index=4):
@@ -8690,7 +8712,7 @@ def sat(li: List[int], i=29, index=10412):
     """Find a list that contains i first at index index"""
     return li.index(i) == index
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 27/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 27/39</summary>
 
 ```python
 def sol(i=29, index=10412):
@@ -8707,7 +8729,7 @@ def sat(s: str, a=['cat', 'dot', 'bird'], b=['tree', 'fly', 'dot']):
     """Find an item that is in both lists a and b"""
     return s in a and s in b
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 28/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 28/39</summary>
 
 ```python
 def sol(a=['cat', 'dot', 'bird'], b=['tree', 'fly', 'dot']):
@@ -8724,7 +8746,7 @@ def sat(x: int, a=93252338):
     """Solve a unary negation problem"""
     return -x == a
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 29/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 29/39</summary>
 
 ```python
 def sol(a=93252338):
@@ -8741,7 +8763,7 @@ def sat(x: int, a=1073258, b=72352549):
     """Solve a sum problem"""
     return a + x == b
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 30/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 30/39</summary>
 
 ```python
 def sol(a=1073258, b=72352549):
@@ -8758,7 +8780,7 @@ def sat(x: int, a=-382, b=14546310):
     """Solve a subtraction problem"""
     return x - a == b
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 31/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 31/39</summary>
 
 ```python
 def sol(a=-382, b=14546310):
@@ -8775,7 +8797,7 @@ def sat(x: int, a=8665464, b=-93206):
     """Solve a subtraction problem"""
     return a - x == b
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 32/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 32/39</summary>
 
 ```python
 def sol(a=8665464, b=-93206):
@@ -8792,7 +8814,7 @@ def sat(n: int, a=14302, b=5):
     """Solve a multiplication problem"""
     return b * n + (a % b) == a
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 33/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 33/39</summary>
 
 ```python
 def sol(a=14302, b=5):
@@ -8809,7 +8831,7 @@ def sat(n: int, a=3, b=23463462):
     """Solve a division problem"""
     return b // n == a
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 34/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 34/39</summary>
 
 ```python
 def sol(a=3, b=23463462):
@@ -8830,7 +8852,7 @@ def sat(n: int, a=345346363, b=10):
     """Find n that when divided by b is a"""
     return n // b == a
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 35/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 35/39</summary>
 
 ```python
 def sol(a=345346363, b=10):
@@ -8847,7 +8869,7 @@ def sat(x: int, a=10201202001):
     """Compute an integer that when squared equals perfect-square a."""
     return x ** 2 == a
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 36/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 36/39</summary>
 
 ```python
 def sol(a=10201202001):
@@ -8863,7 +8885,7 @@ Find a negative integer that when squared equals perfect-square a.
 def sat(n: int, a=10000200001):
     return a == n * n and n < 0
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 37/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 37/39</summary>
 
 ```python
 def sol(a=10000200001):
@@ -8880,7 +8902,7 @@ def sat(x: float, a=1020):
     """Find a number that when squared is close to a."""
     return abs(x ** 2 - a) < 10 ** -3
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 38/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 38/39</summary>
 
 ```python
 def sol(a=1020):
@@ -8897,7 +8919,7 @@ def sat(x: float, a=1020):
     """Find a negative number that when squared is close to a."""
     return abs(x ** 2 - a) < 10 ** -3 and x < 0
 ```
-<details><summary>1 solution to puzzle [trivial_inverse](#trivial_inverse) 39/39, 10 instances</summary>
+<details><summary>1 solution to trivial_inverse 39/39</summary>
 
 ```python
 def sol(a=1020):
@@ -8920,7 +8942,7 @@ def sat(s: str):
     """Find a string that when concatenated onto 'Hello ' gives 'Hello world'."""
     return "Hello " + s == "Hello world"
 ```
-<details><summary>1 solution to puzzle [tutorial](#tutorial) 1/5, 1 instance</summary>
+<details><summary>1 solution to tutorial 1/5</summary>
 
 ```python
 def sol():
@@ -8937,7 +8959,7 @@ def sat(s: str):
     """Find a string that when reversed and concatenated onto 'Hello ' gives 'Hello world'."""
     return "Hello " + s[::-1] == "Hello world"
 ```
-<details><summary>1 solution to puzzle [tutorial](#tutorial) 2/5, 1 instance</summary>
+<details><summary>1 solution to tutorial 2/5</summary>
 
 ```python
 def sol():
@@ -8954,7 +8976,7 @@ def sat(x: List[int]):
     """Find a list of two integers whose sum is 3."""
     return len(x) == 2 and sum(x) == 3
 ```
-<details><summary>1 solution to puzzle [tutorial](#tutorial) 3/5, 1 instance</summary>
+<details><summary>1 solution to tutorial 3/5</summary>
 
 ```python
 def sol():
@@ -8971,7 +8993,7 @@ def sat(s: List[str]):
     """Find a list of 1000 distinct strings which each have more 'a's than 'b's and at least one 'b'."""
     return len(set(s)) == 1000 and all((x.count("a") > x.count("b")) and ('b' in x) for x in s)
 ```
-<details><summary>1 solution to puzzle [tutorial](#tutorial) 4/5, 1 instance</summary>
+<details><summary>1 solution to tutorial 4/5</summary>
 
 ```python
 def sol():
@@ -8988,7 +9010,7 @@ def sat(n: int):
     """Find an integer whose perfect square begins with 123456789 in its decimal representation."""
     return str(n * n).startswith("123456789")
 ```
-<details><summary>1 solution to puzzle [tutorial](#tutorial) 5/5, 1 instance</summary>
+<details><summary>1 solution to tutorial 5/5</summary>
 
 ```python
 def sol():
