@@ -31,10 +31,10 @@ parser.add_argument('--readme',
 TOP = """# Python Programming Puzzles: dataset summary
 This document summarizes the dataset stored in the `puzzles.json` file in this directory. 
 These files are generated from the `generators/*.py` files.
-The only import required for puzzles is: 
-```from typing import List```    
+The only import for puzzles is `from typing import List` but you should also pass a candidate solution 
+through `check_solution_type` from `puzzle_generator.py` before certifying correctness. 
 
-## Files:
+## Puzzles by module:
 
 {}
 
@@ -46,7 +46,7 @@ The only import required for puzzles is:
 def save_readme(gen_modules, filename):
     table = ""
     content = ""
-    tot_instances = 0
+    tot_puzzles = 0
     tot_instances = 0
     for name, module_stuff in gen_modules.items():
         section = ""
@@ -56,29 +56,30 @@ def save_readme(gen_modules, filename):
         puzzles = module_stuff['examples']
         n = len(puzzles)
         link = f"[{sec_name}](#{sec_name.lower().replace(' ', '-')})"
-        section += "[^ Top](#files)\n\n"
         n_instances = sum(p["n_instances"] for p in puzzles)
         tot_instances += len(puzzles)
         tot_instances += n_instances
+        tot_puzzles += 1
         table += f"- [{sec_name} ({len(puzzles):,} problems, {n_instances:,} instances)](#{sec_name.lower().replace(' ', '-')})\n"
         for i, puzzle in enumerate(puzzles):
-            section += f"### {puzzle['name']}\n({link} {i + 1:,}/{n:,}" + \
-                       f", {puzzle['n_instances']:,} instance{'s' if puzzle['n_instances'] > 1 else ''})\n\n"
+            section += f"### {puzzle['name']}\n"
             section += f"{puzzle['desc']}\n\n"
-            section += f"**Puzzle:**\n\n```python\n{puzzle['sat']}\n```\n"
+            section += f"```python\n{puzzle['sat']}\n```\n"
             if len(puzzle['sols']) > 0:
-                section += "<details><summary><strong>Reveal solution(s):</strong></summary>\n\n"
-                for sol in puzzle['sols']:
-                    section += f"```python\n{sol}\n```\n\n"
-                section += "</details>\n\n"
+                section += "<details><summary>"
+            section += f"{len(puzzle['sols'])} solution{'s' if len(puzzle['sols'])!=1 else ''} "
+            section += f"to puzzle {link} {i + 1:,}/{n:,}"
+            section += f", {puzzle['n_instances']:,} instance{'s' if puzzle['n_instances'] > 1 else ''}"
+            if len(puzzle['sols']) > 0:
+                section += "</summary>\n\n"
+            for sol in puzzle['sols']:
+                section += f"```python\n{sol}\n```\n\n"
+                if len(puzzle['sols']) > 0:
+                    section += "</details>\n\n"
 
-            # section += f"[^ Back](#{sec_name.lower().replace(' ', '-')})\n\n"
-            # Replaced with link in the header
-
-        section += "[^^ Top](#files)\n"
         content += section
 
-    table += f"\nTotal ({tot_instances:,} problems, {tot_instances:,} instances)\n"
+    table += f"\nTotal ({tot_puzzles:,} problems, {tot_instances:,} instances)\n"
 
     content = TOP.format(table) + content
 

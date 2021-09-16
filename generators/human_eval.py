@@ -11,7 +11,7 @@ from typing import List
 
 
 class FindCloseElements(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/0"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#0"""
 
     @staticmethod
     def sat(pair: List[float], nums=[0.17, 21.3, 5.0, 9.0, 11.0, 4.99, 17.0, 17.0, 12.4, 6.8]):
@@ -41,7 +41,7 @@ class FindCloseElements(PuzzleGenerator):
 
 
 class SeparateParenGroups(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/1"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#1"""
 
     @staticmethod
     def sat(ls: List[str], combined='() (()) ((() () ())) (() )'):
@@ -99,7 +99,7 @@ class SeparateParenGroups(PuzzleGenerator):
 
 
 class Frac(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/2"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#2"""
 
     @staticmethod
     def sat(x: float, v=523.12892):
@@ -124,7 +124,7 @@ class Frac(PuzzleGenerator):
 
 
 class FirstNegCumulative(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/3"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#3"""
 
     @staticmethod
     def sat(n: int, balances=[2, 7, -2, 4, 3, -15, 10, -45, 3]):
@@ -163,7 +163,7 @@ class FirstNegCumulative(PuzzleGenerator):
 
 class NegCumulative_Trivial(PuzzleGenerator):
     """
-    Inspired by [HumanEval](https://github.com/openai/human-eval)/3
+    Inspired by [HumanEval](https://github.com/openai/human-eval) \\#3
     (see also FirstNegCumulative above which is not as trivial)
     This version is a more direct translation of the problem but it can of course
     be solved trivially just by trying both neg=True and neg=False
@@ -208,7 +208,7 @@ class NegCumulative_Trivial(PuzzleGenerator):
 
 class MinSquaredDeviation(PuzzleGenerator):
     """
-    Loosely inspired by [HumanEval](https://github.com/openai/human-eval)/4
+    Loosely inspired by [HumanEval](https://github.com/openai/human-eval) \\#4
 
     The HumanEval problem was simply to compute the mean absolute deviation. This problem is more interesting.
     It requires minimizing the sum of squared deviations, which turns out to be the mean `mu`. Moreover, if
@@ -244,7 +244,7 @@ class MinSquaredDeviation(PuzzleGenerator):
 
 class Intersperse(PuzzleGenerator):
     """
-    Inspired by [HumanEval](https://github.com/openai/human-eval)/5
+    Inspired by [HumanEval](https://github.com/openai/human-eval) \\#5
 
     The one-liner version is `li[::2] == nums and li[1::2] == [sep] * (len(li) - 1)`
     """
@@ -282,7 +282,7 @@ class Intersperse(PuzzleGenerator):
 
 
 class DeepestParens(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/6"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#6"""
 
     @staticmethod
     def sat(depths: List[int], parens='() (()) ((()()())) (())'):
@@ -348,7 +348,7 @@ class DeepestParens(PuzzleGenerator):
 
 
 class FindContainers(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/7"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#7"""
 
     @staticmethod
     def sat(containers: List[str], strings=['cat', 'dog', 'shatter', 'bear', 'at', 'ta'], substring='at'):
@@ -384,7 +384,7 @@ class FindContainers(PuzzleGenerator):
 
 
 class SumProduct(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/8"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#8"""
 
     @staticmethod
     def sat(nums: List[int], tot=14, prod=99):
@@ -418,7 +418,7 @@ class SumProduct(PuzzleGenerator):
 
 
 class SumProduct_Trivial(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/8"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#8"""
 
     @staticmethod
     def sat(sum_prod: List[int], nums=[1, 3, 2, -6, 19]):
@@ -449,7 +449,7 @@ class SumProduct_Trivial(PuzzleGenerator):
 
 
 class RollingMax(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/9"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#9"""
 
     @staticmethod
     def sat(maxes: List[int], nums=[1, 4, 3, -6, 19]):
@@ -490,7 +490,7 @@ class RollingMax(PuzzleGenerator):
 
 
 class PalindromeStartingWith(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/10"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#10"""
 
     @staticmethod
     def sat(ans: str, s="so easy", length=13):
@@ -518,7 +518,7 @@ class PalindromeStartingWith(PuzzleGenerator):
 
 
 class PalindromeContaining(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/10"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#10"""
 
     @staticmethod
     def sat(ans: str, s="so easy", length=20):
@@ -560,7 +560,7 @@ class PalindromeContaining(PuzzleGenerator):
 
 
 class BinaryStrXOR(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/11"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#11"""
 
     @staticmethod
     def sat(str_num: str, nums=["100011101100001", "100101100101110"]):
@@ -589,7 +589,7 @@ class BinaryStrXOR(PuzzleGenerator):
 
 # In the HumanEval dataset, tie breaking needs to be specified because each problem must have a unique answer
 class LongestStr(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/12"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#12"""
 
     @staticmethod
     def sat(ans: str, words=["these", "are", "some", "pretty", "long", "words"]):
@@ -615,7 +615,7 @@ class LongestStr(PuzzleGenerator):
 
 class CertifiedGCD(PuzzleGenerator):
     """
-    Inspired by [HumanEval](https://github.com/openai/human-eval)/13
+    Inspired by [HumanEval](https://github.com/openai/human-eval) \\#13
     """
 
     @staticmethod
@@ -663,7 +663,7 @@ class CertifiedGCD(PuzzleGenerator):
 
 
 class AllPrefixes(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/14"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#14"""
 
     @staticmethod
     def sat(prefixes: List[str], s="donesezichethofalij"):
@@ -688,7 +688,7 @@ class AllPrefixes(PuzzleGenerator):
 
 
 class SpaceyRange(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/15"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#15"""
 
     @staticmethod
     def sat(ans: str, n=15):
@@ -713,7 +713,7 @@ class SpaceyRange(PuzzleGenerator):
 
 
 class DistinctChars(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/16"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#16"""
 
     @staticmethod
     def sat(ans: List[str], s='The quick brown fox jumps over the lazy dog!', n=28):
@@ -743,7 +743,7 @@ class DistinctChars(PuzzleGenerator):
 
 
 class ParseMusic(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/17"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#17"""
 
     @staticmethod
     def sat(beats: List[int], score="o o o| o| .| .| .| o| o| o o o| .|"):
@@ -770,7 +770,7 @@ class ParseMusic(PuzzleGenerator):
 
 
 class OverlappingCount(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/18"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#18"""
 
     @staticmethod
     def sat(ans: List[int], s='Bananannanaannanaanananananana', sub='anan', count=7):
@@ -803,7 +803,7 @@ class OverlappingCount(PuzzleGenerator):
 
 
 class SortNumbers(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/19"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#19"""
 
     @staticmethod
     def sat(ans: str, s="six one four three two nine eight"):
@@ -841,7 +841,7 @@ class SortNumbers(PuzzleGenerator):
 
 
 class FindClosePair(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/20"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#20"""
 
     @staticmethod
     def sat(inds: List[int], nums=[0.31, 21.3, 5.0, 9.0, 11.0, 5.01, 17.2]):
@@ -882,7 +882,7 @@ class FindClosePair(PuzzleGenerator):
 
 
 class Rescale(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/21"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#21"""
 
     @staticmethod
     def sat(ans: List[float], nums=[13.0, 17.0, 17.0, 15.5, 2.94]):
@@ -925,7 +925,7 @@ class Rescale(PuzzleGenerator):
 
 
 class FilterInts(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/22"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#22"""
 
     @staticmethod
     def sat(indexes: List[int], li=["Hello", "5", "10", "bye"], num=2):
@@ -963,7 +963,7 @@ class FilterInts(PuzzleGenerator):
 
 
 class StrLength(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/23"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#23"""
 
     @staticmethod
     def sat(length: int, s="pneumonoultramicroscopicsilicovolcanoconiosis"):
@@ -994,7 +994,7 @@ class StrLength(PuzzleGenerator):
 
 
 class LargestDivisor(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/24"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#24"""
 
     @staticmethod
     def sat(d: int, n=123456):
@@ -1021,7 +1021,7 @@ class LargestDivisor(PuzzleGenerator):
 
 
 class PrimeFactorization(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/25"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#25"""
 
     @staticmethod
     def sat(factors: List[int], n=123456, num_factors=8):
@@ -1069,7 +1069,7 @@ class PrimeFactorization(PuzzleGenerator):
 
 
 class Dedup(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/26"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#26"""
 
     @staticmethod
     def sat(ans: List[int], li=[2, 19, 2, 53, 1, 1, 2, 44, 17, 0, 19, 31]):
@@ -1103,7 +1103,7 @@ class Dedup(PuzzleGenerator):
 
 
 class FlipCase(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/27"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#27"""
 
     @staticmethod
     def sat(ans: str, s="FlIp ME!"):
@@ -1131,7 +1131,7 @@ class FlipCase(PuzzleGenerator):
 
 
 class CatStrings(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/28"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#28"""
 
     @staticmethod
     def sat(cat: str, strings=["Will", "i", "am", "Now", "here"]):
@@ -1163,7 +1163,7 @@ class CatStrings(PuzzleGenerator):
 
 
 class FindExtensions(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/29"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#29"""
 
     @staticmethod
     def sat(extensions: List[str], strings=['cat', 'dog', 'shatter', 'donut', 'at', 'todo'], prefix='do'):
@@ -1198,7 +1198,7 @@ class FindExtensions(PuzzleGenerator):
 
 
 class FindPositives(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/30"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#30"""
 
     @staticmethod
     def sat(positives: List[int], nums=[2, 2342, -2, 32, -8, -5, 2342, 0, -9, 44, 11]):
@@ -1226,7 +1226,7 @@ class FindPositives(PuzzleGenerator):
 
 
 class FermatComposite(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/31"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#31"""
 
     @staticmethod
     def sat(certificate: int, n=1449):
@@ -1257,7 +1257,7 @@ class OddDegreePolynomialRoot(PuzzleGenerator):
     """
     Polynomials of odd degree always have a real solution.
 
-    Inspired by [HumanEval](https://github.com/openai/human-eval)/32
+    Inspired by [HumanEval](https://github.com/openai/human-eval) \\#32
     """
 
     @staticmethod
@@ -1303,7 +1303,7 @@ class OddDegreePolynomialRoot(PuzzleGenerator):
 
 # slightly modified for convenience
 class TwoThirdsSorted(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/33"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#33"""
 
     @staticmethod
     def sat(li: List[int], orig=[1, -2, 3, 17, 8, 4, 12, 3, 18, 5, -29, 0, 0]):
@@ -1351,7 +1351,7 @@ class TwoThirdsSorted(PuzzleGenerator):
 
 
 class UniqueSorted(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/34"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#34"""
 
     @staticmethod
     def sat(li: List[int], orig=[1, 1, 3, 2, 0, 8, 32, -4, 0]):
@@ -1385,7 +1385,7 @@ class UniqueSorted(PuzzleGenerator):
 
 
 class MaxInt(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/35"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#35"""
 
     @staticmethod
     def sat(m: int, hello=[1, 31, 3, 2, 0, 18, 32, -4, 2, -1000, 35, 35, 21, 18, 2, 60]):
@@ -1413,7 +1413,7 @@ class MaxInt(PuzzleGenerator):
 
 
 class SevenElevenThirteen(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/36"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#36"""
 
     @staticmethod
     def sat(li: List[List[int]], n=19723, lower=1000):
@@ -1446,7 +1446,7 @@ class SevenElevenThirteen(PuzzleGenerator):
 
 # Since this human-eval problem #37 is very similar to TwoThirdsSorted #33, we use a different approach to sat
 class HalfSorted(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/37"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#37"""
 
     @staticmethod
     def sat(li: List[int], orig=[1, 6, 3, 41, 19, 4, 12, 3, 18, 5, -29, 0, 19521]):
@@ -1482,7 +1482,7 @@ class HalfSorted(PuzzleGenerator):
 
 
 class ThreeCycle(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/38"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#38"""
 
     @staticmethod
     def sat(s: str, target="Hello world"):
@@ -1510,7 +1510,7 @@ class ThreeCycle(PuzzleGenerator):
 
 class PrimeFib(PuzzleGenerator):
     """
-    Inspired by [HumanEval](https://github.com/openai/human-eval)/39
+    Inspired by [HumanEval](https://github.com/openai/human-eval) \\#39
 
     Ira Gessel observed that n is a Fibonacci number if and if either 5 n^2 - 4 or 5 n^2 + 4 is a perfect square
     """
@@ -1538,7 +1538,7 @@ class PrimeFib(PuzzleGenerator):
 
 
 class TripleZeroSum(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/40"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#40"""
 
     @staticmethod
     def sat(inds: List[int], nums=[12, -10452, 18242, 10440]):
@@ -1563,7 +1563,7 @@ class TripleZeroSum(PuzzleGenerator):
 
 
 class NumPasses(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/41"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#41"""
 
     @staticmethod
     def sat(count: int, n=981):
@@ -1589,7 +1589,7 @@ class ListInc(PuzzleGenerator):
     """
     Increment each element of a list by 1
 
-    Inspired by [HumanEval](https://github.com/openai/human-eval)/42
+    Inspired by [HumanEval](https://github.com/openai/human-eval) \\#42
     """
 
     @staticmethod
@@ -1610,7 +1610,7 @@ class ListInc(PuzzleGenerator):
 
 class PairZeroSum(PuzzleGenerator):
     """
-    Inspired by [HumanEval](https://github.com/openai/human-eval)/43
+    Inspired by [HumanEval](https://github.com/openai/human-eval) \\#43
     """
 
     @staticmethod
@@ -1639,7 +1639,7 @@ class PairZeroSum(PuzzleGenerator):
 
 class ChangeBase(PuzzleGenerator):
     """
-    Inspired by [HumanEval](https://github.com/openai/human-eval)/44
+    Inspired by [HumanEval](https://github.com/openai/human-eval) \\#44
     """
 
     @staticmethod
@@ -1665,7 +1665,7 @@ class ChangeBase(PuzzleGenerator):
 
 
 class TriangleArea(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/45"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#45"""
 
     @staticmethod
     def sat(height: int, area=1319098728582, base=45126):
@@ -1688,7 +1688,7 @@ class TriangleArea(PuzzleGenerator):
 
 class Fib4(PuzzleGenerator):
     """
-    Inspired by [HumanEval](https://github.com/openai/human-eval)/46
+    Inspired by [HumanEval](https://github.com/openai/human-eval) \\#46
 
     Almost identical to problem 63
     """
@@ -1722,7 +1722,7 @@ class Median(PuzzleGenerator):
     """
     One definition of the median is a number that minimizes the sum of absolute deviations.
 
-    Inspired by [HumanEval](https://github.com/openai/human-eval)/47
+    Inspired by [HumanEval](https://github.com/openai/human-eval) \\#47
     """
 
     @staticmethod
@@ -1745,7 +1745,7 @@ class Median(PuzzleGenerator):
 
 
 class Palindrome_Trivial(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/48"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#48"""
 
     @staticmethod
     def sat(p: bool, s="This problem is trivial but common"):
@@ -1765,7 +1765,7 @@ class Palindrome_Trivial(PuzzleGenerator):
 
 
 class LittleFermat(PuzzleGenerator):
-    """Harder but loosely inspired by [HumanEval](https://github.com/openai/human-eval)/49"""
+    """Harder but loosely inspired by [HumanEval](https://github.com/openai/human-eval) \\#49"""
 
     @staticmethod
     def sat(exp_poly: List[int], d=74152093423, poly=[1, 6, 3, 1, 0, 4, 4]):
@@ -1817,7 +1817,7 @@ class LittleFermat(PuzzleGenerator):
 
 
 class ShiftChars(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/50"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#50"""
 
     @staticmethod
     def sat(orig: str, result="Hello, world!", shift=7):
@@ -1843,7 +1843,7 @@ def random_case_word(rand, **args):
 
 
 class RemoveVowels(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/51"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#51"""
 
     @staticmethod
     def sat(txt: str, text="Hello, world!"):
@@ -1868,7 +1868,7 @@ class RemoveVowels(PuzzleGenerator):
 
 
 class BelowThreshold(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/52"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#52"""
 
     @staticmethod
     def sat(indexes: List[int], nums=[0, 2, 17, 4, 4213, 322, 102, 29, 15, 39, 55], thresh=100):
@@ -1894,7 +1894,7 @@ class BelowThreshold(PuzzleGenerator):
 
 
 class ListTotal(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/53"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#53"""
 
     @staticmethod
     def sat(n: int, nums=[10, 42, 17, 9, 1315182, 184, 102, 29, 15, 39, 755]):
@@ -1914,7 +1914,7 @@ class ListTotal(PuzzleGenerator):
 
 
 class DiffChars(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/54"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#54"""
 
     @staticmethod
     def sat(c: str, a="the quick brown fox jumped over the lazy dog", b="how vexingly quick daft zebras jump"):
@@ -1935,7 +1935,7 @@ class DiffChars(PuzzleGenerator):
 
 
 class Fibonacci(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/55"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#55"""
 
     @staticmethod
     def sat(nums: List[int], n=1402):
@@ -1957,7 +1957,7 @@ class Fibonacci(PuzzleGenerator):
 
 
 class MatchBrackets(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/56"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#56"""
 
     @staticmethod
     def sat(matches: List[int], brackets="<<>><<<><>><<>>>"):
@@ -1998,7 +1998,7 @@ class MatchBrackets(PuzzleGenerator):
 
 
 class Monotonic(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/57"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#57"""
 
     @staticmethod
     def sat(direction: str, nums=[2, 4, 17, 29, 31, 1000, 416629]):
@@ -2021,7 +2021,7 @@ class Monotonic(PuzzleGenerator):
 
 
 class CommonNumbers(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/58"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#58"""
 
     @staticmethod
     def sat(common: List[int], a=[2, 416629, 2, 4, 17, 29, 31, 1000], b=[31, 2, 4, 17, 29, 41205]):
@@ -2044,7 +2044,7 @@ class CommonNumbers(PuzzleGenerator):
 
 
 class LargestPrimeFactor(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/59"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#59"""
 
     @staticmethod
     def sat(p: int, n=101076):
@@ -2070,7 +2070,7 @@ class LargestPrimeFactor(PuzzleGenerator):
 
 
 class CumulativeSums(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/60"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#60"""
 
     @staticmethod
     def sat(sums: List[int], n=104):
@@ -2093,7 +2093,7 @@ class CumulativeSums(PuzzleGenerator):
 
 class ParenDepth(PuzzleGenerator):
     """
-    Inspired by [HumanEval](https://github.com/openai/human-eval)/61
+    Inspired by [HumanEval](https://github.com/openai/human-eval) \\#61
 
     Note that problems 61 and 56 are essentially the same
     """
@@ -2135,7 +2135,7 @@ class ParenDepth(PuzzleGenerator):
 
 
 class Derivative(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/62"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#62"""
 
     @staticmethod
     def sat(derivative: List[int], poly=[2, 1, 0, 4, 19, 231, 0, 5]):
@@ -2159,7 +2159,7 @@ class Derivative(PuzzleGenerator):
 
 class Fib3(PuzzleGenerator):
     """
-    Inspired by [HumanEval](https://github.com/openai/human-eval)/63
+    Inspired by [HumanEval](https://github.com/openai/human-eval) \\#63
 
     Almost identical to problem 46
     """
@@ -2190,7 +2190,7 @@ class Fib3(PuzzleGenerator):
 
 
 class FindVowels(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/64"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#64"""
 
     @staticmethod
     def sat(vowels: str, text="Hello, world!"):
@@ -2214,7 +2214,7 @@ class FindVowels(PuzzleGenerator):
 
 
 class CircularShiftNum(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/65"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#65"""
 
     @staticmethod
     def sat(shifted: str, n=124582369835, shift=3):
@@ -2240,7 +2240,7 @@ class CircularShiftNum(PuzzleGenerator):
 
 
 class DigitSum(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/66"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#66"""
 
     @staticmethod
     def sat(tot: int, s="Add ME uP AND YOU WILL GET A BIG NUMBER!"):
@@ -2262,7 +2262,7 @@ class DigitSum(PuzzleGenerator):
 
 
 class MissingBananas(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/67"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#67"""
 
     @staticmethod
     def sat(bananas: int, bowl="5024 apples and 12189 oranges", total=12491241):
@@ -2286,7 +2286,7 @@ class MissingBananas(PuzzleGenerator):
 
 
 class SmallestEven(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/68"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#68"""
 
     @staticmethod
     def sat(val_index: List[int], nums=[125123, 422323, 141, 5325, 812152, 9, 42145, 5313, 421, 812152]):
@@ -2314,7 +2314,7 @@ class SmallestEven(PuzzleGenerator):
 
 
 class GreatestHIndex(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/69"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#69"""
 
     @staticmethod
     def sat(h: int, seq=[3, 1, 4, 17, 5, 17, 2, 1, 41, 32, 2, 5, 5, 5, 5]):
@@ -2336,7 +2336,7 @@ class GreatestHIndex(PuzzleGenerator):
 
 
 class StrangeSort(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/70"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#70"""
 
     @staticmethod
     def sat(strange: List[int], li=[30, 12, 42, 717, 45, 317, 200, -1, 491, 32, 15]):
@@ -2373,7 +2373,7 @@ class StrangeSort(PuzzleGenerator):
 
 
 class HeronTriangle(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/71
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#71
 
     That problem essentially asks for Heron's formula for the area of a triangle in terms of its three sides.
     In our version, we consider the related problem (also solved by Heron's formula) of finding 2d coordinates
@@ -2407,7 +2407,7 @@ class HeronTriangle(PuzzleGenerator):
 
 
 class InvestigateCrash(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/72"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#72"""
 
     @staticmethod
     def sat(problem: int, weights=[1, 2, 5, 2, 1, 17], max_weight=100):
@@ -2437,7 +2437,7 @@ class InvestigateCrash(PuzzleGenerator):
 
 
 class ClosestPalindrome(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/73"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#73"""
 
     @staticmethod
     def sat(pal: str, s="palindromordinals"):
@@ -2460,7 +2460,7 @@ class ClosestPalindrome(PuzzleGenerator):
 
 
 class NarrowerList(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/74"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#74"""
 
     @staticmethod
     def sat(li: List[str], lists=[["this", "list", "is", "narrow"], ["I", "am", "shorter but wider"]]):
@@ -2483,7 +2483,7 @@ class NarrowerList(PuzzleGenerator):
 
 
 class ThreePrimes(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval)/75"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#75"""
 
     @staticmethod
     def sat(factors: List[List[int]]):
