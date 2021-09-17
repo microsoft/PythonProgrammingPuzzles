@@ -16,6 +16,14 @@ def inv_dict(d):
     return ans
 
 
+def remove_docstring(f):
+    if '\n    """' in f:  # remove doc_string if present
+        i = f.index('\n    """')
+        j = f.index('"""\n', i + 8)
+        return f[:i + 1] + f[j + 4:]
+    return f
+
+
 def flatten(it):
     return (e for a in it for e in (flatten(a) if isinstance(a, (tuple, list)) else (a,)))
 

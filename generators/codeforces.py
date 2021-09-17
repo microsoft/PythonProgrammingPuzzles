@@ -1048,6 +1048,7 @@ class CombinationLockObfuscated(CombinationLock):
 
     @staticmethod
     def sat(states: List[str], start="012", combo="329", target_len=6):
+        """Figure out what this does only from the code"""
         return all(sum((int(a[i]) - int(b[i])) ** 2 % 10 for i in range(len(start))) == 1
                    for a, b in zip([start] + states, states[:target_len] + [combo]))
 

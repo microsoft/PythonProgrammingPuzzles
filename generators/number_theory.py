@@ -11,13 +11,13 @@ import os, json
 class FermatsLastTheorem(PuzzleGenerator):
     """[Fermat's last theorem](https://en.wikipedia.org/w/index.php?title=Fermat%27s_Last_Theorem)
 
-    Find integers a,b,c > 0, n > 2, such such that `a ** n + b ** n == c ** n`
     Supposedly unsolvable, but how confident are really in the super-complicated proof?
 
     See [Wiles, Andrew. "Modular elliptic curves and Fermat's last theorem." Annals of mathematics 141.3 (1995): 443-551.](https://www.jstor.org/stable/2118559)"""
 
     @staticmethod
     def sat(nums: List[int]):
+        """Find integers a,b,c > 0, n > 2, such such that a^n + b^n == c^n"""
         a, b, c, n = nums
         return (a ** n + b ** n == c ** n) and min(a, b, c) > 0 and n > 2
 
@@ -28,12 +28,11 @@ class GCD(PuzzleGenerator):
     """[Greatest Common Divisor](https://en.wikipedia.org/w/index.php?title=Greatest_common_divisor&oldid=990943381)
     (GCD)
 
-    Find the greatest common divisor of two integers.
-
     See also the [Euclidean algorithm](https://en.wikipedia.org/wiki/Euclidean_algorithm)"""
 
     @staticmethod
     def sat(n: int, a=15482, b=23223, lower_bound=5):
+        """Find a large common divisor of two integers."""
         return a % n == 0 and b % n == 0 and n >= lower_bound
 
     @staticmethod
@@ -66,12 +65,11 @@ class GCD_multi(PuzzleGenerator):
     """[Greatest Common Divisor](https://en.wikipedia.org/w/index.php?title=Greatest_common_divisor&oldid=990943381)
     (GCD)
 
-    Find the greatest common divisor of a *list* of integers.
-
     See also the [Euclidean algorithm](https://en.wikipedia.org/wiki/Euclidean_algorithm)"""
 
     @staticmethod
     def sat(n: int, nums=[77410, 23223, 54187], lower_bound=2):
+        """Find a large common divisor of the list of integers."""
         return all(i % n == 0 for i in nums) and n >= lower_bound
 
     @staticmethod
@@ -96,12 +94,11 @@ class LCM(PuzzleGenerator):
     """[Least Common Multiple](https://en.wikipedia.org/wiki/Least_common_multiple)
     (LCM)
 
-    Find the least common multiple of two integers.
-
     See also the [Euclidean algorithm](https://en.wikipedia.org/wiki/Euclidean_algorithm)"""
 
     @staticmethod
     def sat(n: int, a=15, b=27, upper_bound=150):
+        """Find a small common multiple of two integers."""
         return n % a == 0 and n % b == 0 and 0 < n <= upper_bound
 
     @staticmethod
@@ -123,12 +120,11 @@ class LCM_multi(PuzzleGenerator):
     """[Least Common Multiple](https://en.wikipedia.org/wiki/Least_common_multiple)
     (LCM)
 
-    Find the least common multiple of a list of integers.
-
     See also the [Euclidean algorithm](https://en.wikipedia.org/wiki/Euclidean_algorithm)"""
 
     @staticmethod
     def sat(n: int, nums=[15, 27, 102], upper_bound=5000):
+        """Find a small common multiple of a list of integers."""
         return all(n % i == 0 for i in nums) and n <= upper_bound
 
     @staticmethod
@@ -152,8 +148,6 @@ class LCM_multi(PuzzleGenerator):
 class SmallExponentBigSolution(PuzzleGenerator):
     """Small exponent, big solution
 
-    Solve for n: b^n = target (mod n)
-
     Problems have small b and target but solution is typically a large n.
     Some of them are really hard, for example, for `b=2, target=3`, the smallest solution is `n=4700063497`
 
@@ -161,6 +155,7 @@ class SmallExponentBigSolution(PuzzleGenerator):
 
     @staticmethod
     def sat(n: int, b=2, target=5):
+        """Solve for n: b^n = target (mod n)"""
         return (b ** n) % n == target
 
     @staticmethod
@@ -205,6 +200,7 @@ class ThreeCubes(PuzzleGenerator):
 
     @staticmethod
     def sat(nums: List[int], target=10):
+        """Given n, find integers a, b, c such that a^3 + b^3 + c^3 = n."""
         assert target % 9 not in [4, 5], "Hint"
         return len(nums) == 3 and sum([i ** 3 for i in nums]) == target
 

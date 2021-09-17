@@ -7699,7 +7699,7 @@
   },
   {
     "name": "Binarize_0",
-    "sat": "def sat(b: str, n=5324680297138495285):\n    \"\"\"Write n base 2 followed and preceded by 'bits'\"\"\"\n    assert b[:4] == b[-4:] == 'bits'\n    inside = b[4:-4]\n    assert all(c in \"01\" for c in inside)\n    assert inside[0] == \"1\" or len(inside) == 1\n    m = 0\n    for c in inside:\n        m = 2*m + int(c)\n    return m == n",
+    "sat": "def sat(b: str, n=5324680297138495285):\n    \"\"\"Write n base 2 followed and preceded by 'bits'\"\"\"\n    assert b[:4] == b[-4:] == 'bits'\n    inside = b[4:-4]\n    assert all(c in \"01\" for c in inside)\n    assert inside[0] == \"1\" or len(inside) == 1\n    m = 0\n    for c in inside:\n        m = 2 * m + int(c)\n    return m == n",
     "sols": [
       "def sol(n=5324680297138495285):\n    s = bin(n)[2:]\n    return f'bits{s}bits'"
     ],
@@ -7707,7 +7707,7 @@
   },
   {
     "name": "Binarize_1",
-    "sat": "def sat(b: str, n=298045832217558973706069431):\n    \"\"\"Write n base 2 followed and preceded by 'bits'\"\"\"\n    assert b[:4] == b[-4:] == 'bits'\n    inside = b[4:-4]\n    assert all(c in \"01\" for c in inside)\n    assert inside[0] == \"1\" or len(inside) == 1\n    m = 0\n    for c in inside:\n        m = 2*m + int(c)\n    return m == n",
+    "sat": "def sat(b: str, n=298045832217558973706069431):\n    \"\"\"Write n base 2 followed and preceded by 'bits'\"\"\"\n    assert b[:4] == b[-4:] == 'bits'\n    inside = b[4:-4]\n    assert all(c in \"01\" for c in inside)\n    assert inside[0] == \"1\" or len(inside) == 1\n    m = 0\n    for c in inside:\n        m = 2 * m + int(c)\n    return m == n",
     "sols": [
       "def sol(n=298045832217558973706069431):\n    s = bin(n)[2:]\n    return f'bits{s}bits'"
     ],
@@ -7715,7 +7715,7 @@
   },
   {
     "name": "Binarize_2",
-    "sat": "def sat(b: str, n=23999008407):\n    \"\"\"Write n base 2 followed and preceded by 'bits'\"\"\"\n    assert b[:4] == b[-4:] == 'bits'\n    inside = b[4:-4]\n    assert all(c in \"01\" for c in inside)\n    assert inside[0] == \"1\" or len(inside) == 1\n    m = 0\n    for c in inside:\n        m = 2*m + int(c)\n    return m == n",
+    "sat": "def sat(b: str, n=23999008407):\n    \"\"\"Write n base 2 followed and preceded by 'bits'\"\"\"\n    assert b[:4] == b[-4:] == 'bits'\n    inside = b[4:-4]\n    assert all(c in \"01\" for c in inside)\n    assert inside[0] == \"1\" or len(inside) == 1\n    m = 0\n    for c in inside:\n        m = 2 * m + int(c)\n    return m == n",
     "sols": [
       "def sol(n=23999008407):\n    s = bin(n)[2:]\n    return f'bits{s}bits'"
     ],
@@ -7723,7 +7723,7 @@
   },
   {
     "name": "Binarize_3",
-    "sat": "def sat(b: str, n=485926220547):\n    \"\"\"Write n base 2 followed and preceded by 'bits'\"\"\"\n    assert b[:4] == b[-4:] == 'bits'\n    inside = b[4:-4]\n    assert all(c in \"01\" for c in inside)\n    assert inside[0] == \"1\" or len(inside) == 1\n    m = 0\n    for c in inside:\n        m = 2*m + int(c)\n    return m == n",
+    "sat": "def sat(b: str, n=485926220547):\n    \"\"\"Write n base 2 followed and preceded by 'bits'\"\"\"\n    assert b[:4] == b[-4:] == 'bits'\n    inside = b[4:-4]\n    assert all(c in \"01\" for c in inside)\n    assert inside[0] == \"1\" or len(inside) == 1\n    m = 0\n    for c in inside:\n        m = 2 * m + int(c)\n    return m == n",
     "sols": [
       "def sol(n=485926220547):\n    s = bin(n)[2:]\n    return f'bits{s}bits'"
     ],
@@ -7731,7 +7731,7 @@
   },
   {
     "name": "Binarize_4",
-    "sat": "def sat(b: str, n=6489141964736758614927):\n    \"\"\"Write n base 2 followed and preceded by 'bits'\"\"\"\n    assert b[:4] == b[-4:] == 'bits'\n    inside = b[4:-4]\n    assert all(c in \"01\" for c in inside)\n    assert inside[0] == \"1\" or len(inside) == 1\n    m = 0\n    for c in inside:\n        m = 2*m + int(c)\n    return m == n",
+    "sat": "def sat(b: str, n=6489141964736758614927):\n    \"\"\"Write n base 2 followed and preceded by 'bits'\"\"\"\n    assert b[:4] == b[-4:] == 'bits'\n    inside = b[4:-4]\n    assert all(c in \"01\" for c in inside)\n    assert inside[0] == \"1\" or len(inside) == 1\n    m = 0\n    for c in inside:\n        m = 2 * m + int(c)\n    return m == n",
     "sols": [
       "def sol(n=6489141964736758614927):\n    s = bin(n)[2:]\n    return f'bits{s}bits'"
     ],
@@ -7739,7 +7739,7 @@
   },
   {
     "name": "Binarize_5",
-    "sat": "def sat(b: str, n=99560359):\n    \"\"\"Write n base 2 followed and preceded by 'bits'\"\"\"\n    assert b[:4] == b[-4:] == 'bits'\n    inside = b[4:-4]\n    assert all(c in \"01\" for c in inside)\n    assert inside[0] == \"1\" or len(inside) == 1\n    m = 0\n    for c in inside:\n        m = 2*m + int(c)\n    return m == n",
+    "sat": "def sat(b: str, n=99560359):\n    \"\"\"Write n base 2 followed and preceded by 'bits'\"\"\"\n    assert b[:4] == b[-4:] == 'bits'\n    inside = b[4:-4]\n    assert all(c in \"01\" for c in inside)\n    assert inside[0] == \"1\" or len(inside) == 1\n    m = 0\n    for c in inside:\n        m = 2 * m + int(c)\n    return m == n",
     "sols": [
       "def sol(n=99560359):\n    s = bin(n)[2:]\n    return f'bits{s}bits'"
     ],
@@ -7747,7 +7747,7 @@
   },
   {
     "name": "Binarize_6",
-    "sat": "def sat(b: str, n=193365576692):\n    \"\"\"Write n base 2 followed and preceded by 'bits'\"\"\"\n    assert b[:4] == b[-4:] == 'bits'\n    inside = b[4:-4]\n    assert all(c in \"01\" for c in inside)\n    assert inside[0] == \"1\" or len(inside) == 1\n    m = 0\n    for c in inside:\n        m = 2*m + int(c)\n    return m == n",
+    "sat": "def sat(b: str, n=193365576692):\n    \"\"\"Write n base 2 followed and preceded by 'bits'\"\"\"\n    assert b[:4] == b[-4:] == 'bits'\n    inside = b[4:-4]\n    assert all(c in \"01\" for c in inside)\n    assert inside[0] == \"1\" or len(inside) == 1\n    m = 0\n    for c in inside:\n        m = 2 * m + int(c)\n    return m == n",
     "sols": [
       "def sol(n=193365576692):\n    s = bin(n)[2:]\n    return f'bits{s}bits'"
     ],
@@ -7755,7 +7755,7 @@
   },
   {
     "name": "Binarize_7",
-    "sat": "def sat(b: str, n=5):\n    \"\"\"Write n base 2 followed and preceded by 'bits'\"\"\"\n    assert b[:4] == b[-4:] == 'bits'\n    inside = b[4:-4]\n    assert all(c in \"01\" for c in inside)\n    assert inside[0] == \"1\" or len(inside) == 1\n    m = 0\n    for c in inside:\n        m = 2*m + int(c)\n    return m == n",
+    "sat": "def sat(b: str, n=5):\n    \"\"\"Write n base 2 followed and preceded by 'bits'\"\"\"\n    assert b[:4] == b[-4:] == 'bits'\n    inside = b[4:-4]\n    assert all(c in \"01\" for c in inside)\n    assert inside[0] == \"1\" or len(inside) == 1\n    m = 0\n    for c in inside:\n        m = 2 * m + int(c)\n    return m == n",
     "sols": [
       "def sol(n=5):\n    s = bin(n)[2:]\n    return f'bits{s}bits'"
     ],
@@ -7763,7 +7763,7 @@
   },
   {
     "name": "Binarize_8",
-    "sat": "def sat(b: str, n=47366914920):\n    \"\"\"Write n base 2 followed and preceded by 'bits'\"\"\"\n    assert b[:4] == b[-4:] == 'bits'\n    inside = b[4:-4]\n    assert all(c in \"01\" for c in inside)\n    assert inside[0] == \"1\" or len(inside) == 1\n    m = 0\n    for c in inside:\n        m = 2*m + int(c)\n    return m == n",
+    "sat": "def sat(b: str, n=47366914920):\n    \"\"\"Write n base 2 followed and preceded by 'bits'\"\"\"\n    assert b[:4] == b[-4:] == 'bits'\n    inside = b[4:-4]\n    assert all(c in \"01\" for c in inside)\n    assert inside[0] == \"1\" or len(inside) == 1\n    m = 0\n    for c in inside:\n        m = 2 * m + int(c)\n    return m == n",
     "sols": [
       "def sol(n=47366914920):\n    s = bin(n)[2:]\n    return f'bits{s}bits'"
     ],
@@ -7771,9 +7771,249 @@
   },
   {
     "name": "Binarize_9",
-    "sat": "def sat(b: str, n=87795075165321):\n    \"\"\"Write n base 2 followed and preceded by 'bits'\"\"\"\n    assert b[:4] == b[-4:] == 'bits'\n    inside = b[4:-4]\n    assert all(c in \"01\" for c in inside)\n    assert inside[0] == \"1\" or len(inside) == 1\n    m = 0\n    for c in inside:\n        m = 2*m + int(c)\n    return m == n",
+    "sat": "def sat(b: str, n=87795075165321):\n    \"\"\"Write n base 2 followed and preceded by 'bits'\"\"\"\n    assert b[:4] == b[-4:] == 'bits'\n    inside = b[4:-4]\n    assert all(c in \"01\" for c in inside)\n    assert inside[0] == \"1\" or len(inside) == 1\n    m = 0\n    for c in inside:\n        m = 2 * m + int(c)\n    return m == n",
     "sols": [
       "def sol(n=87795075165321):\n    s = bin(n)[2:]\n    return f'bits{s}bits'"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "NearbyDuplicates_0",
+    "sat": "def sat(indices: List[int], s=\"I am an unhappy string!\"):\n    \"\"\"A string is happy if every three consecutive characters are distinct. Find two indices making s unhappy.\"\"\"\n    i, j = indices\n    return s[i] == s[j] and 0 <= i < j < i + 3",
+    "sols": [
+      "def sol(s=\"I am an unhappy string!\"):\n    for i in range(len(s) - 2):\n        if s[i] == s[i + 1]:\n            return [i, i + 1]\n        if s[i] == s[i + 2]:\n            return [i, i + 2]"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "NearbyDuplicates_1",
+    "sat": "def sat(indices: List[int], s=\"8]80bKDkY2D7Ho!|eKUGdNs\"):\n    \"\"\"A string is happy if every three consecutive characters are distinct. Find two indices making s unhappy.\"\"\"\n    i, j = indices\n    return s[i] == s[j] and 0 <= i < j < i + 3",
+    "sols": [
+      "def sol(s=\"8]80bKDkY2D7Ho!|eKUGdNs\"):\n    for i in range(len(s) - 2):\n        if s[i] == s[i + 1]:\n            return [i, i + 1]\n        if s[i] == s[i + 2]:\n            return [i, i + 2]"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "NearbyDuplicates_2",
+    "sat": "def sat(indices: List[int], s=\"T[c,ky0^;TS?G?KXH4mc9hs<)r\"):\n    \"\"\"A string is happy if every three consecutive characters are distinct. Find two indices making s unhappy.\"\"\"\n    i, j = indices\n    return s[i] == s[j] and 0 <= i < j < i + 3",
+    "sols": [
+      "def sol(s=\"T[c,ky0^;TS?G?KXH4mc9hs<)r\"):\n    for i in range(len(s) - 2):\n        if s[i] == s[i + 1]:\n            return [i, i + 1]\n        if s[i] == s[i + 2]:\n            return [i, i + 2]"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "NearbyDuplicates_3",
+    "sat": "def sat(indices: List[int], s=\"8.((k6!3$Z|p&XOV)n\"):\n    \"\"\"A string is happy if every three consecutive characters are distinct. Find two indices making s unhappy.\"\"\"\n    i, j = indices\n    return s[i] == s[j] and 0 <= i < j < i + 3",
+    "sols": [
+      "def sol(s=\"8.((k6!3$Z|p&XOV)n\"):\n    for i in range(len(s) - 2):\n        if s[i] == s[i + 1]:\n            return [i, i + 1]\n        if s[i] == s[i + 2]:\n            return [i, i + 2]"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "NearbyDuplicates_4",
+    "sat": "def sat(indices: List[int], s=\"V<]GOym9(Pfs:@:l^25zqkwF)e1aP9Nr\"):\n    \"\"\"A string is happy if every three consecutive characters are distinct. Find two indices making s unhappy.\"\"\"\n    i, j = indices\n    return s[i] == s[j] and 0 <= i < j < i + 3",
+    "sols": [
+      "def sol(s=\"V<]GOym9(Pfs:@:l^25zqkwF)e1aP9Nr\"):\n    for i in range(len(s) - 2):\n        if s[i] == s[i + 1]:\n            return [i, i + 1]\n        if s[i] == s[i + 2]:\n            return [i, i + 2]"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "NearbyDuplicates_5",
+    "sat": "def sat(indices: List[int], s=\"@Mllp;$Wi8.mgF2PX@y\"):\n    \"\"\"A string is happy if every three consecutive characters are distinct. Find two indices making s unhappy.\"\"\"\n    i, j = indices\n    return s[i] == s[j] and 0 <= i < j < i + 3",
+    "sols": [
+      "def sol(s=\"@Mllp;$Wi8.mgF2PX@y\"):\n    for i in range(len(s) - 2):\n        if s[i] == s[i + 1]:\n            return [i, i + 1]\n        if s[i] == s[i + 2]:\n            return [i, i + 2]"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "NearbyDuplicates_6",
+    "sat": "def sat(indices: List[int], s=\"3[>:hm!Jk!a/=BK&euem$YznD+Z>c7kD&T]$|\"):\n    \"\"\"A string is happy if every three consecutive characters are distinct. Find two indices making s unhappy.\"\"\"\n    i, j = indices\n    return s[i] == s[j] and 0 <= i < j < i + 3",
+    "sols": [
+      "def sol(s=\"3[>:hm!Jk!a/=BK&euem$YznD+Z>c7kD&T]$|\"):\n    for i in range(len(s) - 2):\n        if s[i] == s[i + 1]:\n            return [i, i + 1]\n        if s[i] == s[i + 2]:\n            return [i, i + 2]"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "NearbyDuplicates_7",
+    "sat": "def sat(indices: List[int], s=\"S7k1-H:7$rn?ndp5k-RHrHP&7h: &:2\"):\n    \"\"\"A string is happy if every three consecutive characters are distinct. Find two indices making s unhappy.\"\"\"\n    i, j = indices\n    return s[i] == s[j] and 0 <= i < j < i + 3",
+    "sols": [
+      "def sol(s=\"S7k1-H:7$rn?ndp5k-RHrHP&7h: &:2\"):\n    for i in range(len(s) - 2):\n        if s[i] == s[i + 1]:\n            return [i, i + 1]\n        if s[i] == s[i + 2]:\n            return [i, i + 2]"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "NearbyDuplicates_8",
+    "sat": "def sat(indices: List[int], s=\"B>ulfzf7]G5;7m%Gjmwho(Y.K\"):\n    \"\"\"A string is happy if every three consecutive characters are distinct. Find two indices making s unhappy.\"\"\"\n    i, j = indices\n    return s[i] == s[j] and 0 <= i < j < i + 3",
+    "sols": [
+      "def sol(s=\"B>ulfzf7]G5;7m%Gjmwho(Y.K\"):\n    for i in range(len(s) - 2):\n        if s[i] == s[i + 1]:\n            return [i, i + 1]\n        if s[i] == s[i + 2]:\n            return [i, i + 2]"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "NearbyDuplicates_9",
+    "sat": "def sat(indices: List[int], s=\"&EmvoRrhjAKQ:qqbA5s==k?2692ZZV12^\"):\n    \"\"\"A string is happy if every three consecutive characters are distinct. Find two indices making s unhappy.\"\"\"\n    i, j = indices\n    return s[i] == s[j] and 0 <= i < j < i + 3",
+    "sols": [
+      "def sol(s=\"&EmvoRrhjAKQ:qqbA5s==k?2692ZZV12^\"):\n    for i in range(len(s) - 2):\n        if s[i] == s[i + 1]:\n            return [i, i + 1]\n        if s[i] == s[i + 2]:\n            return [i, i + 2]"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "Grader_0",
+    "sat": "def sat(grades: List[str], gpas=[2.8, 3.1, 4.0, 2.2, 3.1, 2.5, 0.9]):\n    \"\"\"\n    Convert GPAs to letter grades according to the following table:\n    4.0: A+\n    3.7: A\n    3.4: A-\n    3.0: B+\n    2.7: B\n    2.4: B-\n    2.0: C+\n    1.7: C\n    1.4: C-\n    below: F\n\n    Sample input: [4.0, 3.5, 3.8]\n    Sample output: ['A+', 'A-', 'A']\n    \"\"\"\n    assert len(grades) == len(gpas)\n    letters = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'F']\n    scores = [4.0, 3.7, 3.4, 3.0, 2.7, 2.4, 2.0, 1.7, 1.4, 0.0]\n    for grade, gpa in zip(grades, gpas):\n        i = letters.index(grade)\n        assert gpa >= scores[i]\n        assert i == 0 or gpa <= scores[i - 1]\n    return True",
+    "sols": [
+      "def sol(gpas=[2.8, 3.1, 4.0, 2.2, 3.1, 2.5, 0.9]):\n    letters = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'F']\n    scores = [4.0, 3.7, 3.4, 3.0, 2.7, 2.4, 2.0, 1.7, 1.4, 0.0]\n    ans = []\n    for gpa in gpas:\n        i = 0\n        while gpa < scores[i]:\n            i += 1\n        ans.append(letters[i])\n    return ans"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "Grader_1",
+    "sat": "def sat(grades: List[str], gpas=[1.9329567152175788]):\n    \"\"\"\n    Convert GPAs to letter grades according to the following table:\n    4.0: A+\n    3.7: A\n    3.4: A-\n    3.0: B+\n    2.7: B\n    2.4: B-\n    2.0: C+\n    1.7: C\n    1.4: C-\n    below: F\n\n    Sample input: [4.0, 3.5, 3.8]\n    Sample output: ['A+', 'A-', 'A']\n    \"\"\"\n    assert len(grades) == len(gpas)\n    letters = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'F']\n    scores = [4.0, 3.7, 3.4, 3.0, 2.7, 2.4, 2.0, 1.7, 1.4, 0.0]\n    for grade, gpa in zip(grades, gpas):\n        i = letters.index(grade)\n        assert gpa >= scores[i]\n        assert i == 0 or gpa <= scores[i - 1]\n    return True",
+    "sols": [
+      "def sol(gpas=[1.9329567152175788]):\n    letters = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'F']\n    scores = [4.0, 3.7, 3.4, 3.0, 2.7, 2.4, 2.0, 1.7, 1.4, 0.0]\n    ans = []\n    for gpa in gpas:\n        i = 0\n        while gpa < scores[i]:\n            i += 1\n        ans.append(letters[i])\n    return ans"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "Grader_2",
+    "sat": "def sat(grades: List[str], gpas: List[float]=[]):\n    \"\"\"\n    Convert GPAs to letter grades according to the following table:\n    4.0: A+\n    3.7: A\n    3.4: A-\n    3.0: B+\n    2.7: B\n    2.4: B-\n    2.0: C+\n    1.7: C\n    1.4: C-\n    below: F\n\n    Sample input: [4.0, 3.5, 3.8]\n    Sample output: ['A+', 'A-', 'A']\n    \"\"\"\n    assert len(grades) == len(gpas)\n    letters = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'F']\n    scores = [4.0, 3.7, 3.4, 3.0, 2.7, 2.4, 2.0, 1.7, 1.4, 0.0]\n    for grade, gpa in zip(grades, gpas):\n        i = letters.index(grade)\n        assert gpa >= scores[i]\n        assert i == 0 or gpa <= scores[i - 1]\n    return True",
+    "sols": [
+      "def sol(gpas=[]):\n    letters = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'F']\n    scores = [4.0, 3.7, 3.4, 3.0, 2.7, 2.4, 2.0, 1.7, 1.4, 0.0]\n    ans = []\n    for gpa in gpas:\n        i = 0\n        while gpa < scores[i]:\n            i += 1\n        ans.append(letters[i])\n    return ans"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "Grader_3",
+    "sat": "def sat(grades: List[str], gpas=[2.867130788590366, 0.6307415566641721, 0.5552098466192983, 2.6858723931901523, 0.26857555935529387, 2.8052623534701233, 1.1276110886216726, 2.0293530246234512]):\n    \"\"\"\n    Convert GPAs to letter grades according to the following table:\n    4.0: A+\n    3.7: A\n    3.4: A-\n    3.0: B+\n    2.7: B\n    2.4: B-\n    2.0: C+\n    1.7: C\n    1.4: C-\n    below: F\n\n    Sample input: [4.0, 3.5, 3.8]\n    Sample output: ['A+', 'A-', 'A']\n    \"\"\"\n    assert len(grades) == len(gpas)\n    letters = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'F']\n    scores = [4.0, 3.7, 3.4, 3.0, 2.7, 2.4, 2.0, 1.7, 1.4, 0.0]\n    for grade, gpa in zip(grades, gpas):\n        i = letters.index(grade)\n        assert gpa >= scores[i]\n        assert i == 0 or gpa <= scores[i - 1]\n    return True",
+    "sols": [
+      "def sol(gpas=[2.867130788590366, 0.6307415566641721, 0.5552098466192983, 2.6858723931901523, 0.26857555935529387, 2.8052623534701233, 1.1276110886216726, 2.0293530246234512]):\n    letters = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'F']\n    scores = [4.0, 3.7, 3.4, 3.0, 2.7, 2.4, 2.0, 1.7, 1.4, 0.0]\n    ans = []\n    for gpa in gpas:\n        i = 0\n        while gpa < scores[i]:\n            i += 1\n        ans.append(letters[i])\n    return ans"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "Grader_4",
+    "sat": "def sat(grades: List[str], gpas=[3.0282995893294657, 3.6552885922327345, 3.540309791688426, 0.12019691163241975, 1.141614607990769, 0.6930189423917814]):\n    \"\"\"\n    Convert GPAs to letter grades according to the following table:\n    4.0: A+\n    3.7: A\n    3.4: A-\n    3.0: B+\n    2.7: B\n    2.4: B-\n    2.0: C+\n    1.7: C\n    1.4: C-\n    below: F\n\n    Sample input: [4.0, 3.5, 3.8]\n    Sample output: ['A+', 'A-', 'A']\n    \"\"\"\n    assert len(grades) == len(gpas)\n    letters = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'F']\n    scores = [4.0, 3.7, 3.4, 3.0, 2.7, 2.4, 2.0, 1.7, 1.4, 0.0]\n    for grade, gpa in zip(grades, gpas):\n        i = letters.index(grade)\n        assert gpa >= scores[i]\n        assert i == 0 or gpa <= scores[i - 1]\n    return True",
+    "sols": [
+      "def sol(gpas=[3.0282995893294657, 3.6552885922327345, 3.540309791688426, 0.12019691163241975, 1.141614607990769, 0.6930189423917814]):\n    letters = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'F']\n    scores = [4.0, 3.7, 3.4, 3.0, 2.7, 2.4, 2.0, 1.7, 1.4, 0.0]\n    ans = []\n    for gpa in gpas:\n        i = 0\n        while gpa < scores[i]:\n            i += 1\n        ans.append(letters[i])\n    return ans"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "Grader_5",
+    "sat": "def sat(grades: List[str], gpas=[3.029059984912512, 1.9223289439127922, 1.433750354749777, 0.1520588427457792, 3.2390254167507884]):\n    \"\"\"\n    Convert GPAs to letter grades according to the following table:\n    4.0: A+\n    3.7: A\n    3.4: A-\n    3.0: B+\n    2.7: B\n    2.4: B-\n    2.0: C+\n    1.7: C\n    1.4: C-\n    below: F\n\n    Sample input: [4.0, 3.5, 3.8]\n    Sample output: ['A+', 'A-', 'A']\n    \"\"\"\n    assert len(grades) == len(gpas)\n    letters = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'F']\n    scores = [4.0, 3.7, 3.4, 3.0, 2.7, 2.4, 2.0, 1.7, 1.4, 0.0]\n    for grade, gpa in zip(grades, gpas):\n        i = letters.index(grade)\n        assert gpa >= scores[i]\n        assert i == 0 or gpa <= scores[i - 1]\n    return True",
+    "sols": [
+      "def sol(gpas=[3.029059984912512, 1.9223289439127922, 1.433750354749777, 0.1520588427457792, 3.2390254167507884]):\n    letters = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'F']\n    scores = [4.0, 3.7, 3.4, 3.0, 2.7, 2.4, 2.0, 1.7, 1.4, 0.0]\n    ans = []\n    for gpa in gpas:\n        i = 0\n        while gpa < scores[i]:\n            i += 1\n        ans.append(letters[i])\n    return ans"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "Grader_6",
+    "sat": "def sat(grades: List[str], gpas=[0.3327431234890903, 0.2884125091083778, 1.382471348830153, 2.0191778842092853, 3.1692220532393613, 2.358456577028581, 1.3616935409722508, 2.3926603173800944, 1.6001625386956029]):\n    \"\"\"\n    Convert GPAs to letter grades according to the following table:\n    4.0: A+\n    3.7: A\n    3.4: A-\n    3.0: B+\n    2.7: B\n    2.4: B-\n    2.0: C+\n    1.7: C\n    1.4: C-\n    below: F\n\n    Sample input: [4.0, 3.5, 3.8]\n    Sample output: ['A+', 'A-', 'A']\n    \"\"\"\n    assert len(grades) == len(gpas)\n    letters = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'F']\n    scores = [4.0, 3.7, 3.4, 3.0, 2.7, 2.4, 2.0, 1.7, 1.4, 0.0]\n    for grade, gpa in zip(grades, gpas):\n        i = letters.index(grade)\n        assert gpa >= scores[i]\n        assert i == 0 or gpa <= scores[i - 1]\n    return True",
+    "sols": [
+      "def sol(gpas=[0.3327431234890903, 0.2884125091083778, 1.382471348830153, 2.0191778842092853, 3.1692220532393613, 2.358456577028581, 1.3616935409722508, 2.3926603173800944, 1.6001625386956029]):\n    letters = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'F']\n    scores = [4.0, 3.7, 3.4, 3.0, 2.7, 2.4, 2.0, 1.7, 1.4, 0.0]\n    ans = []\n    for gpa in gpas:\n        i = 0\n        while gpa < scores[i]:\n            i += 1\n        ans.append(letters[i])\n    return ans"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "Grader_7",
+    "sat": "def sat(grades: List[str], gpas=[3.261145124615162, 3.88467571466956, 3.2577122752436183, 0.4274160237094353]):\n    \"\"\"\n    Convert GPAs to letter grades according to the following table:\n    4.0: A+\n    3.7: A\n    3.4: A-\n    3.0: B+\n    2.7: B\n    2.4: B-\n    2.0: C+\n    1.7: C\n    1.4: C-\n    below: F\n\n    Sample input: [4.0, 3.5, 3.8]\n    Sample output: ['A+', 'A-', 'A']\n    \"\"\"\n    assert len(grades) == len(gpas)\n    letters = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'F']\n    scores = [4.0, 3.7, 3.4, 3.0, 2.7, 2.4, 2.0, 1.7, 1.4, 0.0]\n    for grade, gpa in zip(grades, gpas):\n        i = letters.index(grade)\n        assert gpa >= scores[i]\n        assert i == 0 or gpa <= scores[i - 1]\n    return True",
+    "sols": [
+      "def sol(gpas=[3.261145124615162, 3.88467571466956, 3.2577122752436183, 0.4274160237094353]):\n    letters = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'F']\n    scores = [4.0, 3.7, 3.4, 3.0, 2.7, 2.4, 2.0, 1.7, 1.4, 0.0]\n    ans = []\n    for gpa in gpas:\n        i = 0\n        while gpa < scores[i]:\n            i += 1\n        ans.append(letters[i])\n    return ans"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "Grader_8",
+    "sat": "def sat(grades: List[str], gpas=[3.292106849083876]):\n    \"\"\"\n    Convert GPAs to letter grades according to the following table:\n    4.0: A+\n    3.7: A\n    3.4: A-\n    3.0: B+\n    2.7: B\n    2.4: B-\n    2.0: C+\n    1.7: C\n    1.4: C-\n    below: F\n\n    Sample input: [4.0, 3.5, 3.8]\n    Sample output: ['A+', 'A-', 'A']\n    \"\"\"\n    assert len(grades) == len(gpas)\n    letters = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'F']\n    scores = [4.0, 3.7, 3.4, 3.0, 2.7, 2.4, 2.0, 1.7, 1.4, 0.0]\n    for grade, gpa in zip(grades, gpas):\n        i = letters.index(grade)\n        assert gpa >= scores[i]\n        assert i == 0 or gpa <= scores[i - 1]\n    return True",
+    "sols": [
+      "def sol(gpas=[3.292106849083876]):\n    letters = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'F']\n    scores = [4.0, 3.7, 3.4, 3.0, 2.7, 2.4, 2.0, 1.7, 1.4, 0.0]\n    ans = []\n    for gpa in gpas:\n        i = 0\n        while gpa < scores[i]:\n            i += 1\n        ans.append(letters[i])\n    return ans"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "Grader_9",
+    "sat": "def sat(grades: List[str], gpas=[3.9211628868098227]):\n    \"\"\"\n    Convert GPAs to letter grades according to the following table:\n    4.0: A+\n    3.7: A\n    3.4: A-\n    3.0: B+\n    2.7: B\n    2.4: B-\n    2.0: C+\n    1.7: C\n    1.4: C-\n    below: F\n\n    Sample input: [4.0, 3.5, 3.8]\n    Sample output: ['A+', 'A-', 'A']\n    \"\"\"\n    assert len(grades) == len(gpas)\n    letters = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'F']\n    scores = [4.0, 3.7, 3.4, 3.0, 2.7, 2.4, 2.0, 1.7, 1.4, 0.0]\n    for grade, gpa in zip(grades, gpas):\n        i = letters.index(grade)\n        assert gpa >= scores[i]\n        assert i == 0 or gpa <= scores[i - 1]\n    return True",
+    "sols": [
+      "def sol(gpas=[3.9211628868098227]):\n    letters = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'F']\n    scores = [4.0, 3.7, 3.4, 3.0, 2.7, 2.4, 2.0, 1.7, 1.4, 0.0]\n    ans = []\n    for gpa in gpas:\n        i = 0\n        while gpa < scores[i]:\n            i += 1\n        ans.append(letters[i])\n    return ans"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "FactorString_0",
+    "sat": "def sat(factor: str, s=\"catscatcatscatcatscat\"):\n    \"\"\"Find a string which when repeated more than once gives s\"\"\"\n    return len(factor) < len(s) and s == factor * (len(s) // len(factor))",
+    "sols": [
+      "def sol(s=\"catscatcatscatcatscat\"):\n    n = len(s)\n    return next(s[:i] for i in range(1, len(s)) if s == s[:i] * (n // i))"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "FactorString_1",
+    "sat": "def sat(factor: str, s=\"cogaqcogaqcogaqcogaqcogaqcogaqcogaqcogaq\"):\n    \"\"\"Find a string which when repeated more than once gives s\"\"\"\n    return len(factor) < len(s) and s == factor * (len(s) // len(factor))",
+    "sols": [
+      "def sol(s=\"cogaqcogaqcogaqcogaqcogaqcogaqcogaqcogaq\"):\n    n = len(s)\n    return next(s[:i] for i in range(1, len(s)) if s == s[:i] * (n // i))"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "FactorString_2",
+    "sat": "def sat(factor: str, s=\"hiwufijothizihiwufijothizihiwufijothizihiwufijothizihiwufijothizi\"):\n    \"\"\"Find a string which when repeated more than once gives s\"\"\"\n    return len(factor) < len(s) and s == factor * (len(s) // len(factor))",
+    "sols": [
+      "def sol(s=\"hiwufijothizihiwufijothizihiwufijothizihiwufijothizihiwufijothizi\"):\n    n = len(s)\n    return next(s[:i] for i in range(1, len(s)) if s == s[:i] * (n // i))"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "FactorString_3",
+    "sat": "def sat(factor: str, s=\"dyquevachdyquevachdyquevachdyquevachdyquevach\"):\n    \"\"\"Find a string which when repeated more than once gives s\"\"\"\n    return len(factor) < len(s) and s == factor * (len(s) // len(factor))",
+    "sols": [
+      "def sol(s=\"dyquevachdyquevachdyquevachdyquevachdyquevach\"):\n    n = len(s)\n    return next(s[:i] for i in range(1, len(s)) if s == s[:i] * (n // i))"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "FactorString_4",
+    "sat": "def sat(factor: str, s=\"pizamifadilagichitepizamifadilagichite\"):\n    \"\"\"Find a string which when repeated more than once gives s\"\"\"\n    return len(factor) < len(s) and s == factor * (len(s) // len(factor))",
+    "sols": [
+      "def sol(s=\"pizamifadilagichitepizamifadilagichite\"):\n    n = len(s)\n    return next(s[:i] for i in range(1, len(s)) if s == s[:i] * (n // i))"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "FactorString_5",
+    "sat": "def sat(factor: str, s=\"bopbop\"):\n    \"\"\"Find a string which when repeated more than once gives s\"\"\"\n    return len(factor) < len(s) and s == factor * (len(s) // len(factor))",
+    "sols": [
+      "def sol(s=\"bopbop\"):\n    n = len(s)\n    return next(s[:i] for i in range(1, len(s)) if s == s[:i] * (n // i))"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "FactorString_6",
+    "sat": "def sat(factor: str, s=\"diddiddid\"):\n    \"\"\"Find a string which when repeated more than once gives s\"\"\"\n    return len(factor) < len(s) and s == factor * (len(s) // len(factor))",
+    "sols": [
+      "def sol(s=\"diddiddid\"):\n    n = len(s)\n    return next(s[:i] for i in range(1, len(s)) if s == s[:i] * (n // i))"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "FactorString_7",
+    "sat": "def sat(factor: str, s=\"codubacodubacodubacodubacoduba\"):\n    \"\"\"Find a string which when repeated more than once gives s\"\"\"\n    return len(factor) < len(s) and s == factor * (len(s) // len(factor))",
+    "sols": [
+      "def sol(s=\"codubacodubacodubacodubacoduba\"):\n    n = len(s)\n    return next(s[:i] for i in range(1, len(s)) if s == s[:i] * (n // i))"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "FactorString_8",
+    "sat": "def sat(factor: str, s=\"tidytidytidytidytidytidytidytidytidy\"):\n    \"\"\"Find a string which when repeated more than once gives s\"\"\"\n    return len(factor) < len(s) and s == factor * (len(s) // len(factor))",
+    "sols": [
+      "def sol(s=\"tidytidytidytidytidytidytidytidytidy\"):\n    n = len(s)\n    return next(s[:i] for i in range(1, len(s)) if s == s[:i] * (n // i))"
+    ],
+    "module": "human_eval"
+  },
+  {
+    "name": "FactorString_9",
+    "sat": "def sat(factor: str, s=\"xovibotextinufyxovibotextinufyxovibotextinufyxovibotextinufyxovibotextinufyxovibotextinufyxovibotextinufyxovibotextinufy\"):\n    \"\"\"Find a string which when repeated more than once gives s\"\"\"\n    return len(factor) < len(s) and s == factor * (len(s) // len(factor))",
+    "sols": [
+      "def sol(s=\"xovibotextinufyxovibotextinufyxovibotextinufyxovibotextinufyxovibotextinufyxovibotextinufyxovibotextinufyxovibotextinufy\"):\n    n = len(s)\n    return next(s[:i] for i in range(1, len(s)) if s == s[:i] * (n // i))"
     ],
     "module": "human_eval"
   },
@@ -10657,7 +10897,7 @@
   },
   {
     "name": "CombinationLockObfuscated_0",
-    "sat": "def sat(states: List[str], start=\"424\", combo=\"778\", target_len=12):\n    return all(sum((int(a[i]) - int(b[i])) ** 2 % 10 for i in range(len(start))) == 1\n               for a, b in zip([start] + states, states[:target_len] + [combo]))",
+    "sat": "def sat(states: List[str], start=\"424\", combo=\"778\", target_len=12):\n    \"\"\"Figure out what this does only from the code\"\"\"\n    return all(sum((int(a[i]) - int(b[i])) ** 2 % 10 for i in range(len(start))) == 1\n               for a, b in zip([start] + states, states[:target_len] + [combo]))",
     "sols": [
       "def sol(start=\"424\", combo=\"778\", target_len=12):\n    n = len(start)\n    ans = []\n    a, b = [[int(c) for c in x] for x in [start, combo]]\n    for i in range(n):\n        while a[i] != b[i]:\n            a[i] = (a[i] - 1 if (a[i] - b[i]) % 10 < 5 else a[i] + 1) % 10\n            if a != b:\n                ans.append(\"\".join(str(i) for i in a))\n    return ans"
     ],
@@ -10665,7 +10905,7 @@
   },
   {
     "name": "CombinationLockObfuscated_1",
-    "sat": "def sat(states: List[str], start=\"85535083\", combo=\"91773993\", target_len=14):\n    return all(sum((int(a[i]) - int(b[i])) ** 2 % 10 for i in range(len(start))) == 1\n               for a, b in zip([start] + states, states[:target_len] + [combo]))",
+    "sat": "def sat(states: List[str], start=\"85535083\", combo=\"91773993\", target_len=14):\n    \"\"\"Figure out what this does only from the code\"\"\"\n    return all(sum((int(a[i]) - int(b[i])) ** 2 % 10 for i in range(len(start))) == 1\n               for a, b in zip([start] + states, states[:target_len] + [combo]))",
     "sols": [
       "def sol(start=\"85535083\", combo=\"91773993\", target_len=14):\n    n = len(start)\n    ans = []\n    a, b = [[int(c) for c in x] for x in [start, combo]]\n    for i in range(n):\n        while a[i] != b[i]:\n            a[i] = (a[i] - 1 if (a[i] - b[i]) % 10 < 5 else a[i] + 1) % 10\n            if a != b:\n                ans.append(\"\".join(str(i) for i in a))\n    return ans"
     ],
@@ -10673,7 +10913,7 @@
   },
   {
     "name": "CombinationLockObfuscated_2",
-    "sat": "def sat(states: List[str], start=\"23\", combo=\"66\", target_len=6):\n    return all(sum((int(a[i]) - int(b[i])) ** 2 % 10 for i in range(len(start))) == 1\n               for a, b in zip([start] + states, states[:target_len] + [combo]))",
+    "sat": "def sat(states: List[str], start=\"23\", combo=\"66\", target_len=6):\n    \"\"\"Figure out what this does only from the code\"\"\"\n    return all(sum((int(a[i]) - int(b[i])) ** 2 % 10 for i in range(len(start))) == 1\n               for a, b in zip([start] + states, states[:target_len] + [combo]))",
     "sols": [
       "def sol(start=\"23\", combo=\"66\", target_len=6):\n    n = len(start)\n    ans = []\n    a, b = [[int(c) for c in x] for x in [start, combo]]\n    for i in range(n):\n        while a[i] != b[i]:\n            a[i] = (a[i] - 1 if (a[i] - b[i]) % 10 < 5 else a[i] + 1) % 10\n            if a != b:\n                ans.append(\"\".join(str(i) for i in a))\n    return ans"
     ],
@@ -10681,7 +10921,7 @@
   },
   {
     "name": "CombinationLockObfuscated_3",
-    "sat": "def sat(states: List[str], start=\"132504284\", combo=\"758671069\", target_len=25):\n    return all(sum((int(a[i]) - int(b[i])) ** 2 % 10 for i in range(len(start))) == 1\n               for a, b in zip([start] + states, states[:target_len] + [combo]))",
+    "sat": "def sat(states: List[str], start=\"132504284\", combo=\"758671069\", target_len=25):\n    \"\"\"Figure out what this does only from the code\"\"\"\n    return all(sum((int(a[i]) - int(b[i])) ** 2 % 10 for i in range(len(start))) == 1\n               for a, b in zip([start] + states, states[:target_len] + [combo]))",
     "sols": [
       "def sol(start=\"132504284\", combo=\"758671069\", target_len=25):\n    n = len(start)\n    ans = []\n    a, b = [[int(c) for c in x] for x in [start, combo]]\n    for i in range(n):\n        while a[i] != b[i]:\n            a[i] = (a[i] - 1 if (a[i] - b[i]) % 10 < 5 else a[i] + 1) % 10\n            if a != b:\n                ans.append(\"\".join(str(i) for i in a))\n    return ans"
     ],
@@ -10689,7 +10929,7 @@
   },
   {
     "name": "CombinationLockObfuscated_4",
-    "sat": "def sat(states: List[str], start=\"4687\", combo=\"9367\", target_len=9):\n    return all(sum((int(a[i]) - int(b[i])) ** 2 % 10 for i in range(len(start))) == 1\n               for a, b in zip([start] + states, states[:target_len] + [combo]))",
+    "sat": "def sat(states: List[str], start=\"4687\", combo=\"9367\", target_len=9):\n    \"\"\"Figure out what this does only from the code\"\"\"\n    return all(sum((int(a[i]) - int(b[i])) ** 2 % 10 for i in range(len(start))) == 1\n               for a, b in zip([start] + states, states[:target_len] + [combo]))",
     "sols": [
       "def sol(start=\"4687\", combo=\"9367\", target_len=9):\n    n = len(start)\n    ans = []\n    a, b = [[int(c) for c in x] for x in [start, combo]]\n    for i in range(n):\n        while a[i] != b[i]:\n            a[i] = (a[i] - 1 if (a[i] - b[i]) % 10 < 5 else a[i] + 1) % 10\n            if a != b:\n                ans.append(\"\".join(str(i) for i in a))\n    return ans"
     ],
@@ -10697,7 +10937,7 @@
   },
   {
     "name": "CombinationLockObfuscated_5",
-    "sat": "def sat(states: List[str], start=\"87686\", combo=\"13708\", target_len=11):\n    return all(sum((int(a[i]) - int(b[i])) ** 2 % 10 for i in range(len(start))) == 1\n               for a, b in zip([start] + states, states[:target_len] + [combo]))",
+    "sat": "def sat(states: List[str], start=\"87686\", combo=\"13708\", target_len=11):\n    \"\"\"Figure out what this does only from the code\"\"\"\n    return all(sum((int(a[i]) - int(b[i])) ** 2 % 10 for i in range(len(start))) == 1\n               for a, b in zip([start] + states, states[:target_len] + [combo]))",
     "sols": [
       "def sol(start=\"87686\", combo=\"13708\", target_len=11):\n    n = len(start)\n    ans = []\n    a, b = [[int(c) for c in x] for x in [start, combo]]\n    for i in range(n):\n        while a[i] != b[i]:\n            a[i] = (a[i] - 1 if (a[i] - b[i]) % 10 < 5 else a[i] + 1) % 10\n            if a != b:\n                ans.append(\"\".join(str(i) for i in a))\n    return ans"
     ],
@@ -10705,7 +10945,7 @@
   },
   {
     "name": "CombinationLockObfuscated_6",
-    "sat": "def sat(states: List[str], start=\"9\", combo=\"5\", target_len=3):\n    return all(sum((int(a[i]) - int(b[i])) ** 2 % 10 for i in range(len(start))) == 1\n               for a, b in zip([start] + states, states[:target_len] + [combo]))",
+    "sat": "def sat(states: List[str], start=\"9\", combo=\"5\", target_len=3):\n    \"\"\"Figure out what this does only from the code\"\"\"\n    return all(sum((int(a[i]) - int(b[i])) ** 2 % 10 for i in range(len(start))) == 1\n               for a, b in zip([start] + states, states[:target_len] + [combo]))",
     "sols": [
       "def sol(start=\"9\", combo=\"5\", target_len=3):\n    n = len(start)\n    ans = []\n    a, b = [[int(c) for c in x] for x in [start, combo]]\n    for i in range(n):\n        while a[i] != b[i]:\n            a[i] = (a[i] - 1 if (a[i] - b[i]) % 10 < 5 else a[i] + 1) % 10\n            if a != b:\n                ans.append(\"\".join(str(i) for i in a))\n    return ans"
     ],
@@ -10713,7 +10953,7 @@
   },
   {
     "name": "CombinationLockObfuscated_7",
-    "sat": "def sat(states: List[str], start=\"74002\", combo=\"35777\", target_len=15):\n    return all(sum((int(a[i]) - int(b[i])) ** 2 % 10 for i in range(len(start))) == 1\n               for a, b in zip([start] + states, states[:target_len] + [combo]))",
+    "sat": "def sat(states: List[str], start=\"74002\", combo=\"35777\", target_len=15):\n    \"\"\"Figure out what this does only from the code\"\"\"\n    return all(sum((int(a[i]) - int(b[i])) ** 2 % 10 for i in range(len(start))) == 1\n               for a, b in zip([start] + states, states[:target_len] + [combo]))",
     "sols": [
       "def sol(start=\"74002\", combo=\"35777\", target_len=15):\n    n = len(start)\n    ans = []\n    a, b = [[int(c) for c in x] for x in [start, combo]]\n    for i in range(n):\n        while a[i] != b[i]:\n            a[i] = (a[i] - 1 if (a[i] - b[i]) % 10 < 5 else a[i] + 1) % 10\n            if a != b:\n                ans.append(\"\".join(str(i) for i in a))\n    return ans"
     ],
@@ -10721,7 +10961,7 @@
   },
   {
     "name": "CombinationLockObfuscated_8",
-    "sat": "def sat(states: List[str], start=\"269990585\", combo=\"992565468\", target_len=26):\n    return all(sum((int(a[i]) - int(b[i])) ** 2 % 10 for i in range(len(start))) == 1\n               for a, b in zip([start] + states, states[:target_len] + [combo]))",
+    "sat": "def sat(states: List[str], start=\"269990585\", combo=\"992565468\", target_len=26):\n    \"\"\"Figure out what this does only from the code\"\"\"\n    return all(sum((int(a[i]) - int(b[i])) ** 2 % 10 for i in range(len(start))) == 1\n               for a, b in zip([start] + states, states[:target_len] + [combo]))",
     "sols": [
       "def sol(start=\"269990585\", combo=\"992565468\", target_len=26):\n    n = len(start)\n    ans = []\n    a, b = [[int(c) for c in x] for x in [start, combo]]\n    for i in range(n):\n        while a[i] != b[i]:\n            a[i] = (a[i] - 1 if (a[i] - b[i]) % 10 < 5 else a[i] + 1) % 10\n            if a != b:\n                ans.append(\"\".join(str(i) for i in a))\n    return ans"
     ],
@@ -10729,7 +10969,7 @@
   },
   {
     "name": "CombinationLockObfuscated_9",
-    "sat": "def sat(states: List[str], start=\"5618\", combo=\"1285\", target_len=13):\n    return all(sum((int(a[i]) - int(b[i])) ** 2 % 10 for i in range(len(start))) == 1\n               for a, b in zip([start] + states, states[:target_len] + [combo]))",
+    "sat": "def sat(states: List[str], start=\"5618\", combo=\"1285\", target_len=13):\n    \"\"\"Figure out what this does only from the code\"\"\"\n    return all(sum((int(a[i]) - int(b[i])) ** 2 % 10 for i in range(len(start))) == 1\n               for a, b in zip([start] + states, states[:target_len] + [combo]))",
     "sols": [
       "def sol(start=\"5618\", combo=\"1285\", target_len=13):\n    n = len(start)\n    ans = []\n    a, b = [[int(c) for c in x] for x in [start, combo]]\n    for i in range(n):\n        while a[i] != b[i]:\n            a[i] = (a[i] - 1 if (a[i] - b[i]) % 10 < 5 else a[i] + 1) % 10\n            if a != b:\n                ans.append(\"\".join(str(i) for i in a))\n    return ans"
     ],
@@ -13767,61 +14007,61 @@
   },
   {
     "name": "UNSOLVED_UncrossedKnightsPath_0",
-    "sat": "def sat(path: List[List[int]], m=8, n=8, target=35):\n    \"\"\"Find a long (open) tour of knight moves on an m x n chess-board whose edges don't cross.\"\"\"\n    def legal_move(m):\n        (a, b), (i, j) = m\n        return {abs(i - a), abs(j - b)} == {1, 2}\n\n    def legal_quad(m1, m2):  # non-overlapping test: parallel or bounding box has (width - 1) * (height - 1) >= 5\n        (i1, j1), (i2, j2) = m1\n        (a1, b1), (a2, b2) = m2\n        return (len({(i1, j1), (i2, j2), (a1, b1), (a2, b2)}) < 4  # adjacent edges in path, ignore\n                or (i1 - i2) * (b1 - b2) == (j1 - j2) * (a1 - a2)  # parallel\n                or (max(a1, a2, i1, i2) - min(a1, a2, i1, i2)) * (max(b1, b2, j1, j2) - min(b1, b2, j1, j2)) >= 5\n                # far\n                )\n\n    assert all(i in range(m) and j in range(n) for i, j in path), \"move off board\"\n    assert len({(i, j) for i, j in path}) == len(path), \"visited same square twice\"\n\n    moves = list(zip(path, path[1:]))\n    assert all(legal_move(m) for m in moves), \"illegal move\"\n    assert all(legal_quad(m1, m2) for m1 in moves for m2 in moves), \"intersecting move pair\"\n\n    return len(path) >= target",
-    "sols": [],
-    "module": "chess"
-  },
-  {
-    "name": "UNSOLVED_UncrossedKnightsPath_1",
-    "sat": "def sat(path: List[List[int]], m=3, n=3, target=3):\n    \"\"\"Find a long (open) tour of knight moves on an m x n chess-board whose edges don't cross.\"\"\"\n    def legal_move(m):\n        (a, b), (i, j) = m\n        return {abs(i - a), abs(j - b)} == {1, 2}\n\n    def legal_quad(m1, m2):  # non-overlapping test: parallel or bounding box has (width - 1) * (height - 1) >= 5\n        (i1, j1), (i2, j2) = m1\n        (a1, b1), (a2, b2) = m2\n        return (len({(i1, j1), (i2, j2), (a1, b1), (a2, b2)}) < 4  # adjacent edges in path, ignore\n                or (i1 - i2) * (b1 - b2) == (j1 - j2) * (a1 - a2)  # parallel\n                or (max(a1, a2, i1, i2) - min(a1, a2, i1, i2)) * (max(b1, b2, j1, j2) - min(b1, b2, j1, j2)) >= 5\n                # far\n                )\n\n    assert all(i in range(m) and j in range(n) for i, j in path), \"move off board\"\n    assert len({(i, j) for i, j in path}) == len(path), \"visited same square twice\"\n\n    moves = list(zip(path, path[1:]))\n    assert all(legal_move(m) for m in moves), \"illegal move\"\n    assert all(legal_quad(m1, m2) for m1 in moves for m2 in moves), \"intersecting move pair\"\n\n    return len(path) >= target",
-    "sols": [],
-    "module": "chess"
-  },
-  {
-    "name": "UNSOLVED_UncrossedKnightsPath_2",
-    "sat": "def sat(path: List[List[int]], m=4, n=4, target=6):\n    \"\"\"Find a long (open) tour of knight moves on an m x n chess-board whose edges don't cross.\"\"\"\n    def legal_move(m):\n        (a, b), (i, j) = m\n        return {abs(i - a), abs(j - b)} == {1, 2}\n\n    def legal_quad(m1, m2):  # non-overlapping test: parallel or bounding box has (width - 1) * (height - 1) >= 5\n        (i1, j1), (i2, j2) = m1\n        (a1, b1), (a2, b2) = m2\n        return (len({(i1, j1), (i2, j2), (a1, b1), (a2, b2)}) < 4  # adjacent edges in path, ignore\n                or (i1 - i2) * (b1 - b2) == (j1 - j2) * (a1 - a2)  # parallel\n                or (max(a1, a2, i1, i2) - min(a1, a2, i1, i2)) * (max(b1, b2, j1, j2) - min(b1, b2, j1, j2)) >= 5\n                # far\n                )\n\n    assert all(i in range(m) and j in range(n) for i, j in path), \"move off board\"\n    assert len({(i, j) for i, j in path}) == len(path), \"visited same square twice\"\n\n    moves = list(zip(path, path[1:]))\n    assert all(legal_move(m) for m in moves), \"illegal move\"\n    assert all(legal_quad(m1, m2) for m1 in moves for m2 in moves), \"intersecting move pair\"\n\n    return len(path) >= target",
-    "sols": [],
-    "module": "chess"
-  },
-  {
-    "name": "UNSOLVED_UncrossedKnightsPath_3",
-    "sat": "def sat(path: List[List[int]], m=5, n=5, target=11):\n    \"\"\"Find a long (open) tour of knight moves on an m x n chess-board whose edges don't cross.\"\"\"\n    def legal_move(m):\n        (a, b), (i, j) = m\n        return {abs(i - a), abs(j - b)} == {1, 2}\n\n    def legal_quad(m1, m2):  # non-overlapping test: parallel or bounding box has (width - 1) * (height - 1) >= 5\n        (i1, j1), (i2, j2) = m1\n        (a1, b1), (a2, b2) = m2\n        return (len({(i1, j1), (i2, j2), (a1, b1), (a2, b2)}) < 4  # adjacent edges in path, ignore\n                or (i1 - i2) * (b1 - b2) == (j1 - j2) * (a1 - a2)  # parallel\n                or (max(a1, a2, i1, i2) - min(a1, a2, i1, i2)) * (max(b1, b2, j1, j2) - min(b1, b2, j1, j2)) >= 5\n                # far\n                )\n\n    assert all(i in range(m) and j in range(n) for i, j in path), \"move off board\"\n    assert len({(i, j) for i, j in path}) == len(path), \"visited same square twice\"\n\n    moves = list(zip(path, path[1:]))\n    assert all(legal_move(m) for m in moves), \"illegal move\"\n    assert all(legal_quad(m1, m2) for m1 in moves for m2 in moves), \"intersecting move pair\"\n\n    return len(path) >= target",
-    "sols": [],
-    "module": "chess"
-  },
-  {
-    "name": "UNSOLVED_UncrossedKnightsPath_4",
-    "sat": "def sat(path: List[List[int]], m=6, n=6, target=18):\n    \"\"\"Find a long (open) tour of knight moves on an m x n chess-board whose edges don't cross.\"\"\"\n    def legal_move(m):\n        (a, b), (i, j) = m\n        return {abs(i - a), abs(j - b)} == {1, 2}\n\n    def legal_quad(m1, m2):  # non-overlapping test: parallel or bounding box has (width - 1) * (height - 1) >= 5\n        (i1, j1), (i2, j2) = m1\n        (a1, b1), (a2, b2) = m2\n        return (len({(i1, j1), (i2, j2), (a1, b1), (a2, b2)}) < 4  # adjacent edges in path, ignore\n                or (i1 - i2) * (b1 - b2) == (j1 - j2) * (a1 - a2)  # parallel\n                or (max(a1, a2, i1, i2) - min(a1, a2, i1, i2)) * (max(b1, b2, j1, j2) - min(b1, b2, j1, j2)) >= 5\n                # far\n                )\n\n    assert all(i in range(m) and j in range(n) for i, j in path), \"move off board\"\n    assert len({(i, j) for i, j in path}) == len(path), \"visited same square twice\"\n\n    moves = list(zip(path, path[1:]))\n    assert all(legal_move(m) for m in moves), \"illegal move\"\n    assert all(legal_quad(m1, m2) for m1 in moves for m2 in moves), \"intersecting move pair\"\n\n    return len(path) >= target",
-    "sols": [],
-    "module": "chess"
-  },
-  {
-    "name": "UNSOLVED_UncrossedKnightsPath_5",
-    "sat": "def sat(path: List[List[int]], m=7, n=7, target=25):\n    \"\"\"Find a long (open) tour of knight moves on an m x n chess-board whose edges don't cross.\"\"\"\n    def legal_move(m):\n        (a, b), (i, j) = m\n        return {abs(i - a), abs(j - b)} == {1, 2}\n\n    def legal_quad(m1, m2):  # non-overlapping test: parallel or bounding box has (width - 1) * (height - 1) >= 5\n        (i1, j1), (i2, j2) = m1\n        (a1, b1), (a2, b2) = m2\n        return (len({(i1, j1), (i2, j2), (a1, b1), (a2, b2)}) < 4  # adjacent edges in path, ignore\n                or (i1 - i2) * (b1 - b2) == (j1 - j2) * (a1 - a2)  # parallel\n                or (max(a1, a2, i1, i2) - min(a1, a2, i1, i2)) * (max(b1, b2, j1, j2) - min(b1, b2, j1, j2)) >= 5\n                # far\n                )\n\n    assert all(i in range(m) and j in range(n) for i, j in path), \"move off board\"\n    assert len({(i, j) for i, j in path}) == len(path), \"visited same square twice\"\n\n    moves = list(zip(path, path[1:]))\n    assert all(legal_move(m) for m in moves), \"illegal move\"\n    assert all(legal_quad(m1, m2) for m1 in moves for m2 in moves), \"intersecting move pair\"\n\n    return len(path) >= target",
-    "sols": [],
-    "module": "chess"
-  },
-  {
-    "name": "UNSOLVED_UncrossedKnightsPath_6",
-    "sat": "def sat(path: List[List[int]], m=8, n=8, target=36):\n    \"\"\"Find a long (open) tour of knight moves on an m x n chess-board whose edges don't cross.\"\"\"\n    def legal_move(m):\n        (a, b), (i, j) = m\n        return {abs(i - a), abs(j - b)} == {1, 2}\n\n    def legal_quad(m1, m2):  # non-overlapping test: parallel or bounding box has (width - 1) * (height - 1) >= 5\n        (i1, j1), (i2, j2) = m1\n        (a1, b1), (a2, b2) = m2\n        return (len({(i1, j1), (i2, j2), (a1, b1), (a2, b2)}) < 4  # adjacent edges in path, ignore\n                or (i1 - i2) * (b1 - b2) == (j1 - j2) * (a1 - a2)  # parallel\n                or (max(a1, a2, i1, i2) - min(a1, a2, i1, i2)) * (max(b1, b2, j1, j2) - min(b1, b2, j1, j2)) >= 5\n                # far\n                )\n\n    assert all(i in range(m) and j in range(n) for i, j in path), \"move off board\"\n    assert len({(i, j) for i, j in path}) == len(path), \"visited same square twice\"\n\n    moves = list(zip(path, path[1:]))\n    assert all(legal_move(m) for m in moves), \"illegal move\"\n    assert all(legal_quad(m1, m2) for m1 in moves for m2 in moves), \"intersecting move pair\"\n\n    return len(path) >= target",
-    "sols": [],
-    "module": "chess"
-  },
-  {
-    "name": "UNSOLVED_UncrossedKnightsPath_7",
-    "sat": "def sat(path: List[List[int]], m=9, n=9, target=48):\n    \"\"\"Find a long (open) tour of knight moves on an m x n chess-board whose edges don't cross.\"\"\"\n    def legal_move(m):\n        (a, b), (i, j) = m\n        return {abs(i - a), abs(j - b)} == {1, 2}\n\n    def legal_quad(m1, m2):  # non-overlapping test: parallel or bounding box has (width - 1) * (height - 1) >= 5\n        (i1, j1), (i2, j2) = m1\n        (a1, b1), (a2, b2) = m2\n        return (len({(i1, j1), (i2, j2), (a1, b1), (a2, b2)}) < 4  # adjacent edges in path, ignore\n                or (i1 - i2) * (b1 - b2) == (j1 - j2) * (a1 - a2)  # parallel\n                or (max(a1, a2, i1, i2) - min(a1, a2, i1, i2)) * (max(b1, b2, j1, j2) - min(b1, b2, j1, j2)) >= 5\n                # far\n                )\n\n    assert all(i in range(m) and j in range(n) for i, j in path), \"move off board\"\n    assert len({(i, j) for i, j in path}) == len(path), \"visited same square twice\"\n\n    moves = list(zip(path, path[1:]))\n    assert all(legal_move(m) for m in moves), \"illegal move\"\n    assert all(legal_quad(m1, m2) for m1 in moves for m2 in moves), \"intersecting move pair\"\n\n    return len(path) >= target",
-    "sols": [],
-    "module": "chess"
-  },
-  {
-    "name": "UNSOLVED_UncrossedKnightsPath_8",
     "sat": "def sat(path: List[List[int]], m=10, n=10, target=62):\n    \"\"\"Find a long (open) tour of knight moves on an m x n chess-board whose edges don't cross.\"\"\"\n    def legal_move(m):\n        (a, b), (i, j) = m\n        return {abs(i - a), abs(j - b)} == {1, 2}\n\n    def legal_quad(m1, m2):  # non-overlapping test: parallel or bounding box has (width - 1) * (height - 1) >= 5\n        (i1, j1), (i2, j2) = m1\n        (a1, b1), (a2, b2) = m2\n        return (len({(i1, j1), (i2, j2), (a1, b1), (a2, b2)}) < 4  # adjacent edges in path, ignore\n                or (i1 - i2) * (b1 - b2) == (j1 - j2) * (a1 - a2)  # parallel\n                or (max(a1, a2, i1, i2) - min(a1, a2, i1, i2)) * (max(b1, b2, j1, j2) - min(b1, b2, j1, j2)) >= 5\n                # far\n                )\n\n    assert all(i in range(m) and j in range(n) for i, j in path), \"move off board\"\n    assert len({(i, j) for i, j in path}) == len(path), \"visited same square twice\"\n\n    moves = list(zip(path, path[1:]))\n    assert all(legal_move(m) for m in moves), \"illegal move\"\n    assert all(legal_quad(m1, m2) for m1 in moves for m2 in moves), \"intersecting move pair\"\n\n    return len(path) >= target",
     "sols": [],
     "module": "chess"
   },
   {
-    "name": "UNSOLVED_UncrossedKnightsPath_9",
+    "name": "UNSOLVED_UncrossedKnightsPath_1",
     "sat": "def sat(path: List[List[int]], m=11, n=11, target=77):\n    \"\"\"Find a long (open) tour of knight moves on an m x n chess-board whose edges don't cross.\"\"\"\n    def legal_move(m):\n        (a, b), (i, j) = m\n        return {abs(i - a), abs(j - b)} == {1, 2}\n\n    def legal_quad(m1, m2):  # non-overlapping test: parallel or bounding box has (width - 1) * (height - 1) >= 5\n        (i1, j1), (i2, j2) = m1\n        (a1, b1), (a2, b2) = m2\n        return (len({(i1, j1), (i2, j2), (a1, b1), (a2, b2)}) < 4  # adjacent edges in path, ignore\n                or (i1 - i2) * (b1 - b2) == (j1 - j2) * (a1 - a2)  # parallel\n                or (max(a1, a2, i1, i2) - min(a1, a2, i1, i2)) * (max(b1, b2, j1, j2) - min(b1, b2, j1, j2)) >= 5\n                # far\n                )\n\n    assert all(i in range(m) and j in range(n) for i, j in path), \"move off board\"\n    assert len({(i, j) for i, j in path}) == len(path), \"visited same square twice\"\n\n    moves = list(zip(path, path[1:]))\n    assert all(legal_move(m) for m in moves), \"illegal move\"\n    assert all(legal_quad(m1, m2) for m1 in moves for m2 in moves), \"intersecting move pair\"\n\n    return len(path) >= target",
+    "sols": [],
+    "module": "chess"
+  },
+  {
+    "name": "UNSOLVED_UncrossedKnightsPath_2",
+    "sat": "def sat(path: List[List[int]], m=12, n=12, target=95):\n    \"\"\"Find a long (open) tour of knight moves on an m x n chess-board whose edges don't cross.\"\"\"\n    def legal_move(m):\n        (a, b), (i, j) = m\n        return {abs(i - a), abs(j - b)} == {1, 2}\n\n    def legal_quad(m1, m2):  # non-overlapping test: parallel or bounding box has (width - 1) * (height - 1) >= 5\n        (i1, j1), (i2, j2) = m1\n        (a1, b1), (a2, b2) = m2\n        return (len({(i1, j1), (i2, j2), (a1, b1), (a2, b2)}) < 4  # adjacent edges in path, ignore\n                or (i1 - i2) * (b1 - b2) == (j1 - j2) * (a1 - a2)  # parallel\n                or (max(a1, a2, i1, i2) - min(a1, a2, i1, i2)) * (max(b1, b2, j1, j2) - min(b1, b2, j1, j2)) >= 5\n                # far\n                )\n\n    assert all(i in range(m) and j in range(n) for i, j in path), \"move off board\"\n    assert len({(i, j) for i, j in path}) == len(path), \"visited same square twice\"\n\n    moves = list(zip(path, path[1:]))\n    assert all(legal_move(m) for m in moves), \"illegal move\"\n    assert all(legal_quad(m1, m2) for m1 in moves for m2 in moves), \"intersecting move pair\"\n\n    return len(path) >= target",
+    "sols": [],
+    "module": "chess"
+  },
+  {
+    "name": "UNSOLVED_UncrossedKnightsPath_3",
+    "sat": "def sat(path: List[List[int]], m=13, n=13, target=114):\n    \"\"\"Find a long (open) tour of knight moves on an m x n chess-board whose edges don't cross.\"\"\"\n    def legal_move(m):\n        (a, b), (i, j) = m\n        return {abs(i - a), abs(j - b)} == {1, 2}\n\n    def legal_quad(m1, m2):  # non-overlapping test: parallel or bounding box has (width - 1) * (height - 1) >= 5\n        (i1, j1), (i2, j2) = m1\n        (a1, b1), (a2, b2) = m2\n        return (len({(i1, j1), (i2, j2), (a1, b1), (a2, b2)}) < 4  # adjacent edges in path, ignore\n                or (i1 - i2) * (b1 - b2) == (j1 - j2) * (a1 - a2)  # parallel\n                or (max(a1, a2, i1, i2) - min(a1, a2, i1, i2)) * (max(b1, b2, j1, j2) - min(b1, b2, j1, j2)) >= 5\n                # far\n                )\n\n    assert all(i in range(m) and j in range(n) for i, j in path), \"move off board\"\n    assert len({(i, j) for i, j in path}) == len(path), \"visited same square twice\"\n\n    moves = list(zip(path, path[1:]))\n    assert all(legal_move(m) for m in moves), \"illegal move\"\n    assert all(legal_quad(m1, m2) for m1 in moves for m2 in moves), \"intersecting move pair\"\n\n    return len(path) >= target",
+    "sols": [],
+    "module": "chess"
+  },
+  {
+    "name": "UNSOLVED_UncrossedKnightsPath_4",
+    "sat": "def sat(path: List[List[int]], m=14, n=14, target=136):\n    \"\"\"Find a long (open) tour of knight moves on an m x n chess-board whose edges don't cross.\"\"\"\n    def legal_move(m):\n        (a, b), (i, j) = m\n        return {abs(i - a), abs(j - b)} == {1, 2}\n\n    def legal_quad(m1, m2):  # non-overlapping test: parallel or bounding box has (width - 1) * (height - 1) >= 5\n        (i1, j1), (i2, j2) = m1\n        (a1, b1), (a2, b2) = m2\n        return (len({(i1, j1), (i2, j2), (a1, b1), (a2, b2)}) < 4  # adjacent edges in path, ignore\n                or (i1 - i2) * (b1 - b2) == (j1 - j2) * (a1 - a2)  # parallel\n                or (max(a1, a2, i1, i2) - min(a1, a2, i1, i2)) * (max(b1, b2, j1, j2) - min(b1, b2, j1, j2)) >= 5\n                # far\n                )\n\n    assert all(i in range(m) and j in range(n) for i, j in path), \"move off board\"\n    assert len({(i, j) for i, j in path}) == len(path), \"visited same square twice\"\n\n    moves = list(zip(path, path[1:]))\n    assert all(legal_move(m) for m in moves), \"illegal move\"\n    assert all(legal_quad(m1, m2) for m1 in moves for m2 in moves), \"intersecting move pair\"\n\n    return len(path) >= target",
+    "sols": [],
+    "module": "chess"
+  },
+  {
+    "name": "UNSOLVED_UncrossedKnightsPath_5",
+    "sat": "def sat(path: List[List[int]], m=15, n=15, target=159):\n    \"\"\"Find a long (open) tour of knight moves on an m x n chess-board whose edges don't cross.\"\"\"\n    def legal_move(m):\n        (a, b), (i, j) = m\n        return {abs(i - a), abs(j - b)} == {1, 2}\n\n    def legal_quad(m1, m2):  # non-overlapping test: parallel or bounding box has (width - 1) * (height - 1) >= 5\n        (i1, j1), (i2, j2) = m1\n        (a1, b1), (a2, b2) = m2\n        return (len({(i1, j1), (i2, j2), (a1, b1), (a2, b2)}) < 4  # adjacent edges in path, ignore\n                or (i1 - i2) * (b1 - b2) == (j1 - j2) * (a1 - a2)  # parallel\n                or (max(a1, a2, i1, i2) - min(a1, a2, i1, i2)) * (max(b1, b2, j1, j2) - min(b1, b2, j1, j2)) >= 5\n                # far\n                )\n\n    assert all(i in range(m) and j in range(n) for i, j in path), \"move off board\"\n    assert len({(i, j) for i, j in path}) == len(path), \"visited same square twice\"\n\n    moves = list(zip(path, path[1:]))\n    assert all(legal_move(m) for m in moves), \"illegal move\"\n    assert all(legal_quad(m1, m2) for m1 in moves for m2 in moves), \"intersecting move pair\"\n\n    return len(path) >= target",
+    "sols": [],
+    "module": "chess"
+  },
+  {
+    "name": "UNSOLVED_UncrossedKnightsPath_6",
+    "sat": "def sat(path: List[List[int]], m=16, n=16, target=184):\n    \"\"\"Find a long (open) tour of knight moves on an m x n chess-board whose edges don't cross.\"\"\"\n    def legal_move(m):\n        (a, b), (i, j) = m\n        return {abs(i - a), abs(j - b)} == {1, 2}\n\n    def legal_quad(m1, m2):  # non-overlapping test: parallel or bounding box has (width - 1) * (height - 1) >= 5\n        (i1, j1), (i2, j2) = m1\n        (a1, b1), (a2, b2) = m2\n        return (len({(i1, j1), (i2, j2), (a1, b1), (a2, b2)}) < 4  # adjacent edges in path, ignore\n                or (i1 - i2) * (b1 - b2) == (j1 - j2) * (a1 - a2)  # parallel\n                or (max(a1, a2, i1, i2) - min(a1, a2, i1, i2)) * (max(b1, b2, j1, j2) - min(b1, b2, j1, j2)) >= 5\n                # far\n                )\n\n    assert all(i in range(m) and j in range(n) for i, j in path), \"move off board\"\n    assert len({(i, j) for i, j in path}) == len(path), \"visited same square twice\"\n\n    moves = list(zip(path, path[1:]))\n    assert all(legal_move(m) for m in moves), \"illegal move\"\n    assert all(legal_quad(m1, m2) for m1 in moves for m2 in moves), \"intersecting move pair\"\n\n    return len(path) >= target",
+    "sols": [],
+    "module": "chess"
+  },
+  {
+    "name": "UNSOLVED_UncrossedKnightsPath_7",
+    "sat": "def sat(path: List[List[int]], m=17, n=17, target=212):\n    \"\"\"Find a long (open) tour of knight moves on an m x n chess-board whose edges don't cross.\"\"\"\n    def legal_move(m):\n        (a, b), (i, j) = m\n        return {abs(i - a), abs(j - b)} == {1, 2}\n\n    def legal_quad(m1, m2):  # non-overlapping test: parallel or bounding box has (width - 1) * (height - 1) >= 5\n        (i1, j1), (i2, j2) = m1\n        (a1, b1), (a2, b2) = m2\n        return (len({(i1, j1), (i2, j2), (a1, b1), (a2, b2)}) < 4  # adjacent edges in path, ignore\n                or (i1 - i2) * (b1 - b2) == (j1 - j2) * (a1 - a2)  # parallel\n                or (max(a1, a2, i1, i2) - min(a1, a2, i1, i2)) * (max(b1, b2, j1, j2) - min(b1, b2, j1, j2)) >= 5\n                # far\n                )\n\n    assert all(i in range(m) and j in range(n) for i, j in path), \"move off board\"\n    assert len({(i, j) for i, j in path}) == len(path), \"visited same square twice\"\n\n    moves = list(zip(path, path[1:]))\n    assert all(legal_move(m) for m in moves), \"illegal move\"\n    assert all(legal_quad(m1, m2) for m1 in moves for m2 in moves), \"intersecting move pair\"\n\n    return len(path) >= target",
+    "sols": [],
+    "module": "chess"
+  },
+  {
+    "name": "UNSOLVED_UncrossedKnightsPath_8",
+    "sat": "def sat(path: List[List[int]], m=18, n=18, target=239):\n    \"\"\"Find a long (open) tour of knight moves on an m x n chess-board whose edges don't cross.\"\"\"\n    def legal_move(m):\n        (a, b), (i, j) = m\n        return {abs(i - a), abs(j - b)} == {1, 2}\n\n    def legal_quad(m1, m2):  # non-overlapping test: parallel or bounding box has (width - 1) * (height - 1) >= 5\n        (i1, j1), (i2, j2) = m1\n        (a1, b1), (a2, b2) = m2\n        return (len({(i1, j1), (i2, j2), (a1, b1), (a2, b2)}) < 4  # adjacent edges in path, ignore\n                or (i1 - i2) * (b1 - b2) == (j1 - j2) * (a1 - a2)  # parallel\n                or (max(a1, a2, i1, i2) - min(a1, a2, i1, i2)) * (max(b1, b2, j1, j2) - min(b1, b2, j1, j2)) >= 5\n                # far\n                )\n\n    assert all(i in range(m) and j in range(n) for i, j in path), \"move off board\"\n    assert len({(i, j) for i, j in path}) == len(path), \"visited same square twice\"\n\n    moves = list(zip(path, path[1:]))\n    assert all(legal_move(m) for m in moves), \"illegal move\"\n    assert all(legal_quad(m1, m2) for m1 in moves for m2 in moves), \"intersecting move pair\"\n\n    return len(path) >= target",
+    "sols": [],
+    "module": "chess"
+  },
+  {
+    "name": "UNSOLVED_UncrossedKnightsPath_9",
+    "sat": "def sat(path: List[List[int]], m=19, n=19, target=269):\n    \"\"\"Find a long (open) tour of knight moves on an m x n chess-board whose edges don't cross.\"\"\"\n    def legal_move(m):\n        (a, b), (i, j) = m\n        return {abs(i - a), abs(j - b)} == {1, 2}\n\n    def legal_quad(m1, m2):  # non-overlapping test: parallel or bounding box has (width - 1) * (height - 1) >= 5\n        (i1, j1), (i2, j2) = m1\n        (a1, b1), (a2, b2) = m2\n        return (len({(i1, j1), (i2, j2), (a1, b1), (a2, b2)}) < 4  # adjacent edges in path, ignore\n                or (i1 - i2) * (b1 - b2) == (j1 - j2) * (a1 - a2)  # parallel\n                or (max(a1, a2, i1, i2) - min(a1, a2, i1, i2)) * (max(b1, b2, j1, j2) - min(b1, b2, j1, j2)) >= 5\n                # far\n                )\n\n    assert all(i in range(m) and j in range(n) for i, j in path), \"move off board\"\n    assert len({(i, j) for i, j in path}) == len(path), \"visited same square twice\"\n\n    moves = list(zip(path, path[1:]))\n    assert all(legal_move(m) for m in moves), \"illegal move\"\n    assert all(legal_quad(m1, m2) for m1 in moves for m2 in moves), \"intersecting move pair\"\n\n    return len(path) >= target",
     "sols": [],
     "module": "chess"
   },
@@ -16211,13 +16451,13 @@
   },
   {
     "name": "FermatsLastTheorem_0",
-    "sat": "def sat(nums: List[int]):\n    a, b, c, n = nums\n    return (a ** n + b ** n == c ** n) and min(a, b, c) > 0 and n > 2",
+    "sat": "def sat(nums: List[int]):\n    \"\"\"Find integers a,b,c > 0, n > 2, such such that a^n + b^n == c^n\"\"\"\n    a, b, c, n = nums\n    return (a ** n + b ** n == c ** n) and min(a, b, c) > 0 and n > 2",
     "sols": [],
     "module": "number_theory"
   },
   {
     "name": "GCD_0",
-    "sat": "def sat(n: int, a=15482, b=23223, lower_bound=5):\n    return a % n == 0 and b % n == 0 and n >= lower_bound",
+    "sat": "def sat(n: int, a=15482, b=23223, lower_bound=5):\n    \"\"\"Find a large common divisor of two integers.\"\"\"\n    return a % n == 0 and b % n == 0 and n >= lower_bound",
     "sols": [
       "def sol(a=15482, b=23223, lower_bound=5):\n    m, n = min(a, b), max(a, b)\n    while m > 0:\n        m, n = n % m, m\n    return n",
       "def sol(a=15482, b=23223, lower_bound=5):\n    def gcd(m, n):\n        if m > n:\n            return gcd(n, m)\n        if m == 0:\n            return n\n        return gcd(n % m, m)\n\n    return gcd(a, b)"
@@ -16226,7 +16466,7 @@
   },
   {
     "name": "GCD_1",
-    "sat": "def sat(n: int, a=80582, b=12173504, lower_bound=83):\n    return a % n == 0 and b % n == 0 and n >= lower_bound",
+    "sat": "def sat(n: int, a=80582, b=12173504, lower_bound=83):\n    \"\"\"Find a large common divisor of two integers.\"\"\"\n    return a % n == 0 and b % n == 0 and n >= lower_bound",
     "sols": [
       "def sol(a=80582, b=12173504, lower_bound=83):\n    m, n = min(a, b), max(a, b)\n    while m > 0:\n        m, n = n % m, m\n    return n",
       "def sol(a=80582, b=12173504, lower_bound=83):\n    def gcd(m, n):\n        if m > n:\n            return gcd(n, m)\n        if m == 0:\n            return n\n        return gcd(n % m, m)\n\n    return gcd(a, b)"
@@ -16235,7 +16475,7 @@
   },
   {
     "name": "GCD_2",
-    "sat": "def sat(n: int, a=7904, b=5692856, lower_bound=1875):\n    return a % n == 0 and b % n == 0 and n >= lower_bound",
+    "sat": "def sat(n: int, a=7904, b=5692856, lower_bound=1875):\n    \"\"\"Find a large common divisor of two integers.\"\"\"\n    return a % n == 0 and b % n == 0 and n >= lower_bound",
     "sols": [
       "def sol(a=7904, b=5692856, lower_bound=1875):\n    m, n = min(a, b), max(a, b)\n    while m > 0:\n        m, n = n % m, m\n    return n",
       "def sol(a=7904, b=5692856, lower_bound=1875):\n    def gcd(m, n):\n        if m > n:\n            return gcd(n, m)\n        if m == 0:\n            return n\n        return gcd(n % m, m)\n\n    return gcd(a, b)"
@@ -16244,7 +16484,7 @@
   },
   {
     "name": "GCD_3",
-    "sat": "def sat(n: int, a=34862131, b=577880864, lower_bound=24382):\n    return a % n == 0 and b % n == 0 and n >= lower_bound",
+    "sat": "def sat(n: int, a=34862131, b=577880864, lower_bound=24382):\n    \"\"\"Find a large common divisor of two integers.\"\"\"\n    return a % n == 0 and b % n == 0 and n >= lower_bound",
     "sols": [
       "def sol(a=34862131, b=577880864, lower_bound=24382):\n    m, n = min(a, b), max(a, b)\n    while m > 0:\n        m, n = n % m, m\n    return n",
       "def sol(a=34862131, b=577880864, lower_bound=24382):\n    def gcd(m, n):\n        if m > n:\n            return gcd(n, m)\n        if m == 0:\n            return n\n        return gcd(n % m, m)\n\n    return gcd(a, b)"
@@ -16253,7 +16493,7 @@
   },
   {
     "name": "GCD_4",
-    "sat": "def sat(n: int, a=588384, b=92, lower_bound=4):\n    return a % n == 0 and b % n == 0 and n >= lower_bound",
+    "sat": "def sat(n: int, a=588384, b=92, lower_bound=4):\n    \"\"\"Find a large common divisor of two integers.\"\"\"\n    return a % n == 0 and b % n == 0 and n >= lower_bound",
     "sols": [
       "def sol(a=588384, b=92, lower_bound=4):\n    m, n = min(a, b), max(a, b)\n    while m > 0:\n        m, n = n % m, m\n    return n",
       "def sol(a=588384, b=92, lower_bound=4):\n    def gcd(m, n):\n        if m > n:\n            return gcd(n, m)\n        if m == 0:\n            return n\n        return gcd(n % m, m)\n\n    return gcd(a, b)"
@@ -16262,7 +16502,7 @@
   },
   {
     "name": "GCD_5",
-    "sat": "def sat(n: int, a=5607819162, b=27335564358498, lower_bound=36723536):\n    return a % n == 0 and b % n == 0 and n >= lower_bound",
+    "sat": "def sat(n: int, a=5607819162, b=27335564358498, lower_bound=36723536):\n    \"\"\"Find a large common divisor of two integers.\"\"\"\n    return a % n == 0 and b % n == 0 and n >= lower_bound",
     "sols": [
       "def sol(a=5607819162, b=27335564358498, lower_bound=36723536):\n    m, n = min(a, b), max(a, b)\n    while m > 0:\n        m, n = n % m, m\n    return n",
       "def sol(a=5607819162, b=27335564358498, lower_bound=36723536):\n    def gcd(m, n):\n        if m > n:\n            return gcd(n, m)\n        if m == 0:\n            return n\n        return gcd(n % m, m)\n\n    return gcd(a, b)"
@@ -16271,7 +16511,7 @@
   },
   {
     "name": "GCD_6",
-    "sat": "def sat(n: int, a=276165, b=19897909182, lower_bound=2252):\n    return a % n == 0 and b % n == 0 and n >= lower_bound",
+    "sat": "def sat(n: int, a=276165, b=19897909182, lower_bound=2252):\n    \"\"\"Find a large common divisor of two integers.\"\"\"\n    return a % n == 0 and b % n == 0 and n >= lower_bound",
     "sols": [
       "def sol(a=276165, b=19897909182, lower_bound=2252):\n    m, n = min(a, b), max(a, b)\n    while m > 0:\n        m, n = n % m, m\n    return n",
       "def sol(a=276165, b=19897909182, lower_bound=2252):\n    def gcd(m, n):\n        if m > n:\n            return gcd(n, m)\n        if m == 0:\n            return n\n        return gcd(n % m, m)\n\n    return gcd(a, b)"
@@ -16280,7 +16520,7 @@
   },
   {
     "name": "GCD_7",
-    "sat": "def sat(n: int, a=1, b=362, lower_bound=0):\n    return a % n == 0 and b % n == 0 and n >= lower_bound",
+    "sat": "def sat(n: int, a=1, b=362, lower_bound=0):\n    \"\"\"Find a large common divisor of two integers.\"\"\"\n    return a % n == 0 and b % n == 0 and n >= lower_bound",
     "sols": [
       "def sol(a=1, b=362, lower_bound=0):\n    m, n = min(a, b), max(a, b)\n    while m > 0:\n        m, n = n % m, m\n    return n",
       "def sol(a=1, b=362, lower_bound=0):\n    def gcd(m, n):\n        if m > n:\n            return gcd(n, m)\n        if m == 0:\n            return n\n        return gcd(n % m, m)\n\n    return gcd(a, b)"
@@ -16289,7 +16529,7 @@
   },
   {
     "name": "GCD_8",
-    "sat": "def sat(n: int, a=5707464, b=770664688, lower_bound=5):\n    return a % n == 0 and b % n == 0 and n >= lower_bound",
+    "sat": "def sat(n: int, a=5707464, b=770664688, lower_bound=5):\n    \"\"\"Find a large common divisor of two integers.\"\"\"\n    return a % n == 0 and b % n == 0 and n >= lower_bound",
     "sols": [
       "def sol(a=5707464, b=770664688, lower_bound=5):\n    m, n = min(a, b), max(a, b)\n    while m > 0:\n        m, n = n % m, m\n    return n",
       "def sol(a=5707464, b=770664688, lower_bound=5):\n    def gcd(m, n):\n        if m > n:\n            return gcd(n, m)\n        if m == 0:\n            return n\n        return gcd(n % m, m)\n\n    return gcd(a, b)"
@@ -16298,7 +16538,7 @@
   },
   {
     "name": "GCD_9",
-    "sat": "def sat(n: int, a=706628775284, b=309130932086020, lower_bound=7127423):\n    return a % n == 0 and b % n == 0 and n >= lower_bound",
+    "sat": "def sat(n: int, a=706628775284, b=309130932086020, lower_bound=7127423):\n    \"\"\"Find a large common divisor of two integers.\"\"\"\n    return a % n == 0 and b % n == 0 and n >= lower_bound",
     "sols": [
       "def sol(a=706628775284, b=309130932086020, lower_bound=7127423):\n    m, n = min(a, b), max(a, b)\n    while m > 0:\n        m, n = n % m, m\n    return n",
       "def sol(a=706628775284, b=309130932086020, lower_bound=7127423):\n    def gcd(m, n):\n        if m > n:\n            return gcd(n, m)\n        if m == 0:\n            return n\n        return gcd(n % m, m)\n\n    return gcd(a, b)"
@@ -16307,7 +16547,7 @@
   },
   {
     "name": "GCD_multi_0",
-    "sat": "def sat(n: int, nums=[77410, 23223, 54187], lower_bound=2):\n    return all(i % n == 0 for i in nums) and n >= lower_bound",
+    "sat": "def sat(n: int, nums=[77410, 23223, 54187], lower_bound=2):\n    \"\"\"Find a large common divisor of the list of integers.\"\"\"\n    return all(i % n == 0 for i in nums) and n >= lower_bound",
     "sols": [
       "def sol(nums=[77410, 23223, 54187], lower_bound=2):\n    n = 0\n    for i in nums:\n        m, n = min(i, n), max(i, n)\n        while m > 0:\n            m, n = n % m, m\n    return n"
     ],
@@ -16315,7 +16555,7 @@
   },
   {
     "name": "GCD_multi_1",
-    "sat": "def sat(n: int, nums=[70495401, 23269860753882480, 23498467, 23498467, 148219329923139, 23498467], lower_bound=19991401):\n    return all(i % n == 0 for i in nums) and n >= lower_bound",
+    "sat": "def sat(n: int, nums=[70495401, 23269860753882480, 23498467, 23498467, 148219329923139, 23498467], lower_bound=19991401):\n    \"\"\"Find a large common divisor of the list of integers.\"\"\"\n    return all(i % n == 0 for i in nums) and n >= lower_bound",
     "sols": [
       "def sol(nums=[70495401, 23269860753882480, 23498467, 23498467, 148219329923139, 23498467], lower_bound=19991401):\n    n = 0\n    for i in nums:\n        m, n = min(i, n), max(i, n)\n        while m > 0:\n            m, n = n % m, m\n    return n"
     ],
@@ -16323,7 +16563,7 @@
   },
   {
     "name": "GCD_multi_2",
-    "sat": "def sat(n: int, nums=[1225, 71295, 47326599040], lower_bound=181):\n    return all(i % n == 0 for i in nums) and n >= lower_bound",
+    "sat": "def sat(n: int, nums=[1225, 71295, 47326599040], lower_bound=181):\n    \"\"\"Find a large common divisor of the list of integers.\"\"\"\n    return all(i % n == 0 for i in nums) and n >= lower_bound",
     "sols": [
       "def sol(nums=[1225, 71295, 47326599040], lower_bound=181):\n    n = 0\n    for i in nums:\n        m, n = min(i, n), max(i, n)\n        while m > 0:\n            m, n = n % m, m\n    return n"
     ],
@@ -16331,7 +16571,7 @@
   },
   {
     "name": "GCD_multi_3",
-    "sat": "def sat(n: int, nums=[6214120, 141230, 4448745, 70615, 4236900], lower_bound=68890):\n    return all(i % n == 0 for i in nums) and n >= lower_bound",
+    "sat": "def sat(n: int, nums=[6214120, 141230, 4448745, 70615, 4236900], lower_bound=68890):\n    \"\"\"Find a large common divisor of the list of integers.\"\"\"\n    return all(i % n == 0 for i in nums) and n >= lower_bound",
     "sols": [
       "def sol(nums=[6214120, 141230, 4448745, 70615, 4236900], lower_bound=68890):\n    n = 0\n    for i in nums:\n        m, n = min(i, n), max(i, n)\n        while m > 0:\n            m, n = n % m, m\n    return n"
     ],
@@ -16339,7 +16579,7 @@
   },
   {
     "name": "GCD_multi_4",
-    "sat": "def sat(n: int, nums=[9557030, 8928548, 475706, 1, 24815284, 23603664, 10, 7807], lower_bound=1):\n    return all(i % n == 0 for i in nums) and n >= lower_bound",
+    "sat": "def sat(n: int, nums=[9557030, 8928548, 475706, 1, 24815284, 23603664, 10, 7807], lower_bound=1):\n    \"\"\"Find a large common divisor of the list of integers.\"\"\"\n    return all(i % n == 0 for i in nums) and n >= lower_bound",
     "sols": [
       "def sol(nums=[9557030, 8928548, 475706, 1, 24815284, 23603664, 10, 7807], lower_bound=1):\n    n = 0\n    for i in nums:\n        m, n = min(i, n), max(i, n)\n        while m > 0:\n            m, n = n % m, m\n    return n"
     ],
@@ -16347,7 +16587,7 @@
   },
   {
     "name": "GCD_multi_5",
-    "sat": "def sat(n: int, nums=[1157765950, 1937953956180, 143957836924, 193409038152176, 17061814, 307616616549726, 2437402, 326611868, 105883180282, 11393204228846], lower_bound=2159154):\n    return all(i % n == 0 for i in nums) and n >= lower_bound",
+    "sat": "def sat(n: int, nums=[1157765950, 1937953956180, 143957836924, 193409038152176, 17061814, 307616616549726, 2437402, 326611868, 105883180282, 11393204228846], lower_bound=2159154):\n    \"\"\"Find a large common divisor of the list of integers.\"\"\"\n    return all(i % n == 0 for i in nums) and n >= lower_bound",
     "sols": [
       "def sol(nums=[1157765950, 1937953956180, 143957836924, 193409038152176, 17061814, 307616616549726, 2437402, 326611868, 105883180282, 11393204228846], lower_bound=2159154):\n    n = 0\n    for i in nums:\n        m, n = min(i, n), max(i, n)\n        while m > 0:\n            m, n = n % m, m\n    return n"
     ],
@@ -16355,7 +16595,7 @@
   },
   {
     "name": "GCD_multi_6",
-    "sat": "def sat(n: int, nums=[7000014, 391845543, 1473, 231, 274782], lower_bound=3):\n    return all(i % n == 0 for i in nums) and n >= lower_bound",
+    "sat": "def sat(n: int, nums=[7000014, 391845543, 1473, 231, 274782], lower_bound=3):\n    \"\"\"Find a large common divisor of the list of integers.\"\"\"\n    return all(i % n == 0 for i in nums) and n >= lower_bound",
     "sols": [
       "def sol(nums=[7000014, 391845543, 1473, 231, 274782], lower_bound=3):\n    n = 0\n    for i in nums:\n        m, n = min(i, n), max(i, n)\n        while m > 0:\n            m, n = n % m, m\n    return n"
     ],
@@ -16363,7 +16603,7 @@
   },
   {
     "name": "GCD_multi_7",
-    "sat": "def sat(n: int, nums=[61531310315922, 1637700402641796, 11571255523926, 2110999626734], lower_bound=241300149):\n    return all(i % n == 0 for i in nums) and n >= lower_bound",
+    "sat": "def sat(n: int, nums=[61531310315922, 1637700402641796, 11571255523926, 2110999626734], lower_bound=241300149):\n    \"\"\"Find a large common divisor of the list of integers.\"\"\"\n    return all(i % n == 0 for i in nums) and n >= lower_bound",
     "sols": [
       "def sol(nums=[61531310315922, 1637700402641796, 11571255523926, 2110999626734], lower_bound=241300149):\n    n = 0\n    for i in nums:\n        m, n = min(i, n), max(i, n)\n        while m > 0:\n            m, n = n % m, m\n    return n"
     ],
@@ -16371,7 +16611,7 @@
   },
   {
     "name": "GCD_multi_8",
-    "sat": "def sat(n: int, nums=[2084264416, 151216766, 20324019092], lower_bound=23):\n    return all(i % n == 0 for i in nums) and n >= lower_bound",
+    "sat": "def sat(n: int, nums=[2084264416, 151216766, 20324019092], lower_bound=23):\n    \"\"\"Find a large common divisor of the list of integers.\"\"\"\n    return all(i % n == 0 for i in nums) and n >= lower_bound",
     "sols": [
       "def sol(nums=[2084264416, 151216766, 20324019092], lower_bound=23):\n    n = 0\n    for i in nums:\n        m, n = min(i, n), max(i, n)\n        while m > 0:\n            m, n = n % m, m\n    return n"
     ],
@@ -16379,7 +16619,7 @@
   },
   {
     "name": "GCD_multi_9",
-    "sat": "def sat(n: int, nums=[472631968779466264, 507448232, 147555108801157408, 406466033832, 2228712634944, 212740566990752], lower_bound=356670399):\n    return all(i % n == 0 for i in nums) and n >= lower_bound",
+    "sat": "def sat(n: int, nums=[472631968779466264, 507448232, 147555108801157408, 406466033832, 2228712634944, 212740566990752], lower_bound=356670399):\n    \"\"\"Find a large common divisor of the list of integers.\"\"\"\n    return all(i % n == 0 for i in nums) and n >= lower_bound",
     "sols": [
       "def sol(nums=[472631968779466264, 507448232, 147555108801157408, 406466033832, 2228712634944, 212740566990752], lower_bound=356670399):\n    n = 0\n    for i in nums:\n        m, n = min(i, n), max(i, n)\n        while m > 0:\n            m, n = n % m, m\n    return n"
     ],
@@ -16387,7 +16627,7 @@
   },
   {
     "name": "LCM_0",
-    "sat": "def sat(n: int, a=15, b=27, upper_bound=150):\n    return n % a == 0 and n % b == 0 and 0 < n <= upper_bound",
+    "sat": "def sat(n: int, a=15, b=27, upper_bound=150):\n    \"\"\"Find a small common multiple of two integers.\"\"\"\n    return n % a == 0 and n % b == 0 and 0 < n <= upper_bound",
     "sols": [
       "def sol(a=15, b=27, upper_bound=150):\n    m, n = min(a, b), max(a, b)\n    while m > 0:\n        m, n = n % m, m\n    return a * (b // n)"
     ],
@@ -16395,7 +16635,7 @@
   },
   {
     "name": "LCM_1",
-    "sat": "def sat(n: int, a=40730910, b=617135, upper_bound=67814892):\n    return n % a == 0 and n % b == 0 and 0 < n <= upper_bound",
+    "sat": "def sat(n: int, a=40730910, b=617135, upper_bound=67814892):\n    \"\"\"Find a small common multiple of two integers.\"\"\"\n    return n % a == 0 and n % b == 0 and 0 < n <= upper_bound",
     "sols": [
       "def sol(a=40730910, b=617135, upper_bound=67814892):\n    m, n = min(a, b), max(a, b)\n    while m > 0:\n        m, n = n % m, m\n    return a * (b // n)"
     ],
@@ -16403,7 +16643,7 @@
   },
   {
     "name": "LCM_2",
-    "sat": "def sat(n: int, a=759520, b=46004540, upper_bound=55417409741):\n    return n % a == 0 and n % b == 0 and 0 < n <= upper_bound",
+    "sat": "def sat(n: int, a=759520, b=46004540, upper_bound=55417409741):\n    \"\"\"Find a small common multiple of two integers.\"\"\"\n    return n % a == 0 and n % b == 0 and 0 < n <= upper_bound",
     "sols": [
       "def sol(a=759520, b=46004540, upper_bound=55417409741):\n    m, n = min(a, b), max(a, b)\n    while m > 0:\n        m, n = n % m, m\n    return a * (b // n)"
     ],
@@ -16411,7 +16651,7 @@
   },
   {
     "name": "LCM_3",
-    "sat": "def sat(n: int, a=681620170, b=583310, upper_bound=13039869606):\n    return n % a == 0 and n % b == 0 and 0 < n <= upper_bound",
+    "sat": "def sat(n: int, a=681620170, b=583310, upper_bound=13039869606):\n    \"\"\"Find a small common multiple of two integers.\"\"\"\n    return n % a == 0 and n % b == 0 and 0 < n <= upper_bound",
     "sols": [
       "def sol(a=681620170, b=583310, upper_bound=13039869606):\n    m, n = min(a, b), max(a, b)\n    while m > 0:\n        m, n = n % m, m\n    return a * (b // n)"
     ],
@@ -16419,7 +16659,7 @@
   },
   {
     "name": "LCM_4",
-    "sat": "def sat(n: int, a=3720, b=47740, upper_bound=448957):\n    return n % a == 0 and n % b == 0 and 0 < n <= upper_bound",
+    "sat": "def sat(n: int, a=3720, b=47740, upper_bound=448957):\n    \"\"\"Find a small common multiple of two integers.\"\"\"\n    return n % a == 0 and n % b == 0 and 0 < n <= upper_bound",
     "sols": [
       "def sol(a=3720, b=47740, upper_bound=448957):\n    m, n = min(a, b), max(a, b)\n    while m > 0:\n        m, n = n % m, m\n    return a * (b // n)"
     ],
@@ -16427,7 +16667,7 @@
   },
   {
     "name": "LCM_5",
-    "sat": "def sat(n: int, a=4891901256, b=792, upper_bound=7687584134):\n    return n % a == 0 and n % b == 0 and 0 < n <= upper_bound",
+    "sat": "def sat(n: int, a=4891901256, b=792, upper_bound=7687584134):\n    \"\"\"Find a small common multiple of two integers.\"\"\"\n    return n % a == 0 and n % b == 0 and 0 < n <= upper_bound",
     "sols": [
       "def sol(a=4891901256, b=792, upper_bound=7687584134):\n    m, n = min(a, b), max(a, b)\n    while m > 0:\n        m, n = n % m, m\n    return a * (b // n)"
     ],
@@ -16435,7 +16675,7 @@
   },
   {
     "name": "LCM_6",
-    "sat": "def sat(n: int, a=379456020, b=196052277, upper_bound=21681902847):\n    return n % a == 0 and n % b == 0 and 0 < n <= upper_bound",
+    "sat": "def sat(n: int, a=379456020, b=196052277, upper_bound=21681902847):\n    \"\"\"Find a small common multiple of two integers.\"\"\"\n    return n % a == 0 and n % b == 0 and 0 < n <= upper_bound",
     "sols": [
       "def sol(a=379456020, b=196052277, upper_bound=21681902847):\n    m, n = min(a, b), max(a, b)\n    while m > 0:\n        m, n = n % m, m\n    return a * (b // n)"
     ],
@@ -16443,7 +16683,7 @@
   },
   {
     "name": "LCM_7",
-    "sat": "def sat(n: int, a=420682887330, b=5848880, upper_bound=3699733059548):\n    return n % a == 0 and n % b == 0 and 0 < n <= upper_bound",
+    "sat": "def sat(n: int, a=420682887330, b=5848880, upper_bound=3699733059548):\n    \"\"\"Find a small common multiple of two integers.\"\"\"\n    return n % a == 0 and n % b == 0 and 0 < n <= upper_bound",
     "sols": [
       "def sol(a=420682887330, b=5848880, upper_bound=3699733059548):\n    m, n = min(a, b), max(a, b)\n    while m > 0:\n        m, n = n % m, m\n    return a * (b // n)"
     ],
@@ -16451,7 +16691,7 @@
   },
   {
     "name": "LCM_8",
-    "sat": "def sat(n: int, a=3244, b=284, upper_bound=334054):\n    return n % a == 0 and n % b == 0 and 0 < n <= upper_bound",
+    "sat": "def sat(n: int, a=3244, b=284, upper_bound=334054):\n    \"\"\"Find a small common multiple of two integers.\"\"\"\n    return n % a == 0 and n % b == 0 and 0 < n <= upper_bound",
     "sols": [
       "def sol(a=3244, b=284, upper_bound=334054):\n    m, n = min(a, b), max(a, b)\n    while m > 0:\n        m, n = n % m, m\n    return a * (b // n)"
     ],
@@ -16459,7 +16699,7 @@
   },
   {
     "name": "LCM_9",
-    "sat": "def sat(n: int, a=416159262333570, b=43959058633350, upper_bound=104635376425254699008):\n    return n % a == 0 and n % b == 0 and 0 < n <= upper_bound",
+    "sat": "def sat(n: int, a=416159262333570, b=43959058633350, upper_bound=104635376425254699008):\n    \"\"\"Find a small common multiple of two integers.\"\"\"\n    return n % a == 0 and n % b == 0 and 0 < n <= upper_bound",
     "sols": [
       "def sol(a=416159262333570, b=43959058633350, upper_bound=104635376425254699008):\n    m, n = min(a, b), max(a, b)\n    while m > 0:\n        m, n = n % m, m\n    return a * (b // n)"
     ],
@@ -16467,7 +16707,7 @@
   },
   {
     "name": "LCM_multi_0",
-    "sat": "def sat(n: int, nums=[15, 27, 102], upper_bound=5000):\n    return all(n % i == 0 for i in nums) and n <= upper_bound",
+    "sat": "def sat(n: int, nums=[15, 27, 102], upper_bound=5000):\n    \"\"\"Find a small common multiple of a list of integers.\"\"\"\n    return all(n % i == 0 for i in nums) and n <= upper_bound",
     "sols": [
       "def sol(nums=[15, 27, 102], upper_bound=5000):\n    ans = 1\n    for i in nums:\n        m, n = min(i, ans), max(i, ans)\n        while m > 0:\n            m, n = n % m, m\n        ans *= (i // n)\n    return ans"
     ],
@@ -16475,7 +16715,7 @@
   },
   {
     "name": "LCM_multi_1",
-    "sat": "def sat(n: int, nums=[1581170390331, 935571217, 10323312942782, 154337221249218, 15869510317262784, 100216187421, 2796257266810], upper_bound=2881733032617239197781819941037614825472):\n    return all(n % i == 0 for i in nums) and n <= upper_bound",
+    "sat": "def sat(n: int, nums=[1581170390331, 935571217, 10323312942782, 154337221249218, 15869510317262784, 100216187421, 2796257266810], upper_bound=2881733032617239197781819941037614825472):\n    \"\"\"Find a small common multiple of a list of integers.\"\"\"\n    return all(n % i == 0 for i in nums) and n <= upper_bound",
     "sols": [
       "def sol(nums=[1581170390331, 935571217, 10323312942782, 154337221249218, 15869510317262784, 100216187421, 2796257266810], upper_bound=2881733032617239197781819941037614825472):\n    ans = 1\n    for i in nums:\n        m, n = min(i, ans), max(i, ans)\n        while m > 0:\n            m, n = n % m, m\n        ans *= (i // n)\n    return ans"
     ],
@@ -16483,7 +16723,7 @@
   },
   {
     "name": "LCM_multi_2",
-    "sat": "def sat(n: int, nums=[32746155, 202987127583240, 27932470215, 11461154250, 209542645845, 838039598760, 50274484102245, 3260600538613860, 65492310], upper_bound=540445887743223187159941470399403917312):\n    return all(n % i == 0 for i in nums) and n <= upper_bound",
+    "sat": "def sat(n: int, nums=[32746155, 202987127583240, 27932470215, 11461154250, 209542645845, 838039598760, 50274484102245, 3260600538613860, 65492310], upper_bound=540445887743223187159941470399403917312):\n    \"\"\"Find a small common multiple of a list of integers.\"\"\"\n    return all(n % i == 0 for i in nums) and n <= upper_bound",
     "sols": [
       "def sol(nums=[32746155, 202987127583240, 27932470215, 11461154250, 209542645845, 838039598760, 50274484102245, 3260600538613860, 65492310], upper_bound=540445887743223187159941470399403917312):\n    ans = 1\n    for i in nums:\n        m, n = min(i, ans), max(i, ans)\n        while m > 0:\n            m, n = n % m, m\n        ans *= (i // n)\n    return ans"
     ],
@@ -16491,7 +16731,7 @@
   },
   {
     "name": "LCM_multi_3",
-    "sat": "def sat(n: int, nums=[50373291392, 667, 1232498608, 667, 28014, 667], upper_bound=197110332911461056):\n    return all(n % i == 0 for i in nums) and n <= upper_bound",
+    "sat": "def sat(n: int, nums=[50373291392, 667, 1232498608, 667, 28014, 667], upper_bound=197110332911461056):\n    \"\"\"Find a small common multiple of a list of integers.\"\"\"\n    return all(n % i == 0 for i in nums) and n <= upper_bound",
     "sols": [
       "def sol(nums=[50373291392, 667, 1232498608, 667, 28014, 667], upper_bound=197110332911461056):\n    ans = 1\n    for i in nums:\n        m, n = min(i, ans), max(i, ans)\n        while m > 0:\n            m, n = n % m, m\n        ans *= (i // n)\n    return ans"
     ],
@@ -16499,7 +16739,7 @@
   },
   {
     "name": "LCM_multi_4",
-    "sat": "def sat(n: int, nums=[36194984, 36194984, 6494176419248, 941069584, 274510323407656, 1990724120, 63904814095864, 32611680584], upper_bound=101429010112535110728755701612544):\n    return all(n % i == 0 for i in nums) and n <= upper_bound",
+    "sat": "def sat(n: int, nums=[36194984, 36194984, 6494176419248, 941069584, 274510323407656, 1990724120, 63904814095864, 32611680584], upper_bound=101429010112535110728755701612544):\n    \"\"\"Find a small common multiple of a list of integers.\"\"\"\n    return all(n % i == 0 for i in nums) and n <= upper_bound",
     "sols": [
       "def sol(nums=[36194984, 36194984, 6494176419248, 941069584, 274510323407656, 1990724120, 63904814095864, 32611680584], upper_bound=101429010112535110728755701612544):\n    ans = 1\n    for i in nums:\n        m, n = min(i, ans), max(i, ans)\n        while m > 0:\n            m, n = n % m, m\n        ans *= (i // n)\n    return ans"
     ],
@@ -16507,7 +16747,7 @@
   },
   {
     "name": "LCM_multi_5",
-    "sat": "def sat(n: int, nums=[4571410, 20317080, 98862079810, 57692464520, 176988066980, 598547180], upper_bound=270210189895472806313241856584454242304):\n    return all(n % i == 0 for i in nums) and n <= upper_bound",
+    "sat": "def sat(n: int, nums=[4571410, 20317080, 98862079810, 57692464520, 176988066980, 598547180], upper_bound=270210189895472806313241856584454242304):\n    \"\"\"Find a small common multiple of a list of integers.\"\"\"\n    return all(n % i == 0 for i in nums) and n <= upper_bound",
     "sols": [
       "def sol(nums=[4571410, 20317080, 98862079810, 57692464520, 176988066980, 598547180], upper_bound=270210189895472806313241856584454242304):\n    ans = 1\n    for i in nums:\n        m, n = min(i, ans), max(i, ans)\n        while m > 0:\n            m, n = n % m, m\n        ans *= (i // n)\n    return ans"
     ],
@@ -16515,7 +16755,7 @@
   },
   {
     "name": "LCM_multi_6",
-    "sat": "def sat(n: int, nums=[4465095852, 8231892599598764, 10631180600, 2650459635386, 44156127880113268, 110561088885820, 580356148954], upper_bound=36102848231213970699855315069198363787264):\n    return all(n % i == 0 for i in nums) and n <= upper_bound",
+    "sat": "def sat(n: int, nums=[4465095852, 8231892599598764, 10631180600, 2650459635386, 44156127880113268, 110561088885820, 580356148954], upper_bound=36102848231213970699855315069198363787264):\n    \"\"\"Find a small common multiple of a list of integers.\"\"\"\n    return all(n % i == 0 for i in nums) and n <= upper_bound",
     "sols": [
       "def sol(nums=[4465095852, 8231892599598764, 10631180600, 2650459635386, 44156127880113268, 110561088885820, 580356148954], upper_bound=36102848231213970699855315069198363787264):\n    ans = 1\n    for i in nums:\n        m, n = min(i, ans), max(i, ans)\n        while m > 0:\n            m, n = n % m, m\n        ans *= (i // n)\n    return ans"
     ],
@@ -16523,7 +16763,7 @@
   },
   {
     "name": "LCM_multi_7",
-    "sat": "def sat(n: int, nums=[21126496, 488, 488, 437297923376, 488, 4390558936, 488], upper_bound=168940123904877776601088):\n    return all(n % i == 0 for i in nums) and n <= upper_bound",
+    "sat": "def sat(n: int, nums=[21126496, 488, 488, 437297923376, 488, 4390558936, 488], upper_bound=168940123904877776601088):\n    \"\"\"Find a small common multiple of a list of integers.\"\"\"\n    return all(n % i == 0 for i in nums) and n <= upper_bound",
     "sols": [
       "def sol(nums=[21126496, 488, 488, 437297923376, 488, 4390558936, 488], upper_bound=168940123904877776601088):\n    ans = 1\n    for i in nums:\n        m, n = min(i, ans), max(i, ans)\n        while m > 0:\n            m, n = n % m, m\n        ans *= (i // n)\n    return ans"
     ],
@@ -16531,7 +16771,7 @@
   },
   {
     "name": "LCM_multi_8",
-    "sat": "def sat(n: int, nums=[41627404, 52622985428, 89201580, 129401758720, 17840316, 781164841917928], upper_bound=2799806977933082890338304):\n    return all(n % i == 0 for i in nums) and n <= upper_bound",
+    "sat": "def sat(n: int, nums=[41627404, 52622985428, 89201580, 129401758720, 17840316, 781164841917928], upper_bound=2799806977933082890338304):\n    \"\"\"Find a small common multiple of a list of integers.\"\"\"\n    return all(n % i == 0 for i in nums) and n <= upper_bound",
     "sols": [
       "def sol(nums=[41627404, 52622985428, 89201580, 129401758720, 17840316, 781164841917928], upper_bound=2799806977933082890338304):\n    ans = 1\n    for i in nums:\n        m, n = min(i, ans), max(i, ans)\n        while m > 0:\n            m, n = n % m, m\n        ans *= (i // n)\n    return ans"
     ],
@@ -16539,7 +16779,7 @@
   },
   {
     "name": "LCM_multi_9",
-    "sat": "def sat(n: int, nums=[348783442095, 8221554, 456753, 12959909622, 307553262291, 139309665, 29366300161836, 3197271, 400197073911195, 26790847215], upper_bound=99134013622070923956708454273026338995568640):\n    return all(n % i == 0 for i in nums) and n <= upper_bound",
+    "sat": "def sat(n: int, nums=[348783442095, 8221554, 456753, 12959909622, 307553262291, 139309665, 29366300161836, 3197271, 400197073911195, 26790847215], upper_bound=99134013622070923956708454273026338995568640):\n    \"\"\"Find a small common multiple of a list of integers.\"\"\"\n    return all(n % i == 0 for i in nums) and n <= upper_bound",
     "sols": [
       "def sol(nums=[348783442095, 8221554, 456753, 12959909622, 307553262291, 139309665, 29366300161836, 3197271, 400197073911195, 26790847215], upper_bound=99134013622070923956708454273026338995568640):\n    ans = 1\n    for i in nums:\n        m, n = min(i, ans), max(i, ans)\n        while m > 0:\n            m, n = n % m, m\n        ans *= (i // n)\n    return ans"
     ],
@@ -16547,7 +16787,7 @@
   },
   {
     "name": "SmallExponentBigSolution_0",
-    "sat": "def sat(n: int, b=2, target=5):\n    return (b ** n) % n == target",
+    "sat": "def sat(n: int, b=2, target=5):\n    \"\"\"Solve for n: b^n = target (mod n)\"\"\"\n    return (b ** n) % n == target",
     "sols": [
       "def sol(b=2, target=5):\n    for n in range(1, 10 ** 5):\n        if pow(b, n, n) == target:\n            return n"
     ],
@@ -16555,19 +16795,19 @@
   },
   {
     "name": "SmallExponentBigSolution_1",
-    "sat": "def sat(n: int, b=2, target=3):\n    return (b ** n) % n == target",
+    "sat": "def sat(n: int, b=2, target=3):\n    \"\"\"Solve for n: b^n = target (mod n)\"\"\"\n    return (b ** n) % n == target",
     "sols": [],
     "module": "number_theory"
   },
   {
     "name": "SmallExponentBigSolution_2",
-    "sat": "def sat(n: int, b=1, target=2):\n    return (b ** n) % n == target",
+    "sat": "def sat(n: int, b=1, target=2):\n    \"\"\"Solve for n: b^n = target (mod n)\"\"\"\n    return (b ** n) % n == target",
     "sols": [],
     "module": "number_theory"
   },
   {
     "name": "SmallExponentBigSolution_3",
-    "sat": "def sat(n: int, b=69, target=2):\n    return (b ** n) % n == target",
+    "sat": "def sat(n: int, b=69, target=2):\n    \"\"\"Solve for n: b^n = target (mod n)\"\"\"\n    return (b ** n) % n == target",
     "sols": [
       "def sol(b=69, target=2):\n    for n in range(1, 10 ** 5):\n        if pow(b, n, n) == target:\n            return n"
     ],
@@ -16575,7 +16815,7 @@
   },
   {
     "name": "SmallExponentBigSolution_4",
-    "sat": "def sat(n: int, b=14, target=3):\n    return (b ** n) % n == target",
+    "sat": "def sat(n: int, b=14, target=3):\n    \"\"\"Solve for n: b^n = target (mod n)\"\"\"\n    return (b ** n) % n == target",
     "sols": [
       "def sol(b=14, target=3):\n    for n in range(1, 10 ** 5):\n        if pow(b, n, n) == target:\n            return n"
     ],
@@ -16583,7 +16823,7 @@
   },
   {
     "name": "SmallExponentBigSolution_5",
-    "sat": "def sat(n: int, b=34, target=3):\n    return (b ** n) % n == target",
+    "sat": "def sat(n: int, b=34, target=3):\n    \"\"\"Solve for n: b^n = target (mod n)\"\"\"\n    return (b ** n) % n == target",
     "sols": [
       "def sol(b=34, target=3):\n    for n in range(1, 10 ** 5):\n        if pow(b, n, n) == target:\n            return n"
     ],
@@ -16591,7 +16831,7 @@
   },
   {
     "name": "SmallExponentBigSolution_6",
-    "sat": "def sat(n: int, b=56, target=3):\n    return (b ** n) % n == target",
+    "sat": "def sat(n: int, b=56, target=3):\n    \"\"\"Solve for n: b^n = target (mod n)\"\"\"\n    return (b ** n) % n == target",
     "sols": [
       "def sol(b=56, target=3):\n    for n in range(1, 10 ** 5):\n        if pow(b, n, n) == target:\n            return n"
     ],
@@ -16599,7 +16839,7 @@
   },
   {
     "name": "SmallExponentBigSolution_7",
-    "sat": "def sat(n: int, b=74, target=3):\n    return (b ** n) % n == target",
+    "sat": "def sat(n: int, b=74, target=3):\n    \"\"\"Solve for n: b^n = target (mod n)\"\"\"\n    return (b ** n) % n == target",
     "sols": [
       "def sol(b=74, target=3):\n    for n in range(1, 10 ** 5):\n        if pow(b, n, n) == target:\n            return n"
     ],
@@ -16607,7 +16847,7 @@
   },
   {
     "name": "SmallExponentBigSolution_8",
-    "sat": "def sat(n: int, b=17, target=4):\n    return (b ** n) % n == target",
+    "sat": "def sat(n: int, b=17, target=4):\n    \"\"\"Solve for n: b^n = target (mod n)\"\"\"\n    return (b ** n) % n == target",
     "sols": [
       "def sol(b=17, target=4):\n    for n in range(1, 10 ** 5):\n        if pow(b, n, n) == target:\n            return n"
     ],
@@ -16615,7 +16855,7 @@
   },
   {
     "name": "SmallExponentBigSolution_9",
-    "sat": "def sat(n: int, b=53, target=4):\n    return (b ** n) % n == target",
+    "sat": "def sat(n: int, b=53, target=4):\n    \"\"\"Solve for n: b^n = target (mod n)\"\"\"\n    return (b ** n) % n == target",
     "sols": [
       "def sol(b=53, target=4):\n    for n in range(1, 10 ** 5):\n        if pow(b, n, n) == target:\n            return n"
     ],
@@ -16623,7 +16863,7 @@
   },
   {
     "name": "ThreeCubes_0",
-    "sat": "def sat(nums: List[int], target=10):\n    assert target % 9 not in [4, 5], \"Hint\"\n    return len(nums) == 3 and sum([i ** 3 for i in nums]) == target",
+    "sat": "def sat(nums: List[int], target=10):\n    \"\"\"Given n, find integers a, b, c such that a^3 + b^3 + c^3 = n.\"\"\"\n    assert target % 9 not in [4, 5], \"Hint\"\n    return len(nums) == 3 and sum([i ** 3 for i in nums]) == target",
     "sols": [
       "def sol(target=10):\n    assert target % 9 not in {4, 5}\n    for i in range(20):\n        for j in range(i + 1):\n            for k in range(-20, j + 1):\n                n = i ** 3 + j ** 3 + k ** 3\n                if n == target:\n                    return [i, j, k]\n                if n == -target:\n                    return [-i, -j, -k]"
     ],
@@ -16631,55 +16871,55 @@
   },
   {
     "name": "ThreeCubes_1",
-    "sat": "def sat(nums: List[int], target=114):\n    assert target % 9 not in [4, 5], \"Hint\"\n    return len(nums) == 3 and sum([i ** 3 for i in nums]) == target",
+    "sat": "def sat(nums: List[int], target=114):\n    \"\"\"Given n, find integers a, b, c such that a^3 + b^3 + c^3 = n.\"\"\"\n    assert target % 9 not in [4, 5], \"Hint\"\n    return len(nums) == 3 and sum([i ** 3 for i in nums]) == target",
     "sols": [],
     "module": "number_theory"
   },
   {
     "name": "ThreeCubes_2",
-    "sat": "def sat(nums: List[int], target=390):\n    assert target % 9 not in [4, 5], \"Hint\"\n    return len(nums) == 3 and sum([i ** 3 for i in nums]) == target",
+    "sat": "def sat(nums: List[int], target=390):\n    \"\"\"Given n, find integers a, b, c such that a^3 + b^3 + c^3 = n.\"\"\"\n    assert target % 9 not in [4, 5], \"Hint\"\n    return len(nums) == 3 and sum([i ** 3 for i in nums]) == target",
     "sols": [],
     "module": "number_theory"
   },
   {
     "name": "ThreeCubes_3",
-    "sat": "def sat(nums: List[int], target=579):\n    assert target % 9 not in [4, 5], \"Hint\"\n    return len(nums) == 3 and sum([i ** 3 for i in nums]) == target",
+    "sat": "def sat(nums: List[int], target=579):\n    \"\"\"Given n, find integers a, b, c such that a^3 + b^3 + c^3 = n.\"\"\"\n    assert target % 9 not in [4, 5], \"Hint\"\n    return len(nums) == 3 and sum([i ** 3 for i in nums]) == target",
     "sols": [],
     "module": "number_theory"
   },
   {
     "name": "ThreeCubes_4",
-    "sat": "def sat(nums: List[int], target=627):\n    assert target % 9 not in [4, 5], \"Hint\"\n    return len(nums) == 3 and sum([i ** 3 for i in nums]) == target",
+    "sat": "def sat(nums: List[int], target=627):\n    \"\"\"Given n, find integers a, b, c such that a^3 + b^3 + c^3 = n.\"\"\"\n    assert target % 9 not in [4, 5], \"Hint\"\n    return len(nums) == 3 and sum([i ** 3 for i in nums]) == target",
     "sols": [],
     "module": "number_theory"
   },
   {
     "name": "ThreeCubes_5",
-    "sat": "def sat(nums: List[int], target=633):\n    assert target % 9 not in [4, 5], \"Hint\"\n    return len(nums) == 3 and sum([i ** 3 for i in nums]) == target",
+    "sat": "def sat(nums: List[int], target=633):\n    \"\"\"Given n, find integers a, b, c such that a^3 + b^3 + c^3 = n.\"\"\"\n    assert target % 9 not in [4, 5], \"Hint\"\n    return len(nums) == 3 and sum([i ** 3 for i in nums]) == target",
     "sols": [],
     "module": "number_theory"
   },
   {
     "name": "ThreeCubes_6",
-    "sat": "def sat(nums: List[int], target=732):\n    assert target % 9 not in [4, 5], \"Hint\"\n    return len(nums) == 3 and sum([i ** 3 for i in nums]) == target",
+    "sat": "def sat(nums: List[int], target=732):\n    \"\"\"Given n, find integers a, b, c such that a^3 + b^3 + c^3 = n.\"\"\"\n    assert target % 9 not in [4, 5], \"Hint\"\n    return len(nums) == 3 and sum([i ** 3 for i in nums]) == target",
     "sols": [],
     "module": "number_theory"
   },
   {
     "name": "ThreeCubes_7",
-    "sat": "def sat(nums: List[int], target=921):\n    assert target % 9 not in [4, 5], \"Hint\"\n    return len(nums) == 3 and sum([i ** 3 for i in nums]) == target",
+    "sat": "def sat(nums: List[int], target=921):\n    \"\"\"Given n, find integers a, b, c such that a^3 + b^3 + c^3 = n.\"\"\"\n    assert target % 9 not in [4, 5], \"Hint\"\n    return len(nums) == 3 and sum([i ** 3 for i in nums]) == target",
     "sols": [],
     "module": "number_theory"
   },
   {
     "name": "ThreeCubes_8",
-    "sat": "def sat(nums: List[int], target=975):\n    assert target % 9 not in [4, 5], \"Hint\"\n    return len(nums) == 3 and sum([i ** 3 for i in nums]) == target",
+    "sat": "def sat(nums: List[int], target=975):\n    \"\"\"Given n, find integers a, b, c such that a^3 + b^3 + c^3 = n.\"\"\"\n    assert target % 9 not in [4, 5], \"Hint\"\n    return len(nums) == 3 and sum([i ** 3 for i in nums]) == target",
     "sols": [],
     "module": "number_theory"
   },
   {
     "name": "ThreeCubes_9",
-    "sat": "def sat(nums: List[int], target=0):\n    assert target % 9 not in [4, 5], \"Hint\"\n    return len(nums) == 3 and sum([i ** 3 for i in nums]) == target",
+    "sat": "def sat(nums: List[int], target=0):\n    \"\"\"Given n, find integers a, b, c such that a^3 + b^3 + c^3 = n.\"\"\"\n    assert target % 9 not in [4, 5], \"Hint\"\n    return len(nums) == 3 and sum([i ** 3 for i in nums]) == target",
     "sols": [
       "def sol(target=0):\n    assert target % 9 not in {4, 5}\n    for i in range(20):\n        for j in range(i + 1):\n            for k in range(-20, j + 1):\n                n = i ** 3 + j ** 3 + k ** 3\n                if n == target:\n                    return [i, j, k]\n                if n == -target:\n                    return [-i, -j, -k]"
     ],
@@ -20196,7 +20436,7 @@
   },
   {
     "name": "IntNegSquareRoot_0",
-    "sat": "def sat(n: int, a=10000200001):\n    return a == n * n and n < 0",
+    "sat": "def sat(n: int, a=10000200001):\n    \"\"\"Find a negative integer that when squared equals perfect-square a.\"\"\"\n    return a == n * n and n < 0",
     "sols": [
       "def sol(a=10000200001):\n    return -int(a ** 0.5)"
     ],
@@ -20204,7 +20444,7 @@
   },
   {
     "name": "IntNegSquareRoot_1",
-    "sat": "def sat(n: int, a=365421838627726596):\n    return a == n * n and n < 0",
+    "sat": "def sat(n: int, a=365421838627726596):\n    \"\"\"Find a negative integer that when squared equals perfect-square a.\"\"\"\n    return a == n * n and n < 0",
     "sols": [
       "def sol(a=365421838627726596):\n    return -int(a ** 0.5)"
     ],
@@ -20212,7 +20452,7 @@
   },
   {
     "name": "IntNegSquareRoot_2",
-    "sat": "def sat(n: int, a=2630598493574288169):\n    return a == n * n and n < 0",
+    "sat": "def sat(n: int, a=2630598493574288169):\n    \"\"\"Find a negative integer that when squared equals perfect-square a.\"\"\"\n    return a == n * n and n < 0",
     "sols": [
       "def sol(a=2630598493574288169):\n    return -int(a ** 0.5)"
     ],
@@ -20220,7 +20460,7 @@
   },
   {
     "name": "IntNegSquareRoot_3",
-    "sat": "def sat(n: int, a=192515169255436036):\n    return a == n * n and n < 0",
+    "sat": "def sat(n: int, a=192515169255436036):\n    \"\"\"Find a negative integer that when squared equals perfect-square a.\"\"\"\n    return a == n * n and n < 0",
     "sols": [
       "def sol(a=192515169255436036):\n    return -int(a ** 0.5)"
     ],
@@ -20228,7 +20468,7 @@
   },
   {
     "name": "IntNegSquareRoot_4",
-    "sat": "def sat(n: int, a=684484338983761969):\n    return a == n * n and n < 0",
+    "sat": "def sat(n: int, a=684484338983761969):\n    \"\"\"Find a negative integer that when squared equals perfect-square a.\"\"\"\n    return a == n * n and n < 0",
     "sols": [
       "def sol(a=684484338983761969):\n    return -int(a ** 0.5)"
     ],
@@ -20236,7 +20476,7 @@
   },
   {
     "name": "IntNegSquareRoot_5",
-    "sat": "def sat(n: int, a=673954914330800041):\n    return a == n * n and n < 0",
+    "sat": "def sat(n: int, a=673954914330800041):\n    \"\"\"Find a negative integer that when squared equals perfect-square a.\"\"\"\n    return a == n * n and n < 0",
     "sols": [
       "def sol(a=673954914330800041):\n    return -int(a ** 0.5)"
     ],
@@ -20244,7 +20484,7 @@
   },
   {
     "name": "IntNegSquareRoot_6",
-    "sat": "def sat(n: int, a=2079487408190984100):\n    return a == n * n and n < 0",
+    "sat": "def sat(n: int, a=2079487408190984100):\n    \"\"\"Find a negative integer that when squared equals perfect-square a.\"\"\"\n    return a == n * n and n < 0",
     "sols": [
       "def sol(a=2079487408190984100):\n    return -int(a ** 0.5)"
     ],
@@ -20252,7 +20492,7 @@
   },
   {
     "name": "IntNegSquareRoot_7",
-    "sat": "def sat(n: int, a=3038153462373961156):\n    return a == n * n and n < 0",
+    "sat": "def sat(n: int, a=3038153462373961156):\n    \"\"\"Find a negative integer that when squared equals perfect-square a.\"\"\"\n    return a == n * n and n < 0",
     "sols": [
       "def sol(a=3038153462373961156):\n    return -int(a ** 0.5)"
     ],
@@ -20260,7 +20500,7 @@
   },
   {
     "name": "IntNegSquareRoot_8",
-    "sat": "def sat(n: int, a=2672052143703581521):\n    return a == n * n and n < 0",
+    "sat": "def sat(n: int, a=2672052143703581521):\n    \"\"\"Find a negative integer that when squared equals perfect-square a.\"\"\"\n    return a == n * n and n < 0",
     "sols": [
       "def sol(a=2672052143703581521):\n    return -int(a ** 0.5)"
     ],
@@ -20268,7 +20508,7 @@
   },
   {
     "name": "IntNegSquareRoot_9",
-    "sat": "def sat(n: int, a=810385564471787329):\n    return a == n * n and n < 0",
+    "sat": "def sat(n: int, a=810385564471787329):\n    \"\"\"Find a negative integer that when squared equals perfect-square a.\"\"\"\n    return a == n * n and n < 0",
     "sols": [
       "def sol(a=810385564471787329):\n    return -int(a ** 0.5)"
     ],

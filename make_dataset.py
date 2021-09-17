@@ -57,7 +57,6 @@ def save_readme(gen_modules, filename):
         n = len(puzzles)
         link = f"[{sec_name}](#{sec_name.lower().replace(' ', '-')})"
         n_instances = sum(p["n_instances"] for p in puzzles)
-        tot_instances += len(puzzles)
         tot_instances += n_instances
         table += f"- [{sec_name} ({len(puzzles):,} problems, {n_instances:,} instances)](#{sec_name.lower().replace(' ', '-')})\n"
         for i, puzzle in enumerate(puzzles):
@@ -138,10 +137,15 @@ def main(args):
             "examples": examples
         }
 
+    for p in puzzles:
+        if p["sat"] == utils.remove_docstring(p["sat"]):
+            print(p["sat"])
+            assert False, f"Puzzle {p['name']} in {p['module']} doesn't have a valid docstring"
+
     utils.save_json(puzzles, args.json, make_dirs_if_necessary=True, indent=2)
     save_readme(summaries, args.readme)
     utils.info(f"Elapsed time: {(time.perf_counter() - start_time) / 60:.2f} minutes")
-
+    utils.info(f"Saved {len(puzzles)} to {args.json} and {args.readme}")
 
 if __name__ == "__main__":
     args = parser.parse_args()

@@ -661,9 +661,9 @@ class IntSquareRoot(PuzzleGenerator):
 
 
 class IntNegSquareRoot(PuzzleGenerator):
-    """Find a negative integer that when squared equals perfect-square a."""
     @staticmethod
     def sat(n: int, a=10000200001):
+        """Find a negative integer that when squared equals perfect-square a."""
         return a == n * n and n < 0
 
     @staticmethod

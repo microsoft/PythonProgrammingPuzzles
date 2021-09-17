@@ -362,8 +362,8 @@ class Instance:
         """Assert that the solution satisfies the given instance and add the solution to the instance.
         Do a round-trip json encoding/decoding to mimic the actual test and deter strange attacks.
         Ideally this could be done by running a protected process (like in evaluating programming
-        contest submissions) but that is much slower so we will only add that later if the AI
-        starts misbehaving."""
+        contest submissions) but that is much slower. Since this is a test we authored presumably it has
+        no evil code."""
 
         if sol_src in self.sol_srcs:  # already added this solution
             return

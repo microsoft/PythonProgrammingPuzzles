@@ -2556,7 +2556,6 @@ class CubeRoot(PuzzleGenerator):
         self.add(dict(n=n))
 
 
-
 class HexPrimes(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#78"""
 
@@ -2587,7 +2586,7 @@ class Binarize(PuzzleGenerator):
         assert inside[0] == "1" or len(inside) == 1
         m = 0
         for c in inside:
-            m = 2*m + int(c)
+            m = 2 * m + int(c)
         return m == n
 
     @staticmethod
@@ -2600,6 +2599,93 @@ class Binarize(PuzzleGenerator):
         n = self.random.randrange(10 ** digits)
         self.add(dict(n=n))
 
+
+class NearbyDuplicates(PuzzleGenerator):
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#80"""
+
+    @staticmethod
+    def sat(indices: List[int], s="I am an unhappy string!"):
+        """A string is happy if every three consecutive characters are distinct. Find two indices making s unhappy."""
+        i, j = indices
+        return s[i] == s[j] and 0 <= i < j < i + 3
+
+    @staticmethod
+    def sol(s):
+        for i in range(len(s) - 2):
+            if s[i] == s[i + 1]:
+                return [i, i + 1]
+            if s[i] == s[i + 2]:
+                return [i, i + 2]
+
+    def gen_random(self):
+        a = self.random.string(min_len=1)
+        s = a + self.random.choice(["", self.random.char()]) + a[-1] + self.random.string(min_len=1)
+        self.add(dict(s=s))
+
+
+class Grader(PuzzleGenerator):
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#81"""
+
+    @staticmethod
+    def sat(grades: List[str], gpas=[2.8, 3.1, 4.0, 2.2, 3.1, 2.5, 0.9]):
+        """
+        Convert GPAs to letter grades according to the following table:
+        4.0: A+
+        3.7: A
+        3.4: A-
+        3.0: B+
+        2.7: B
+        2.4: B-
+        2.0: C+
+        1.7: C
+        1.4: C-
+        below: F
+
+        Sample input: [4.0, 3.5, 3.8]
+        Sample output: ['A+', 'A-', 'A']
+        """
+        assert len(grades) == len(gpas)
+        letters = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'F']
+        scores = [4.0, 3.7, 3.4, 3.0, 2.7, 2.4, 2.0, 1.7, 1.4, 0.0]
+        for grade, gpa in zip(grades, gpas):
+            i = letters.index(grade)
+            assert gpa >= scores[i]
+            assert i == 0 or gpa <= scores[i - 1]
+        return True
+
+    @staticmethod
+    def sol(gpas):
+        letters = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'F']
+        scores = [4.0, 3.7, 3.4, 3.0, 2.7, 2.4, 2.0, 1.7, 1.4, 0.0]
+        ans = []
+        for gpa in gpas:
+            i = 0
+            while gpa < scores[i]:
+                i += 1
+            ans.append(letters[i])
+        return ans
+
+    def gen_random(self):
+        gpas = [self.random.random() * 4.0 for _ in range(self.random.randrange(10))]
+        self.add(dict(gpas=gpas))
+
+
+class FactorString(PuzzleGenerator):
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#82"""
+
+    @staticmethod
+    def sat(factor: str, s="catscatcatscatcatscat"):
+        """Find a string which when repeated more than once gives s"""
+        return len(factor) < len(s) and s == factor * (len(s) // len(factor))
+
+    @staticmethod
+    def sol(s):
+        n = len(s)
+        return next(s[:i] for i in range(1, len(s)) if s == s[:i] * (n // i))
+
+    def gen_random(self):
+        s = self.random.pseudo_word() * self.random.randrange(2, 10)
+        self.add(dict(s=s))
 
 
 if __name__ == "__main__":

@@ -180,10 +180,10 @@ class UncrossedKnightsPath(PuzzleGenerator):
             self.add(dict(m=m, n=n, target=target))  # solved by someone
 
 
-class UNSOLVED_UncrossedKnightsPath(UncrossedKnightsPath):
+class UNSOLVED_UncrossedKnightsPath(PuzzleGenerator):
     """Uncrossed Knights Path (open problem, unsolved)
 
-    The goal of these problems is to *beat* the nxn_records from
+    Similar to above, but the goal of these problems is to *beat* the nxn_records from
     [http://ukt.alex-black.ru/](http://ukt.alex-black.ru/)
     (accessed 2020-11-29).
 
@@ -193,11 +193,37 @@ class UNSOLVED_UncrossedKnightsPath(UncrossedKnightsPath):
     unsolved_nxn_records = {10: 61, 11: 76, 12: 94, 13: 113, 14: 135, 15: 158,
                             16: 183, 17: 211, 18: 238, 19: 268, 20: 302, 21: 337, 22: 375, 23: 414}
 
+    @staticmethod
+    def sat(path: List[List[int]], m=10, n=10, target=62):
+        """Find a long (open) tour of knight moves on an m x n chess-board whose edges don't cross."""
+        def legal_move(m):
+            (a, b), (i, j) = m
+            return {abs(i - a), abs(j - b)} == {1, 2}
+
+        def legal_quad(m1, m2):  # non-overlapping test: parallel or bounding box has (width - 1) * (height - 1) >= 5
+            (i1, j1), (i2, j2) = m1
+            (a1, b1), (a2, b2) = m2
+            return (len({(i1, j1), (i2, j2), (a1, b1), (a2, b2)}) < 4  # adjacent edges in path, ignore
+                    or (i1 - i2) * (b1 - b2) == (j1 - j2) * (a1 - a2)  # parallel
+                    or (max(a1, a2, i1, i2) - min(a1, a2, i1, i2)) * (max(b1, b2, j1, j2) - min(b1, b2, j1, j2)) >= 5
+                    # far
+                    )
+
+        assert all(i in range(m) and j in range(n) for i, j in path), "move off board"
+        assert len({(i, j) for i, j in path}) == len(path), "visited same square twice"
+
+        moves = list(zip(path, path[1:]))
+        assert all(legal_move(m) for m in moves), "illegal move"
+        assert all(legal_quad(m1, m2) for m1 in moves for m2 in moves), "intersecting move pair"
+
+        return len(path) >= target
+
+
     def gen(self, target_num_instances):
-        for count, n in enumerate(self.nxn_records):
+        for n in self.unsolved_nxn_records:
             if len(self.instances) >= target_num_instances:
                 return
-            self.add(dict(m=n, n=n, target=self.nxn_records[n] + 1))  # Note the +1 means breaking the record!
+            self.add(dict(m=n, n=n, target=self.unsolved_nxn_records[n] + 1))  # Note the +1 means breaking the record!
 
 
 if __name__ == "__main__":
