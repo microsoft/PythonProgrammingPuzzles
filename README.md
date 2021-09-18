@@ -1,6 +1,6 @@
 # Python Programming Puzzles (P3)
 
-This repo contains a dataset of python programming puzzles which can be used to teach and evaluate
+This repo contains a dataset of Python programming puzzles which can be used to teach and evaluate
 an AI's programming proficiency. We hope this dataset will **grow rapidly**, and it is already diverse in 
 terms of problem difficulty, domain, 
 and algorithmic tools needed to solve the problems. Please
@@ -28,9 +28,9 @@ If you just want to dive right into solving a few puzzles, try the [intro notebo
 that shows which puzzles the AI baselines solved and which they did not, so you can see how 
 your programming compares. 
 
-## What is a python programming puzzle?
+## What is a Python programming puzzle?
 
-Each puzzle takes the form of a python function that takes an answer as an argument. 
+Each puzzle takes the form of a Python function that takes an answer as an argument. 
 The goal is to find an answer which makes the function return `True`. 
 This is called *satisfying* the puzzle, and that is why the puzzles are all named `sat`.
 
