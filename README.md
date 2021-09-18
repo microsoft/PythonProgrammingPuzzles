@@ -1,8 +1,8 @@
 # Python Programming Puzzles (P3)
 
 This repo contains a dataset of Python programming puzzles which can be used to teach and evaluate
-an AI's programming proficiency. We hope this dataset with **grow rapidly**, and it is already diverse in 
-terms of problem difficult, domain, 
+an AI's programming proficiency. We hope this dataset will **grow rapidly**, and it is already diverse in 
+terms of problem difficulty, domain, 
 and algorithmic tools needed to solve the problems. Please
 [propose a new puzzle](../../issues/new?assignees=akalai&labels=New-puzzle&template=new-puzzle.md&title=New+puzzle) 
  or [browse newly proposed puzzles](../../issues?q=is%3Aopen+is%3Aissue+label%3ANew-puzzle) 
