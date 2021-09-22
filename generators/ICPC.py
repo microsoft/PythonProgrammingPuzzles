@@ -12,9 +12,10 @@ from typing import List
 class BiPermutations(PuzzleGenerator):
     """
     Inspired by
-    [ICPC 2019 Problem A: Azulejos](https://icpc.global/newcms/worldfinals/problems/2019%20ACM-ICPC%20World%20Finals/icpc2019.pdf)
+    [ICPC 2019 Problem A: Azulejos](https://icpc.global/worldfinals/problems/2019%20ACM-ICPC%20World%20Finals/icpc2019.pdf)
     which is 2,287 characters.
     """
+    taint_date = [2019, 3, 31]
 
     @staticmethod
     def sat(perms: List[List[int]],
@@ -79,9 +80,10 @@ class BiPermutations(PuzzleGenerator):
 class OptimalBridges(PuzzleGenerator):
     """
     Inspired by
-    [ICPC 2019 Problem B: Bridges](https://icpc.global/newcms/worldfinals/problems/2019%20ACM-ICPC%20World%20Finals/icpc2019.pdf)
+    [ICPC 2019 Problem B: Bridges](https://icpc.global/worldfinals/problems/2019%20ACM-ICPC%20World%20Finals/icpc2019.pdf)
     which is 3,003 characters.
     """
+    taint_date = [2019, 3, 31]
 
     @staticmethod
     def sat(indices: List[int],
@@ -189,10 +191,11 @@ class OptimalBridges(PuzzleGenerator):
 class CheckersPosition(PuzzleGenerator):
     """
     Inspired by
-    [ICPC 2019 Problem C: Checks Post Facto](https://icpc.global/newcms/worldfinals/problems/2019%20ACM-ICPC%20World%20Finals/icpc2019.pdf)
+    [ICPC 2019 Problem C: Checks Post Facto](https://icpc.global/worldfinals/problems/2019%20ACM-ICPC%20World%20Finals/icpc2019.pdf)
 
     Nobody solved this problem during the competition -- it is pretty difficult!
     """
+    taint_date = [2019, 3, 31]
 
     @staticmethod
     def sat(position: List[List[int]], transcript=[[[3, 3], [5, 5], [3, 7]], [[5, 3], [6, 4]]]):
@@ -437,10 +440,11 @@ class CheckersPosition(PuzzleGenerator):
 class MatchingMarkers(PuzzleGenerator):
     """
     Inspired by
-    [ICPC 2019 Problem D: Circular DNA](https://icpc.global/newcms/worldfinals/problems/2019%20ACM-ICPC%20World%20Finals/icpc2019.pdf)
+    [ICPC 2019 Problem D: Circular DNA](https://icpc.global/worldfinals/problems/2019%20ACM-ICPC%20World%20Finals/icpc2019.pdf)
 
     This is trivial in quadratic time, but the challenge is to solve it quickly (i.e., linear time).
     """
+    taint_date = [2019, 3, 31]
 
     @staticmethod
     def sat(cut_position: int, ring="yRrsmOkLCHSDJywpVDEDsjgCwSUmtvHMefxxPFdmBIpM", lower=5):

@@ -14,7 +14,7 @@ class TowersOfHanoi(PuzzleGenerator):
     In this classic version one must move all 8 disks from the first to third peg."""
 
     @staticmethod
-    def sat(moves: List[List[int]]):  # moves is list of [from, to] pairs
+    def sat(moves: List[List[int]]):
         """
         Eight disks of sizes 1-8 are stacked on three towers, with each tower having disks in order of largest to
         smallest. Move [i, j] corresponds to taking the smallest disk off tower i and putting it on tower j, and it
@@ -458,9 +458,10 @@ class SquaringTheSquare(PuzzleGenerator):
     """
 
     @staticmethod
-    def sat(xy_sides: List[List[int]]):  # List of (x, y, side)
+    def sat(xy_sides: List[List[int]]):
         """
         Partition a square into smaller squares with unique side lengths. A perfect squared path has distinct sides.
+        xy_sides is a List of (x, y, side)
         """
         n = max(x + side for x, y, side in xy_sides)
         assert len({side for x, y, side in xy_sides}) == len(xy_sides) > 1

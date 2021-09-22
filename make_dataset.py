@@ -88,7 +88,7 @@ def save_readme(gen_modules, filename):
 
 def main(args):
     start_time = time.perf_counter()
-    if puzzle_generator.PuzzleGenerator.Debug.subclass_descendents():  # if there are debug problems, don't make the dataset
+    if any(p.DEBUG for p in puzzle_generator.PuzzleGenerator.subclass_descendents()):  # if there are debug problems, don't make the dataset
         puzzle_generator.PuzzleGenerator.debug_problems()
         print("Didn't make dataset because there are `Problem.Debug` problems, remove the `.Debug` to proceed.")
         return
@@ -111,7 +111,8 @@ def main(args):
     summaries = {}
 
     for module_name, gens in gens_by_module.items():  # order determined by generators/__init__.py
-        examples = []
+        readme_examples = []
+        downweight = 1.0/sum(cls.multiplier for cls in gens)  # this causes each module to be weighted equally
         for cls in gens:
             gen = cls()
             gen.build(args.target_num_per_problem, already_tested_cache)
@@ -120,11 +121,14 @@ def main(args):
                     "name": i.name,
                     "sat": i.src,
                     "sols": i.sol_srcs,
-                    "module": module_name
+                    "module": module_name,
+                    "notes": gen.desc,
+                    "taint_date": "-".join(str(i) for i in gen.taint_date),
+                    "weight": gen.multiplier * downweight / len(gen.instances)
                 }
                 for i in gen.instances]
             puzzles.extend(instances)
-            examples.append({
+            readme_examples.append({
                 "name": gen.name,
                 "desc": gen.desc,
                 "sat": gen.instances[0].src,
@@ -134,7 +138,7 @@ def main(args):
 
         summaries[module_name] = {
             "docstring": inspect.getmodule(gens[0]).__doc__,
-            "examples": examples
+            "examples": readme_examples
         }
 
     for p in puzzles:

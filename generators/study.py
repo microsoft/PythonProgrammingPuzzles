@@ -8,7 +8,6 @@ from typing import List
 
 # See https://github.com/microsoft/PythonProgrammingPuzzles/wiki/How-to-add-a-puzzle to learn about adding puzzles
 
-
 class Study_1(PuzzleGenerator):
     @staticmethod
     def sat(s: str):
@@ -239,6 +238,7 @@ class Study_19(PuzzleGenerator):
     """
     9/15/2021 Updated to take a list rather than a set because it was the only puzzle in the repo with Set argument.
     """
+
     @staticmethod
     def sat(li: List[int]):
         """
@@ -254,6 +254,7 @@ class Study_19(PuzzleGenerator):
 
 class Study_20(PuzzleGenerator):
     """A more interesting version of this puzzle with a length constraint is ShortIntegerPath in graphs.py"""
+
     @staticmethod
     def sat(li: List[int]):
         """
@@ -360,6 +361,7 @@ class Study_27(PuzzleGenerator):
 
 class Study_28(PuzzleGenerator):
     """9/15/2021: updated to a list since sets were removed from puzzle formats"""
+
     @staticmethod
     def sat(li: List[int]):
         """Find a list of one hundred integers between 0 and 999 which all differ by at least ten from one another."""
@@ -372,6 +374,7 @@ class Study_28(PuzzleGenerator):
 
 class Study_29(PuzzleGenerator):
     """9/15/2021: updated to a list since sets were removed from puzzle formats"""
+
     @staticmethod
     def sat(l: List[int]):
         """

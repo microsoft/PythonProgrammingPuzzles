@@ -11,6 +11,7 @@ import os
 import sys
 import traceback
 import time
+import datetime
 
 import utils
 
@@ -18,6 +19,7 @@ import utils
 # reverse-engineer the solutions to some puzzles. Don't share the seed with AI puzzle solvers :-)
 _AI_SEED = 12389484322359235125123212243523534510980967133563
 DEFAULT_TIMEOUT = 1.0  # seconds
+
 
 def type_check(typ, obj):
     """
@@ -259,7 +261,6 @@ class BuilderRandom(random.Random):
         return "".join(self.char() for _ in range(length))
 
 
-
 def get_problems(globs: dict):
     seen = {PuzzleGenerator}  # don't add abstract class PuzzleGenerator
     ans = []
@@ -302,7 +303,8 @@ def get_type(obj, ignore_errors=False):  # better than type(x) because it can do
         if t in {int, float, bool, complex, range, str}:
             return t
         assert t in {tuple, list, set, dict}, f"Unacceptable input type '{t}'"
-        iterand_types = tuple(get_type(i) for i in obj)
+        iterand_types = [get_type(i, ignore_errors=True) for i in obj]
+        iterand_types = [i for i in iterand_types if i is not None]
         if t == tuple:
             return Tuple[iterand_types]
         assert len(iterand_types) > 0, "Cannot get type of empty list/set/dict"
@@ -352,14 +354,19 @@ def encode(obj):  # small modifications to make json roundtrip work
 
 
 class Instance:
-    def __init__(self, src, name: str, timeout=None):
+    def __init__(self, src, name: str):
         self.src = src
         self.name = name  # which PuzzleGenerator template did it come from?
-        self.timeout = timeout
         self.sol_srcs = []
 
-    def add_test(self, sol_src, run_test_type=False):
-        """Assert that the solution satisfies the given instance and add the solution to the instance.
+    def add_test(self, sol_src):
+        """Add solution to the list of solutions"""
+        if sol_src in self.sol_srcs:  # already added this solution
+            return
+        self.sol_srcs.append(sol_src)
+
+    def check_and_add_test(self, sol_src: str, type_str: str, multiplier: float):
+        """Check that the solution satisfies the given instance and add the solution to the instance.
         Do a round-trip json encoding/decoding to mimic the actual test and deter strange attacks.
         Ideally this could be done by running a protected process (like in evaluating programming
         contest submissions) but that is much slower. Since this is a test we authored presumably it has
@@ -367,26 +374,25 @@ class Instance:
 
         if sol_src in self.sol_srcs:  # already added this solution
             return
-        if run_test_type:
-            env = dict(List=List, Dict=Dict, Set=Set)
-            time0 = time.perf_counter()
-            my_exec(sol_src + "\n" + "answer = sol()", env, description=self.name)
+        env = dict(List=List)
+        time0 = time.perf_counter()
+        my_exec(sol_src + "\n" + "answer = sol()", env, description=self.name)
 
-            sol_val = env["answer"]
+        sol_val = env["answer"]
 
-            assert sol_val is not None, "sol returned None"
+        assert sol_val is not None, "sol returned None"
 
-            assert type_check(run_test_type, sol_val)
+        assert type_check(type_str, sol_val)
 
-            answer = decode(encode(sol_val))
-            assert answer == sol_val, "encode/decode round trip failed"
+        answer = decode(encode(sol_val))
+        assert answer == sol_val, "encode/decode round trip failed"
 
-            env2 = dict(answer=answer, List=List, Dict=Dict, Set=Set)  # in case they mucked with env
-            my_exec(self.src + "\n" + "assert sat(answer)", env2, description=self.name)
-            dur = time.perf_counter() - time0
-            if dur > (DEFAULT_TIMEOUT if self.timeout is None else self.timeout * DEFAULT_TIMEOUT):
-                utils.warn(f"Took {dur}s to test {self.name} (self.timeout={self.timeout})")
-        self.sol_srcs.append(sol_src)
+        env2 = dict(answer=answer, List=List, Dict=Dict, Set=Set)  # in case they mucked with env
+        my_exec(self.src + "\n" + "assert sat(answer)", env2, description=self.name)
+        dur = time.perf_counter() - time0
+        if dur > DEFAULT_TIMEOUT * multiplier:
+            utils.warn(f"Took {dur}s to test {self.name} (multiplier={multiplier})")
+        self.add_test(sol_src)
 
 
 def unindent(docstr):
@@ -449,7 +455,15 @@ class PuzzleGenerator:
             self.add({"a": a, "b": b})
         '''
 
-    timeout = None  # how long to run in seconds, default is 1.0 seconds if this is None
+    multiplier = 1.0  # puzzle-specific weight multiplier, puzzles in same are also be further weighted
+    tests = None  # a list of test cases: can be a list of inputs if there is just one input or a list of dictionaries
+    DEBUG = False  # DEBUG = True while making a puzzle makes it run before any other problems
+    taint_date = [2021, 4, 26]  # dataset initial release date
+
+    # date before which we assume training data has not been tainted by variations of the puzzle.
+    # For example, if you invented the puzzle, then it would be the date it first appears publicly (e.g., on github)
+    # If it's closely adapted from a website, then it should be the date from which it was published publicly on
+    # that website, unless it was based on an puzzle that was publicly available earlier somewhere
 
     @staticmethod
     def sat(ans, *other_inputs):  # must override
@@ -471,32 +485,33 @@ class PuzzleGenerator:
         def descendents(cls):
             ans = []
             for c in cls.__subclasses__():
-                if c is not DebugPuzzleGenerator:
-                    ans.append(c)
+                ans.append(c)
                 ans.extend(descendents(c))
             return ans
 
         ans = utils.dedup(descendents(cls))
+        # ans = [cls for cls in ans if cls.sat is not PuzzleGenerator.sat]
         names = set()
         for problem in ans:
             name = problem.__name__
             assert name not in names, f"Duplicate problems named `{name}`"
             names.add(name)
+
         return ans
 
     @classmethod
     def debug_problems(cls, target_num_instances=None):
         defaults = {"target_num_instances": target_num_instances} if target_num_instances else {}
-        debug_problems = DebugPuzzleGenerator.subclass_descendents()
+        all_gens = PuzzleGenerator.subclass_descendents()
+        debug_problems = [cls for cls in all_gens if cls.DEBUG]
         if debug_problems:
             for P in debug_problems:
                 P().debug(**defaults)
-            print(f"PuzzleGenerator.Debug problem(s) succeeded: {[p.__name__ for p in debug_problems]}")
-            print("Next, remove the `Debug` from these `PuzzleGenerator.Debug` classes")
+            print(f"PuzzleGenerator.DEBUG=True problem(s) succeeded: {[p.__name__ for p in debug_problems]}")
+            print("Next, remove `DEBUG=True` from these classes")
         else:
-            all_gens = PuzzleGenerator.subclass_descendents()
-            print("Suggestion for debugging: subclass PuzzleGenerator.Debug to test a single problem.")
-            print(f"No PuzzleGenerator.Debug problems found, so testing {len(all_gens):,} problems:")
+            print("Suggestion for debugging: set DEBUG=True on PuzzleGenerator classes to test a single class.")
+            print(f"No DEBUG=True PuzzleGenerator classes found, so testing {len(all_gens):,} classes:")
             for P in all_gens:
                 P().test(**defaults)
             print(f"Success on all {len(all_gens):,} problem(s).")
@@ -504,7 +519,7 @@ class PuzzleGenerator:
         print("To make the dataset, run make_dataset.py")
         print("See https://github.com/microsoft/PythonProgrammingPuzzles/wiki/How-to-add-a-puzzle for more info.")
 
-    def __init__(self, seed=_AI_SEED):
+    def __init__(self):
         self.name = self.__class__.__name__
         assert self.sat is not PuzzleGenerator.sat, f"Must override {self.name}.sat"
         self.sat_src_spec = get_src_spec(self.sat)
@@ -512,7 +527,12 @@ class PuzzleGenerator:
             self.desc = ""
         else:
             self.desc = unindent(self.__doc__)
-        self.random = BuilderRandom(f"{seed} | {self.name}")
+
+        if not hasattr(self, "taint_date"):
+            self.taint_date = self.FIRST_TAINT_DATE
+        assert datetime.date(*self.taint_date) - datetime.date.today() < datetime.timedelta(100), \
+            f"Invalid taint date {self.taint_date} too far in the future."
+        self.random = BuilderRandom(seed=self.name)
         self.instances = []
         self._seen_problems = set()
         self._built_target = 0
@@ -560,7 +580,20 @@ class PuzzleGenerator:
         self.instances = []
         start_time = time.perf_counter()
         self.add(self.get_example())
-        if target_num_instances > 1:
+
+        if self.tests:
+            tests = self.tests
+            _, spec = self.sat_src_spec
+            if len(spec.args) == 2:  # possible list of raw arguments not wrapped in a dictionary
+                input_name = spec.args[1]
+                input_type = self.types[input_name]
+                if any(get_type(test, ignore_errors=True) == input_type for test in self.tests):
+                    tests = [{input_name: test} for test in self.tests]
+            for test in tests:
+                if len(self.instances) < target_num_instances:
+                    self.add(test)
+
+        if target_num_instances > len(self.instances):
             self.gen(target_num_instances)
         while len(self.instances) < target_num_instances:
             n = len(self.instances)
@@ -634,7 +667,7 @@ class PuzzleGenerator:
                        f"has trivial solution `{t}`")
             break
         dur = time.perf_counter() - time0
-        if dur > (self.timeout or 1.0):
+        if dur > 1.0:
             utils.warn(f"Took {dur:.1f}s to test for trivial solutions to `{self.name}`")
 
     def gen(self, target_num_instances):
@@ -653,8 +686,7 @@ class PuzzleGenerator:
 
         self._seen_problems.add(s)
 
-        assert set(inp) == set(self.arg_names[1:]), \
-            f"Instance #{len(self.instances)} keys mismatch in {self.name}"
+        assert set(inp) == set(self.arg_names[1:]), f"Instance #{len(self.instances)} keys mismatch in {self.name}"
         for v in inp:
             assert get_type(inp[v], ignore_errors=True) in (None, self.types[v]), \
                 f"Instance #{len(self.instances)} variable `{v}` type mismatch in {self.name}"
@@ -662,24 +694,29 @@ class PuzzleGenerator:
         return False
 
     def add(self, inp: dict, test=True):
+        if self.DEBUG:
+            return self.add_debug(inp, test)
 
         if self.check_seen_input(inp):
             return  # don't add duplicate problems
 
         instance = Instance(
             inject_into_src(*self.sat_src_spec, "sat", inp, self.types),
-            f"{self.name}_{len(self.instances)}",
-            timeout=self.timeout
+            f"{self.name}_{len(self.instances)}"
         )
 
         if test:
             for s, (sol_src, sol_spec) in zip(self.sols, self.sol_src_specs):
                 sol_src = inject_into_src(sol_src, sol_spec, "sol", inp)
                 if instance.src in self._already_tested and sol_src in self._already_tested[instance.src]:
-                    instance.add_test(sol_src, run_test_type=False)
+                    instance.add_test(sol_src)
                 else:
                     try:
-                        instance.add_test(sol_src, run_test_type=self.types[self.arg_names[0]])
+                        instance.check_and_add_test(
+                            sol_src,
+                            type_str=self.types[self.arg_names[0]],
+                            multiplier=self.multiplier
+                        )
                         self._tested += 1
                     except Exception:  # failed to pass test, rerun test without for debugging with normal exception
                         assert self.sat(s(**inp), **inp) is True, f"Puzzle {self.name} didn't return True on `{inp}`"
@@ -691,14 +728,17 @@ class PuzzleGenerator:
     def test(self, target_num_instances=100):
         self.build(target_num_instances, force_trivial_test=True)
 
+    def debug(self, target_num_instances=10000):
+        old_debug = self.DEBUG
+        print(f"Debugging {self.name}")
+        self.build(target_num_instances, force_trivial_test=True)
+        solved = sum(i[1] for i in self.instances)
+        dur = self.build_time
+        utils.info(f"Tested {solved:,}/{len(self.instances):,} instances of "
+                   f"({self.name}: PuzzleGenerator) in {dur:0.2f}s")
+        self.DEBUG = old_debug
 
-class DebugPuzzleGenerator(PuzzleGenerator):
-    """
-    A useful class for creating a debugging problems. Any DebugPuzzleGenerator will be run before any other problems.
-    The program will exit if it successful.
-    """
-
-    def add(self, inp: dict, test=True):
+    def add_debug(self, inp: dict, test=True):
         if self.check_seen_input(inp):
             return  # don't add duplicate problems
 
@@ -710,17 +750,6 @@ class DebugPuzzleGenerator(PuzzleGenerator):
                 assert self.sat(answer, **inp) is True, f"Puzzle {self.name} didn't return True on `{inp}`"
 
         self.instances.append(("DEBUG TEST", bool(test and self.sols)))  # for counting purposes
-
-    def debug(self, target_num_instances=10000):
-        print(f"Debugging {self.name}")
-        self.build(target_num_instances, force_trivial_test=True)
-        solved = sum(i[1] for i in self.instances)
-        dur = self.build_time
-        utils.info(f"Tested {solved:,}/{len(self.instances):,} instances of "
-                   f"({self.name}: DebugPuzzleGenerator) in {dur:0.2f}s")
-
-
-PuzzleGenerator.Debug = DebugPuzzleGenerator
 
 
 def get_src_spec(f: Callable):
@@ -761,8 +790,8 @@ def inject_into_src(src, spec, new_function_name=None, defaults={}, types={}):
             if type(li) != list:
                 return False
             return all(hollow(i) for i in li)
-        return var not in defaults or hollow(defaults[var])
 
+        return var not in defaults or hollow(defaults[var])
 
     arg_st = ", ".join([var +
                         (f": {type_str(types[var])}" if need_explicit_type(var) else "") +
@@ -775,5 +804,3 @@ def inject_into_src(src, spec, new_function_name=None, defaults={}, types={}):
 def get_func_name(src):
     assert src.startswith("def ")
     return src[4:src.index("(")]
-
-

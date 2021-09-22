@@ -11,14 +11,16 @@ or [contribute through pull requests](../../wiki/How-to-add-a-puzzle).
 To learn more about how well AI systems such as GPT-3 can solve these problems, read our paper:
 
 [Programming Puzzles](https://arxiv.org/abs/2106.05784). Tal Schuster, Ashwin Kalyan, Oleksandr Polozov, 
-Adam Tauman Kalai.
+Adam Tauman Kalai. In *Proceedings of the Thirty-fifth Conference on Neural Information Processing Systems Datasets 
+and Benchmarks Track* (NeurIPS), 2021.
 ```
-@misc{schuster2021programming,
-      title={Programming Puzzles}, 
-      author={Tal Schuster and Ashwin Kalyan and Oleksandr Polozov and Adam Tauman Kalai},
-      year={2021},
-      eprint={2106.05784},
-      archivePrefix={arXiv},      
+@inproceedings{
+schuster2021programming,
+title={Programming Puzzles},
+author={Tal Schuster and Ashwin Kalyan and Alex Polozov and Adam Tauman Kalai},
+booktitle={Thirty-fifth Conference on Neural Information Processing Systems Datasets and Benchmarks Track},
+year={2021},
+url={https://openreview.net/forum?id=fe_hCc4RBrg}
 }
 ```
 

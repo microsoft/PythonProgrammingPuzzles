@@ -74,7 +74,7 @@ class LearnParityWithNoise(PuzzleGenerator):
     [Parity learning problem](https://en.wikipedia.org/w/index.php?title=Parity_learning)
     runs in time $2^(d/(log d))$"""
 
-    timeout = 40
+    multiplier = 40  # hard puzzle, takes longer to test
 
     @staticmethod
     def sat(inds: List[int], vecs=[26, 5, 16, 3, 15, 18, 31, 13, 24, 25, 6, 5, 15, 24, 16, 13, 0, 27, 13]):

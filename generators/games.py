@@ -79,7 +79,7 @@ class Mastermind(PuzzleGenerator):
     them to provide a provable winning game tree.
     """
 
-    timeout = 10
+    multiplier = 10 # hard puzzle, takes longer to test
 
     @staticmethod
     def sat(transcripts: List[str], max_moves=10):

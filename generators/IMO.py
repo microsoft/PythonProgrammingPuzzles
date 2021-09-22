@@ -20,7 +20,8 @@ class ExponentialCoinMoves(PuzzleGenerator):
 
     Inspired by [IMO 2010 Problem 5](https://www.imo-official.org/problems.aspx)"""
 
-    timeout = 10  # sat can run 10 times longer than normal
+    multiplier = 10  # worth 10 times normal so that it can run 10 times longer than normal
+    taint_date = [2010, 7, 2]
 
     @staticmethod
     def sat(states: List[List[int]], n=16385):
@@ -103,6 +104,9 @@ class NoRelativePrimes(PuzzleGenerator):
     theorem?
     """
 
+    taint_date = [2016, 7, 1]
+
+
     @staticmethod
     def sat(nums: List[int], b=6, m=2):
         """
@@ -184,6 +188,8 @@ class FindRepeats(PuzzleGenerator):
     Inspired by [IMO 2017 Problem 1](https://www.imo-official.org/problems.aspx)
     """
 
+    taint_date = [2017, 7, 12]
+
     @staticmethod
     def sat(indices: List[int], a0=123):
         """
@@ -230,6 +236,8 @@ class PickNearNeighbors(PuzzleGenerator):
     """Inspired by [IMO 2017 Problem 5](https://www.imo-official.org/problems.aspx)
 
     The puzzle solution follows the judge's proof closely."""
+
+    taint_date = [2017, 7, 12]
 
     @staticmethod
     def sat(keep: List[bool], heights=[10, 2, 14, 1, 8, 19, 16, 6, 12, 3, 17, 0, 9, 18, 5, 7, 11, 13, 15, 4]):
@@ -293,6 +301,8 @@ class FindProductiveList(PuzzleGenerator):
     Inspired by [IMO 2010 Problem 5](https://www.imo-official.org/problems.aspx)
     """
 
+    taint_date = [2010, 7, 2]
+
     @staticmethod
     def sat(li: List[int], n=18):
         """
@@ -323,6 +333,8 @@ class FindProductiveList(PuzzleGenerator):
 
 class HalfTag(PuzzleGenerator):
     """Inspired by [IMO 2020 Problem 3](https://www.imo-official.org/problems.aspx)"""
+
+    taint_date = [2020, 9, 19]
 
     @staticmethod
     def sat(li: List[int], n=3, tags=[0, 1, 2, 0, 0, 1, 1, 1, 2, 2, 0, 2]):
@@ -409,20 +421,6 @@ class HalfTag(PuzzleGenerator):
         # print(self.__class__, n, tick())
         self.add(dict(n=n, tags=tags))
 
-
-# Inspired by IMO 2017 Problem 6. See https://www.imo-official.org/problems.aspx
-# ----
-# The problem asks for the n+1 coefficients given the relatively prime pairs. The solution seems involved
-# and has not yet been implemented.
-# """
-#
-# pairs = [[4, 1], [5, 3], [8, 21]]
-#
-#
-# def sat(li: List[int]):
-#     n = len(li) - 1
-#     return n > 0 and all(sum(c * x ** (n - i) * y ** i for i, c in enumerate(li)) == 1 for x, y in pairs)
-#
 
 
 if __name__ == "__main__":

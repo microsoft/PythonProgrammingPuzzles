@@ -339,6 +339,7 @@ class SlidingOne(PuzzleGenerator):
 class SortPlusPlus(PuzzleGenerator):
     """Inspired by [Codeforces Problem 339 A](https://codeforces.com/problemset/problem/339/A)"""
 
+
     @staticmethod
     def sat(s: str, inp="1+1+3+1+3+2+2+1+3+1+2"):
         """Sort numbers in a sum of digits, e.g., 1+3+2+1 -> 1+1+2+3"""

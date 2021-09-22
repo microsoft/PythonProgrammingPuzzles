@@ -1,17 +1,19 @@
 """Problems inspired by [HumanEval dataset](https://github.com/openai/human-eval) described
 in the [codex paper](https://arxiv.org/abs/2107.03374), specifically,
 [this](https://github.com/openai/human-eval/blob/fa06031e684fbe1ee429c7433809460c159b66ad/data/HumanEval.jsonl.gz)
-version."""
+version released 7/7/21."""
 
 from puzzle_generator import PuzzleGenerator
 from typing import List
 
+HUMAN_EVAL_TAINT_DATE = [2021, 7, 7]
+
 
 # See https://github.com/microsoft/PythonProgrammingPuzzles/wiki/How-to-add-a-puzzle to learn about adding puzzles
 
-
 class FindCloseElements(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#0"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(pair: List[float], nums=[0.17, 21.3, 5.0, 9.0, 11.0, 4.99, 17.0, 17.0, 12.4, 6.8]):
@@ -42,6 +44,7 @@ class FindCloseElements(PuzzleGenerator):
 
 class SeparateParenGroups(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#1"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(ls: List[str], combined='() (()) ((() () ())) (() )'):
@@ -100,6 +103,7 @@ class SeparateParenGroups(PuzzleGenerator):
 
 class Frac(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#2"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(x: float, v=523.12892):
@@ -125,6 +129,7 @@ class Frac(PuzzleGenerator):
 
 class FirstNegCumulative(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#3"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(n: int, balances=[2, 7, -2, 4, 3, -15, 10, -45, 3]):
@@ -168,6 +173,7 @@ class NegCumulative_Trivial(PuzzleGenerator):
     This version is a more direct translation of the problem but it can of course
     be solved trivially just by trying both neg=True and neg=False
     """
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(neg: bool, balances=[2, 7, -2, 4, 3, -15, 10, -45, 3]):
@@ -218,6 +224,7 @@ class MinSquaredDeviation(PuzzleGenerator):
 
     We use 0.501 rather than 1/2 to deal with rounding errors.
     """
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(x: float, nums=[12, -2, 14, 3, -15, 10, -45, 3, 30]):
@@ -248,6 +255,7 @@ class Intersperse(PuzzleGenerator):
 
     The one-liner version is `li[::2] == nums and li[1::2] == [sep] * (len(li) - 1)`
     """
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(li: List[int], nums=[12, 23, -2, 5, 0], sep=4):
@@ -283,6 +291,7 @@ class Intersperse(PuzzleGenerator):
 
 class DeepestParens(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#6"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(depths: List[int], parens='() (()) ((()()())) (())'):
@@ -349,6 +358,7 @@ class DeepestParens(PuzzleGenerator):
 
 class FindContainers(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#7"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(containers: List[str], strings=['cat', 'dog', 'shatter', 'bear', 'at', 'ta'], substring='at'):
@@ -385,6 +395,7 @@ class FindContainers(PuzzleGenerator):
 
 class SumProduct(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#8"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(nums: List[int], tot=14, prod=99):
@@ -419,6 +430,7 @@ class SumProduct(PuzzleGenerator):
 
 class SumProduct_Trivial(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#8"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(sum_prod: List[int], nums=[1, 3, 2, -6, 19]):
@@ -450,6 +462,7 @@ class SumProduct_Trivial(PuzzleGenerator):
 
 class RollingMax(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#9"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(maxes: List[int], nums=[1, 4, 3, -6, 19]):
@@ -491,6 +504,7 @@ class RollingMax(PuzzleGenerator):
 
 class PalindromeStartingWith(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#10"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(ans: str, s="so easy", length=13):
@@ -519,6 +533,7 @@ class PalindromeStartingWith(PuzzleGenerator):
 
 class PalindromeContaining(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#10"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(ans: str, s="so easy", length=20):
@@ -561,6 +576,7 @@ class PalindromeContaining(PuzzleGenerator):
 
 class BinaryStrXOR(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#11"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(str_num: str, nums=["100011101100001", "100101100101110"]):
@@ -590,6 +606,7 @@ class BinaryStrXOR(PuzzleGenerator):
 # In the HumanEval dataset, tie breaking needs to be specified because each problem must have a unique answer
 class LongestStr(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#12"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(ans: str, words=["these", "are", "some", "pretty", "long", "words"]):
@@ -617,6 +634,7 @@ class CertifiedGCD(PuzzleGenerator):
     """
     Inspired by [HumanEval](https://github.com/openai/human-eval) \\#13
     """
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(ans: List[int], m=1408862, n=2113293):
@@ -664,6 +682,7 @@ class CertifiedGCD(PuzzleGenerator):
 
 class AllPrefixes(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#14"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(prefixes: List[str], s="donesezichethofalij"):
@@ -689,6 +708,7 @@ class AllPrefixes(PuzzleGenerator):
 
 class SpaceyRange(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#15"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(ans: str, n=15):
@@ -714,6 +734,7 @@ class SpaceyRange(PuzzleGenerator):
 
 class DistinctChars(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#16"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(ans: List[str], s='The quick brown fox jumps over the lazy dog!', n=28):
@@ -744,6 +765,7 @@ class DistinctChars(PuzzleGenerator):
 
 class ParseMusic(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#17"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(beats: List[int], score="o o o| o| .| .| .| o| o| o o o| .|"):
@@ -771,6 +793,7 @@ class ParseMusic(PuzzleGenerator):
 
 class OverlappingCount(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#18"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(ans: List[int], s='Bananannanaannanaanananananana', sub='anan', count=7):
@@ -804,6 +827,7 @@ class OverlappingCount(PuzzleGenerator):
 
 class SortNumbers(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#19"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(ans: str, s="six one four three two nine eight"):
@@ -842,6 +866,7 @@ class SortNumbers(PuzzleGenerator):
 
 class FindClosePair(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#20"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(inds: List[int], nums=[0.31, 21.3, 5.0, 9.0, 11.0, 5.01, 17.2]):
@@ -883,6 +908,7 @@ class FindClosePair(PuzzleGenerator):
 
 class Rescale(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#21"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(ans: List[float], nums=[13.0, 17.0, 17.0, 15.5, 2.94]):
@@ -926,6 +952,7 @@ class Rescale(PuzzleGenerator):
 
 class FilterInts(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#22"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(indexes: List[int], li=["Hello", "5", "10", "bye"], num=2):
@@ -964,6 +991,7 @@ class FilterInts(PuzzleGenerator):
 
 class StrLength(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#23"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(length: int, s="pneumonoultramicroscopicsilicovolcanoconiosis"):
@@ -995,6 +1023,7 @@ class StrLength(PuzzleGenerator):
 
 class LargestDivisor(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#24"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(d: int, n=123456):
@@ -1022,6 +1051,7 @@ class LargestDivisor(PuzzleGenerator):
 
 class PrimeFactorization(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#25"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(factors: List[int], n=123456, num_factors=8):
@@ -1070,6 +1100,7 @@ class PrimeFactorization(PuzzleGenerator):
 
 class Dedup(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#26"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(ans: List[int], li=[2, 19, 2, 53, 1, 1, 2, 44, 17, 0, 19, 31]):
@@ -1104,6 +1135,7 @@ class Dedup(PuzzleGenerator):
 
 class FlipCase(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#27"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(ans: str, s="FlIp ME!"):
@@ -1132,6 +1164,7 @@ class FlipCase(PuzzleGenerator):
 
 class CatStrings(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#28"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(cat: str, strings=["Will", "i", "am", "Now", "here"]):
@@ -1164,6 +1197,7 @@ class CatStrings(PuzzleGenerator):
 
 class FindExtensions(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#29"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(extensions: List[str], strings=['cat', 'dog', 'shatter', 'donut', 'at', 'todo'], prefix='do'):
@@ -1199,6 +1233,7 @@ class FindExtensions(PuzzleGenerator):
 
 class FindPositives(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#30"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(positives: List[int], nums=[2, 2342, -2, 32, -8, -5, 2342, 0, -9, 44, 11]):
@@ -1227,6 +1262,7 @@ class FindPositives(PuzzleGenerator):
 
 class FermatComposite(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#31"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(certificate: int, n=1449):
@@ -1259,6 +1295,7 @@ class OddDegreePolynomialRoot(PuzzleGenerator):
 
     Inspired by [HumanEval](https://github.com/openai/human-eval) \\#32
     """
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(root: float, coeffs=[1, 2, 3, 17]):
@@ -1304,6 +1341,7 @@ class OddDegreePolynomialRoot(PuzzleGenerator):
 # slightly modified for convenience
 class TwoThirdsSorted(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#33"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(li: List[int], orig=[1, -2, 3, 17, 8, 4, 12, 3, 18, 5, -29, 0, 0]):
@@ -1352,6 +1390,7 @@ class TwoThirdsSorted(PuzzleGenerator):
 
 class UniqueSorted(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#34"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(li: List[int], orig=[1, 1, 3, 2, 0, 8, 32, -4, 0]):
@@ -1386,6 +1425,7 @@ class UniqueSorted(PuzzleGenerator):
 
 class MaxInt(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#35"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(m: int, hello=[1, 31, 3, 2, 0, 18, 32, -4, 2, -1000, 35, 35, 21, 18, 2, 60]):
@@ -1414,6 +1454,7 @@ class MaxInt(PuzzleGenerator):
 
 class SevenElevenThirteen(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#36"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(li: List[List[int]], n=19723, lower=1000):
@@ -1447,6 +1488,7 @@ class SevenElevenThirteen(PuzzleGenerator):
 # Since this human-eval problem #37 is very similar to TwoThirdsSorted #33, we use a different approach to sat
 class HalfSorted(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#37"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(li: List[int], orig=[1, 6, 3, 41, 19, 4, 12, 3, 18, 5, -29, 0, 19521]):
@@ -1483,6 +1525,7 @@ class HalfSorted(PuzzleGenerator):
 
 class ThreeCycle(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#38"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(s: str, target="Hello world"):
@@ -1514,6 +1557,7 @@ class PrimeFib(PuzzleGenerator):
 
     Ira Gessel observed that n is a Fibonacci number if and if either 5 n^2 - 4 or 5 n^2 + 4 is a perfect square
     """
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(n: int, lower=123456):
@@ -1539,6 +1583,7 @@ class PrimeFib(PuzzleGenerator):
 
 class TripleZeroSum(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#40"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(inds: List[int], nums=[12, -10452, 18242, 10440]):
@@ -1564,6 +1609,7 @@ class TripleZeroSum(PuzzleGenerator):
 
 class NumPasses(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#41"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(count: int, n=981):
@@ -1591,6 +1637,7 @@ class ListInc(PuzzleGenerator):
 
     Inspired by [HumanEval](https://github.com/openai/human-eval) \\#42
     """
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(new_list: List[int], old_list=[321, 12, 532, 129, 9, -12, 4, 56, 90, 0]):
@@ -1612,6 +1659,7 @@ class PairZeroSum(PuzzleGenerator):
     """
     Inspired by [HumanEval](https://github.com/openai/human-eval) \\#43
     """
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(inds: List[int], nums=[12, -10452, 18242, 10440, 81, 241, 525, -18242, 91, 20]):
@@ -1641,6 +1689,7 @@ class ChangeBase(PuzzleGenerator):
     """
     Inspired by [HumanEval](https://github.com/openai/human-eval) \\#44
     """
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(s: str, n=142, base=7):
@@ -1666,6 +1715,7 @@ class ChangeBase(PuzzleGenerator):
 
 class TriangleArea(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#45"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(height: int, area=1319098728582, base=45126):
@@ -1692,6 +1742,7 @@ class Fib4(PuzzleGenerator):
 
     Almost identical to problem 63
     """
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(init: List[int], target=2021):
@@ -1724,6 +1775,7 @@ class Median(PuzzleGenerator):
 
     Inspired by [HumanEval](https://github.com/openai/human-eval) \\#47
     """
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(x: int, nums=[132666041, 237412, 28141, -12, 11939, 912414, 17], upper=133658965):
@@ -1746,6 +1798,7 @@ class Median(PuzzleGenerator):
 
 class Palindrome_Trivial(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#48"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(p: bool, s="This problem is trivial but common"):
@@ -1766,6 +1819,7 @@ class Palindrome_Trivial(PuzzleGenerator):
 
 class LittleFermat(PuzzleGenerator):
     """Harder but loosely inspired by [HumanEval](https://github.com/openai/human-eval) \\#49"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(exp_poly: List[int], d=74152093423, poly=[1, 6, 3, 1, 0, 4, 4]):
@@ -1809,15 +1863,17 @@ class LittleFermat(PuzzleGenerator):
         #     ans = prod(ans, poly)
         return ans
 
-    def gen_random(self):
-        p = self.random.choice([3, 5, 7, 11])
-        poly = [self.random.randrange(p) for _ in range(p)]
-        d = self.random.randrange(2 ** self.random.randrange(100))
-        self.add(dict(d=d, poly=poly))
+
+def gen_random(self):
+    p = self.random.choice([3, 5, 7, 11])
+    poly = [self.random.randrange(p) for _ in range(p)]
+    d = self.random.randrange(2 ** self.random.randrange(100))
+    self.add(dict(d=d, poly=poly))
 
 
 class ShiftChars(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#50"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(orig: str, result="Hello, world!", shift=7):
@@ -1844,6 +1900,7 @@ def random_case_word(rand, **args):
 
 class RemoveVowels(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#51"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(txt: str, text="Hello, world!"):
@@ -1869,6 +1926,7 @@ class RemoveVowels(PuzzleGenerator):
 
 class BelowThreshold(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#52"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(indexes: List[int], nums=[0, 2, 17, 4, 4213, 322, 102, 29, 15, 39, 55], thresh=100):
@@ -1895,6 +1953,7 @@ class BelowThreshold(PuzzleGenerator):
 
 class ListTotal(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#53"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(n: int, nums=[10, 42, 17, 9, 1315182, 184, 102, 29, 15, 39, 755]):
@@ -1915,6 +1974,7 @@ class ListTotal(PuzzleGenerator):
 
 class DiffChars(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#54"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(c: str, a="the quick brown fox jumped over the lazy dog", b="how vexingly quick daft zebras jump"):
@@ -1936,6 +1996,7 @@ class DiffChars(PuzzleGenerator):
 
 class Fibonacci(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#55"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(nums: List[int], n=1402):
@@ -1958,6 +2019,7 @@ class Fibonacci(PuzzleGenerator):
 
 class MatchBrackets(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#56"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(matches: List[int], brackets="<<>><<<><>><<>>>"):
@@ -1999,6 +2061,7 @@ class MatchBrackets(PuzzleGenerator):
 
 class Monotonic(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#57"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(direction: str, nums=[2, 4, 17, 29, 31, 1000, 416629]):
@@ -2022,6 +2085,7 @@ class Monotonic(PuzzleGenerator):
 
 class CommonNumbers(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#58"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(common: List[int], a=[2, 416629, 2, 4, 17, 29, 31, 1000], b=[31, 2, 4, 17, 29, 41205]):
@@ -2045,6 +2109,7 @@ class CommonNumbers(PuzzleGenerator):
 
 class LargestPrimeFactor(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#59"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(p: int, n=101076):
@@ -2071,6 +2136,7 @@ class LargestPrimeFactor(PuzzleGenerator):
 
 class CumulativeSums(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#60"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(sums: List[int], n=104):
@@ -2097,6 +2163,7 @@ class ParenDepth(PuzzleGenerator):
 
     Note that problems 61 and 56 are essentially the same
     """
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(matches: List[int], parens="((())()(()()))(())"):
@@ -2136,6 +2203,7 @@ class ParenDepth(PuzzleGenerator):
 
 class Derivative(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#62"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(derivative: List[int], poly=[2, 1, 0, 4, 19, 231, 0, 5]):
@@ -2163,6 +2231,7 @@ class Fib3(PuzzleGenerator):
 
     Almost identical to problem 46
     """
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(init: List[int], target=124156):
@@ -2191,6 +2260,7 @@ class Fib3(PuzzleGenerator):
 
 class FindVowels(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#64"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(vowels: str, text="Hello, world!"):
@@ -2215,6 +2285,7 @@ class FindVowels(PuzzleGenerator):
 
 class CircularShiftNum(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#65"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(shifted: str, n=124582369835, shift=3):
@@ -2239,8 +2310,9 @@ class CircularShiftNum(PuzzleGenerator):
         self.add(dict(n=n, shift=shift))
 
 
-class DigitSum(PuzzleGenerator):
+class CharSum(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#66"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(tot: int, s="Add ME uP AND YOU WILL GET A BIG NUMBER!"):
@@ -2263,6 +2335,7 @@ class DigitSum(PuzzleGenerator):
 
 class MissingBananas(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#67"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(bananas: int, bowl="5024 apples and 12189 oranges", total=12491241):
@@ -2287,6 +2360,7 @@ class MissingBananas(PuzzleGenerator):
 
 class SmallestEven(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#68"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(val_index: List[int], nums=[125123, 422323, 141, 5325, 812152, 9, 42145, 5313, 421, 812152]):
@@ -2315,6 +2389,7 @@ class SmallestEven(PuzzleGenerator):
 
 class GreatestHIndex(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#69"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(h: int, seq=[3, 1, 4, 17, 5, 17, 2, 1, 41, 32, 2, 5, 5, 5, 5]):
@@ -2337,6 +2412,7 @@ class GreatestHIndex(PuzzleGenerator):
 
 class StrangeSort(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#70"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(strange: List[int], li=[30, 12, 42, 717, 45, 317, 200, -1, 491, 32, 15]):
@@ -2379,6 +2455,7 @@ class HeronTriangle(PuzzleGenerator):
     In our version, we consider the related problem (also solved by Heron's formula) of finding 2d coordinates
     of a triangle with the given sides. If one knows the area, this is a straightforward calculation.
     """
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(coords: List[List[float]], sides=[8.9, 10.8, 17.0]):
@@ -2408,6 +2485,7 @@ class HeronTriangle(PuzzleGenerator):
 
 class InvestigateCrash(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#72"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(problem: int, weights=[1, 2, 5, 2, 1, 17], max_weight=100):
@@ -2438,6 +2516,7 @@ class InvestigateCrash(PuzzleGenerator):
 
 class ClosestPalindrome(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#73"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(pal: str, s="palindromordinals"):
@@ -2461,6 +2540,7 @@ class ClosestPalindrome(PuzzleGenerator):
 
 class NarrowerList(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#74"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(li: List[str], lists=[["this", "list", "is", "narrow"], ["I", "am", "shorter but wider"]]):
@@ -2484,6 +2564,7 @@ class NarrowerList(PuzzleGenerator):
 
 class ThreePrimes(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#75"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(factors: List[List[int]]):
@@ -2510,6 +2591,7 @@ class ThreePrimes(PuzzleGenerator):
 
 class IntegerLog(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#76"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(x: int, a=3, n=1290070078170102666248196035845070394933441741644993085810116441344597492642263849):
@@ -2536,6 +2618,7 @@ class CubeRoot(PuzzleGenerator):
 
     We made it harder by giving very large n for which `round(n ** (1/3))`
     """
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(x: int, n=42714774173606970182754018064350848294149432972747296768):
@@ -2558,6 +2641,7 @@ class CubeRoot(PuzzleGenerator):
 
 class HexPrimes(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#78"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(primes: List[bool], n="A4D4455214122CE192CCBE3"):
@@ -2576,6 +2660,7 @@ class HexPrimes(PuzzleGenerator):
 
 class Binarize(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#79"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(b: str, n=5324680297138495285):
@@ -2602,6 +2687,7 @@ class Binarize(PuzzleGenerator):
 
 class NearbyDuplicates(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#80"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(indices: List[int], s="I am an unhappy string!"):
@@ -2625,6 +2711,7 @@ class NearbyDuplicates(PuzzleGenerator):
 
 class Grader(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#81"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(grades: List[str], gpas=[2.8, 3.1, 4.0, 2.2, 3.1, 2.5, 0.9]):
@@ -2672,6 +2759,7 @@ class Grader(PuzzleGenerator):
 
 class FactorString(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#82"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
     def sat(factor: str, s="catscatcatscatcatscat"):
@@ -2686,6 +2774,221 @@ class FactorString(PuzzleGenerator):
     def gen_random(self):
         s = self.random.pseudo_word() * self.random.randrange(2, 10)
         self.add(dict(s=s))
+
+
+class OneEnded(PuzzleGenerator):
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#83"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
+
+    @staticmethod
+    def sat(nums: List[int], n=5):
+        """Find all n-digit integers that start or end with 1"""
+        count = 18 * (10 ** (n - 2)) if n > 1 else 1
+        strs = {str(n) for n in nums}
+        return len(strs) == count and all(s.startswith("1") or s.endswith("1") and len(s) == n for s in strs)
+
+    @staticmethod
+    def sol(n):
+        ans = []
+        for i in range(10 ** (n - 1), 10 ** n):
+            assert len(str(i)) == n
+            if str(i).startswith("1") or str(i).endswith("1"):
+                ans.append(i)
+        return ans
+
+    examples = [dict(n=i) for i in range(1, 7)]
+
+
+class BitSum(PuzzleGenerator):
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#84"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
+
+    @staticmethod
+    def sat(n: int, b=107, s=25):
+        """Find an b-bit integer with a bit-sum of s"""
+        n_str = bin(n)[2:]  # n in binary
+        return len(n_str) == b and sum(int(i) for i in n_str) == s
+
+    @staticmethod
+    def sol(b, s):
+        return int("1" * s + "0" * (b - s), 2)
+
+    def gen_random(self):
+        b = self.random.randrange(1, 1000)
+        s = self.random.randrange(1, b + 1)
+        self.add(dict(b=b, s=s))
+
+
+class DigitSum(PuzzleGenerator):
+    """*Also* inspired by [HumanEval](https://github.com/openai/human-eval) \\#84"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
+
+    @staticmethod
+    def sat(s: str, n=1012552981257923):
+        """Find the sum of the digits in n as a binary string"""
+        tot = int(s, 2)
+        return tot == sum(int(c) for c in str(n))
+
+    @staticmethod
+    def sol(n):
+        return bin(sum(int(c) for c in str(n)))[2:]
+
+    def gen_random(self):
+        n = self.random.randrange(10 ** self.random.randrange(50))
+        self.add(dict(n=n))
+
+
+class EvenOdd(PuzzleGenerator):
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#85"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
+
+    @staticmethod
+    def sat(even_odd_sum: int, nums=[2341, 125146894, 12521, -12451293476325, 535284623934, 132974693614350]):
+        """Find the sum of the even elements that are at odd indices"""
+        for i in nums[1::2]:
+            if i % 2 == 0:
+                even_odd_sum -= i
+        return even_odd_sum == 0
+
+    @staticmethod
+    def sol(nums):
+        return sum(i for i in nums[1::2] if i % 2 == 0)
+
+    def gen_random(self):
+        nums = [self.random.randrange(-100, 100) for _ in range(self.random.randrange(20))]
+        self.add(dict(nums=nums))
+
+
+class AntiShuffle(PuzzleGenerator):
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#86"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
+
+    @staticmethod
+    def sat(s: str, orig="Hello world!!!"):
+        """Create a new string by taking s, and word by word rearranging its characters in ascii order"""
+        for a, b in zip(s.split(' '), orig.split(' ')):
+            for i in range(len(a) - 1):
+                assert a[i] <= a[i + 1], "characters must s-words be in increasing order"
+            assert len(a) == len(b) and all(a.count(c) == b.count(c) for c in b), "must have same chars"
+        return len(s) == len(orig)
+
+    @staticmethod
+    def sol(orig):
+        return " ".join("".join(sorted(w)) for w in orig.split(' '))
+
+    tests = [
+        dict(orig="YOU CAN rearrange my letters, yes you can!"),
+        dict(orig="caN you handlE LONGGGGGGGGGGGG strings?"),
+        dict(orig="how bout    spaces and weird punctuation!?$%@#%")
+    ]
+
+    def gen_random(self):
+        orig = " ".join(self.random.pseudo_word() for _ in range(self.random.randrange(5)))
+        self.add(dict(orig=orig))
+
+
+class UnevenFind(PuzzleGenerator):
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#87"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
+
+    @staticmethod
+    def sat(indices: List[List[int]], uneven=[[1, 3, 2, 32, 17], [17, 2, 48, 17], [], [9, 35, 4], [3, 17]], target=17):
+        """Find the indices of all occurrences of target in the uneven matrix"""
+        for i, j in indices:
+            assert uneven[i][j] == target
+        for i, row in enumerate(uneven):
+            for j, n in enumerate(row):
+                assert n != target or [i, j] in indices
+        return True
+
+    @staticmethod
+    def sol(uneven, target):
+        return [[i, j] for i, row in enumerate(uneven) for j, n in enumerate(row) if n == target]
+
+    def gen_random(self):
+        target = self.random.randrange(100)
+        uneven = [[self.random.choice([target, self.random.randrange(100)]) for _ in range(self.random.randrange(10))]
+                  for _2 in range(self.random.randrange(10))]
+        self.add(dict(uneven=uneven, target=target))
+
+
+class UpDownSort(PuzzleGenerator):
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#88"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
+
+    @staticmethod
+    def sat(up_down: List[int], nums=[17, 2, 3, 523, 18, -2, 0, 2, -1]):
+        """Reorder nums in increasing/decreasing order based on whether the first plus last element is even/odd"""
+        assert all(up_down.count(i) == nums.count(i) for i in set(up_down + nums)), "not a reordering"
+        increasing_sign = 1 if ((nums[0] + nums[-1]) % 2 == 1) else -1
+        return all((up_down[i + 1] - up_down[i]) * increasing_sign >= 0 for i in range(len(up_down) - 1))
+
+    @staticmethod
+    def sol(nums):
+        return sorted(nums, reverse=(False if (nums[0] + nums[-1]) % 2 else True))
+
+
+class SubstitutionCypher(PuzzleGenerator):
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#89"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
+
+    @staticmethod
+    def sat(encrypted: str, orig="Hello, world!"):
+        """Apply a substitution cypher in which each character is advanced by two multiplied by two places."""
+        assert len(encrypted) == len(orig)
+        return all(chr(ord(a) - 2 * 2) == b for a, b in zip(encrypted, orig))
+
+    @staticmethod
+    def sol(orig):
+        return "".join(chr(ord(b) + 2 * 2) for b in orig)
+
+    def gen_random(self):
+        orig = " ".join(self.random.pseudo_word() for _ in range(self.random.randrange(5)))
+        self.add(dict(orig=orig))
+
+
+class SecondSmallestUnique(PuzzleGenerator):
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#90"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
+
+    @staticmethod
+    def sat(n: int, nums=[17, -1023589211, -293485382500, 31, -293485382500, 105762, 94328103589]):
+        """Find the second smallest unique number in the list nums."""
+        assert n in nums
+        return len({i for i in nums if i <= n}) == 2
+
+    @staticmethod
+    def sol(nums):
+        return sorted(set(nums))[1]
+
+    def gen_random(self):
+        nums = [self.random.randrange(-10, 10) for _ in range(self.random.randrange(2, 10))]
+        if len(set(nums)) >= 2:
+            self.add(dict(nums=nums))
+
+
+class FindBored(PuzzleGenerator):
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#91"""
+    taint_date = HUMAN_EVAL_TAINT_DATE
+
+    @staticmethod
+    def sat(boring: List[str], text="This is not boring. I am boring! I am sooo tired."):
+        """A bored sentence starts with the word "I". Find all bored sentences in s. Sentence delimiters are '.!?'"""
+        sentences = text.replace("!", ".").replace("?", ".").split(".")
+        boring_and_exciting = boring + [s for s in sentences if s.split()[:1] != ["I"]]
+        return sorted(boring_and_exciting) == sorted(sentences)
+
+    @staticmethod
+    def sol(text):
+        return [s for s in text.replace("!", ".").replace("?", ".").split(".") if s.split()[:1] == ["I"]]
+
+    def gen_random(self):
+        text = ""
+        while self.random.random() < 0.75:
+            length = self.random.randrange(6)
+            words = self.random.choice([[], ["I"]]) + [self.random.pseudo_word() for _ in range(length)]
+            text += " ".join(words) + self.random.choice(".!?")
+        self.add(dict(text=text))
 
 
 if __name__ == "__main__":
