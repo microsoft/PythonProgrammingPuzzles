@@ -125,7 +125,7 @@ class LCM_multi(PuzzleGenerator):
     @staticmethod
     def sat(n: int, nums=[15, 27, 102], upper_bound=5000):
         """Find a small common multiple of a list of integers."""
-        return all(n % i == 0 for i in nums) and n <= upper_bound
+        return all(n % i == 0 for i in nums) and 0 < n <= upper_bound
 
     @staticmethod
     def sol(nums, upper_bound):
@@ -199,7 +199,7 @@ class ThreeCubes(PuzzleGenerator):
     """
 
     @staticmethod
-    def sat(nums: List[int], target=10):
+    def sat(nums: List[int], target=983):
         """Given n, find integers a, b, c such that a^3 + b^3 + c^3 = n."""
         assert target % 9 not in [4, 5], "Hint"
         return len(nums) == 3 and sum([i ** 3 for i in nums]) == target
@@ -299,7 +299,7 @@ class Factoring(PuzzleGenerator):
     MAX_TEST = 10 ** 16
 
     @staticmethod
-    def sat(i: int, n=62710561):
+    def sat(i: int, n=241864633):
         """Find a non-trivial factor of integer n"""
         return 1 < i < n and n % i == 0
 
@@ -349,7 +349,7 @@ class DiscreteLog(PuzzleGenerator):  # updated because the answer was given away
     """
 
     @staticmethod
-    def sat(n: int, g=3, p=17, t=13):
+    def sat(n: int, g=44337, p=69337, t=38187):
         """Find n such that g^n is congruent to t mod n"""
         return pow(g, n, p) == t
 
@@ -508,7 +508,7 @@ class CollatzDelay(PuzzleGenerator):
     """
 
     @staticmethod
-    def sat(n: int, t=100, upper=10):
+    def sat(n: int, t=197, upper=20):
         """
         Consider the following process. Start with an integer `n` and repeatedly applying the operation:
         * if n is even, divide n by 2,

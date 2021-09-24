@@ -388,7 +388,7 @@ class Instance:
         assert answer == sol_val, "encode/decode round trip failed"
 
         env2 = dict(answer=answer, List=List, Dict=Dict, Set=Set)  # in case they mucked with env
-        my_exec(self.src + "\n" + "assert sat(answer)", env2, description=self.name)
+        my_exec(self.src + "\n" + "assert sat(answer) is True", env2, description=self.name)
         dur = time.perf_counter() - time0
         if dur > DEFAULT_TIMEOUT * multiplier:
             utils.warn(f"Took {dur}s to test {self.name} (multiplier={multiplier})")

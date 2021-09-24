@@ -190,10 +190,6 @@ class Quine(PuzzleGenerator):
     def sol():
         return "(lambda x: f'({x})({chr(34)}{x}{chr(34)})')(\"lambda x: f'({x})({chr(34)}{x}{chr(34)})'\")"
 
-    @staticmethod
-    def sol2():  # thanks for this simple solution, GPT-3!
-        return 'quine'
-
 
 class RevQuine(PuzzleGenerator):
     """Reverse [Quine](https://en.wikipedia.org/wiki/Quine_%28computing%29). The solution we give is from GPT3."""
@@ -252,25 +248,26 @@ class ClockAngle(PuzzleGenerator):
     @staticmethod
     def sat(hands: List[int], target_angle=45):
         """Find clock hands = [hour, min] such that the angle is target_angle degrees."""
-        hour, min = hands
-        return 0 < hour <= 12 and 0 <= min < 60 and ((60 * hour + min) - 12 * min) % 720 == 2 * target_angle
+        h, m = hands
+        assert 0 < h <= 12 and 0 <= m < 60
+        hour_angle = 30 * h + m / 2
+        minute_angle = 6 * m
+        return abs(hour_angle - minute_angle) in [target_angle, 360 - target_angle]
 
     @staticmethod
     def sol(target_angle):
-        for hour in range(1, 13):
-            for min in range(60):
-                if ((60 * hour + min) - 12 * min) % 720 == 2 * target_angle:
-                    return [hour, min]
+        for h in range(1, 13):
+            for m in range(60):
+                hour_angle = 30 * h + m / 2
+                minute_angle = 6 * m
+                if abs(hour_angle - minute_angle) % 360 in [target_angle, 360 - target_angle]:
+                    return [h, m]
 
-    def gen(self, target_num_instances):
-        for hour in range(1, 13):
-            for min in range(60):
-                if len(self.instances) == target_num_instances:
-                    return
-                double_angle = ((60 * hour + min) - 12 * min) % 720
-                if double_angle % 2 == 0:
-                    target_angle = double_angle // 2
-                    self.add(dict(target_angle=target_angle))
+    def gen_random(self):
+        target_angle = self.random.randrange(0, 360)
+        if self.sol(target_angle):
+            self.add(dict(target_angle=target_angle))
+
 
 class Kirkman(PuzzleGenerator):
     """[Kirkman's problem](https://en.wikipedia.org/wiki/Kirkman%27s_schoolgirl_problem)"""
@@ -408,7 +405,6 @@ class No3Colinear(PuzzleGenerator):
             return next(list(mirror(coords)) for coords in combinations(grid, side // 2) if
                         test(coords) and test(mirror(coords)))
 
-
     def gen(self, target_num_instances):
         for easy in range(47):
             for side in range(47):
@@ -449,12 +445,7 @@ class PostageStamp(PuzzleGenerator):
 class SquaringTheSquare(PuzzleGenerator):
     """[Squaring the square](https://en.wikipedia.org/wiki/Squaring_the_square)
     Wikipedia gives a minimal [solution with 21 squares](https://en.wikipedia.org/wiki/Squaring_the_square)
-    due to Duijvestijn (1978):
-    ```python
-    [[0, 0, 50], [0, 50, 29], [0, 79, 33], [29, 50, 25], [29, 75, 4], [33, 75, 37], [50, 0, 35],
-     [50, 35, 15], [54, 50, 9], [54, 59, 16], [63, 50, 2], [63, 52, 7], [65, 35, 17], [70, 52, 18],
-     [70, 70, 42], [82, 35, 11], [82, 46, 6], [85, 0, 27], [85, 27, 8], [88, 46, 24], [93, 27, 19]]
-    ```
+    due to Duijvestijn (1978).
     """
 
     @staticmethod
@@ -484,7 +475,7 @@ class NecklaceSplit(PuzzleGenerator):
     """
 
     @staticmethod
-    def sat(n: int, lace="bbbbrrbrbrbbrrrr"):
+    def sat(n: int, lace="bbrbrbbbbbbrrrrrrrbrrrrbbbrbrrbbbrbrrrbrrbrrbrbbrrrrrbrbbbrrrbbbrbbrbbbrbrbb"):
         """
         Find a split dividing the given red/blue necklace in half at n so that each piece has an equal number of
         reds and blues.
@@ -633,15 +624,11 @@ class WaterPouring(PuzzleGenerator):
     """[Water pouring puzzle](https://en.wikipedia.org/w/index.php?title=Water_pouring_puzzle&oldid=985741928)"""
 
     @staticmethod
-    def sat(
-            moves: List[List[int]],
-            capacities=[8, 5, 3],
-            init=[8, 0, 0],
-            goal=[4, 4, 0]
-    ):  # moves is list of [from, to] pairs
+    def sat(moves: List[List[int]], capacities=[8, 5, 3], init=[8, 0, 0], goal=[4, 4, 0]):
         """
         Given an initial state of water quantities in jugs and jug capacities, find a sequence of moves (pouring
         one jug into another until it is full or the first is empty) to reaches the given goal state.
+        moves is list of [from, to] pairs
         """
         state = init.copy()
 

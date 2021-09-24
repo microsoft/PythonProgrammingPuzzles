@@ -10,7 +10,6 @@ from . import chess
 from . import compression
 from . import conways_game_of_life
 from . import games
-from . import game_theory
 from . import graphs
 from . import ICPC
 from . import IMO

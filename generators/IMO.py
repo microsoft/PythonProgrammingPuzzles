@@ -108,7 +108,7 @@ class NoRelativePrimes(PuzzleGenerator):
 
 
     @staticmethod
-    def sat(nums: List[int], b=6, m=2):
+    def sat(nums: List[int], b=7, m=6):
         """
         Let P(n) = n^2 + n + 1.
 
@@ -337,7 +337,7 @@ class HalfTag(PuzzleGenerator):
     taint_date = [2020, 9, 19]
 
     @staticmethod
-    def sat(li: List[int], n=3, tags=[0, 1, 2, 0, 0, 1, 1, 1, 2, 2, 0, 2]):
+    def sat(li: List[int], tags=[3, 0, 3, 2, 0, 1, 0, 3, 1, 1, 2, 2, 0, 2, 1, 3]):
         """
         The input tags is a list of 4n integer tags each in range(n) with each tag occurring 4 times.
         The goal is to find a subset (list) li of half the indices such that:
@@ -353,12 +353,14 @@ class HalfTag(PuzzleGenerator):
 
         Note the sum of the output is 33 = (0+1+2+...+11)/2 and the selected tags are [0, 0, 1, 1, 2, 2]
         """
+        n = max(tags) + 1
         assert sorted(tags) == sorted(list(range(n)) * 4), "hint: each tag occurs exactly four times"
         assert len(li) == len(set(li)) and min(li) >= 0
         return sum(li) * 2 == sum(range(4 * n)) and sorted([tags[i] for i in li]) == [i // 2 for i in range(2 * n)]
 
     @staticmethod
-    def sol(n, tags):
+    def sol(tags):
+        n = max(tags) + 1
         pairs = {(i, 4 * n - i - 1) for i in range(2 * n)}
         by_tag = {tag: [] for tag in range(n)}
         for p in pairs:
@@ -419,7 +421,7 @@ class HalfTag(PuzzleGenerator):
         tags = [i // 4 for i in range(4 * n)]
         self.random.shuffle(tags)
         # print(self.__class__, n, tick())
-        self.add(dict(n=n, tags=tags))
+        self.add(dict(tags=tags))
 
 
 

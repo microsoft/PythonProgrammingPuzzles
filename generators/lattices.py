@@ -77,7 +77,7 @@ class LearnParityWithNoise(PuzzleGenerator):
     multiplier = 40  # hard puzzle, takes longer to test
 
     @staticmethod
-    def sat(inds: List[int], vecs=[26, 5, 16, 3, 15, 18, 31, 13, 24, 25, 6, 5, 15, 24, 16, 13, 0, 27, 13]):
+    def sat(inds: List[int], vecs=[26, 5, 32, 3, 15, 18, 31, 13, 24, 25, 34, 5, 15, 24, 16, 13, 0, 27, 37]):
         """
         Learning parity with noise: Given binary vectors, find the secret set $S$ of indices such that, for at least
         3/4 of the vectors, $$sum_{i \in S} x_i = 1 (mod 2)$$

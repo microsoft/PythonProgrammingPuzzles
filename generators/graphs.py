@@ -271,7 +271,7 @@ class AnyPath(PuzzleGenerator):
     """Any Path"""
 
     @staticmethod
-    def sat(path: List[int], edges=[[0, 1], [0, 2], [1, 2], [1, 3], [2, 3]]):
+    def sat(path: List[int], edges=[[0, 1], [0, 2], [1, 3], [1, 4], [2, 5], [3, 4], [5, 6], [6, 7], [1, 2]]):
         """ Find any path from node 0 to node n in a given digraph on vertices 0, 1,..., n."""
         for i in range(len(path) - 1):
             assert [path[i], path[i + 1]] in edges
@@ -300,7 +300,7 @@ class AnyPath(PuzzleGenerator):
 class EvenPath(PuzzleGenerator):
 
     @staticmethod
-    def sat(path: List[int], edges=[[0, 2], [0, 1], [2, 1], [2, 3], [1, 3]]):
+    def sat(path: List[int], edges=[[0, 1], [0, 2], [1, 3], [1, 4], [2, 5], [3, 4], [5, 6], [6, 7], [1, 2]]):
         """Find a path with an even number of nodes from nodes 0 to n in the given digraph on vertices 0, 1,..., n."""
         assert path[0] == 0 and path[-1] == max(max(e) for e in edges)
         assert all([[a, b] in edges for a, b in zip(path, path[1:])])
@@ -331,7 +331,7 @@ class OddPath(PuzzleGenerator):
     """To make it even more different than EvenPath, we changed to go from node 0 to node *1*."""
 
     @staticmethod
-    def sat(p: List[int], edges=[[0, 1], [0, 2], [1, 2], [3, 1], [2, 3]]):
+    def sat(p: List[int], edges=[[0, 1], [0, 2], [1, 3], [1, 4], [2, 5], [3, 4], [5, 6], [6, 7], [6, 1]]):
         """Find a path with an even number of nodes from nodes 0 to 1 in the given digraph on vertices 0, 1,..., n."""
         return p[0] == 0 and p[-1] == 1 == len(p) % 2 and all([[a, b] in edges for a, b in zip(p, p[1:])])
 
@@ -356,25 +356,39 @@ class OddPath(PuzzleGenerator):
             self.add(dict(edges=edges))
 
 
-
 class Zarankiewicz(PuzzleGenerator):
     """[Zarankiewicz problem](https://en.wikipedia.org/wiki/Zarankiewicz_problem)"""
-    @staticmethod
-    def sat(edges: List[List[int]]):
-        """Find a bipartite graph with 4 vertices on each side, 13 edges, and no K_3,3 subgraph."""
-        assert len(edges) == len({(a, b) for a, b in edges}) == 13  #  13 edges, no duplicates
-        assert all(i in range(4) for li in edges for i in li)  # 4 nodes on each side
-        for i in range(4):
-            v = [m for m in range(4) if m != i]
-            for j in range(4):
-                u = [m for m in range(4) if m != j]
-                if all([m, n] in edges for m in v for n in u):
-                    return False
-        return True
 
     @staticmethod
-    def sol():
-        return [[i, j] for i in range(4) for j in range(4) if i != j or i == 0]
+    def sat(edges: List[List[int]], z=20, n=5, t=3):
+        """Find a bipartite graph with n vertices on each side, z edges, and no K_3,3 subgraph."""
+        from itertools import combinations
+        edges = {(a, b) for a, b in edges if a in range(n) and b in range(n)}  # convert to a set for efficiency
+        assert len(edges) >= z
+
+        return all(
+            any((a, b) not in edges for a in left for b in right)
+            for left in combinations(range(n), t)
+            for right in combinations(range(n), t)
+        )
+
+    @staticmethod
+    def sol(z, n, t):
+        from itertools import combinations
+        all_edges = [(a, b) for a in range(n) for b in range(n)]
+        for edges in combinations(all_edges, z):
+            edge_set = set(edges)
+            if all(any((a, b) not in edge_set for a in left for b in right)
+                   for left in combinations(range(n), t)
+                   for right in combinations(range(n), t)):
+                return [[a, b] for a, b in edges]
+
+    def gen(self, target_num_instances):
+        if len(self.instances) < target_num_instances:
+            self.add(dict(z=26, n=6, t=3), test=False)
+        if len(self.instances) < target_num_instances:
+            self.add(dict(z=13, n=4, t=3))
+
 
 class GraphIsomorphism(PuzzleGenerator):
     """
@@ -395,7 +409,7 @@ class GraphIsomorphism(PuzzleGenerator):
     """
 
     @staticmethod
-    def sat(bi: List[int], g1=[[0, 1], [1, 2], [2, 3], [3, 4]], g2=[[0, 4], [4, 1], [1, 2], [2, 3]]):
+    def sat(bi: List[int], g1=[[0, 1], [1, 2], [2, 3], [3, 4], [2, 5]], g2=[[0, 4], [1, 5], [4, 1], [1, 2], [2, 3]]):
         """
         You are given two graphs which are permutations of one another and the goal is to find the permutation.
         Each graph is specified by a list of edges where each edge is a pair of integer vertex numbers.
@@ -422,12 +436,13 @@ class GraphIsomorphism(PuzzleGenerator):
         g1 = [[i, j] for i, j in g1]
         g2 = [[pi[i], pi[j]] for i, j in g1]
         self.random.shuffle(g2)
-        self.add(dict(g1=g1, g2=g2), test=n < 10) # only test for small n
+        self.add(dict(g1=g1, g2=g2), test=n < 10)  # only test for small n
 
 
 class ShortIntegerPath(PuzzleGenerator):
     """This is a more interesting version of Study_20 with an additional length constraint. One can think of the graph
     defined by the integer pairs."""
+
     @staticmethod
     def sat(li: List[int]):
         """

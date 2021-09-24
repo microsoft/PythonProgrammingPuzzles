@@ -637,7 +637,7 @@ class CertifiedGCD(PuzzleGenerator):
     taint_date = HUMAN_EVAL_TAINT_DATE
 
     @staticmethod
-    def sat(ans: List[int], m=1408862, n=2113293):
+    def sat(ans: List[int], m=200004931, n=66679984):
         """
         Find the greatest common divisor of two integers m, n and a certificate a, b such that m*a + n*b = gcd
 

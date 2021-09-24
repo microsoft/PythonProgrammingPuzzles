@@ -1,4 +1,4 @@
-"""Problems inspired by [codeforces](https://codeforces.com)."""
+"""Problems inspired by the popular programming competition site [codeforces.com](https://codeforces.com)"""
 
 from puzzle_generator import PuzzleGenerator
 from typing import List
@@ -656,7 +656,7 @@ class Sssuubbstriiingg(PuzzleGenerator):
     """Inspired by [Codeforces Problem 58 A](https://codeforces.com/problemset/problem/58/A)"""
 
     @staticmethod
-    def sat(inds: List[int], string="Sssuubbstriiingg"):
+    def sat(inds: List[int], string="Sssuubbstrissiingg"):
         """Find increasing indices to make the substring "substring"""
         return inds == sorted(inds) and "".join(string[i] for i in inds) == "substring"
 
@@ -725,7 +725,7 @@ class Moving0s(PuzzleGenerator):
     @staticmethod
     def sat(seq: List[int], target=[1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0], n_steps=4):
         """
-        Find a sequence of 0's and 1's so that, after n_steps of swapping each adjacent (0, 1), target target sequence
+        Find a sequence of 0's and 1's so that, after n_steps of swapping each adjacent (0, 1), the target sequence
         is achieved.
         """
         s = seq[:]  # copy

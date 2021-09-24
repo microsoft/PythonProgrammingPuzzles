@@ -2,6 +2,7 @@ import argparse
 import time
 import sys
 import inspect
+import re
 
 import puzzle_generator
 import utils
@@ -16,6 +17,11 @@ parser.add_argument('--target_num_per_problem',
                     default=10,
                     help='Target number of variants to generate per problem.')
 
+parser.add_argument('--solutions',
+                    '-s',
+                    default='',
+                    help='Filename of AI solutions to add to README, if any.')
+
 parser.add_argument('--json',
                     '-j',
                     type=str,
@@ -28,13 +34,13 @@ parser.add_argument('--readme',
                     default="puzzles/README.md",
                     help='Filename to store README description of puzzles.')
 
-TOP = """# Python Programming Puzzles: dataset summary
+TOP = """# Summary of Puzzles
 This document summarizes the dataset stored in the `puzzles.json` file in this directory. 
 These files are generated from the `generators/*.py` files.
 The only import for puzzles is `from typing import List` but you should also pass a candidate solution 
-through `check_solution_type` from `puzzle_generator.py` before certifying correctness. 
+through `type_check` from `puzzle_generator.py` before certifying correctness. 
 
-## Puzzles by module:
+## Puzzles by module: <!-- descriptions come from the module docstring --> 
 
 {}
 
@@ -43,44 +49,115 @@ through `check_solution_type` from `puzzle_generator.py` before certifying corre
 """
 
 
-def save_readme(gen_modules, filename):
+def rename_src_var(orig, new, src, count=0):
+    def helper(s):
+        return re.sub(r'\b' + orig + r'\b(?!["\'])', new, s, count)
+    if src.count('"""') >= 2:
+        a = src.index('"""')
+        b = src.index('"""', a+1) + 3
+        if count == 1:
+            h = helper(src[:a])
+            if h != src[:a]:
+                return h + src[a:]
+        return helper(src[:a]) + src[a:b] + helper(src[b:])
+
+    return helper(src)
+
+def anchor(name):
+    return name.strip().lower().replace(' ', '-')
+
+def indent(x, spaces=4):
+    return (" "*spaces + x.replace("\n", "\n" + " "*spaces))[:-spaces if x.endswith("\n") else None]
+
+def save_readme(gen_modules, filename, sol_filename):
+    ai_sols = run_name = run_desc = None
+    if sol_filename:
+        sols_js = utils.load_json(sol_filename)
+        run_name = sols_js["run_name"]
+        run_desc = sols_js["run_desc"]
+        ai_sols = {}
+        for f, entry in sols_js["sols"].items():
+            assert f.startswith("def ")
+            f_name = f[len("def "):f.index("(")].strip()
+            f2 = rename_src_var(f_name, "sat", f, 1)
+            entry2 = ai_sols[f2] = entry.copy()
+            g = entry2["sol"]
+            g_name = g[len("def "):f.index("(")].strip()
+            entry2["sol"] = rename_src_var(g_name, "sol", rename_src_var(f_name, "sat", entry2["sol"]))
+            entry2["longest_sol"] = rename_src_var(g_name, "sol", rename_src_var(f_name, "sat", entry2["longest_sol"]))
+
     table = ""
     content = ""
     tot_puzzles = 0
     tot_instances = 0
-    for name, module_stuff in gen_modules.items():
+    for module_name, module_stuff in gen_modules.items():
         section = ""
-        sec_name = name.split(".")[-1]
+        sec_name = module_name.split(".")[0]
         section += f"## {sec_name}\n\n"
         section += f"{module_stuff['docstring']}\n\n"
         puzzles = module_stuff['examples']
+        if ai_sols:
+            puzzles = sorted(puzzles,
+                             key=lambda f: (ai_sols.get(f['sat'])
+                                            or ai_sols.get(utils.remove_docstring(f['sat']))
+                                            or {}).get("num_sols", 0),
+                             reverse=True)
         n = len(puzzles)
-        link = f"[{sec_name}](#{sec_name.lower().replace(' ', '-')})"
+        link = f"[{sec_name}](#{anchor(sec_name)})"
         n_instances = sum(p["n_instances"] for p in puzzles)
         tot_instances += n_instances
-        table += f"- [{sec_name} ({len(puzzles):,} problems, {n_instances:,} instances)](#{sec_name.lower().replace(' ', '-')})\n"
+        table += f"- [{module_name}](../generators/{module_name}), [{len(puzzles):,} problems](#{anchor(sec_name)}): {module_stuff['docstring'].strip().rstrip('.')}\n"
         for i, puzzle in enumerate(puzzles):
             tot_puzzles += 1
-            section += f"### {puzzle['name']}\n"
-            section += f"{puzzle['desc']}\n\n"
-            section += f"```python\n{puzzle['sat']}\n```\n"
+            f = puzzle['sat']
+            puzzle_text = f'* <a name="{anchor(puzzle["name"])}"></a>**{puzzle["name"]}** {puzzle["desc"].strip()}'
+            puzzle_text += f' ({puzzle["n_instances"]} instance{"s" if puzzle["n_instances"] != 1 else ""})\n\n'
+            puzzle_text += f"```python\n{f}\n```\n"
+            if ai_sols:
+                sol_entry = ai_sols.get(f) or ai_sols.get(utils.remove_docstring(f))
+                if sol_entry:
+                    num_ai_sols = sol_entry['num_sols']
+                    if num_ai_sols > 0:
+                        puzzle_text += "<details><summary>"
+                    puzzle_text += f"{num_ai_sols:,} AI solution{'s' if num_ai_sols != 1 else ''} from {run_name}"
+                    if num_ai_sols > 0:
+                        if num_ai_sols > 1:
+                            puzzle_text += " (shortest and longest ones below)"
+                        puzzle_text += "</summary>\n\n"
+                        puzzle_text += f"```python\n{sol_entry['sol']}\n```\n\n"
+                        if num_ai_sols > 1:
+                            puzzle_text += f"```python\n{sol_entry['longest_sol']}\n```\n\n"
+                        puzzle_text += "</details>\n\n"
+                else:
+                    puzzle_text += f"{run_name} was not run on this puzzle\n\n"
+
             if len(puzzle['sols']) > 0:
-                section += "<details><summary>"
-            section += f"{len(puzzle['sols'])} solution{'s' if len(puzzle['sols'])!=1 else ''} "
-            section += f"to {sec_name} {i + 1:,}/{n:,}"
+                puzzle_text += "<details><summary>"
+            puzzle_text += f"{len(puzzle['sols']):,} hand-written solution{'s' if len(puzzle['sols']) != 1 else ''} "
             if len(puzzle['sols']) > 0:
-                section += "</summary>\n\n"
+                puzzle_text += "</summary>\n\n"
                 for sol in puzzle['sols']:
-                    section += f"```python\n{sol}\n```\n\n"
-                    section += "</details>\n\n"
+                    puzzle_text += f"```python\n{sol}\n```\n\n"
+                puzzle_text += "</details>\n\n"
             else:
-                section += "\n\n"
+                puzzle_text += "\n\n"
+            section += indent(puzzle_text, 4)[4:]
 
         content += section
 
     table += f"\nTotal ({tot_puzzles:,} problems, {tot_instances:,} instances)\n"
 
     content = TOP.format(table) + content
+    if run_name:
+        content = content.replace(
+            "Summary of Puzzles",
+            f"Summary of Puzzles and {run_name} solutions\n{run_desc}",
+            1
+        ).replace(
+            "----",
+            f"----\n\nThe puzzles in each module are sorted by number of {run_name} solutions\n\n",
+            1
+        )
 
     with open(filename, "w", encoding='utf8') as f:
         f.write(content)
@@ -88,7 +165,8 @@ def save_readme(gen_modules, filename):
 
 def main(args):
     start_time = time.perf_counter()
-    if any(p.DEBUG for p in puzzle_generator.PuzzleGenerator.subclass_descendents()):  # if there are debug problems, don't make the dataset
+    if any(p.DEBUG for p in
+           puzzle_generator.PuzzleGenerator.subclass_descendents()):  # if there are debug problems, don't make the dataset
         puzzle_generator.PuzzleGenerator.debug_problems()
         print("Didn't make dataset because there are `Problem.Debug` problems, remove the `.Debug` to proceed.")
         return
@@ -103,7 +181,7 @@ def main(args):
 
     gens = puzzle_generator.PuzzleGenerator.subclass_descendents()
 
-    gens_by_module = utils.inv_dict({g: g.__module__.split(".")[-1] for g in gens})
+    gens_by_module = utils.inv_dict({g: g.__module__.replace("generators.", "")+".py" for g in gens})
 
     utils.info(f"Python version {sys.version}")
     utils.info(f"Generating from templates: {list(gens_by_module)}")
@@ -112,7 +190,7 @@ def main(args):
 
     for module_name, gens in gens_by_module.items():  # order determined by generators/__init__.py
         readme_examples = []
-        downweight = 1.0/sum(cls.multiplier for cls in gens)  # this causes each module to be weighted equally
+        downweight = 1.0 / sum(cls.multiplier for cls in gens)  # this causes each module to be weighted equally
         for cls in gens:
             gen = cls()
             gen.build(args.target_num_per_problem, already_tested_cache)
@@ -147,9 +225,10 @@ def main(args):
             assert False, f"Puzzle {p['name']} in {p['module']} doesn't have a valid docstring"
 
     utils.save_json(puzzles, args.json, make_dirs_if_necessary=True, indent=2)
-    save_readme(summaries, args.readme)
+    save_readme(summaries, args.readme, args.solutions)
     utils.info(f"Elapsed time: {(time.perf_counter() - start_time) / 60:.2f} minutes")
     utils.info(f"Saved {len(puzzles)} to {args.json} and {args.readme}")
+
 
 if __name__ == "__main__":
     args = parser.parse_args()
