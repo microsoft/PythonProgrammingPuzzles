@@ -201,7 +201,7 @@ def main(args):
                     "sols": i.sol_srcs,
                     "module": module_name,
                     "notes": gen.desc,
-                    "taint_date": "-".join(str(i) for i in gen.taint_date),
+                    "add_date": "-".join(str(i) for i in gen.add_date),
                     "weight": gen.multiplier * downweight / len(gen.instances)
                 }
                 for i in gen.instances]

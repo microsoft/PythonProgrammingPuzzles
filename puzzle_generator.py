@@ -458,12 +458,7 @@ class PuzzleGenerator:
     multiplier = 1.0  # puzzle-specific weight multiplier, puzzles in same are also be further weighted
     tests = None  # a list of test cases: can be a list of inputs if there is just one input or a list of dictionaries
     DEBUG = False  # DEBUG = True while making a puzzle makes it run before any other problems
-    taint_date = [2021, 4, 26]  # dataset initial release date
-
-    # date before which we assume training data has not been tainted by variations of the puzzle.
-    # For example, if you invented the puzzle, then it would be the date it first appears publicly (e.g., on github)
-    # If it's closely adapted from a website, then it should be the date from which it was published publicly on
-    # that website, unless it was based on an puzzle that was publicly available earlier somewhere
+    add_date = [2021, 4, 26]  # dataset initial release date, can be overridden to the date the puzzle was added
 
     @staticmethod
     def sat(ans, *other_inputs):  # must override
@@ -528,10 +523,10 @@ class PuzzleGenerator:
         else:
             self.desc = unindent(self.__doc__)
 
-        if not hasattr(self, "taint_date"):
-            self.taint_date = self.FIRST_TAINT_DATE
-        assert datetime.date(*self.taint_date) - datetime.date.today() < datetime.timedelta(100), \
-            f"Invalid taint date {self.taint_date} too far in the future."
+        if not hasattr(self, "add_date"):
+            self.add_date = self.FIRST_ADD_DATE
+        assert datetime.date(*self.add_date) - datetime.date.today() < datetime.timedelta(100), \
+            f"Invalid add date {self.add_date} too far in the future."
         self.random = BuilderRandom(seed=self.name)
         self.instances = []
         self._seen_problems = set()
@@ -583,24 +578,22 @@ class PuzzleGenerator:
 
         if self.tests:
             tests = self.tests
-            _, spec = self.sat_src_spec
-            if len(spec.args) == 2:  # possible list of raw arguments not wrapped in a dictionary
-                input_name = spec.args[1]
-                input_type = self.types[input_name]
-                if any(get_type(test, ignore_errors=True) == input_type for test in self.tests):
-                    tests = [{input_name: test} for test in self.tests]
             for test in tests:
+                assert type(test) is dict, f"{self.name}.tests must be dictionaries"
                 if len(self.instances) < target_num_instances:
                     self.add(test)
 
         if target_num_instances > len(self.instances):
-            self.gen(target_num_instances)
+            self.gen(target_num_instances - len(self.instances))
+
         while len(self.instances) < target_num_instances:
             n = len(self.instances)
             for _ in range(max_random_attempts):
                 self.gen_random()
                 if n != len(self.instances):  # added a problem
+                    assert len(self.instances) == n + 1, f"{self.name}.gen_random() added more than one instance"
                     break
+
             if len(self.instances) == n:  # failed max_random_attempts, give up
                 break
 
@@ -748,7 +741,7 @@ class PuzzleGenerator:
                 answer = s(**inp)
                 assert type_check(self.types[var_name], answer), "Puzzle {self.name} got wrong type solution"
                 assert self.sat(answer, **inp) is True, f"Puzzle {self.name} didn't return True on `{inp}`"
-
+            self._tested += 1
         self.instances.append(("DEBUG TEST", bool(test and self.sols)))  # for counting purposes
 
 

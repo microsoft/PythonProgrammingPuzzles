@@ -6,13 +6,8 @@ from typing import List
 
 # See https://github.com/microsoft/PythonProgrammingPuzzles/wiki/How-to-add-a-puzzle to learn about adding puzzles
 
-class AlgebraGen:
-    blah = 17
-    taint_date = [2021, 4, 26]
 
-
-
-class QuadraticRoot(AlgebraGen, PuzzleGenerator):
+class QuadraticRoot(PuzzleGenerator):
     """See [quadratic equations](https://en.wikipedia.org/wiki/Quadratic_formula)"""
 
     @staticmethod

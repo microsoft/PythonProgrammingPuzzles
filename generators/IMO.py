@@ -21,7 +21,6 @@ class ExponentialCoinMoves(PuzzleGenerator):
     Inspired by [IMO 2010 Problem 5](https://www.imo-official.org/problems.aspx)"""
 
     multiplier = 10  # worth 10 times normal so that it can run 10 times longer than normal
-    taint_date = [2010, 7, 2]
 
     @staticmethod
     def sat(states: List[List[int]], n=16385):
@@ -104,9 +103,6 @@ class NoRelativePrimes(PuzzleGenerator):
     theorem?
     """
 
-    taint_date = [2016, 7, 1]
-
-
     @staticmethod
     def sat(nums: List[int], b=7, m=6):
         """
@@ -188,8 +184,6 @@ class FindRepeats(PuzzleGenerator):
     Inspired by [IMO 2017 Problem 1](https://www.imo-official.org/problems.aspx)
     """
 
-    taint_date = [2017, 7, 12]
-
     @staticmethod
     def sat(indices: List[int], a0=123):
         """
@@ -237,8 +231,6 @@ class PickNearNeighbors(PuzzleGenerator):
 
     The puzzle solution follows the judge's proof closely."""
 
-    taint_date = [2017, 7, 12]
-
     @staticmethod
     def sat(keep: List[bool], heights=[10, 2, 14, 1, 8, 19, 16, 6, 12, 3, 17, 0, 9, 18, 5, 7, 11, 13, 15, 4]):
         """
@@ -266,7 +258,7 @@ class PickNearNeighbors(PuzzleGenerator):
         return all(abs(pi[2 * i] - pi[2 * i + 1]) == 1 for i in range(n))
 
     @staticmethod
-    def sol(heights): # Based on the judge's solution.
+    def sol(heights):  # Based on the judge's solution.
         n = int(len(heights) ** 0.5)
         assert sorted(heights) == list(range(n * (n + 1)))
         groups = [h // (n + 1) for h in heights]
@@ -301,8 +293,6 @@ class FindProductiveList(PuzzleGenerator):
     Inspired by [IMO 2010 Problem 5](https://www.imo-official.org/problems.aspx)
     """
 
-    taint_date = [2010, 7, 2]
-
     @staticmethod
     def sat(li: List[int], n=18):
         """
@@ -333,8 +323,6 @@ class FindProductiveList(PuzzleGenerator):
 
 class HalfTag(PuzzleGenerator):
     """Inspired by [IMO 2020 Problem 3](https://www.imo-official.org/problems.aspx)"""
-
-    taint_date = [2020, 9, 19]
 
     @staticmethod
     def sat(li: List[int], tags=[3, 0, 3, 2, 0, 1, 0, 3, 1, 1, 2, 2, 0, 2, 1, 3]):
@@ -422,7 +410,6 @@ class HalfTag(PuzzleGenerator):
         self.random.shuffle(tags)
         # print(self.__class__, n, tick())
         self.add(dict(tags=tags))
-
 
 
 if __name__ == "__main__":
