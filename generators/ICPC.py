@@ -36,10 +36,7 @@ class BiPermutations(PuzzleGenerator):
         return all(heights0[i] > heights1[j] for i, j in zip(perm0, perm1))
 
     @staticmethod
-    def sol(prices0=[7, 7, 9, 5, 3, 7, 1, 2],
-            prices1=[5, 5, 5, 4, 2, 5, 1, 1],
-            heights0=[2, 4, 9, 3, 8, 5, 5, 4],
-            heights1=[1, 3, 8, 1, 5, 4, 4, 2]):
+    def sol(prices0, prices1, heights0, heights1):
         n = len(prices0)
         prices = [prices0, prices1]
         orders = [sorted(range(n), key=lambda i: (prices0[i], heights0[i])),
@@ -116,7 +113,8 @@ class OptimalBridges(PuzzleGenerator):
 
     # adapted from https://github.com/SnapDragon64/ACMFinalsSolutions/blob/master/finals2019/beautifulbridgesDK.cc
     @staticmethod
-    def sol(H, alpha, beta, xs, ys, thresh):  # thresh is ignored
+    def sol(H, alpha, beta, xs, ys, thresh):
+        # thresh is ignored
         n = len(xs)
         cost = [-1] * n
         prior = [n] * n

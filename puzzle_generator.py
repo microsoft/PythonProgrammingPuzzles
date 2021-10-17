@@ -5,13 +5,12 @@ Each PuzzleGenerator has one or more Instances corresponding a to a different in
 
 import inspect
 import json
-from typing import List, Dict, Callable, Set, Tuple
+from typing import List, Callable, Dict, Set
 import random
-import os
+import re
 import sys
 import traceback
 import time
-import datetime
 
 import utils
 
@@ -91,51 +90,6 @@ def gen_dump_code(var_name: str, ty: type) -> str:
     if tys.startswith("Set["):
         return "print(json.dumps({k : 1 for k in " + var_name + "})) # write sets as dictionaries\n"
     return f"print(json.dumps({var_name}))\n"
-
-
-def gen_type_assertion(var_name: str, ty: type) -> str:
-    """
-    create code to assert type of var_name is ty
-
-    :param var_name: The variable name, like "x"
-    :param ty: str, List[int] , List[List[bool]], etc.
-    :return: code that asserts that var_name is of type ty
-    """
-
-    tys = type_str(ty)
-    vars = [c for c in 'abcdefghijklmnop' if c != var_name][::-1]
-
-    def helper(var_name, tys):
-        tys = tys.strip()
-        pre_bracket = tys.split("[")[0].lower()  # part before [ (or the entire string if no bracket
-        ans = f"type({var_name}) is {pre_bracket}"
-        if "[" in tys:
-            inside = tys[tys.index("[") + 1:-1]
-            new_var = vars.pop()
-            if pre_bracket == "list" or pre_bracket == "set":
-                inside_check = helper(new_var, inside)
-                # if " and " in inside_check:
-                #     inside_check = "(" + inside_check + ")"
-                ans += f" and all({inside_check} for {new_var} in {var_name})"
-            elif pre_bracket == "dict":
-                depth = 0
-                for i, c in enumerate(inside):
-                    if c == "[":
-                        depth += 1
-                    elif c == "]":
-                        depth -= 1
-                    elif c == "," and depth == 0:
-                        break
-                assert depth == 0 and c == ",", "Dict[(expecting comma inside)]"
-                key_var = vars.pop()
-                key_check = helper(key_var, tys[:i])
-                val_check = helper(new_var, tys[i + 1:])
-                ans += f" and all({key_check} and {val_check} for {key_var}, {new_var} in {var_name}.items())"
-            else:
-                assert False, f"Unknown type `{tys}`"
-        return ans
-
-    return f"assert {helper(var_name, tys)}, '{var_name} must be of type {tys}'"
 
 
 def gen_load_code(var_name: str, ty: type) -> str:
@@ -297,30 +251,52 @@ def deep_copy(obj):
     return obj
 
 
-def get_type(obj, ignore_errors=False):  # better than type(x) because it can do things like List[int], etc.
-    try:
-        t = type(obj)
-        if t in {int, float, bool, complex, range, str}:
-            return t
-        assert t in {tuple, list, set, dict}, f"Unacceptable input type '{t}'"
-        iterand_types = [get_type(i, ignore_errors=True) for i in obj]
-        iterand_types = [i for i in iterand_types if i is not None]
-        if t == tuple:
-            return Tuple[iterand_types]
-        assert len(iterand_types) > 0, "Cannot get type of empty list/set/dict"
-        assert len(set(iterand_types)) == 1, "Lists/sets/dicts must be a single type"
-        if t == list:
-            return List[iterand_types[0]]
-        if t == set:
-            return Set[iterand_types[0]]
-        if t == dict:
-            val_types = [get_type(i) for i in obj.values()]
-            assert len(set(val_types)) == 1, "Dict values must be a single type"
-            return Dict[iterand_types[0], val_types[0]]
-    except AssertionError:
-        if ignore_errors:
-            return None
-        raise
+def same_types(obj1, obj2):
+    """
+    Recursively check that obj1 and obj2 are of the same types.
+    Better than type(obj1) == type(obj2) because it recursively checks inside lists, sets, dicts, and tuples
+    """
+    t = type(obj1)
+    if t is not type(obj2):
+        return False
+    if t in {list, set, dict}:
+        for iterables in ([(obj1, obj2), (obj1.values(), obj2.values())] if t is dict else [(obj1, obj2)]):
+            lst = [i for o in iterables for i in o]
+            if not all(same_types(lst[0], o) for o in lst[1:]):
+                return False
+    if t is tuple:
+        return len(obj1) == len(obj2) and all(same_types(o1, o2) for o1, o2 in zip(obj1, obj2))
+    return True
+
+
+# def test_same_types():
+#     assert same_types(1, 2)
+#     assert same_types({1:[]}, {})
+#     assert same_types({1:[2,3]}, {4:[5,6]})
+#     assert not same_types(True, 1)
+#     assert not same_types(1, 2.0)
+#     assert not same_types(1, 2.0)
+#     assert not same_types({1:[2,3]}, {4:[5.,6.]})
+#     assert not same_types({1:[2,3], 3:[5.]}, {})
+#
+# test_same_types()
+
+def homogeneous_type(obj):
+    """
+    Checks that the type is "homogeneous" in that all lists are of objects of the same type, etc.
+    """
+    return same_types(obj, obj)
+
+
+# def test_homogeneous_types():
+#     assert homogeneous_type(1)
+#     assert homogeneous_type([1, 2, 3])
+#     assert homogeneous_type([[[]], [[]]], [[3], [4]])
+#     assert homogeneous_type({})
+#     assert not homogeneous_type([1, 2, 3.3])
+#     assert homogeneous_type([[[]], [[], [4.]]], [[3], []])
+#
+# test_homogeneous_types()
 
 
 def decode(st: str):  # small modifications to make json roundtrip work
@@ -354,45 +330,47 @@ def encode(obj):  # small modifications to make json roundtrip work
 
 
 class Instance:
-    def __init__(self, src, name: str):
+    def __init__(self, src: str, docstring: str, sol_header: str, name: str):
         self.src = src
+        self.docstring = docstring
+        self.sol_header = sol_header
         self.name = name  # which PuzzleGenerator template did it come from?
-        self.sol_srcs = []
+        self.sol_bodies = []
 
-    def add_test(self, sol_src):
+    def add_sol(self, sol_body):
         """Add solution to the list of solutions"""
-        if sol_src in self.sol_srcs:  # already added this solution
+        if sol_body in self.sol_bodies:  # already added this solution
             return
-        self.sol_srcs.append(sol_src)
+        self.sol_bodies.append(sol_body)
 
-    def check_and_add_test(self, sol_src: str, type_str: str, multiplier: float):
+    def check_and_add_sol(self, sol_body: str, ans_type: str, multiplier: float):
         """Check that the solution satisfies the given instance and add the solution to the instance.
         Do a round-trip json encoding/decoding to mimic the actual test and deter strange attacks.
         Ideally this could be done by running a protected process (like in evaluating programming
         contest submissions) but that is much slower. Since this is a test we authored presumably it has
         no evil code."""
 
-        if sol_src in self.sol_srcs:  # already added this solution
+        if sol_body in self.sol_bodies:  # already added this solution
             return
         env = dict(List=List)
         time0 = time.perf_counter()
-        my_exec(sol_src + "\n" + "answer = sol()", env, description=self.name)
+        my_exec(self.sol_header + " \n" + sol_body + "\n" + "answer = sol()", env, description=self.name)
 
         sol_val = env["answer"]
 
         assert sol_val is not None, "sol returned None"
 
-        assert type_check(type_str, sol_val)
+        assert type_check(ans_type, sol_val)
 
         answer = decode(encode(sol_val))
         assert answer == sol_val, "encode/decode round trip failed"
 
-        env2 = dict(answer=answer, List=List, Dict=Dict, Set=Set)  # in case they mucked with env
+        env2 = dict(answer=answer, List=List)  # in case we screwed up env
         my_exec(self.src + "\n" + "assert sat(answer) is True", env2, description=self.name)
         dur = time.perf_counter() - time0
         if dur > DEFAULT_TIMEOUT * multiplier:
             utils.warn(f"Took {dur}s to test {self.name} (multiplier={multiplier})")
-        self.add_test(sol_src)
+        self.add_sol(sol_body)
 
 
 def unindent(docstr):
@@ -406,6 +384,13 @@ def unindent(docstr):
             assert not line[:de_indent].strip(), f"Weird indentation in docstring:\n{docstr}"
             lines[i] = line[de_indent:]
     return "\n".join(lines)
+
+
+def get_body(function_src):
+    match = re.search(r"\)\s*:(.*)\n", function_src)
+    assert match and (match.group(1).replace(" ", "") == ""), \
+        f"Bad solution header for, maybe move to next line:\n\n{match.group(1)}\n\nin:\n\n{function_src}"
+    return function_src[match.end():]
 
 
 class PuzzleGenerator:
@@ -431,7 +416,8 @@ class PuzzleGenerator:
             return 'olleH '
 
         @staticmethod
-        def sol2():  # solution methods must begin with 'sol'
+        def sol2():
+            # solution methods must begin with 'sol'
             return 'Hello '[::-1]
 
 
@@ -456,9 +442,7 @@ class PuzzleGenerator:
         '''
 
     multiplier = 1.0  # puzzle-specific weight multiplier, puzzles in same are also be further weighted
-    tests = None  # a list of test cases: can be a list of inputs if there is just one input or a list of dictionaries
     DEBUG = False  # DEBUG = True while making a puzzle makes it run before any other problems
-    add_date = [2021, 4, 26]  # dataset initial release date, can be overridden to the date the puzzle was added
 
     @staticmethod
     def sat(ans, *other_inputs):  # must override
@@ -517,71 +501,61 @@ class PuzzleGenerator:
     def __init__(self):
         self.name = self.__class__.__name__
         assert self.sat is not PuzzleGenerator.sat, f"Must override {self.name}.sat"
-        self.sat_src_spec = get_src_spec(self.sat)
+        self.sat_src, sat_spec = get_src_spec(self.sat)
+        self.docstring = utils.get_docstring(self.sat_src)
+        sat_src = utils.remove_docstring(self.sat_src)
+        assert len(sat_spec.args) > 0, f"{self.name}.sat() takes no arguments!"
+        self.ans_name, *self.arg_names = sat_spec.args
+        assert self.ans_name in sat_spec.annotations, f"Missing type hint for {self.name}.sat({self.ans_name}: ???"
+        self.ans_type = type_str(sat_spec.annotations[self.ans_name])
+        assert self.ans_type.replace("List[", "").replace("]", "") in "bool float int str".split(), \
+            f"Answer type for {self.name} must be bool/int/float/str or Lists (or Lists of Lists etc.) of those"
         if not self.__doc__ or self.__doc__ == PuzzleGenerator.__doc__:
             self.desc = ""
         else:
             self.desc = unindent(self.__doc__)
 
-        if not hasattr(self, "add_date"):
-            self.add_date = self.FIRST_ADD_DATE
-        assert datetime.date(*self.add_date) - datetime.date.today() < datetime.timedelta(100), \
-            f"Invalid add date {self.add_date} too far in the future."
         self.random = BuilderRandom(seed=self.name)
         self.instances = []
         self._seen_problems = set()
-        self._built_target = 0
+        # self._built_target = 0  # check if actually useful! zzzz
         self.build_time = None
-        self._already_tested = None
+        self._already_tested = None  # this is for cacheing tested solutions from the .json so we don't have to retest
 
         sol_names = [k for k in dir(self) if k.startswith("sol")]
         self.sols = [getattr(self, k) for k in sol_names]
-        self.sol_src_specs = [get_src_spec(s) for s in self.sols]
+        self.sol_bodies = []
+        for sol in self.sols:  # check solution headers and extract bodies
+            sol_src, sol_spec = get_src_spec(sol)
+            assert self.arg_names == sol_spec.args, f"mismatched problem/solution arguments for {self.name}"
+            assert not sol_spec.defaults, f"Don't set default parameter values for {self.name}.sol -- we'll do it"
+            self.sol_bodies.append(get_body(sol_src))
 
+        assert set(self.arg_names) == set(self.get_example()), f"Bad {self.name} example"
+        for v, val in self.get_example().items():
+            assert homogeneous_type(val), f"Non-homogeneous type for example var {v} in {self.name}"
+
+        # check that sat and sol's are @staticmethod's
         mro_dict = {}
         for mro in inspect.getmro(self.__class__)[::-1]:
             mro_dict.update(mro.__dict__)
         assert all(isinstance(mro_dict[k], staticmethod) for k in ["sat"] + sol_names), \
             f"{self.name} `sat` and `sol` must be defined with @staticmethod"
 
-        p_spec = self.sat_src_spec[1]
-
-        self.arg_names = p_spec.args
-        assert len(self.arg_names) > 0, f"{self.name}.problem() takes no arguments!"
-        self.types = p_spec.annotations
-
-        if self.sols:
-            s_spec = self.sol_src_specs[0][1]
-            assert self.arg_names[1:] == s_spec.args, \
-                f"mismatched problem/solution arguments for {self.name}"
-            self.types.update(s_spec.annotations)
-
-        assert set(self.arg_names[1:]) == set(self.get_example()), f"Bad {self.name} example"
-        self.types.update({v: get_type(x) for v, x in self.get_example().items() if get_type(x, True)})
-
-        for v in self.arg_names:
-            assert v in self.types, f"Cannot determine type of `{v}` in {self.name} -- no annotation/_example"
-
     def build(self, target_num_instances, already_tested={}, max_random_attempts=100, force_trivial_test=False):
-        if self._built_target == target_num_instances:
-            return
+        # if self._built_target == target_num_instances:
+        #     print(f"*** Not building, already built {target_num_instances} instances")  # zzzz
+        #     return
 
         self.check_for_trivial_solutions(force_trivial_test, already_tested)
-        self._already_tested = already_tested
+        self._already_tested = already_tested  # for checking if already tested in add method (hacky, sorry)
         self._seen_problems = set()
-        self._built_target = target_num_instances
+        # self._built_target = target_num_instances
         self.random.reseed()
         self._tested = 0
         self.instances = []
         start_time = time.perf_counter()
         self.add(self.get_example())
-
-        if self.tests:
-            tests = self.tests
-            for test in tests:
-                assert type(test) is dict, f"{self.name}.tests must be dictionaries"
-                if len(self.instances) < target_num_instances:
-                    self.add(test)
 
         if target_num_instances > len(self.instances):
             self.gen(target_num_instances - len(self.instances))
@@ -597,6 +571,8 @@ class PuzzleGenerator:
             if len(self.instances) == n:  # failed max_random_attempts, give up
                 break
 
+        self.instances = self.instances[:target_num_instances]
+
         if not self.instances:
             utils.error(f"{self.name} did not generate any problem instances")
 
@@ -608,7 +584,7 @@ class PuzzleGenerator:
 
     def check_for_trivial_solutions(self, force, already_tested):  # check for trivial solutions
         example = self.get_example()
-        src = inject_into_src(*self.sat_src_spec, "sat", example, self.types)
+        src = create_sat(self.sat_src, self.ans_name, self.ans_type, self.arg_names, example)
         if (not force and src in already_tested) or not hasattr(self, "sol"):
             return
         utils.info(f"Checking for trivial solutions to {self.name}")
@@ -679,10 +655,11 @@ class PuzzleGenerator:
 
         self._seen_problems.add(s)
 
-        assert set(inp) == set(self.arg_names[1:]), f"Instance #{len(self.instances)} keys mismatch in {self.name}"
-        for v in inp:
-            assert get_type(inp[v], ignore_errors=True) in (None, self.types[v]), \
-                f"Instance #{len(self.instances)} variable `{v}` type mismatch in {self.name}"
+        assert set(inp) == set(self.arg_names), f"Instance #{len(self.instances)} keys mismatch in {self.name}"
+        example = self.get_example()
+        for k in inp:
+            v1, v2 = example[k], inp[k]
+            assert same_types(v1, v2), f"Instance #{len(self.instances)} variable `{k}` type mismatch in {self.name}"
 
         return False
 
@@ -693,21 +670,24 @@ class PuzzleGenerator:
         if self.check_seen_input(inp):
             return  # don't add duplicate problems
 
+        sol_header = create_sol_header(inp)
+
         instance = Instance(
-            inject_into_src(*self.sat_src_spec, "sat", inp, self.types),
+            create_sat(self.sat_src, self.ans_name, self.ans_type, self.arg_names, inp),
+            self.docstring,
+            sol_header,
             f"{self.name}_{len(self.instances)}"
         )
 
         if test:
-            for s, (sol_src, sol_spec) in zip(self.sols, self.sol_src_specs):
-                sol_src = inject_into_src(sol_src, sol_spec, "sol", inp)
-                if instance.src in self._already_tested and sol_src in self._already_tested[instance.src]:
-                    instance.add_test(sol_src)
+            for s, sol_body in zip(self.sols, self.sol_bodies):
+                if instance.src in self._already_tested and sol_body in self._already_tested[instance.src]:
+                    instance.add_sol(sol_body)
                 else:
                     try:
-                        instance.check_and_add_test(
-                            sol_src,
-                            type_str=self.types[self.arg_names[0]],
+                        instance.check_and_add_sol(
+                            sol_body,
+                            ans_type=self.ans_type,
                             multiplier=self.multiplier
                         )
                         self._tested += 1
@@ -736,10 +716,9 @@ class PuzzleGenerator:
             return  # don't add duplicate problems
 
         if test:
-            var_name = self.sat_src_spec[1].args[0]
             for s in self.sols:
                 answer = s(**inp)
-                assert type_check(self.types[var_name], answer), "Puzzle {self.name} got wrong type solution"
+                assert type_check(self.ans_type, answer), "Puzzle {self.name} got wrong type solution"
                 assert self.sat(answer, **inp) is True, f"Puzzle {self.name} didn't return True on `{inp}`"
             self._tested += 1
         self.instances.append(("DEBUG TEST", bool(test and self.sols)))  # for counting purposes
@@ -762,36 +741,22 @@ def get_src_spec(f: Callable):
     return src, spec
 
 
-def inject_into_src(src, spec, new_function_name=None, defaults={}, types={}):
-    if spec.defaults:  # combine defaults, with defaults over-riding spec.defaults
-        defaults = {**dict(zip(spec.args[-len(spec.defaults):], spec.defaults)), **defaults}
-    assert all(var in spec.args for var in defaults), f"Defaults {defaults} not all in spec.args"
+def create_sol_header(defaults, function_name="sol"):
+    # could add types here if needed
+    ans = f"def {function_name}("
+    ans += ", ".join(f'{var}={utils.stringify(default)}' for var, default in defaults.items())
+    ans += "):"
+    return ans
 
-    for v, t in spec.annotations.items():
-        assert v not in types or types[v] == t, f"Annotation mismatch in {src}"
 
-    types = {**spec.annotations, **types}
-
-    func_name = (new_function_name or src[4:src.index('(')])
-
-    def need_explicit_type(var):
-        if var not in types:
-            return False
-
-        # also make type explicit for [], [[]], [[[]]], etc. since empty-list types are not clear
-        def hollow(li):  # like [[], [[], []]]
-            if type(li) != list:
-                return False
-            return all(hollow(i) for i in li)
-
-        return var not in defaults or hollow(defaults[var])
-
-    arg_st = ", ".join([var +
-                        (f": {type_str(types[var])}" if need_explicit_type(var) else "") +
-                        (f"={utils.stringify(defaults[var])}" if var in defaults else "")
-                        for var in spec.args])
-
-    return f'def {func_name}({arg_st}):' + src[src.index("):") + 2:]
+def create_sat(src, ans_name, ans_type, args, defaults, function_name="sat"):
+    assert set(defaults) == set(args), f"Add error: defaults don't match args {args} in {src}"
+    ans = f"def {function_name}({ans_name}: {ans_type}"
+    if args:
+        ans += ", " + ", ".join(f"{v_name}={utils.stringify(defaults[v_name])}" for v_name in args)
+    ans += "):\n"
+    ans += get_body(src)
+    return ans
 
 
 def get_func_name(src):

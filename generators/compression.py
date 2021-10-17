@@ -58,7 +58,8 @@ class LZW(PuzzleGenerator):
         return "".join(pieces) == text and len(seq) <= compressed_len
 
     @staticmethod
-    def sol(compressed_len, text):  # compressed_len is ignored
+    def sol(compressed_len, text):
+        # compressed_len is ignored
         index = {chr(i): i for i in range(256)}
         seq = []
         buffer = ""
@@ -84,52 +85,52 @@ class LZW(PuzzleGenerator):
         text = self.random.pseudo_word(0, max_len)
         self.add({"text": text, "compressed_len": len(_compress_LZW(text))})
 
-
-class LZW_decompress(PuzzleGenerator):
-    """We have provided a simple version of the
-    [Lempel-Ziv-Welch](https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Welch)
-    and the solution is the *decompression* algorithm.
-    """
-
-    @staticmethod
-    def sat(text: str, seq=[72, 101, 108, 108, 111, 32, 119, 111, 114, 100, 262, 264, 266, 263, 265, 33]):
-        """
-        Find a string that compresses to the target sequence for the provided implementation of the
-        Lempel-Ziv algorithm from https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Welch
-        """
-        index = {chr(i): i for i in range(256)}
-        seq2 = []
-        buffer = ""
-        for c in text:
-            if buffer + c in index:
-                buffer += c
-                continue
-            seq2.append(index[buffer])
-            index[buffer + c] = len(index) + 1
-            buffer = c
-
-        if text != "":
-            seq2.append(index[buffer])
-
-        return seq2 == seq
-
-    @staticmethod
-    def sol(seq):
-        index = [chr(i) for i in range(256)]
-        pieces = [""]
-        for i in seq:
-            pieces.append(pieces[-1] + pieces[-1][0] if i == len(index) else index[i])
-            index.append(pieces[-2] + pieces[-1][0])
-        return "".join(pieces)
-
-    def gen(self, _target_num_instances):
-        for s in ['', 'a', 'b' * 1000, 'ab' * 1000 + '!']:
-            self.add({"seq": _compress_LZW(s)})
-
-    def gen_random(self):
-        max_len = self.random.choice([10, 100, 1000])
-        text = self.random.pseudo_word(0, max_len)
-        self.add({"seq": _compress_LZW(text)})
+# Removed this puzzle because the puzzle statement would give away the solution to LZW, haha!
+# class LZW_decompress(PuzzleGenerator):
+#     """We have provided a simple version of the
+#     [Lempel-Ziv-Welch](https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Welch)
+#     and the solution is the *decompression* algorithm.
+#     """
+#
+#     @staticmethod
+#     def sat(text: str, seq=[72, 101, 108, 108, 111, 32, 119, 111, 114, 100, 262, 264, 266, 263, 265, 33]):
+#         """
+#         Find a string that compresses to the target sequence for the provided implementation of the
+#         Lempel-Ziv algorithm from https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Welch
+#         """
+#         index = {chr(i): i for i in range(256)}
+#         seq2 = []
+#         buffer = ""
+#         for c in text:
+#             if buffer + c in index:
+#                 buffer += c
+#                 continue
+#             seq2.append(index[buffer])
+#             index[buffer + c] = len(index) + 1
+#             buffer = c
+#
+#         if text != "":
+#             seq2.append(index[buffer])
+#
+#         return seq2 == seq
+#
+#     @staticmethod
+#     def sol(seq):
+#         index = [chr(i) for i in range(256)]
+#         pieces = [""]
+#         for i in seq:
+#             pieces.append(pieces[-1] + pieces[-1][0] if i == len(index) else index[i])
+#             index.append(pieces[-2] + pieces[-1][0])
+#         return "".join(pieces)
+#
+#     def gen(self, _target_num_instances):
+#         for s in ['', 'a', 'b' * 1000, 'ab' * 1000 + '!']:
+#             self.add({"seq": _compress_LZW(s)})
+#
+#     def gen_random(self):
+#         max_len = self.random.choice([10, 100, 1000])
+#         text = self.random.pseudo_word(0, max_len)
+#         self.add({"seq": _compress_LZW(text)})
 
 
 class PackingHam(PuzzleGenerator):

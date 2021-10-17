@@ -523,7 +523,8 @@ class CollatzDelay(PuzzleGenerator):
         return n == 1 and m <= 2 ** upper
 
     @staticmethod
-    def sol(t, upper):  # Faster solution for simultaneously solving multiple problems is of course possible
+    def sol(t, upper):
+        # Faster solution for simultaneously solving multiple problems is of course possible
         bound = t + 10
         while True:
             bound *= 2

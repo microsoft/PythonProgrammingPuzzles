@@ -477,6 +477,30 @@ class SubstrCount(PuzzleGenerator):
         self.add(dict(string=string, count=count))
 
 
+class CompleteParens(PuzzleGenerator):
+    @staticmethod
+    def sat(t: str, s="))(Add)some))parens()to()(balance(()(()(me!)(((("):
+        """Add parentheses to the beginning and end of s to make all parentheses balanced"""
+        for i in range(len(t) + 1):
+            depth = t[:i].count("(") - t[:i].count(")")
+            assert depth >= 0
+        return depth == 0 and s in t
+
+    @staticmethod
+    def sol(s):
+        return "(" * s.count(")") + s + ")" * s.count("(")
+
+    def gen_random(self):
+        t = ""
+        depth = 0
+        while depth > 0 or self.random.randrange(10):
+            t += self.random.choice([self.random.pseudo_word(min_len=0, max_len=3), "(", "("] + [")", ")", ")"] * (depth > 0))
+            depth = t.count("(") - t.count(")")
+        a, b = sorted([self.random.randrange(len(t) + 1) for _ in range(2)])
+        s = t[a:b]
+        if 5 < len(s) < 60:
+            self.add(dict(s=s))
+
 
 if __name__ == "__main__":
     PuzzleGenerator.debug_problems()

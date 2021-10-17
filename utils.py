@@ -24,6 +24,13 @@ def remove_docstring(f):
     return f
 
 
+def get_docstring(f):
+    assert '\n    """' in f, f"Need triple quote docstring (after four spaces) in every sat:\n{f}"
+    i = f.index('\n    """')
+    j = f.index('"""\n', i + 8)
+    return f[i + 1:j + 3]
+
+
 def flatten(it):
     return (e for a in it for e in (flatten(a) if isinstance(a, (tuple, list)) else (a,)))
 

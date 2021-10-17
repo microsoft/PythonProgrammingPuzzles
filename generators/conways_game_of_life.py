@@ -34,7 +34,8 @@ class Oscillators(PuzzleGenerator):
                 return t + 1 == period
 
     @staticmethod
-    def sol(period):  # generate random patterns, slow solution
+    def sol(period):
+        # # generate random patterns, slow solution
         # def viz(live):
         #     if not live:
         #         return
@@ -96,7 +97,8 @@ class ReverseLifeStep(PuzzleGenerator):
         return next_step == {x + y * 1j for x, y in target}
 
     @staticmethod
-    def sol(target):  # fixed-temperature MC optimization
+    def sol(target):
+        # fixed-temperature MC optimization
         TEMP = 0.05
         import random
         rand = random.Random(0)  # set seed but don't interfere with other random uses
@@ -170,7 +172,8 @@ class Spaceship(PuzzleGenerator):
     #         print("".join("X" if (i, j) in live else "," for j in range(n + 1)))
     #
     #
-    # def sol():  # generate random patterns, slow solution
+    # def sol():
+    #     # generate random patterns, slow solution
     #     def viz(live):
     #         if not live:
     #             return

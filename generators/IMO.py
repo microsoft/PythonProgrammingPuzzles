@@ -258,7 +258,8 @@ class PickNearNeighbors(PuzzleGenerator):
         return all(abs(pi[2 * i] - pi[2 * i + 1]) == 1 for i in range(n))
 
     @staticmethod
-    def sol(heights):  # Based on the judge's solution.
+    def sol(heights):
+        # Based on the judge's solution.
         n = int(len(heights) ** 0.5)
         assert sorted(heights) == list(range(n * (n + 1)))
         groups = [h // (n + 1) for h in heights]

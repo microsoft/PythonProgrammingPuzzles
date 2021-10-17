@@ -26,7 +26,8 @@ class EightQueensOrFewer(PuzzleGenerator):
         return 4 * k == len({t for i, j in squares for t in [('row', i), ('col', j), ('SE', i + j), ('NE', i - j)]})
 
     @staticmethod
-    def sol(m, n):  # brute force
+    def sol(m, n):
+        # brute force
         k = min(m, n)
 
         from itertools import permutations
@@ -95,7 +96,8 @@ class KnightsTour(PuzzleGenerator):
         return sorted(tour) == [[i, j] for i in range(m) for j in range(n)]  # cover every square once
 
     @staticmethod
-    def sol(m, n):  # using Warnsdorff's heuristic, breaking ties randomly 
+    def sol(m, n):
+        # using Warnsdorff's heuristic, breaking ties randomly
         import random
         for seed in range(100):
             r = random.Random(seed)

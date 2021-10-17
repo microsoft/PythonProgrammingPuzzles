@@ -116,7 +116,8 @@ class PlantedClique(PuzzleGenerator):
         return True
 
     @staticmethod
-    def sol(size, edges):  # brute force (finds list in increasing order), but with a tiny bit of speedup
+    def sol(size, edges):
+        # brute force (finds list in increasing order), but with a tiny bit of speedup
         if size == 0:
             return []
         from collections import defaultdict
@@ -170,7 +171,8 @@ class ShortestPath(PuzzleGenerator):
         return path[0] == 0 and path[-1] == 1 and sum(weights[a][b] for a, b in zip(path, path[1:])) <= bound
 
     @staticmethod
-    def sol(weights, bound):  # Dijkstra's algorithm (bound is ignored)
+    def sol(weights, bound):
+        # Dijkstra's algorithm (bound is ignored)
         u, v = 0, 1  # go from 0 to 1
         import heapq
         queue = [(0, u, u)]  # distance, node, trail
@@ -226,7 +228,8 @@ class UnweightedShortestPath(PuzzleGenerator):
         return len(path) <= bound
 
     @staticmethod
-    def sol(edges, u, v, bound):  # Dijkstra's algorithm
+    def sol(edges, u, v, bound):
+        # Dijkstra's algorithm
         import heapq
         from collections import defaultdict
         queue = [(0, u, u)]  # distance, node, trail
@@ -417,7 +420,8 @@ class GraphIsomorphism(PuzzleGenerator):
         return len(bi) == len(set(bi)) and {(i, j) for i, j in g1} == {(bi[i], bi[j]) for i, j in g2}
 
     @staticmethod
-    def sol(g1, g2):  # exponentially slow
+    def sol(g1, g2):
+        # exponentially slow
         from itertools import permutations
         n = max(i for g in [g1, g2] for e in g for i in e) + 1
         g1_set = {(i, j) for i, j in g1}

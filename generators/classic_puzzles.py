@@ -109,7 +109,8 @@ class LongestMonotonicSubstring(PuzzleGenerator):
         return all(s[x[i]] <= s[x[i + 1]] and x[i + 1] > x[i] >= 0 for i in range(length - 1))
 
     @staticmethod
-    def sol(length, s):  # O(N^2) method. Todo: add binary search solution which is O(n log n)
+    def sol(length, s):
+        # O(N^2) method. Todo: add binary search solution which is O(n log n)
         if s == "":
             return []
         n = len(s)
@@ -146,7 +147,8 @@ class LongestMonotonicSubstringTricky(PuzzleGenerator):
         return all(s[x[i]] <= s[x[i + 1]] and x[i + 1] > x[i] for i in range(length - 1))
 
     @staticmethod
-    def sol(length, s):  # O(N^2) method. Todo: add binary search solution which is O(n log n)
+    def sol(length, s):
+        # O(N^2) method. Todo: add binary search solution which is O(n log n)
         if s == "":
             return []
         n = len(s)
@@ -440,6 +442,231 @@ class PostageStamp(PuzzleGenerator):
         options = [self.random.randrange(1, 100) for _ in range(self.random.randrange(1, 10))]
         target = sum(self.random.choices(options, k=self.random.randrange(1, max_stamps + 1)))
         self.add(dict(target=target, max_stamps=max_stamps, options=options))
+
+
+class Sudoku(PuzzleGenerator):
+    """The classic game of [Sudoku](https://en.wikipedia.org/wiki/Sudoku)"""
+
+    @staticmethod
+    def sat(x: str, puz='____9_2___7__________1_8_4____2_78____4_____1____69____2_8___5__6__3_7___49______'):
+        """Find the unique valid solution to the Sudoku puzzle"""
+        assert all(c == "_" or c == s for (c, s) in zip(puz, x))
+
+        full = set('123456789')
+        for i in range(9):
+            assert {x[i] for i in range(9 * i, 9 * i + 9)} == full, "invalid row"
+            assert {x[i] for i in range(i, i + 81, 9)} == full, "invalid column"
+            assert {x[9 * a + b + i + 26 * (i % 3)] for a in range(3) for b in range(3)} == full, "invalid square"
+
+        return True
+
+    @staticmethod
+    def solve(puz):
+        """Simple depth-first backtracking solver that branches at the square with fewest possibilities"""
+        sets = [{int(c)} if c != '_' else set(range(1, 10)) for c in puz]
+
+        groups = []
+        for i in range(9):
+            groups.append(list(range(9 * i, 9 * i + 9)))
+            groups.append(list(range(i, i + 81, 9)))
+            groups.append([9 * a + b + i + 26 * (i % 3) for a in range(3) for b in range(3)])
+
+        inv = [[] for i in range(81)]
+        for g in groups:
+            for i in g:
+                inv[i].append(g)
+
+        def reduce():
+            """Reduce possibilities and return False if it's clearly impossible to solve, True otherwise.
+            Repeatedly applies two types of logic:
+            * When an entry has a single possibility, remove that value from all 20 neighbors
+            * When a row/col/square has only one entry with k as a possibility, fill in that possibility
+            """
+            done = False
+            while not done:
+                done = True
+                for i in range(81):
+                    new = sets[i] - {k for g in inv[i] for j in g if j != i and len(sets[j]) == 1 for k in sets[j]}
+                    if not new:
+                        return False
+                    if len(sets[i]) != len(new):
+                        sets[i] = new
+                        done = False
+
+                for g in groups:
+                    for k in range(1, 10):
+                        possibilities = [i for i in g if k in sets[i]]
+                        if not possibilities:
+                            return False
+                        if len(possibilities) == 1:
+                            i = possibilities[0]
+                            if len(sets[i]) > 1:
+                                done = False
+                                sets[i] = {k}
+
+            return True
+
+        ans = []
+
+        counter = 0
+
+        def solve_helper():
+            nonlocal sets, ans, counter
+            counter += 1
+            assert len(ans) <= 1, "Sudoku puzzle should have a unique solution"
+            old_sets = sets[:]
+            if reduce():
+                if all(len(s) == 1 for s in sets):
+                    ans.append("".join(str(list(s)[0]) for s in sets))
+                else:
+                    smallest_set = min(range(81), key=lambda i: len(sets[i]) if len(sets[i]) > 1 else 10)
+                    for v in sorted(sets[smallest_set]):
+                        sets[smallest_set] = {v}
+                        solve_helper()
+
+            sets = old_sets
+
+        solve_helper()
+        assert ans, "No solution found"
+        return ans[0]
+
+    @staticmethod
+    def print_board(board):
+        """Helpful method used for development"""
+        for i in range(9):
+            for j in range(9):
+                print(board[9 * i + j], end=" " if j == 2 or j == 5 else "")
+            print()
+            if i == 2 or i == 5:
+                print()
+
+    @staticmethod
+    def print_sets(sets):
+        """Helpful method used for development"""
+        ans = ""
+        for i in range(9):
+            for j in range(9):
+                ans += " " + "".join(str(k) if k in sets[9 * i + j] else "_" for k in range(1, 10))
+                if j == 2 or j == 5:
+                    ans += "  | "
+            if i == 8:
+                print(ans)
+                return
+            ans += "\n"
+            if i == 2 or i == 5:
+                ans += "\n"
+
+
+    @staticmethod
+    def gen_sudoku_puzzle(rand):
+
+        groups = []
+        for i in range(9):
+            groups.append(list(range(9 * i, 9 * i + 9)))
+            groups.append(list(range(i, i + 81, 9)))
+            groups.append([9 * a + b + i + 26 * (i % 3) for a in range(3) for b in range(3)])
+
+        inv = [[] for i in range(81)]
+        for g in groups:
+            for i in g:
+                inv[i].append(g)
+
+        def solve(puz):
+            """Basically the same as our solver above except that it returns a list of (up to 2) solutions."""
+            sets = [{int(c)} if c != '_' else set(range(1, 10)) for c in puz]
+
+            def reduce():
+                """Reduce possibilities and return False if it's clearly impossible to solve, True otherwise.
+                Repeatedly applies two types of logic:
+                * When an entry has a single possibility, remove that value from all 20 neighbors
+                * When a row/col/square has only one entry with k as a possibility, fill in that possibility
+                """
+                done = False
+                while not done:
+                    done = True
+                    for i in range(81):
+                        new = sets[i] - {k for g in inv[i] for j in g if j != i and len(sets[j]) == 1 for k in sets[j]}
+                        if not new:
+                            return False
+                        if len(sets[i]) != len(new):
+                            sets[i] = new
+                            done = False
+
+                    for g in groups:
+                        for k in range(1, 10):
+                            possibilities = [i for i in g if k in sets[i]]
+                            if not possibilities:
+                                return False
+                            if len(possibilities) == 1:
+                                i = possibilities[0]
+                                if len(sets[i]) > 1:
+                                    done = False
+                                    sets[i] = {k}
+
+                return True
+
+            ans = []
+
+            counter = 0
+
+            def solve_helper():
+                nonlocal sets, ans, counter
+                counter += 1
+                if len(ans) > 1:
+                    return
+                old_sets = sets[:]
+                if reduce():
+                    if all(len(s) == 1 for s in sets):
+                        ans.append("".join(str(list(s)[0]) for s in sets))
+                    else:
+                        smallest_set = min(range(81), key=lambda i: len(sets[i]) if len(sets[i]) > 1 else 10)
+                        pi = sorted(sets[smallest_set])
+                        rand.shuffle(pi)
+                        for v in pi:
+                            sets[smallest_set] = {v}
+                            solve_helper()
+
+                sets = old_sets
+
+            solve_helper()
+            return ans
+
+        x = ["_"] * 81
+        perm = list("123456789")
+        rand.shuffle(perm)
+        x[:9] == perm
+        x = list(solve(x)[0])
+
+        done = False
+        while not done:
+            done = True
+            pi = list([i for i in range(81) if x[i]!="_"])
+            rand.shuffle(pi)
+            for i in pi:
+                old = x[i]
+                x[i] = "_"
+                ans = solve("".join(x))
+                assert ans
+                if len(ans)>1:
+                    x[i] = old
+                else:
+                    done = False
+            # print()
+            # Sudoku.print_board(x)
+            # print("                    ", 81-x.count("_"))
+
+        return "".join(x)
+
+
+    def gen_random(self):
+
+        puz = None
+        for attempt in range(10 if len(self.instances)<10 else 1):
+            puz2 = Sudoku.gen_sudoku_puzzle(self.random)
+            if puz is None or puz2.count("_") > puz.count("_"):
+                puz = puz2
+
+        self.add(dict(puz=puz))
 
 
 class SquaringTheSquare(PuzzleGenerator):

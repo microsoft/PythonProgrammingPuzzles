@@ -30,7 +30,8 @@ class BackWorlds(PuzzleGenerator):
         return ' olleH'
 
     @staticmethod
-    def sol2():  # solution methods must begin with 'sol'
+    def sol2():
+        # solution methods must begin with 'sol'
         return 'Hello '[::-1]
 
 

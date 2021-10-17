@@ -27,7 +27,8 @@ class LearnParity(PuzzleGenerator):
         return all(sum((v >> i) & 1 for i in inds) % 2 == 1 for v in vecs)
 
     @staticmethod
-    def sol(vecs):  # Gaussian elimination
+    def sol(vecs):
+        # Gaussian elimination
         d = 0 # decode vectors into arrays
         m = max(vecs)
         while m:
@@ -85,7 +86,8 @@ class LearnParityWithNoise(PuzzleGenerator):
         return sum(sum((v >> i) & 1 for i in inds) % 2 for v in vecs) >= len(vecs) * 3 / 4
 
     @staticmethod
-    def sol(vecs):  # brute force
+    def sol(vecs):
+        # brute force
         d = 0 # decode vectors into arrays
         m = max(vecs)
         while m:

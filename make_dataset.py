@@ -14,7 +14,7 @@ parser = argparse.ArgumentParser(
 parser.add_argument('--target_num_per_problem',
                     '-n',
                     type=int,
-                    default=10,
+                    default=3,
                     help='Target number of variants to generate per problem.')
 
 parser.add_argument('--solutions',
@@ -173,7 +173,7 @@ def main(args):
 
     try:
         last_version = utils.load_json(args.json)
-        already_tested_cache = {puz["sat"]: {sol for sol in puz["sols"]} for puz in last_version}
+        already_tested_cache = {puz["sat"]: {sb for sb in puz["sol_bodies"]} for puz in last_version}
     except:
         already_tested_cache = {}
 
@@ -190,7 +190,7 @@ def main(args):
 
     for module_name, gens in gens_by_module.items():  # order determined by generators/__init__.py
         readme_examples = []
-        downweight = 1.0 / sum(cls.multiplier for cls in gens)  # this causes each module to be weighted equally
+        downweight = 1.0 / len(gens)  # this causes each module to be weighted equally except for multipliers
         for cls in gens:
             gen = cls()
             gen.build(args.target_num_per_problem, already_tested_cache)
@@ -198,10 +198,12 @@ def main(args):
                 {
                     "name": i.name,
                     "sat": i.src,
-                    "sols": i.sol_srcs,
+                    "ans_type": gen.ans_type,
+                    "sol_header": i.sol_header,
+                    "docstring": i.docstring,
+                    "sol_bodies": i.sol_bodies,
                     "module": module_name,
                     "notes": gen.desc,
-                    "add_date": "-".join(str(i) for i in gen.add_date),
                     "weight": gen.multiplier * downweight / len(gen.instances)
                 }
                 for i in gen.instances]
@@ -210,7 +212,7 @@ def main(args):
                 "name": gen.name,
                 "desc": gen.desc,
                 "sat": gen.instances[0].src,
-                "sols": gen.instances[0].sol_srcs,
+                "sols": gen.instances[0].sol_bodies,
                 "n_instances": len(instances)
             })
 
@@ -218,11 +220,6 @@ def main(args):
             "docstring": inspect.getmodule(gens[0]).__doc__,
             "examples": readme_examples
         }
-
-    for p in puzzles:
-        if p["sat"] == utils.remove_docstring(p["sat"]):
-            print(p["sat"])
-            assert False, f"Puzzle {p['name']} in {p['module']} doesn't have a valid docstring"
 
     utils.save_json(puzzles, args.json, make_dirs_if_necessary=True, indent=2)
     save_readme(summaries, args.readme, args.solutions)

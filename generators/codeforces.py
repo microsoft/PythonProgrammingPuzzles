@@ -339,7 +339,6 @@ class SlidingOne(PuzzleGenerator):
 class SortPlusPlus(PuzzleGenerator):
     """Inspired by [Codeforces Problem 339 A](https://codeforces.com/problemset/problem/339/A)"""
 
-
     @staticmethod
     def sat(s: str, inp="1+1+3+1+3+2+2+1+3+1+2"):
         """Sort numbers in a sum of digits, e.g., 1+3+2+1 -> 1+1+2+3"""
@@ -401,7 +400,8 @@ class LongestSubsetString(PuzzleGenerator):
         return len(t) >= target and all(t[i] != t[i + 1] for i in range(len(t) - 1))
 
     @staticmethod
-    def sol(s, target):  # target is ignored
+    def sol(s, target):
+        # target is ignored
         return s[:1] + "".join([b for a, b in zip(s, s[1:]) if b != a])
 
     def gen_random(self):
@@ -1261,6 +1261,141 @@ class MinRotations(PuzzleGenerator):
         target = self.random.pseudo_word()
         upper = sum(abs(r) for r in self.sol(target, None))
         self.add(dict(target=target, upper=upper))
+
+
+class BillSums(PuzzleGenerator):
+    """Inspired by [Codeforces Problem 996 A](https://codeforces.com/problemset/problem/996/A)
+
+    We make it much harder when the denominations are non-American so the greedy algorithm doesn't work.
+    """
+
+    @staticmethod
+    def sat(bills: List[int], denominations=[1, 25, 35, 84], n=980, max_len=14):
+        """
+        Find the shortest sequence (length <= max_len) that sum to n, where each number is in denominations
+        """
+        return sum(bills) == n and all(b in denominations for b in bills) and len(bills) <= max_len
+
+    @staticmethod
+    def sol(denominations, n, max_len):
+        """
+        This solution uses dynamic programming, I believe it could be further sped up without having to count
+        all the way up to denominations.
+        """
+        denominations = sorted(set(denominations)) # remove duplicates
+        seqs = [[0 for _ in denominations] +[0]]  # vectors
+        for i in range(1, n + 1):
+            _, j, k = min((seqs[i - k][-1], j, k) for j, k in enumerate(denominations) if k <= i)
+            s = seqs[i - k]
+            seqs.append([*s[:j], s[j] + 1, *s[j + 1:-1], s[-1] + 1])
+
+        return [k for k, count in zip(denominations, seqs[-1]) for _ in range(count)]
+
+    @staticmethod
+    def greedy_len(denominations, n):
+        ans = 0
+        while n > 0:
+            n -= max([d for d in denominations if d <= n])
+            ans += 1
+        return ans
+
+    def add_with_max_len(self, denominations, n):
+        max_len = len(self.sol(denominations, n, None))
+        delta = self.greedy_len(denominations, n) - max_len
+        self.add(dict(denominations=denominations, n=n, max_len=max_len))
+
+    def gen(self, target_num_instances):
+        self.add_with_max_len([1, 5, 7, 11], 29377)
+        self.add_with_max_len([1, 44, 69], 727)
+        self.add_with_max_len([1, 25, 29], 537)
+
+    def gen_random(self):
+        denom_set = {self.random.randrange(2, self.random.choice([10, 100])) for _ in range(self.random.randrange(10))}
+        denominations = [1] + sorted(denom_set)
+        n = self.random.randrange(1000)
+        self.add_with_max_len(denominations, n)
+
+
+class BoxVolume(PuzzleGenerator):
+    """(Also) inspired by [Codeforces Problem 996 A](https://codeforces.com/problemset/problem/996/A)
+
+    We make it much much harder by making it a multiplication problem where the greedy algorithm doesn't work.
+    """
+
+    @staticmethod
+    def sat(sides: List[int], options=[2, 512, 1024], n=340282366920938463463374607431768211456, max_dim=13):
+        """
+        Find the side lengths of a box in fewest dimensions (dimension <= max_dim) whose volume is n,
+         where each side length is in options
+        """
+        prod = 1
+        for b in sides:
+            prod *= b
+        return prod == n and set(sides) <= set(options) and len(sides) <= max_dim
+
+    @staticmethod
+    def sol(options, n, max_dim):
+        options = sorted(set(options))
+        base = options[0]
+        logs = []
+        for i in options + [n]:
+            j = 1
+            log = 0
+            while j < i:
+                log +=1
+                j *= base
+            assert j == i, "All numbers must be a power of the smallest number"
+            logs.append(log)
+        denominations, n = logs[:-1], logs[-1]
+
+        seqs = [[0 for _ in denominations] +[0]]  # vectors
+        for i in range(1, n + 1):
+            _, j, k = min((seqs[i - k][-1], j, k) for j, k in enumerate(denominations) if k <= i)
+            s = seqs[i - k]
+            seqs.append([*s[:j], s[j] + 1, *s[j + 1:-1], s[-1] + 1])
+
+        return [base ** k for k, count in zip(denominations, seqs[-1]) for _ in range(count)]
+
+    @staticmethod
+    def greedy_len(options, n):
+        options = sorted(set(options))
+        base = options[0]
+        logs = []
+        for i in options + [n]:
+            j = 1
+            log = 0
+            while j < i:
+                log +=1
+                j *= base
+            assert j == i, "All numbers must be a power of the smallest number"
+            logs.append(log)
+        denominations, n = logs[:-1], logs[-1]
+
+        ans = 0
+        while n > 0:
+            n -= max([d for d in denominations if d <= n])
+            ans += 1
+        return ans
+
+    def add_with_max_dim(self, options, n):
+        max_dim = len(self.sol(options, n, None))
+        delta = self.greedy_len(options, n) - max_dim
+        self.add(dict(options=options, n=n, max_dim=max_dim))
+
+    def gen(self, target_num_instances):
+        self.add_with_max_dim([2**1, 2**5, 2**7, 2**11], 2**29377)
+        self.add_with_max_dim([5**1, 5**44, 5**69], 5**727)
+        self.add_with_max_dim([7**1, 7**25, 7**29], 7**537)
+
+    def gen_random(self):
+        base = self.random.choice([2,3, 5, 7])
+        n = base ** self.random.randrange(500)
+        if n < 10**100:
+            denom_set = {self.random.randrange(2, self.random.choice([10, 20])) for _ in range(self.random.randrange(6))}
+            denominations = [1] + sorted(denom_set)
+            options = [base**d for d in denominations]
+
+            self.add_with_max_dim(options, n)
 
 
 if __name__ == "__main__":
