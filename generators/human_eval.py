@@ -6,8 +6,48 @@ version released 7/7/21."""
 from puzzle_generator import PuzzleGenerator
 from typing import List
 
+"""
+Some that came out especially nicely as puzzles:
+ParenthesesPermutation
+Derivative
+Frac/ClosestInteger
+HeronTriangle
+RomanNumerals
+ClosestPalindrome
+WildSort
+Intersperse
+SimplifyProductFraction
+Fib4
+MinSquaredDeviation
+DiffChars
+RotateString
+EvaluateOperators
+Grader
+Median
+TripleZeroSum
+PrimeFib
+
+Some that weren't such natural puzzles:
+CircularShiftNum
+ReplaceMe
+MinSubArraySum
+Buckets
+OddEvenSum
+FindStrangeSum
+EvenSqure
+StrongestExtension
+HungryRabbits
+ReverseCase
+MatchBrackets
+ListTotal
+BelowThreshold
+RemoveVowels
+"""
+
 
 # See https://github.com/microsoft/PythonProgrammingPuzzles/wiki/How-to-add-a-puzzle to learn about adding puzzles
+
+
 
 class FindCloseElements(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#0"""
@@ -118,7 +158,7 @@ class FirstNegCumulative(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#3"""
 
     @staticmethod
-    def sat(n: int, balances=[2, 7, -2, 4, 3, -15, 10, -45, 3]):
+    def sat(firsts: List[int], balances=[[2, 7, -2, 4, 3, -15, 10, -45, 3], [3, 4, -17, -1], [100, -100, -101], [-1]]):
         """
         Given a list of numbers which represent bank deposits and withdrawals, find the *first* negative balance.
 
@@ -128,73 +168,34 @@ class FirstNegCumulative(PuzzleGenerator):
         Sample Output:
         -89
         """
-        total = 0
-        for b in balances:
-            total += b
-            if total < 0:
-                return total == n
+        for i, bals in enumerate(balances):
+            total = 0
+            for b in bals:
+                total += b
+                if total < 0:
+                    assert total == firsts[i]
+                    break
+        return True
 
     @staticmethod
     def sol(balances):
-        total = 0
-        for b in balances:
-            total += b
-            if total < 0:
-                return total
-        assert False, "should not reach here"
+        firsts = []
+        for bals in balances:
+            total = 0
+            for b in bals:
+                total += b
+                if total < 0:
+                    firsts.append(total)
+                    break
+        return firsts
 
     def gen_random(self):
-        length = self.random.randrange(1, 11)
-        while True:
-            balances = [self.random.randrange(-10 ** 10, 10 ** 10) for _ in range(length)]
-            if any(sum(balances[:i + 1]) < 0 for i in range(length)):
-                self.add(dict(balances=balances))
-                return
-
-
-class NegCumulative_Trivial(PuzzleGenerator):
-    """
-    Inspired by [HumanEval](https://github.com/openai/human-eval) \\#3
-    (see also FirstNegCumulative above which is not as trivial)
-    This version is a more direct translation of the problem but it can of course
-    be solved trivially just by trying both neg=True and neg=False
-    """
-
-    @staticmethod
-    def sat(neg: bool, balances=[2, 7, -2, 4, 3, -15, 10, -45, 3]):
-        """
-        Given a list of numbers which represent bank deposits and withdrawals,
-        determine if the cumulative sum is negative.
-
-        Sample Input:
-        [12, -5, 3, -99, 14, 88, -99]
-
-        Sample Output:
-        True
-        """
-        total = 0
-        for b in balances:
-            total += b
-            if total < 0:
-                return neg == True
-        return neg == False
-
-    @staticmethod
-    def sol(balances):
-        total = 0
-        for b in balances:
-            total += b
-            if total < 0:
-                return True
-        return False
-
-    def gen_random(self):
-        length = self.random.randrange(1, 11)
-        while True:
-            balances = [self.random.randrange(-10 ** 10, 10 ** 10) for _ in range(length)]
-            if any(sum(balances[:i + 1]) < 0 for i in range(length)):
-                self.add(dict(balances=balances))
-                return
+        balances = [
+            [self.random.randrange(-10 ** 10, 10 ** 10) for _ in range(self.random.randrange(1, 11))]
+            for _ in range(10)
+        ]
+        balances = [bals for bals in balances if any(sum(bals[:i + 1]) < 0 for i in range(len(bals)))]
+        self.add(dict(balances=balances))
 
 
 class MinSquaredDeviation(PuzzleGenerator):
@@ -221,7 +222,7 @@ class MinSquaredDeviation(PuzzleGenerator):
         Sample Output:
         17.14285
         """
-        return sum((n - x) ** 2 for n in nums) <= sum((m - n) ** 2 for m in nums for n in nums) * 0.501 / len(nums)
+        return sum((n - x) ** 2 for n in nums) * len(nums) <= sum((m - n) ** 2 for m in nums for n in nums) * .5 + 1e-4
 
     @staticmethod
     def sol(nums):
@@ -229,16 +230,12 @@ class MinSquaredDeviation(PuzzleGenerator):
 
     def gen_random(self):
         length = self.random.randrange(1, 11)
-        nums = [self.random.randrange(-10 ** 10, 10 ** 10) for _ in range(length)]
+        nums = [self.random.randrange(-100, 100) for _ in range(length)]
         self.add(dict(nums=nums))
 
 
 class Intersperse(PuzzleGenerator):
-    """
-    Inspired by [HumanEval](https://github.com/openai/human-eval) \\#5
-
-    The one-liner version is `li[::2] == nums and li[1::2] == [sep] * (len(li) - 1)`
-    """
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#5"""
 
     @staticmethod
     def sat(li: List[int], nums=[12, 23, -2, 5, 0], sep=4):
@@ -252,12 +249,7 @@ class Intersperse(PuzzleGenerator):
         Sample Output:
         [8, 3, 14, 3, 21, 3, 17, 3, 9, 3, -5]
         """
-        assert len(li) == max(0, len(nums) * 2 - 1)
-        for i, n in enumerate(nums):
-            assert li[2 * i] == n
-            if i > 0:
-                assert li[2 * i - 1] == sep
-        return True
+        return li[::2] == nums and li[1::2] == [sep] * (len(nums) - 1)
 
     @staticmethod
     def sol(nums, sep):
@@ -276,7 +268,7 @@ class DeepestParens(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#6"""
 
     @staticmethod
-    def sat(depths: List[int], parens='() (()) ((()()())) (())'):
+    def sat(depths: List[int], parens='() (()) ((()()())) (((((((())))))))'):
         """
         Given a string consisting of groups of matched nested parentheses separated by parentheses,
         compute the depth of each group.
@@ -408,37 +400,6 @@ class SumProduct(PuzzleGenerator):
         self.add(dict(tot=tot, prod=prod))
 
 
-class SumProduct_Trivial(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#8"""
-
-    @staticmethod
-    def sat(sum_prod: List[int], nums=[1, 3, 2, -6, 19]):
-        """
-        Find the sum and product of a list of numbers.
-
-        Sample Input:
-        [2, 8, 2]
-
-        Sample Output:
-        [12, 32]
-        """
-        p = 1
-        for n in nums:
-            p *= n
-        return sum_prod == [sum(nums), p]
-
-    @staticmethod
-    def sol(nums):
-        p = 1
-        for n in nums:
-            p *= n
-        return [sum(nums), p]
-
-    def gen_random(self):
-        nums = [self.random.randrange(-100, 100) for _ in range(self.random.randrange(1, 5))]
-        self.add(dict(nums=nums))
-
-
 class RollingMax(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#9"""
 
@@ -478,34 +439,6 @@ class RollingMax(PuzzleGenerator):
     def gen_random(self):
         nums = [self.random.randrange(-100, 100) for _ in range(self.random.randrange(10))]
         self.add(dict(nums=nums))
-
-
-class PalindromeStartingWith(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#10"""
-
-    @staticmethod
-    def sat(ans: str, s="so easy", length=13):
-        """
-        Find a palindrome of a given length starting with a given string.
-
-        Sample Input:
-        "foo", 4
-
-        Sample Output:
-        "foof"
-        """
-        return ans == ans[::-1] and len(ans) == length and ans.startswith(s)
-
-    @staticmethod
-    def sol(s, length):
-        return s[:length // 2] + ' ' * (length - len(s) * 2) + s[:(length + 1) // 2][::-1]
-
-    def gen_random(self):
-        part = "".join([self.random.choice("ab") for _ in range(self.random.randrange(20))])
-        pal = part + self.random.choice([part, part[:-1]])[::-1]
-        n = self.random.randrange(len(pal) + 1)
-        s = pal[:n]
-        self.add(dict(s=s, length=len(pal)))
 
 
 class PalindromeContaining(PuzzleGenerator):
@@ -919,69 +852,74 @@ class FilterInts(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#22"""
 
     @staticmethod
-    def sat(indexes: List[int], li=["Hello", "5", "10", "bye"], num=2):
+    def sat(candidates: List[str], int_indices=[2, 4, 7, 9, 101]):
         """
-        Find the indices of valid python integers in a list of strings
+        Find a list of strings where the only valid integers are at the given indices
 
         Sample input
         ---
-        ["18.5", "-1", "2+2", "7", "foo"]
+        [2, 4, 5]
 
         Sample output
         ---
-        [1, 3]
+        ["cat", "2.7", "2", "", "3", "-17", "free"]
         """
-        [int(li[i]) for i in indexes]
-        return len(set(indexes)) >= num and min(indexes) >= 0
+        for i in int_indices:
+            int(candidates[i])
+        for i, s in enumerate(candidates):
+            if i not in int_indices:
+                try:
+                    int(s)
+                    return False
+                except ValueError:
+                    pass
+        return True
 
     @staticmethod
-    def sol(li, num):
-        ans = []
-        for i in range(len(li)):
-            try:
-                int(li[i])
-                ans.append(i)
-            except:
-                pass
+    def sol(int_indices):
+        if not int_indices:
+            return []
+        ans = [""] * (1 + max(abs(i) for i in int_indices))
+        for i in int_indices:
+            ans[i] = "17"
         return ans
 
     def gen_random(self):
-        chars = "0123456789+-*'e. "
-        ans = []
-        length = self.random.randrange(10)
-        for _ in range(length):
-            ans.append("".join(self.random.choice(chars) for i in range(self.random.randrange(10))))
+        int_indices = [self.random.randrange(100) for _ in range(self.random.randrange(10))]
+        self.add(dict(int_indices=int_indices))
 
 
 class StrLength(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#23"""
 
     @staticmethod
-    def sat(length: int, s="pneumonoultramicroscopicsilicovolcanoconiosis"):
+    def sat(lengths: List[int], strs=["pneumonoultramicroscopicsilicovolcanoconiosis", " ", "foo", "2.5"]):
         """
-        Find the length of a non-empty string
+        Find the lengths of a list of non-empty strings
 
         Sample input
         ---
-        "foo"
+        ["foo", "bars"]
 
         Sample output
         ---
-        3
+        [3, 4]
         """
-        try:
-            s[length]
-        except IndexError:
-            s[length - 1]
-            return True
+        for length, s in zip(lengths, strs):
+            try:
+                s[length]
+                return False
+            except IndexError:
+                s[length - 1]
+        return len(lengths) == len(strs)
 
     @staticmethod
-    def sol(s):
-        return len(s)
+    def sol(strs):
+        return [len(s) for s in strs]
 
     def gen_random(self):
-        s = self.random.string(min_len=1, max_len=50)
-        self.add(dict(s=s))
+        strs = [self.random.string(min_len=1, max_len=50) for _ in range(10)]
+        self.add(dict(strs=strs))
 
 
 class LargestDivisor(PuzzleGenerator):
@@ -1216,32 +1154,34 @@ class FindPositives(PuzzleGenerator):
         self.add(dict(nums=nums))
 
 
-class FermatComposite(PuzzleGenerator):
+class FermatComposites(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#31"""
 
     @staticmethod
-    def sat(certificate: int, n=1449):
+    def sat(certificates: List[int], nums=[1449, 14, 21, 105, 217]):
         """
-        Find a Fermat composite certificate for a number n > 1
+        Find Fermat composite certificates for a list of numbers > 1
 
         Sample Input:
-        1469
+        [1469]
 
         Sample Output:
-        3  # because (3 ** 1468) % 1469 != 1
+        [3]  # because (3 ** 1468) % 1469 != 1
         """
-        return pow(certificate, n - 1, n) > 1
+        return all(pow(cert, n - 1, n) > 1 for cert, n in zip(certificates, nums)) and len(certificates) == len(nums)
 
     @staticmethod
-    def sol(n):
-        return next(i for i in range(2, n) if pow(i, n - 1, n) > 1)
+    def sol(nums):
+        return [next(i for i in range(2, n) if pow(i, n - 1, n) > 1) for n in nums]
 
     def gen_random(self):
-        a, b = [self.random.randrange(3, 10 ** 5, 2) for _ in range(2)]
-        if not self.random.randrange(10):
-            a += 1
-        n = a * b
-        self.add(dict(n=n))
+        nums = []
+        for _ in range(self.random.randrange(10)):
+            a, b = [self.random.randrange(3, 10 ** 5, 2) for _ in range(2)]
+            if not self.random.randrange(10):
+                a += 1
+            nums.append(a * b)
+        self.add(dict(nums=nums))
 
 
 class OddDegreePolynomialRoot(PuzzleGenerator):
@@ -1379,7 +1319,7 @@ class MaxInt(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#35"""
 
     @staticmethod
-    def sat(m: int, hello=[1, 31, 3, 2, 0, 18, 32, -4, 2, -1000, 35, 35, 21, 18, 2, 60]):
+    def sat(m: int, hello=[1, 31, 3, 2, 0, 18, 32, -4, 2, -1000, 3502145, 3502145, 21, 18, 2, 60]):
         """
         Find the largest integer in a sequence
 
@@ -1427,7 +1367,7 @@ class SevenElevenThirteen(PuzzleGenerator):
     def gen(self, target_num_instances):
         lower = 0
         n = 0
-        while len(self.instances) < target_num_instances:
+        while self.num_generated_so_far() < target_num_instances:
             if n % 11 == 0 or n % 13 == 0:
                 lower += str(n).count('7')
             n += 1
@@ -1480,6 +1420,12 @@ class ThreeCycle(PuzzleGenerator):
         """
         Given a target string, find a string s such that when each group of three consecutive characters is cycled
         forward one character, you achieve the target string.
+
+        Sample Input:
+        "This is a test"
+
+        Sample Output:
+        'hiT is aste st'
         """
 
         def cycle3(trip):
@@ -1510,6 +1456,12 @@ class PrimeFib(PuzzleGenerator):
     def sat(n: int, lower=123456):
         """
         Find a prime Fibonacci number bigger than a certain threshold, using Ira Gessel's test for Fibonacci numbers.
+
+        Sample Input:
+        10
+
+        Sample Output:
+        11
         """
         assert any((i ** 0.5).is_integer() for i in [5 * n * n - 4, 5 * n * n + 4]), "n must be a Fibonacci number"
         assert all(n % i for i in range(2, int(n ** 0.5) + 1)), "n must be prime"
@@ -1529,25 +1481,40 @@ class PrimeFib(PuzzleGenerator):
 
 
 class TripleZeroSum(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#40"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#40
+    
+    Similar to but harder than PairZeroSum \#43.
+    
+    This is a version of the classic [3SUM](https://en.wikipedia.org/wiki/3SUM) problem.
+    """
 
     @staticmethod
-    def sat(inds: List[int], nums=[12, -10452, 18242, 10440]):
+    def sat(inds: List[int], nums=[12, 6, 41, 15, -10452, 18242, 10440, 6, 6, 6, 6]):
         """
         Find the indices of three numbers that sum to 0 in a list.
+
+        --- Example input ---
+        [1, 2, 4, -3, 5]
+
+        --- Example output ---
+        [0, 1, 3]
         """
-        return len(inds) == 3 and sum(nums[i] for i in inds) == 0 and min(inds) >= 0
+        return len(inds) == 3 and sum(nums[i] for i in inds) == 0
 
     @staticmethod
     def sol(nums):
-        assert len(nums) == 4
-        n = sum(nums)
-        for i in range(4):
-            if nums[i] == n:
-                return [j for j in range(4) if j != i]
+        # \tilde{O}(n^2) algorithm
+        inv = {n: i for i, n in enumerate(nums)}  # note that later duplicates will override earlier entries
+        for i, n in enumerate(nums):
+            if inv[n] == i:
+                del inv[n]
+            if any((-m - n) in inv for m in nums[:i]):  # found solution!
+                j, m = next((j, m) for j, m in enumerate(nums) if (-m - n) in inv)
+                k = inv[-m - n]
+                return sorted([i, j, k])
 
     def gen_random(self):
-        nums = [self.random.randrange(-100, 100) for _ in range(3)]
+        nums = [self.random.randrange(-100, 100) for _ in range(self.random.randrange(2, 10))]
         nums.append(-sum(nums[:2]))
         self.random.shuffle(nums)
         self.add(dict(nums=nums))
@@ -1561,6 +1528,12 @@ class NumPasses(PuzzleGenerator):
         """
         Given n cars traveling East and n cars traveling West on a road, how many passings will there be?
         A passing is when one car passes another. The East-bound cars all begin further West than the West-bound cars.
+
+        --Sample input--
+        2
+
+        --Sample output--
+        4
         """
         for i in range(n):
             for j in range(n):
@@ -1587,6 +1560,12 @@ class ListInc(PuzzleGenerator):
     def sat(new_list: List[int], old_list=[321, 12, 532, 129, 9, -12, 4, 56, 90, 0]):
         """
         Decrement each element of new_list by 1 and check that it's old_list
+
+        Sample Input:
+        [17, 15, 99]
+
+        Sample Output:
+        [18, 16, 100]
         """
         return [i - 1 for i in new_list] == old_list
 
@@ -1602,15 +1581,23 @@ class ListInc(PuzzleGenerator):
 class PairZeroSum(PuzzleGenerator):
     """
     Inspired by [HumanEval](https://github.com/openai/human-eval) \\#43
+
+    Similar to TripleZeroSum \#40
     """
 
     @staticmethod
     def sat(inds: List[int], nums=[12, -10452, 18242, 10440, 81, 241, 525, -18242, 91, 20]):
         """
         Find the indices of two numbers that sum to 0 in a list.
+
+        Sample Input:
+        [1, -4, -4, 7, -3]
+
+        Sample Output:
+        [1, 2]
         """
         a, b = inds
-        return nums[a] + nums[b] == 0
+        return nums[a] + nums[b] == 0 and a >= 0 and b >= 0
 
     @staticmethod
     def sol(nums):
@@ -1637,6 +1624,12 @@ class ChangeBase(PuzzleGenerator):
     def sat(s: str, n=142, base=7):
         """
         Write n in the given base as a string
+
+        Sample Input:
+        n=23, base=12
+
+        Sample Output:
+        '1A'
         """
         return int(s, base) == n
 
@@ -1662,6 +1655,12 @@ class TriangleArea(PuzzleGenerator):
     def sat(height: int, area=1319098728582, base=45126):
         """
         Find the height of a triangle given the area and base. It is guaranteed that the answer is an integer.
+
+        Sample Input:
+        area = 6, base = 3
+
+        Sample Output:
+        4
         """
         return base * height == 2 * area
 
@@ -1690,6 +1689,12 @@ class Fib4(PuzzleGenerator):
         Define a four-wise Fibonacci sequence to be a sequence such that each number is the sum of the previous
         four. Given a target number, find an initial four numbers such that the 100th number in the sequence is the
         given target number.
+
+        Sample Input:
+        0
+
+        Sample Output:
+        [0, 0, 0, 0]
         """
         a, b, c, d = init
         for i in range(99):
@@ -1720,6 +1725,12 @@ class Median(PuzzleGenerator):
     def sat(x: int, nums=[132666041, 237412, 28141, -12, 11939, 912414, 17], upper=133658965):
         """
         Find an integer that minimizes the sum of absolute deviations with respect to the given numbers.
+
+        Sample Input:
+        [3, 6, 1, 2, 5, 4, 100], upper=105
+
+        Sample Output:
+        4
         """
         dev = sum(n - x for n in nums)
         return dev <= upper
@@ -1735,24 +1746,33 @@ class Median(PuzzleGenerator):
         self.add(dict(nums=nums, upper=upper))
 
 
-class Palindrome_Trivial(PuzzleGenerator):
+class Palindrome(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#48"""
 
     @staticmethod
-    def sat(p: bool, s="This problem is trivial but common"):
+    def sat(pals: List[bool], strs=["palindrome", "madamimadam", "", "foo", "eyes", "(-:-)"]):
         """
-        Test whether the given string is a palindrome
+        Test whether the given strings are palindromes
+
+        Sample Input:
+        ["aba", "no"]
+
+        Sample Output:
+        [True, False]
         """
-        return p == (s == s[::-1])
+        return all(pals[i] == (s == s[::-1]) for i, s in enumerate(strs))
 
     @staticmethod
-    def sol(s):
-        return s == s[::-1]
+    def sol(strs):
+        return [s == s[::-1] for s in strs]
 
     def gen_random(self):
-        s = self.random.pseudo_word()
-        s = self.random.choice([s, s + s[::-1], s[:-1] + s[::-1]])
-        self.add(dict(s=s))
+        strs = []
+        for _ in range(self.random.randrange(10)):
+            s = self.random.pseudo_word()
+            strs.append(self.random.choice([s, s + s[::-1], s[:-1] + s[::-1]]))
+
+        self.add(dict(strs=strs))
 
 
 class LittleFermat(PuzzleGenerator):
@@ -1764,6 +1784,12 @@ class LittleFermat(PuzzleGenerator):
         Fermat's little theorem implies that any polynomial can be written equivalently as a degree p-1
         polynomial (mod p).
         Given the p coefficients of a polynomial poly, compute a polynomial equivalent to poly^d (mod p).
+
+        Sample Input:
+        d=2, poly=[1, 0, 0, 1, 0]  # 1 + x^3
+
+        Sample Output:
+        [1, 0, 1, 2, 0]  # 1+ x^2 + 2x^3 because (1 + x^3)^2 = 1 + 2x^3 + x^6 and x^6 = x^2 (mod 5)
         """
         p = len(poly)
         assert p > 2 and all(p % i for i in range(2, p)), "Hint: p is a prime > 2"
@@ -1815,6 +1841,12 @@ class ShiftChars(PuzzleGenerator):
     def sat(orig: str, result="Hello, world!", shift=7):
         """
         Find a string which, when each character is shifted (ascii incremented) by shift, gives the result.
+
+        Sample Input:
+        result='very good', shift=-1
+
+        Sample Output:
+        'wfsz!hppe'
         """
         n = len(result)
         assert len(orig) == n
@@ -1835,12 +1867,20 @@ def random_case_word(rand, **args):
 
 
 class RemoveVowels(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#51"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#51
+
+    Related to FindVowels \\#54"""
 
     @staticmethod
     def sat(txt: str, text="Hello, world!"):
         """
         Remove the vowels from the original string.
+
+        Sample Input:
+        "very good"
+
+        Sample Output:
+        'vry gd'
         """
         n = 0
         for c in text:
@@ -1866,6 +1906,12 @@ class BelowThreshold(PuzzleGenerator):
     def sat(indexes: List[int], nums=[0, 2, 17, 4, 4213, 322, 102, 29, 15, 39, 55], thresh=100):
         """
         Find the indexes of numbers below a given threshold
+
+        Sample Input:
+        nums=[4, 7, 11, 5], threshold=10
+
+        Sample Output:
+        [0, 1, 3]
         """
         j = 0
         for i, n in enumerate(nums):
@@ -1891,7 +1937,13 @@ class ListTotal(PuzzleGenerator):
     @staticmethod
     def sat(n: int, nums=[10, 42, 17, 9, 1315182, 184, 102, 29, 15, 39, 755]):
         """
-        Find the indexes of numbers below a given threshold
+        Find the number which when appended to the list makes the total 0
+
+        Sample Input:
+        [1, 2, 3]
+
+        Sample Output:
+        -6
         """
         return sum(nums + [-n]) == 0
 
@@ -1912,6 +1964,12 @@ class DiffChars(PuzzleGenerator):
     def sat(c: str, a="the quick brown fox jumped over the lazy dog", b="how vexingly quick daft zebras jump"):
         """
         Find a character in one string that is not in the other.
+
+        Sample Input:
+        'Do you like green eggs and ham?', 'I do not like green eggs and ham.'
+
+        Sample Output:
+        't'  # or .?yI
         """
         return (c in a) != (c in b)
 
@@ -1933,6 +1991,12 @@ class Fibonacci(PuzzleGenerator):
     def sat(nums: List[int], n=1402):
         """
         Find the first n Fibonacci numbers
+
+        Sample Input:
+        4
+
+        Sample Output:
+        [1, 1, 2, 3]
         """
         return nums[0] == nums[1] == 1 and all(nums[i + 2] == nums[i + 1] + nums[i] for i in range(n - 2))
 
@@ -1955,6 +2019,12 @@ class MatchBrackets(PuzzleGenerator):
     def sat(matches: List[int], brackets="<<>><<<><>><<>>>"):
         """
         Find the index of the matching brackets for each character in the string
+
+        Sample Input:
+        "<><>"
+
+        Sample Output:
+        [1, 0, 3, 2]
         """
         for i in range(len(brackets)):
             j = matches[i]
@@ -1996,6 +2066,12 @@ class Monotonic(PuzzleGenerator):
     def sat(direction: str, nums=[2, 4, 17, 29, 31, 1000, 416629]):
         """
         Determine the direction ('increasing' or 'decreasing') of monotonic sequence nums
+
+        Sample Input:
+        [1, 2, 5]
+
+        Sample Output:
+        "increasing"
         """
         if direction == "increasing":
             return all(nums[i] < nums[i + 1] for i in range(len(nums) - 1))
@@ -2019,6 +2095,12 @@ class CommonNumbers(PuzzleGenerator):
     def sat(common: List[int], a=[2, 416629, 2, 4, 17, 29, 31, 1000], b=[31, 2, 4, 17, 29, 41205]):
         """
         Find numbers common to a and b
+
+        Sample Input:
+        [1, 2, 3], [3, 4, 5]
+
+        Sample Output:
+        [3]
         """
         return all((i in common) == (i in a and i in b) for i in a + b + common)
 
@@ -2042,6 +2124,12 @@ class LargestPrimeFactor(PuzzleGenerator):
     def sat(p: int, n=101076):
         """
         Find the largest prime factor of n.
+
+        Sample Input:
+        125
+
+        Sample Output:
+        5
         """
 
         def is_prime(m):
@@ -2068,6 +2156,12 @@ class CumulativeSums(PuzzleGenerator):
     def sat(sums: List[int], n=104):
         """
         Find the sums of the integers from 1 to n
+
+        Sample Input:
+        3
+
+        Sample Output:
+        [0, 1, 3, 6]
         """
         return all(sums[i + 1] - sums[i] == i for i in range(n)) and sums[0] == 0
 
@@ -2094,6 +2188,12 @@ class ParenDepth(PuzzleGenerator):
     def sat(matches: List[int], parens="((())()(()()))(())"):
         """
         Find the index of the matching parentheses for each character in the string
+
+        Sample Input:
+        "()((()))"
+
+        Sample Output:
+        [1, 0, 7, 6, 5, 4, 3, 2]
         """
         for i, (j, c) in enumerate(zip(matches, parens)):
             assert parens[j] != c and matches[j] == i and all(i < matches[k] < j for k in range(i + 1, j))
@@ -2127,12 +2227,21 @@ class ParenDepth(PuzzleGenerator):
 
 
 class Derivative(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#62"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#62
+
+    This puzzle gives the raw definition of a derivative in terms of small changes in x.
+    """
 
     @staticmethod
     def sat(derivative: List[int], poly=[2, 1, 0, 4, 19, 231, 0, 5]):
         """
         Find the derivative of the given polynomial, with coefficients in order of increasing degree
+
+        Sample Input:
+        [3, 4, 1] # 3 + 4x + x^2
+
+        Sample Output:
+        [2, 4]   # 4 + 2x^2
         """
 
         def val(poly, x):
@@ -2162,6 +2271,12 @@ class Fib3(PuzzleGenerator):
         Define a triple-Fibonacci sequence to be a sequence such that each number is the sum of the previous
         three. Given a target number, find an initial triple such that the 17th number in the sequence is the
         given target number.
+
+        Sample Input:
+        0
+
+        Sample Output:
+        [0, 0, 0]
         """
         a, b, c = init
         for i in range(16):
@@ -2182,27 +2297,39 @@ class Fib3(PuzzleGenerator):
 
 
 class FindVowels(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#64"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#64
+
+    Very similar to RemoveVowels \\#51
+    """
 
     @staticmethod
-    def sat(vowels: str, text="Hello, world!"):
+    def sat(vowels: List[str], texts=["Hello, world!", "Goodbye, world!"]):
         """
-        Find the vowels from the original string.
+        Find the vowels from each of the original texts (y counts as a vowel at the end of the word)
+
+        Sample Input:
+        ["You can do it!", "CAT"]
+
+        Sample Output:
+        ["ouaoi", "A"]
         """
-        i = 0
-        for j, c in enumerate(text):
-            if c.lower() in "aeiou" or c.lower() == 'y' and j == len(text) - 1:
-                assert vowels[i] == c
-                i += 1
-        return i == len(vowels)
+        for v, t in zip(vowels, texts):
+            i = 0
+            for j, c in enumerate(t):
+                if c.lower() in "aeiou" or c.lower() == 'y' and j == len(t) - 1:
+                    assert v[i] == c
+                    i += 1
+            assert i == len(v)
+        return len(vowels) == len(texts)
 
     @staticmethod
-    def sol(text):
-        return "".join(c for c in text if c.lower() in "aeiou") + (text[-1] if text[-1].lower() == "y" else "")
+    def sol(texts):
+        return ["".join(c for c in text if c.lower() in "aeiou") + (text[-1] if text[-1].lower() == "y" else "")
+                for text in texts]
 
     def gen_random(self):
-        text = random_case_word(self.random)
-        self.add(dict(text=text))
+        texts = [random_case_word(self.random) for _ in range(self.random.randrange(10))]
+        self.add(dict(texts=texts))
 
 
 class CircularShiftNum(PuzzleGenerator):
@@ -2213,6 +2340,8 @@ class CircularShiftNum(PuzzleGenerator):
         """
         Shift the decimal digits n places to the left, wrapping the extra digits around. If shift > the number of
         digits of n, reverse the string.
+
+        n=12345 shift=2 => '34512'
         """
         if shift > len(str(n)):
             return n == int(shifted[::-1])
@@ -2238,6 +2367,12 @@ class CharSum(PuzzleGenerator):
     def sat(tot: int, s="Add ME uP AND YOU WILL GET A BIG NUMBER!"):
         """
         Compute the sum of the ASCII values of the upper-case characters in the string.
+
+        Sample Input:
+        ARt
+
+        Sample Output:
+        147 # = 65 + 82
         """
         for c in s:
             if c.isupper():
@@ -2260,6 +2395,8 @@ class MissingBananas(PuzzleGenerator):
     def sat(bananas: int, bowl="5024 apples and 12189 oranges", total=12491241):
         """
         Determine how many bananas are necessary to reach a certain total amount of fruit
+
+        bowl="3 apples and 4 oranges", total=12 => 5
         """
         bowl += f" and {bananas} bananas"
         return sum([int(s) for s in bowl.split() if s.isdigit()]) == total
@@ -2285,11 +2422,17 @@ class SmallestEven(PuzzleGenerator):
         """
         Given an array of nums representing a branch on a binary tree, find the minimum even value and its index.
         In the case of a tie, return the smallest index. If there are no even numbers, the answer is [].
+
+        Sample Input:
+        [1, 7, 4, 6, 10, 11, 14]
+
+        Sample Output:
+        [4, 2]
         """
         if val_index == []:
             return all(n % 2 == 1 for n in nums)
         v, i = val_index
-        assert v % 2 == 0
+        assert v % 2 == 0 and nums[i] == v
         return all(n > v or n % 2 == 1 for n in nums[:i]) and all(n >= v or n % 2 == 1 for n in nums[i:])
 
     @staticmethod
@@ -2313,6 +2456,12 @@ class GreatestHIndex(PuzzleGenerator):
         """
         Find the h-index, the largest positive number h such that that h occurs in the sequence at least h times.
         h = -1 if there is no such positive number.
+
+        Sample Input:
+        [1, 2, 2, 3, 3, 3, 4, 4]
+
+        Sample Output:
+        3
         """
         for i in seq:
             assert not (i > 0 and i > h and seq.count(i) >= i)
@@ -2327,7 +2476,7 @@ class GreatestHIndex(PuzzleGenerator):
         self.add(dict(seq=seq))
 
 
-class StrangeSort(PuzzleGenerator):
+class WildSort(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#70"""
 
     @staticmethod
@@ -2335,14 +2484,15 @@ class StrangeSort(PuzzleGenerator):
         """
         Find the following strange sort of li: the first element is the smallest, the second is the largest of the
         remaining, the third is the smallest of the remaining, the fourth is the smallest of the remaining, etc.
+
+        Sample Input:
+        [1, 2, 7, 3, 4, 5, 6]
+
+        Sample Output:
+        [1, 7, 2, 6, 3, 5, 4]
         """
-        if len(li) < 2:
-            return strange == li
-        bounds = strange[:2]  # lower, upper
-        for i, n in enumerate(strange):
-            assert bounds[0] <= n <= bounds[1]
-            bounds[i % 2] = n
-        return sorted(strange) == sorted(li)  # permutation check
+        assert sorted(strange) == sorted(li), "Must be a permutation"
+        return all(n == (min, max)[i % 2](strange[i:]) for i, n in enumerate(strange))
 
     @staticmethod
     def sol(li):
@@ -2376,6 +2526,12 @@ class HeronTriangle(PuzzleGenerator):
     def sat(coords: List[List[float]], sides=[8.9, 10.8, 17.0]):
         """
         Find the coordinates of a triangle with the given side lengths
+
+        Sample Input:
+        [3.0, 4.0, 5.0
+
+        Sample Output:
+        [[0.0, 0.0], [3.0, 0.0], [0.0, 4.0]]
         """
         assert len(coords) == 3
         sides2 = [((x - x2) ** 2 + (y - y2) ** 2) ** 0.5 for i, (x, y) in enumerate(coords) for x2, y2 in coords[:i]]
@@ -2406,6 +2562,10 @@ class InvestigateCrash(PuzzleGenerator):
         """
         An object will "fly" if its weights are a palindrome and sum to <= max_weight. The given object won't fly.
         You have to determine why. Find index where the weights aren't a palindrome or -1 if weights are too big.
+
+        weights=[77, 40], max_weight=100 => -1
+
+        weights=[1,2,3], max_weight=50   => 0 # because 1 != 3
         """
         if problem == -1:
             return sum(weights) > max_weight
@@ -2435,6 +2595,12 @@ class ClosestPalindrome(PuzzleGenerator):
     def sat(pal: str, s="palindromordinals"):
         """
         Find the closest palindrome
+
+        Sample Input:
+        "cat"
+
+        Sample Output:
+        "tat"
         """
         assert pal == pal[::-1] and len(pal) == len(s)
         return sum(a != b for a, b in zip(pal, s)) == sum(a != b for a, b in zip(s, s[::-1])) // 2
@@ -2458,6 +2624,12 @@ class NarrowerList(PuzzleGenerator):
     def sat(li: List[str], lists=[["this", "list", "is", "narrow"], ["I", "am", "shorter but wider"]]):
         """
         Find the list that has fewer total characters (including repetitions)
+
+        Sample Input:
+        [["sh", "ort"], ["longest"]]
+
+        Sample Output:
+        [["sh", "ort"]
         """
         width = sum(len(s) for s in li)
         for li2 in lists:
@@ -2482,6 +2654,7 @@ class ThreePrimes(PuzzleGenerator):
         """
         Find all 247 integers <= 1000 that are the product of exactly three primes.
         Each integer should represented as the list of its three prime factors.
+        [[2, 2, 2], [2, 2, 3],  [2, 2, 5], ...
         """
         primes = set(range(2, 1000))
         for n in range(2, 1000):
@@ -2505,7 +2678,13 @@ class IntegerLog(PuzzleGenerator):
 
     @staticmethod
     def sat(x: int, a=3, n=1290070078170102666248196035845070394933441741644993085810116441344597492642263849):
-        """Find an integer exponent x such that a^x = n"""
+        """Find an integer exponent x such that a^x = n
+        Sample Input:
+        a=2, n=1024
+
+        Sample Output:
+        x = 10
+        """
         return a ** x == n
 
     @staticmethod
@@ -2531,7 +2710,14 @@ class CubeRoot(PuzzleGenerator):
 
     @staticmethod
     def sat(x: int, n=42714774173606970182754018064350848294149432972747296768):
-        """Find an integer that when cubed is n"""
+        """Find an integer that when cubed is n
+
+        Sample Input:
+        21
+
+        Sample Output:
+        3
+        """
         return x ** 3 == n
 
     @staticmethod
@@ -2554,7 +2740,14 @@ class HexPrimes(PuzzleGenerator):
 
     @staticmethod
     def sat(primes: List[bool], n="A4D4455214122CE192CCBE3"):
-        """Determine which characters of a hexidecimal correspond to prime numbers"""
+        """Determine which characters of a hexidecimal correspond to prime numbers
+
+        Sample Input:
+        "123ABCD"
+
+        Sample Output:
+        [False, True, True, False, True, False True]
+        """
         return all(primes[i] == (c in "2357BD") for i, c in enumerate(n))
 
     @staticmethod
@@ -2572,7 +2765,13 @@ class Binarize(PuzzleGenerator):
 
     @staticmethod
     def sat(b: str, n=5324680297138495285):
-        """Write n base 2 followed and preceded by 'bits'"""
+        """Write n base 2 followed and preceded by 'bits'
+        Sample Input:
+        2
+
+        Sample Output:
+        bits10bits
+        """
         assert b[:4] == b[-4:] == 'bits'
         inside = b[4:-4]
         assert all(c in "01" for c in inside)
@@ -2598,7 +2797,13 @@ class NearbyDuplicates(PuzzleGenerator):
 
     @staticmethod
     def sat(indices: List[int], s="I am an unhappy string!"):
-        """A string is happy if every three consecutive characters are distinct. Find two indices making s unhappy."""
+        """A string is happy if every three consecutive characters are distinct. Find two indices making s unhappy.
+        Sample Input:
+        "street"
+
+        Sample Output:
+        [3, 4]
+        """
         i, j = indices
         return s[i] == s[j] and 0 <= i < j < i + 3
 
@@ -2668,7 +2873,13 @@ class FactorString(PuzzleGenerator):
 
     @staticmethod
     def sat(factor: str, s="catscatcatscatcatscat"):
-        """Find a string which when repeated more than once gives s"""
+        """Find a string which when repeated more than once gives s
+        Sample Input:
+        "haha"
+
+        Sample Output:
+        "ha"
+        """
         return len(factor) < len(s) and s == factor * (len(s) // len(factor))
 
     @staticmethod
@@ -2686,7 +2897,9 @@ class OneEnded(PuzzleGenerator):
 
     @staticmethod
     def sat(nums: List[int], n=5):
-        """Find all n-digit integers that start or end with 1"""
+        """Find all n-digit integers that start or end with 1
+
+        1 => [1]"""
         count = 18 * (10 ** (n - 2)) if n > 1 else 1
         strs = {str(n) for n in nums}
         return len(strs) == count and all(s.startswith("1") or s.endswith("1") and len(s) == n for s in strs)
@@ -2708,7 +2921,10 @@ class BitSum(PuzzleGenerator):
 
     @staticmethod
     def sat(n: int, b=107, s=25):
-        """Find an b-bit integer with a bit-sum of s"""
+        """Find an b-bit integer with a bit-sum of s
+
+        b=3, s=2 => 5 # 5 is 101 in binary
+        """
         n_str = bin(n)[2:]  # n in binary
         return len(n_str) == b and sum(int(i) for i in n_str) == s
 
@@ -2722,24 +2938,6 @@ class BitSum(PuzzleGenerator):
         self.add(dict(b=b, s=s))
 
 
-class DigitSum(PuzzleGenerator):
-    """*Also* inspired by [HumanEval](https://github.com/openai/human-eval) \\#84"""
-
-    @staticmethod
-    def sat(s: str, n=1012552981257923):
-        """Find the sum of the digits in n as a binary string"""
-        tot = int(s, 2)
-        return tot == sum(int(c) for c in str(n))
-
-    @staticmethod
-    def sol(n):
-        return bin(sum(int(c) for c in str(n)))[2:]
-
-    def gen_random(self):
-        n = self.random.randrange(10 ** self.random.randrange(50))
-        self.add(dict(n=n))
-
-
 class EvenOddSum(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#85
 
@@ -2748,7 +2946,10 @@ class EvenOddSum(PuzzleGenerator):
 
     @staticmethod
     def sat(even_odd_sum: int, nums=[2341, 125146894, 12521, -12451293476325, 535284623934, 132974693614350]):
-        """Find the sum of the even elements that are at odd indices"""
+        """Find the sum of the even elements that are at odd indices
+
+        [1, 2, 8, 3, 9, 4] => 6
+        """
         for i in nums[1::2]:
             if i % 2 == 0:
                 even_odd_sum -= i
@@ -2768,7 +2969,13 @@ class AntiShuffle(PuzzleGenerator):
 
     @staticmethod
     def sat(s: str, orig="Hello world!!!"):
-        """Create a new string by taking s, and word by word rearranging its characters in ascii order"""
+        """Create a new string by taking s, and word by word rearranging its characters in ascii order
+        Sample input:
+        'maltos wow'
+
+        Sample output:
+        'almost oww'
+        """
         for a, b in zip(s.split(' '), orig.split(' ')):
             for i in range(len(a) - 1):
                 assert a[i] <= a[i + 1], "characters must s-words be in increasing order"
@@ -2794,7 +3001,13 @@ class UnevenFind(PuzzleGenerator):
 
     @staticmethod
     def sat(indices: List[List[int]], uneven=[[1, 3, 2, 32, 17], [17, 2, 48, 17], [], [9, 35, 4], [3, 17]], target=17):
-        """Find the indices of all occurrences of target in the uneven matrix"""
+        """Find the indices of all occurrences of target in the uneven matrix
+        Sample input:
+        uneven=[[2, 3, 2], [], [9, 2]], target=2
+
+        Sample output:
+        [[0, 0], [0, 2], [2, 1]]
+        """
         for i, j in indices:
             assert uneven[i][j] == target
         for i, row in enumerate(uneven):
@@ -2818,7 +3031,20 @@ class UpDownSort(PuzzleGenerator):
 
     @staticmethod
     def sat(up_down: List[int], nums=[17, 2, 3, 523, 18, -2, 0, 2, -1]):
-        """Reorder nums in increasing/decreasing order based on whether the first plus last element is even/odd"""
+        """Reorder nums in increasing/decreasing order based on whether the first plus last element is even/odd
+
+        Sample input:
+        [1, 7, 4]
+
+        Sample output:
+        [1, 4, 7] # because 1 + 4 is odd
+
+        Sample input:
+        [1, 7, 5]
+
+        Sample output:
+        [8, 5, 1] # because 1 + 5 is even
+        """
         assert all(up_down.count(i) == nums.count(i) for i in set(up_down + nums)), "not a reordering"
         increasing_sign = 1 if ((nums[0] + nums[-1]) % 2 == 1) else -1
         return all((up_down[i + 1] - up_down[i]) * increasing_sign >= 0 for i in range(len(up_down) - 1))
@@ -2833,7 +3059,10 @@ class SubstitutionCypher(PuzzleGenerator):
 
     @staticmethod
     def sat(encrypted: str, orig="Hello, world!"):
-        """Apply a substitution cypher in which each character is advanced by two multiplied by two places."""
+        """Apply a substitution cypher in which each character is advanced by two multiplied by two places.
+
+        'substitution cypher' => 'wyfwxmxyxmsr$g}tliv'
+        """
         assert len(encrypted) == len(orig)
         return all(chr(ord(a) - 2 * 2) == b for a, b in zip(encrypted, orig))
 
@@ -2851,7 +3080,14 @@ class SecondSmallestUnique(PuzzleGenerator):
 
     @staticmethod
     def sat(n: int, nums=[17, -1023589211, -293485382500, 31, -293485382500, 105762, 94328103589]):
-        """Find the second smallest unique number in the list nums."""
+        """Find the second smallest unique number in the list nums.
+
+        Sample input:
+        [2, 5, 2, 7, 9]
+
+        Sample output:
+        5
+        """
         assert n in nums
         return len({i for i in nums if i <= n}) == 2
 
@@ -2870,7 +3106,15 @@ class FindBored(PuzzleGenerator):
 
     @staticmethod
     def sat(boring: List[str], text="This is not boring. I am boring! I am sooo tired."):
-        """A bored sentence starts with the word "I". Find all bored sentences in s. Sentence delimiters are '.!?'"""
+        """A bored sentence starts with the word "I". Find all bored sentences in s. Sentence delimiters are '.!?'
+
+        --- Example input ---
+        'I wrote this. You read it? I think I am so cool. In another time, I would be lame.'
+
+        --- Example output ---
+        ['I wrote this', ' I think I am so cool']
+
+        """
         sentences = text.replace("!", ".").replace("?", ".").split(".")
         boring_and_exciting = boring + [s for s in sentences if s.split()[:1] != ["I"]]
         return sorted(boring_and_exciting) == sorted(sentences)
@@ -2888,33 +3132,31 @@ class FindBored(PuzzleGenerator):
         self.add(dict(text=text))
 
 
-class ThreeSum(PuzzleGenerator):
-    """Inspired by but harder than the [HumanEval](https://github.com/openai/human-eval) \\#92
-
-     This is a version of the classic [3SUM](https://en.wikipedia.org/wiki/3SUM) problem."""
+class IdentifyZeroTrips(PuzzleGenerator):
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#92"""
 
     @staticmethod
-    def sat(inds: List[int], nums=[1253532, 3920635, 332, -24, 235, 17, 2539, 39359, -3923425, 2790, 25, 0, -2, 17, 8]):
-        """Find three (distinct) indices of nums that sum to 0."""
-        return len(set(inds)) == len(inds) == 3 and min(inds) >= 0 and sum(nums[i] for i in inds) == 0
+    def sat(zero_sums: List[bool], trips=[[1253532, -3920635, 332], [-24, 18, 6], [0, 5, -5], [1, 1, 1], [-20, 17, 4]]):
+        """Determine which triples sum to zero
+
+        --- Example input ---
+        [1, 2, 4, -3, 5]
+
+        --- Example output ---
+        [0, 1, 3]
+        """
+        return len(zero_sums) == len(trips) and all(z == ((a + b + c) == 0) for z, (a, b, c) in zip(zero_sums, trips))
 
     @staticmethod
-    def sol(nums):
-        # \tilde{O}(n^2) algorithm
-        inv = {n: i for i, n in enumerate(nums)}  # note that later duplicates will override earlier entries
-        for i, n in enumerate(nums):
-            if inv[n] == i:
-                del inv[n]
-            if any((-m - n) in inv for m in nums[:i]):  # found solution!
-                j, m = next((j, m) for j, m in enumerate(nums) if (-m - n) in inv)
-                k = inv[-m - n]
-                return sorted([i, j, k])
+    def sol(trips):
+        return [sum(t) == 0 for t in trips]
 
     def gen_random(self):
-        nums = [self.random.randrange(-10 ** 6, 10 ** 6) for _ in range(self.random.randrange(2, 20))]
-        nums.append(-nums[0] - nums[1])
-        self.random.shuffle(nums)
-        self.add(dict(nums=nums))
+        trips = [[self.random.randrange(-10, 11) for _ in range(3)] for _ in range(self.random.randrange(2, 20))]
+        for t in trips:
+            if self.random.randrange(2):
+                t[-1] = t[0] + t[1]
+        self.add(dict(trips=trips))
 
 
 class WeirdDecodeVowels(PuzzleGenerator):
@@ -2922,7 +3164,13 @@ class WeirdDecodeVowels(PuzzleGenerator):
 
     @staticmethod
     def sat(s: str, target="Hello, world!"):
-        """Find string s that, when case is flipped gives target where vowels are replaced by chars two later."""
+        """Find string s that, when case is flipped gives target where vowels are replaced by chars two later.
+        --- Example input ---
+        'THIS is a TEST'
+
+        --- Example output ---
+        'thks KS C tgst'
+        """
         subs = {ord(c): ord(c) + 2 for c in "aeiouAEIOU"}
         return s.swapcase() == target.translate(subs)
 
@@ -2947,7 +3195,14 @@ class LargestPrimeDigitSum(PuzzleGenerator):
 
     @staticmethod
     def sat(ans: List[int], nums=[23, 17, 201, 14, 10473, 43225, 421, 423, 11, 10, 2022, 342157]):
-        """Find the index of the largest prime in the list and the sum of its digits"""
+        """Find the index of the largest prime in the list and the sum of its digits
+
+        --- Example input ---
+        [2, 4, 7, 19, 21]
+
+        --- Example output ---
+        [3, 10]
+        """
         i, digit_sum = ans
         n = nums[i]
 
@@ -2979,7 +3234,14 @@ class OddCase(PuzzleGenerator):
 
     @staticmethod
     def sat(different: str, d={"cat": "CAT", "tree": "T", "pick me": "not", "OK": "red", "blah": "blah", "z": "Z"}):
-        """Find the dictionary key whose case is different than all other keys"""
+        """Find the dictionary key whose case is different than all other keys
+
+        --- Example input ---
+        {"red": "", "GREEN": "", "blue": "orange"}
+
+        --- Example output ---
+        "GREEN"
+        """
         return different in d and all(k.islower() != different.islower() for k in d if k != different)
 
     @staticmethod
@@ -3002,7 +3264,14 @@ class PrimesUpTo(PuzzleGenerator):
 
     @staticmethod
     def sat(primes: List[int], n=1234):
-        """Find all primes up to n"""
+        """Find all primes up to n
+
+        --- Example input ---
+        9
+
+        --- Example output ---
+        [2, 3, 5, 7]
+        """
         assert all(1 < p for p in primes) and all(p % q for p in primes for q in primes if q < p)
         return len({i for p in primes for i in range(p, n, p)}) == max(n - 2, 0)
 
@@ -3014,7 +3283,6 @@ class PrimesUpTo(PuzzleGenerator):
             if i in candidates:
                 primes.append(i)
                 candidates.difference_update(range(i, n, i))
-
         return primes
 
     def gen(self, target_num_instances):
@@ -3033,7 +3301,10 @@ class UnitsProduct(PuzzleGenerator):
 
     @staticmethod
     def sat(prod: int, nums=[17, 24, 39, 15, 11, 201, 97, 65, 18]):
-        """Find the product of the units digits in the numbers"""
+        """Find the product of the units digits in the numbers
+
+        [12, 34] => 8
+        """
         if not all(nums):
             return prod == 0
         for n in nums:
@@ -3061,7 +3332,10 @@ class UppercaseEven(PuzzleGenerator):
 
     @staticmethod
     def sat(positions: List[int], s="ThIs is A tEsT, Or *IS* iT?"):
-        """Find the positions of all uppercase vowels (not counting Y) in even indices"""
+        """Find the positions of all uppercase vowels (not counting Y) in even indices
+
+        "EAT here NOW" => [0, 10]
+        """
         assert all(s[i] in "AEIOU" for i in positions)
         return all(i in positions or c not in "AEIOU" or i % 2 == 1 for i, c in enumerate(s))
 
@@ -3083,7 +3357,14 @@ class ClosestInteger(PuzzleGenerator):
 
     @staticmethod
     def sat(n: int, x=329437923.5):
-        """Round to nearest integer"""
+        """Round to nearest integer
+
+        --- input ---
+        3.7
+
+        --- output ---
+        4
+        """
         return abs(n - x) <= 0.5
 
     @staticmethod
@@ -3104,7 +3385,10 @@ class StonePiles(PuzzleGenerator):
     def sat(li: List[int], n=909):
         """We are making n stone piles! The first pile has n stones. If n is even, then all piles have an even
         number of stones. If n is odd, all piles have an odd number of stones. Each pile must more stones
-        than the previous pile but as few as possible. Return the number of stones in each pile."""
+        than the previous pile but as few as possible. Return the number of stones in each pile.
+
+        2 => [2, 4]
+        """
         return li[0] == n and len(li) == n and all(b - a == 2 for a, b in zip(li, li[1:]))
 
     @staticmethod
@@ -3124,8 +3408,8 @@ class CompleteSplit(PuzzleGenerator):
         """
         Split a string of words separated by commas and spaces into 2 lists: words and separators
 
-        Sample input: "Hi there, Adam"
-        Sample output: [["Hi", "there", "Adam"], [" ", ", "]]
+        Sample input: "Hi there, Anna"
+        Sample output: [["Hi", "there", "Anna"], [" ", ", "]]
         """
         words, separators = splits
         assert len(words) == len(separators) + 1
@@ -3160,7 +3444,14 @@ class BiggestEven(PuzzleGenerator):
 
     @staticmethod
     def sat(x: int, a=145, b=24126846790974):
-        """Return the biggest even number between a and b inclusive, or -1 if there is no such number"""
+        """Return the biggest even number between a and b inclusive, or -1 if there is no such number
+
+        Example input:
+        a=20, b=99
+
+        Example output:
+        98
+        """
         if x == -1:
             return all(i % 2 == 1 for i in range(a, b + 1))
         return a <= x <= b and all(i % 2 == 1 for i in range(x + 1, b + 1))
@@ -3188,37 +3479,11 @@ class BinaryAverage(PuzzleGenerator):
 
     @staticmethod
     def sat(s: str, a=-103252, b=10657):
-        """Return the numbers a through b rounded to nearest integer, in binary (or -1 if there are no such numbers)"""
-        n = int(s, 2)
-        r = range(a, b)
-        if len(r) == 0:
-            return n == -1
-        mu = sum(r) / len(r)
-        return abs(mu - n) <= min(abs(mu - n - 1), abs(mu - n + 1))
+        """Return the average of the numbers a through b rounded to nearest integer, in binary
+        (or -1 if there are no such numbers)
 
-    @staticmethod
-    def sol(a, b):
-        r = range(a, b)
-        if len(r) == 0:
-            return "-1"
-        return bin(round(sum(r) / len(r)))
-
-    def gen(self, target_num_instances):
-        self.add(dict(a=70421, b=70421))
-        self.add(dict(a=-10299, b=-10300))
-
-    def gen_random(self):
-        a = self.random.choice([-1, 1]) * self.random.randrange(10 ** self.random.randrange(5))
-        b = self.random.randrange(10 ** self.random.randrange(6))
-        self.add(dict(a=a, b=b))
-
-
-class BinaryAverage(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#103"""
-
-    @staticmethod
-    def sat(s: str, a=-103252, b=10657):
-        """Return the numbers a through b rounded to nearest integer, in binary (or -1 if there are no such numbers)"""
+        a=4, b=7 => '110' because the mean of 4, 5, 6 is 5 which is 110 in binary
+        """
         n = int(s, 2)
         r = range(a, b)
         if len(r) == 0:
@@ -3248,7 +3513,10 @@ class SortedOdds(PuzzleGenerator):
 
     @staticmethod
     def sat(sub: List[int], nums=[17, 20, -100, 101, 423258, 19949, 0, 20174, 9351773, -11]):
-        """Find the sublist of numbers with only odd digits in increasing order"""
+        """Find the sublist of numbers with only odd digits in increasing order
+
+        [17, 21, 18, 1, 4] => [1, 17, 21]
+        """
         for i in range(len(sub)):
             n = sub[i]
             assert n == min(sub[i:])
@@ -3276,7 +3544,10 @@ class BackwardsDigits(PuzzleGenerator):
 
     @staticmethod
     def sat(backwards_digits: List[str], nums=[0, 2, 14, -2, 3, 8, 4, 5, 5, 7, 21, 101, 41, 2, 9, 6]):
-        """Return the single digits in nums sorted backwards and converted to English words"""
+        """Return the single digits in nums sorted backwards and converted to English words
+
+        [2, 3, 4, 5, 17] => ['five', 'four', 'three', 'two']
+        """
         digits = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9}
         li = [digits[s] for s in backwards_digits]
         for i, n in enumerate(li):
@@ -3300,7 +3571,10 @@ class AlternatingFactorials(PuzzleGenerator):
 
     @staticmethod
     def sat(li: List[int], n=100):
-        """Output a list of n integers, where the mth entry is m! if m is even or else (1+2+...+m)"""
+        """Output a list of n integers, where the mth entry is m! if m is even or else (1+2+...+m)
+
+        5 => [1, 2, 6, 9, 120]
+        """
         assert len(li) == n
         for i, m in enumerate(li):
             if i < 2:
@@ -3335,7 +3609,10 @@ class EvenPalindromeNumbers(PuzzleGenerator):
 
     @staticmethod
     def sat(pals: List[int], n=1099, count=49):
-        """Find all even palindromes up to n"""
+        """Find all even palindromes up to n
+
+        3 => [0, 2]
+        """
         return all(0 <= i <= n and str(i) == str(i)[::-1] and i % 2 == 0 for i in pals) and len(set(pals)) >= count
 
     @staticmethod
@@ -3353,7 +3630,10 @@ class PositiveDigitSums(PuzzleGenerator):
 
     @staticmethod
     def sat(pos: List[int], nums=[-804, 9124, -945, 2410, 0, 21, -123]):
-        """Filter for the numbers in nums whose sum of digits is > 0, where the first digit can be negative."""
+        """Filter for the numbers in nums whose sum of digits is > 0, where the first digit can be negative.
+
+        [12, -7, -102, -100] => [12, -102]
+        """
         for n in pos + nums:
             s = str(n)
             if int(s[:2]) + sum(int(c) for c in s[2:]) <= 0:
@@ -3376,22 +3656,21 @@ class PositiveDigitSums(PuzzleGenerator):
 
 
 class RotateSort(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#109"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#109
+
+    This puzzle (and RotateString from #154) use the fact that a string is a rotation of r if it is a substring of r+r
+    """
 
     @staticmethod
     def sat(original: List[int], arr=[2, 3, -1, -1, 0, 1, 1]):
         """
         An array is ring-sorted if it is a "rotation" of a non-decreasing list.
         Remove at most one element from arr to make it ring-sorted.
+
+        [1, 2, 3, -1, 6, 0] => [1, 2, 3, -1, 0]
         """
-        order_violations = 0
-        erasures = 0
-        for i, n in enumerate(original):
-            if original[i - 1] > n:  # -1 when i =0 gives last element
-                order_violations += 1
-            while n != arr[i + erasures]:
-                erasures += 1
-        return order_violations <= 1 and erasures <= 1
+        assert str(original)[1:-1] in str(sorted(original) * 2), "Not ring sorted"
+        return any(original == arr[:i] + arr[i + 1:] for i in range(len(arr) + 1))
 
     @staticmethod
     def sol(arr):
@@ -3425,6 +3704,8 @@ class ParityExchange(PuzzleGenerator):
         """
         Find a sequence of swaps (indices into two lists) such that, after making those swaps, all numbers in the
         first list are even
+
+        [1, 3, 4] [2, 4, 5] => [0, 1]
         """
         copy1 = nums1[:]
         copy2 = nums2[:]
@@ -3450,7 +3731,10 @@ class CharCounts(PuzzleGenerator):
 
     @staticmethod
     def sat(s: str, counts={'a': 4, 'b': 17, 'd': 101, 'e': 0, 'f': 12}):
-        """Find a string consisting of space-separated characters with given counts"""
+        """Find a string consisting of space-separated characters with given counts
+
+        {"f": 1, "o": 2} => "oof"
+        """
         chars = s.split()
         for c in chars:
             assert chars.count(c) == counts[c]
@@ -3474,6 +3758,8 @@ class DelPalindrome(PuzzleGenerator):
         """
         Return a pair of a strings where the first string is the same as a with all the characters of b removed,
         and the second string is 'True' if this string is a palindrome otherwise 'False'.
+
+        a="madam, I'm adam." b = "Yes, we're here." => ['madamImadam', 'True']
         """
         s, is_palindrome = strings
         i = 0
@@ -3500,7 +3786,11 @@ class ReplaceMe(PuzzleGenerator):
 
     @staticmethod
     def sat(answers: List[str], lst=["234515", "21503", "2506236943"]):
-        """"""
+        """For each string in lst, count the number of odd digits. Find a string with no t's such that replacing
+        this number by t gives the string 'this is a test'
+
+        ["123", "2"] => ["2his is a 2es2", "0his a 0es0"]
+        """
         if len(answers) != len(lst):
             return False
         for a, s in zip(answers, lst):
@@ -3530,16 +3820,13 @@ class MinSubArraySum(PuzzleGenerator):
 
     @staticmethod
     def sat(start_end: List[int], base=7, p=50741, upper=-4897754):
-        """Find the start and end of the smallest-sum subarray of [(base^i mod p) - p/2 for i=start,..., end]"""
+        """Find the start and end of the smallest-sum subarray of [(base^i mod p) - p/2 for i=start,..., end]
+
+        base=3, p=7, upper =-3 => [0, 3]
+        # because -3 is the sum of the elements [0:3] of [-2, 0, -1, 3, 1, 2, -2, 0, -1, 3 ...
+        """
         start, end = start_end
-
-        nums = []
-        n = 1
-        for i in range(p):
-            nums.append(n - p // 2)
-            n = (n * base) % p
-
-        return sum(nums[start:end]) <= upper
+        return sum(pow(base, i, p) - p // 2 for i in range(start, end)) <= upper
 
     @staticmethod
     def sol(base, p, upper):
@@ -3640,7 +3927,10 @@ class BinarySort(PuzzleGenerator):
 
     @staticmethod
     def sat(ordered: List[int], arr=[4, 2, 3, -1, 15, 2, 6, 9, 5, 16, 1048576]):
-        """Sort the numbers in arr based on the number of 1's in their binary representation."""
+        """Sort the numbers in arr based on the number of 1's in their binary representation.
+
+        [1, 2, 3, 4, 6] => [1, 2, 4, 3, 6]
+        """
         if sorted(ordered) != sorted(arr):
             return False  # not even a permutation
         return all(bin(a).count("1") <= bin(b).count("1") for a, b in zip(ordered, ordered[1:]))
@@ -3659,7 +3949,13 @@ class ConsonantFilter(PuzzleGenerator):
 
     @staticmethod
     def sat(words: List[str], s="This is not a very hard puzzle", n=3):
-        """Find all words in the string with n consonants"""
+        """Find all words in the string with n consonants
+
+        Sample input:
+        s="An eye for an I", n=1
+        Sample output:
+        ["An", "eye", "an"]
+        """
         i = 0
         for w in s.split():
             num_consonants = 0
@@ -3687,7 +3983,10 @@ class VowelSandwich(PuzzleGenerator):
 
     @staticmethod
     def sat(ham: str, s="Any vowel is OK"):
-        """Find a vowel sandwich, a string consisting of a vowel between two consonants, contained in s"""
+        """Find any vowel sandwich, a string consisting of a vowel between two consonants, contained in s
+
+        "sandwhich" => "hic"
+        """
         vows = "aeiou"
         cons = "bcdfghjklmnpqrstvwxz"
         return ham in s and ham[0].lower() in cons and ham[1].lower() in vows and ham[2].lower() in cons
@@ -3722,18 +4021,12 @@ class ParenthesesPermutation(PuzzleGenerator):
     def sat(perm: str,
             s="))(  )()()() )))(( ))))((( )))))(((( ))))))))((((((( ))))))((((( )))))))(((((( )))))))))(((((((  (((((((((("):
         """The string s consists of groups of parentheses separated by spaces.
-        Permute the groups such that the parentheses match."""
-        assert sorted(perm.split()) == sorted(s.split())
-        depth = 0
-        for c in perm:
-            if c == ")":
-                if depth < 1:
-                    return False
-                depth -= 1
-            elif c == "(":
-                depth += 1
-        assert depth == 0, "Hint: there are always the same number of open and close parentheses"
-        return True
+        Permute the groups such that the parentheses match.
+
+        "( ) )(" => "( )( )"
+        """
+        assert sorted(perm.split()) == sorted(s.split()), "Must be a permutation of the space-delimited 'groups'"
+        return all(perm[:i].count("(") >= perm[:i].count(")") for i in range(len(perm)))
 
     @staticmethod
     def sol(s):
@@ -3800,7 +4093,10 @@ class BiggestK(PuzzleGenerator):
 
     @staticmethod
     def sat(biggest: List[int], k=7, nums=[31, 1, 2, -10, -2, 4, 17, 18, 20, 14, 20, 21, 18, 0]):
-        """Find the largest k numbers"""
+        """Find the largest k numbers
+
+        k=2, [1, 2, 3, 4, 5, 5, 3, 5, 2] => [5, 5]
+        """
         if len(biggest) != k:
             return False
         smallest = nums[:]
@@ -3826,7 +4122,10 @@ class OddEvenSum(PuzzleGenerator):
 
     @staticmethod
     def sat(tot: int, nums=[18, 42152, 125023521, -1221873620123, 17, 19]):
-        """Find the sum of the even elements that are at odd indices"""
+        """Find the sum of the odd elements that are at even indices
+
+        [0, 1, 2, 3, 5, 6] => 5
+        """
         for i in nums[::2]:
             if i % 2 == 1:
                 tot -= i
@@ -3849,7 +4148,10 @@ class LongEarlySum(PuzzleGenerator):
 
     @staticmethod
     def sat(tot: int, k=5, nums=[1252, 125273523, 0, 42, 100, 214532, 2, 0, 11, 14]):
-        """Find the sum of the numbers among the first k with more than 2 digits"""
+        """Find the sum of the numbers among the first k with more than 2 digits
+
+        k=3, nums=[2, 102, 12, 1000] => 102
+        """
         for n in nums[:k]:
             if len(str(abs(n))) > 2:
                 tot -= n
@@ -3871,16 +4173,18 @@ class OddCollatz(PuzzleGenerator):
 
     @staticmethod
     def sat(odds: List[int], n=1243272912731):
-        """Find the odd numbers in the collatz sequence starting at n"""
-        num_left = len(odds)
+        """Find the odd numbers in the collatz sequence starting at n
+
+        3 => [3, 5, 1]  # because the Collatz sequence starting with 3 is [3, 10, 5, 16, 8, 4, 2, 1]
+        """
+        num_odds = 0
         while True:
             if n % 2 == 1:
+                num_odds += 1
                 if n not in odds:
                     return False
-                else:
-                    num_left -= 1
             if n <= 1:
-                return num_left == 0
+                return num_odds == len(odds)
             n = (3 * n + 1) if n % 2 == 1 else n // 2
 
     @staticmethod
@@ -3903,7 +4207,10 @@ class DateDiff(PuzzleGenerator):
 
     @staticmethod
     def sat(s: str, target=-2075):
-        """Find a valid date mm-dd-yyyy such that the date, viewed as a mathematical expression, evaluates to target"""
+        """Find a valid date mm-dd-yyyy such that the date, viewed as a mathematical expression, evaluates to target
+
+        -2029 => "10-18-2021" # because 10-18-2021 == -2029
+        """
         assert all(c in "0123457689-" for c in s) and s[2] == s[5] == "-"
         m, d, y = [int(n) for n in s.split("-")]
         assert m in range(1, 13)
@@ -3937,7 +4244,11 @@ class StrangeSplit(PuzzleGenerator):
     @staticmethod
     def sat(lst: List[str], s="Hello, world!"):
         """Split s into strings if there is a space in s, otherwise split on commas if there is a comma, otherwise
-        return the list of lowercase letters with odd order (order of a = 0, b = 1, etc.)"""
+        return the list of lowercase letters with odd order (order of a = 0, b = 1, etc.)
+
+        "a b c" => ["a", "b", "c"]
+        "a,b" => ["a", "b"]
+        """
         if " " in s:
             return " ".join(lst) == s
         if "," in s:
@@ -3970,6 +4281,8 @@ class IncreasingViolation(PuzzleGenerator):
         """
         Find the indices of two entries that show that the list is not in increasing order.
         If there are no violations (they are increasing), return an empty list.
+
+        [1,2,3,0,4,5,6] => [1, 3]
         """
         if not violation:
             return all(nums[i] < nums[i + 1] for i in range(len(nums) - 1))
@@ -3996,7 +4309,10 @@ class PrimeIntervalIntersection(PuzzleGenerator):
 
     @staticmethod
     def sat(interval2: List[int], interval1=[32157, 93210127]):
-        """Find an interval whose intersection with a given interval has a width that is a prime integer."""
+        """Find an interval whose intersection with a given interval has a width that is a prime integer.
+
+        [7, 100] => [0, 10]  # because 10-7=3 is prime
+        """
         intersection_width = min(interval1[1], interval2[1]) - max(interval1[0], interval2[0])
         return intersection_width > 1 and all(intersection_width % i for i in range(2, intersection_width))
 
@@ -4022,7 +4338,10 @@ class ProductSigns(PuzzleGenerator):
     @staticmethod
     def sat(n: int, arr=[1, 7, -20052, 14, -3, -11, 1025235, 14]):
         """Find the sum of the magnitudes of the elements in the array with a sign that is equal to the product of
-        the signs of the entries."""
+        the signs of the entries.
+
+        [1, -2, 3] => -6  # negative because there is one negative
+        """
         tot = 0
 
         for i in arr:
@@ -4055,7 +4374,10 @@ class LexPath(PuzzleGenerator):
 
     @staticmethod
     def sat(path: List[int], k=10, edges=[[2, 4], [3], [4, 1], [4], [0]]):
-        """Find the lexicographically smallest path of length k in graph with given edge matrix (and no dead ends)"""
+        """Find the lexicographically smallest path of length k in graph with given edge matrix (and no dead ends)
+
+        k=3, edges=[[1,3], [0, 3], [2], [3]] => [0, 1, 0] # because 0-1 and 1-0 are edges
+        """
 
         def check(prefix):
             for i, j in zip(path, prefix):
@@ -4088,8 +4410,8 @@ class Tribonacci(PuzzleGenerator):
 
     @staticmethod
     def sat(seq: List[int], length=181):
-        """Find a given length sequence where seq[n] == 1 + n / 2 for even n, and
-        seq[n] == seq[n - 1] + seq[n - 2] + seq[n + 1] for odd n."""
+        """Find a sequence where seq[n] == 1 + n / 2 for even n, and
+        seq[n] == seq[n - 1] + seq[n - 2] + seq[n + 1] for odd n < length."""
         return all(seq[n] == (seq[n - 1] + seq[n - 2] + seq[n + 1] if n % 2 else 1 + n // 2) for n in range(length))
 
     @staticmethod
@@ -4113,7 +4435,10 @@ class OddProduct(PuzzleGenerator):
 
     @staticmethod
     def sat(prod: int, n=14235764939971075543215213):
-        """Return the product of the odd digits in n, or 0 if there aren't any"""
+        """Return the product of the odd digits in n, or 0 if there aren't any
+
+        12345 => 15
+        """
 
         for c in str(n):
             i = int(c)
@@ -4142,7 +4467,10 @@ class ValidBracketSubsequence(PuzzleGenerator):
 
     @staticmethod
     def sat(valid: str, s="]]]]]]]]]]]]]]]]][][][][]]]]]]]]]]][[[][[][[[[[][][][]][[[[[[[[[[[[[[[[[["):
-        """Find a valid substring of s that contains matching brackets, at least one of which is nested"""
+        """Find a valid substring of s that contains matching brackets, at least one of which is nested
+
+        "]][][[]]]" => "[][[]]"
+        """
         assert valid in s
         depths = [0]
         for c in valid:
@@ -4191,7 +4519,10 @@ class CeilingSquares(PuzzleGenerator):
 
     @staticmethod
     def sat(running_squares: List[int], x=[201.1, 301.4, -18.1, 1244122.0, 10101.0101, 1e7]):
-        """Round each float in x up to the next integer and return the running total of the integer squares"""
+        """Round each float in x up to the next integer and return the running total of the integer squares
+
+        [2.4, 3.7, 0.1] => [9, 25, 26]
+        """
         for i, v in enumerate(x):
             ceiling = int(v) + (v > 0 and not v.is_integer())
             square = ceiling ** 2
@@ -4220,7 +4551,10 @@ class LastLetters(PuzzleGenerator):
 
     @staticmethod
     def sat(y: List[bool], x=["Hello, world!", "cat", "", "a test", "test a", "i e", "o", "I O U", "You and I"]):
-        """Determine, for each string in x, whether the last character is an isolated letter"""
+        """Determine, for each string in x, whether the last character is an isolated letter
+
+        ["a b c", "abc"] => [True, False]
+        """
         assert len(x) == len(y)
         for s, b in zip(x, y):
             if len(s.split(" ")[-1]) == 1:
@@ -4248,7 +4582,10 @@ class Drops(PuzzleGenerator):
 
     @staticmethod
     def sat(drop_indexes: List[int], nums=[2, -1, 14, 8, 9, 9, 8, 4, 2, 4, 3, -100, 1000, 18, 4, -2, -3, -3, 1, 0]):
-        """Find the indices for which the nums array drops."""
+        """Find the indices for which the nums array drops.
+
+        [1,2,3,0,2,4,1] => [3,6]
+        """
         d = 0
         for i in range(1, len(nums)):
             if nums[i] < nums[i - 1]:
@@ -4269,7 +4606,11 @@ class LargestNegSmallestPos(PuzzleGenerator):
 
     @staticmethod
     def sat(extremes: List[int], nums=[-10, -4, 100, -40, 2, 2, 3, 17, -50, -25, 18, 41, 9, 11, 15]):
-        """Find the largest negative ans smallest positive numbers (or 0 if none)"""
+        """Find the largest negative ans smallest positive numbers (or 0 if none)
+
+        [-2, -4, 14, 50] => [-2, 14]
+        [3, 22] => [0, 3]
+        """
         neg, pos = extremes
         if neg == 0:
             assert nums == [] or min(nums) >= 0
@@ -4297,7 +4638,10 @@ class LargestStringNum(PuzzleGenerator):
 
     @staticmethod
     def sat(x: float, str_nums=["1,3", "-11", "17.5", "-11", "2", "2.2", "2,2", "4", "-18,18", "99.09"]):
-        """"""
+        """Find the largest number where commas or periods are decimal points
+
+        ["99,9", "100"] => 100.0
+        """
         found = False
         for s in str_nums:
             y = float(s.replace(",", "."))
@@ -4326,7 +4670,9 @@ class Even4Sum(PuzzleGenerator):
 
     @staticmethod
     def sat(summands: List[int], n=1234567890):
-        """Find four positive even integers whose sum is n"""
+        """Find four positive even integers whose sum is n
+
+        100 => [22, 24, 26, 28]"""
         return sum(summands) == n and min(summands) > 0 and len(summands) == 4 and all(s % 2 == 0 for s in summands)
 
     @staticmethod
@@ -4348,7 +4694,10 @@ class InverseSuperFactorial(PuzzleGenerator):
 
     @staticmethod
     def sat(nums: List[int], super_factorials=[1, 2, 1]):
-        """The super-factorial of n is n! (n-1)! (n-2)! ... 1!. Invert a given list of super-factorials."""
+        """The super-factorial of n is n! (n-1)! (n-2)! ... 1!. Invert a given list of super-factorials.
+
+        [1, 2, 2, 12] => [1, 2, 2, 3]
+        """
         for i, sf in enumerate(super_factorials):
             n = nums[i]
             for j in range(n, 0, -1):
@@ -4395,7 +4744,10 @@ class ExpandSpaces(PuzzleGenerator):
     @staticmethod
     def sat(orig: str, target="-Hello,_world!__This_is-so-easy!-"):
         """Find a string such that, when three or more spaces are compacted to a '-' and one or two spaces are
-        replaced by underscores, leads to the target."""
+        replaced by underscores, leads to the target.
+
+        "_o-k__?-" => "  o        k  ?     "
+        """
         assert "_" not in orig and "-" not in orig
         new = ""
         space_count = 0
@@ -4427,6 +4779,8 @@ class FilenameOK(PuzzleGenerator):
     def sat(valids: List[str], filenames=["cat.txt", "!jog.dll", "31F9.html", "Is this okay?.txt", ".exe", ""]):
         """Return a list of Yes/No strings that determine whether candidate filename is valid. A valid filename
         should end in .txt, .exe, or .dll, and should have at most three digits, no additional periods
+
+        ["train.jpg", "doc10234.txt", "3eadme.txt"] = ["No", "No", "Yes"]
         """
         assert len(valids) == len(filenames)
         for v, f in zip(valids, filenames):
@@ -4460,7 +4814,7 @@ class FindStrangeSum(PuzzleGenerator):
 
     @staticmethod
     def sat(lst: List[int], tot=1125181293221):
-        """Find a list of integers such that tot is the sum of (n^2 is 3 | n, else n^3 if 4 | n, else n)"""
+        """Find a list of integers such that tot is the sum of (n^2 if 3 | n, else n^3 if 4 | n, else n)"""
         return sum(n ** 2 if n % 3 == 0 else n ** 3 if n % 4 == 0 else n for n in lst) == tot
 
     @staticmethod
@@ -4478,7 +4832,10 @@ class PrimeWords(PuzzleGenerator):
 
     @staticmethod
     def sat(primes: str, s="This is a test of whether you would want to do such strange puzzles"):
-        """Find the string consisting of all the words whose lengths are prime numbers"""
+        """Find the string consisting of all the words whose lengths are prime numbers
+
+        "A bird in the hand is worth two in the bush" => "in the is worth two in the"
+        """
 
         def is_prime(n):
             return n > 1 and all(n % j for j in range(2, int(n ** 0.5) + 1))
@@ -4509,7 +4866,10 @@ class SimplifyProductFraction(PuzzleGenerator):
 
     @staticmethod
     def sat(z: str, x="-8142432/763083", y="66/-13474", max_len=18):
-        """Write x * y as the shortest equivalent fraction"""
+        """Write x * y as the shortest equivalent fraction using at most max_len chars
+
+        x="-2/3", y="-3/8", max_len=3 => "1/4"
+        """
         [[a, b], [c, d], [u, v]] = [[int(n) for n in s.split("/")] for s in [x, y, z]]
         return a * c * v == b * d * u and len(z) <= max_len
 
@@ -4553,7 +4913,10 @@ class SortByDigitSum(PuzzleGenerator):
 
     @staticmethod
     def sat(ordered: List[int], nums=[1, 0, -1, -100, 10, 14, 235251, 11, 10000, 2000001, -155]):
-        """Sort the numbers by the sum of their digits"""
+        """Sort the numbers by the sum of their digits
+
+        [17, 21, 0] => [0, 17, 21]
+        """
         digit_sums = [sum(int(c) for c in str(n) if c != "-") for n in ordered]
         return sorted(ordered) == sorted(nums) and digit_sums == sorted(digit_sums)
 
@@ -4571,7 +4934,10 @@ class BigOdds(PuzzleGenerator):
 
     @staticmethod
     def sat(odds: List[int], nums=[204, 109, 203, 17, 45, 11, 21, 99, 909, 16, -33, 3, 17]):
-        """Find the numbers that are greater than 10 and have odd first and last digits"""
+        """Find the numbers that are greater than 10 and have odd first and last digits
+
+        [73, 4, 72] => [73]
+        """
         assert all(o > 10 and odds.count(o) == nums.count(o) and int(str(o)[i]) % 2 for o in odds for i in [-1, 0])
         return all(n in odds or n <= 10 or int(str(n)[0]) % 2 == 0 or int(str(n)[-1]) % 2 == 0 for n in nums)
 
@@ -4589,7 +4955,10 @@ class Threeples(PuzzleGenerator):
 
     @staticmethod
     def sat(trips: List[List[int]], a=[1, 0, -17, 42, 321, 36, 429, 35, 10, 923, 35, 18, 0, 17, 24, 32, 8], count=221):
-        """Find all triples of increasing indices where the sum of the numbers is divisible by three"""
+        """Find all triples of increasing indices where the sum of the numbers is divisible by three
+
+        a=[1, 2, 4, 8, 14, 10], count=2 => [[0, 2, 5], [1, 3, 4]] = > because 1 + 4 + 10, 2 + 8 + 14 are divisible by 3
+        """
         assert len({tuple(t) for t in trips}) >= count
         return all(0 <= i < j < k and (a[i] + a[j] + a[k]) % 3 == 0 for i, j, k in trips)
 
@@ -4609,7 +4978,10 @@ class PlanetRange(PuzzleGenerator):
 
     @staticmethod
     def sat(planets_between: List[str], a="Mars", b="Neptune"):
-        """Find all planets between the two given planets"""
+        """Find all planets between the two given planets
+
+        a="Jupiter", b="Pluto" => ["Saturn" "Uranus" "Neptune"]
+        """
         assert " " not in "".join(planets_between)
         return " ".join([a] + planets_between + [b]) in "Venus Earth Mars Jupiter Saturn Uranus Neptune Pluto"
 
@@ -4632,7 +5004,10 @@ class EvenWords(PuzzleGenerator):
 
     @staticmethod
     def sat(evens: List[str], words=["The", "worm", "ate", "a", "bird", "imagine", "that", "!", "Absurd", "!!"]):
-        """Find the even-length words and sort them by length."""
+        """Find the even-length words and sort them by length.
+
+        ["soup", "not", "splendid"] => ["soup", "splendid"]
+        """
         lens = [len(w) for w in evens]
         assert all(lens[i] % 2 == 0 and lens[i] == max(lens[:i + 1]) and w in words for i, w in enumerate(evens))
         return all((len(w) % 2 == 1 or w in evens) for w in words)
@@ -4651,7 +5026,9 @@ class PrimeSel(PuzzleGenerator):
 
     @staticmethod
     def sat(neighbors: List[int], nums=[14, 7, 11, 13, 7, 4, 19, 2, 55, 13, 31, 14, 2, 9, -7, 0, 88, 13, 13]):
-        """Find a list of all numbers that are adjacent to a prime number in the list, sorted without duplicates"""
+        """Find a list of all numbers that are adjacent to a prime number in the list, sorted without duplicates
+
+        [2, 17, 16, 0, 6, 4, 5] => [2, 4, 16, 17]"""
 
         def prime(m):
             return all(m % i for i in range(2, m - 1))
@@ -4683,7 +5060,10 @@ class EvenSqure(PuzzleGenerator):
 
     @staticmethod
     def sat(tot: int, xs=[123.0, 872322.0, 542.2, -127.5, 18214.0, 3732.4, 12832.4, 23523800.0]):
-        """Find the sum of the squares of the positive even integers"""
+        """Find the sum of the squares of the positive even integers
+
+        [2.0, 3.0, 2.5, 4.0] => 20
+        """
         for x in xs:
             if x.is_integer() and x > 0 and x % 2 == 0:
                 tot -= int(x) ** 2
@@ -4706,7 +5086,10 @@ class ArrayDiff(PuzzleGenerator):
 
     @staticmethod
     def sat(b: List[int], a=[1, 2, 3, 0, 4, 17, 2, 4, 5, 9, 8, 4], c=[1, 2, 3, 4, 0, 16, 2, 3, 5, 9, 8, 4]):
-        """Find an array that when added to vector a gives array vector c"""
+        """Find an array that when added to vector a gives array vector c
+
+        [1, 2, 3], [4, 17, 5] => [3, 15, 2]
+        """
         return len(b) == len(a) and all(i + j == k for i, j, k in zip(a, b, c))
 
     @staticmethod
@@ -4761,11 +5144,21 @@ class StrongestExtension(PuzzleGenerator):
 
 
 class RotateString(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#154"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#154
+
+    This puzzle (and RotateSort from #109) use the fact that a string is a rotation of r if it is a substring of r+r
+    """
 
     @staticmethod
     def sat(r: str, s="light star", t="I love to look at the starlight!"):
-        """Find a rotation of string s that is a substring of t"""
+        """Find a rotation of string s that is a substring of t
+
+        Input Example:
+        s="test", t="I love lattes"
+
+        Output Example:
+        "ttes"
+        """
         return r in t and len(r) == len(s) and r in s + s
 
     @staticmethod
@@ -4786,7 +5179,9 @@ class EvenOddDigits(PuzzleGenerator):
 
     @staticmethod
     def sat(n: int, evens=17, odds=3):
-        """Find an integer n >= 0 with the given number of even and odd digits."""
+        """Find an integer n >= 0 with the given number of even and odd digits.
+
+        evens=3, odds=4 => 2381695"""
         for c in str(n):
             if int(c) % 2 == 0:
                 evens -= 1
@@ -4805,7 +5200,7 @@ class EvenOddDigits(PuzzleGenerator):
             self.add(dict(evens=evens, odds=odds))
 
 
-class RomanNumeral(PuzzleGenerator):
+class RomanNumerals(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#156
     
     Do not add a reverse puzzle converting roman numerals to arabic numbers as it would give away the solution. 
@@ -4813,16 +5208,24 @@ class RomanNumeral(PuzzleGenerator):
 
     @staticmethod
     def sat(roman: str, n=2414):
-        """Convert integer 0 < n < 4000 to roman numerals, and make it lowercase"""
-        units = dict(m=1000, cm=900, d=500, cd=400, c=100, xc=90, l=50, xl=40, x=10, ix=9, v=5, iv=4, i=1)
+        """Convert integer 0 < n < 4000 to roman numerals, and make it lowercase
+
+        11 => "xi"
+        """
+        key = {1000: 'm', 900: 'cm', 500: 'd', 400: 'cd',
+               100: 'c', 90: 'xc', 50: 'l', 40: 'xl',
+               10: 'x', 9: 'ix', 5: 'v', 4: 'iv',
+               1: 'i'}
         m = 0
-        for s, i in units.items():  # dictionary order is guaranteed
-            for _ in range(3 if len(s) == 1 else 1):  # single chars can be repeated up to 3 times
-                if roman.startswith(s):
-                    m += i
-                    roman = roman[len(s):]
-        illegal_substrings = "cmd cmc dcd cdc xcl xcx lxl xlx ixv ixi viv ivi".split()
-        return m == n and not any(s in roman for s in illegal_substrings)
+        for base in [1000, 100, 10, 1]:
+            for mul in [9, 4, 5, 1, 1, 1]:  # up to three 1's, move on after 9 or 4
+                val = base * mul
+                if val in key and roman.startswith(key[val]):
+                    m += val
+                    roman = roman[len(key[val]):]
+                    if mul == 9 or mul == 4:  # 9 or 4 can't be followed by anything else
+                        break
+        return m == n
 
     @staticmethod
     def sol(n):
@@ -4844,7 +5247,10 @@ class PythagoreanTriples(PuzzleGenerator):
 
     @staticmethod
     def sat(triples: List[List[int]], n=920, m=799):
-        """Find m Pythagorean triples a^2 + b^2 == c^2 for integers 0 < a < b < c <= n, in sorted order"""
+        """Find m Pythagorean triples a^2 + b^2 == c^2 for integers 0 < a < b < c <= n, in sorted order
+
+        (n=6, m=1) => [[3, 4, 5]]
+        """
         for a, b, c in triples:
             if not (a * a + b * b == c * c and 0 < a < b < c <= n):
                 return False
@@ -4872,7 +5278,10 @@ class MostUnique(PuzzleGenerator):
 
     @staticmethod
     def sat(s: str, pool=["cat", "catatatatctsa", "abcdefhijklmnop", "124259239185125", "", "foo", "unique"]):
-        """Select a string from the pool with the most unique characters"""
+        """Select a string from the pool with the most unique characters
+
+        ["woooow", "cow"] => "cow"
+        """
         assert s in pool
         n = len(set(s))
         for p in pool:
@@ -4893,7 +5302,10 @@ class HungryRabbits(PuzzleGenerator):
 
     @staticmethod
     def sat(results: List[List[int]], stats=[[2, 3, 18], [4, 9, 2], [2, 5, 7], [3, 8, 12], [4, 9, 106]]):
-        """For each triple of eaten, need, stock return a pair of total appetite and remaining"""
+        """For each triple of eaten, need, stock return a pair of total appetite and remaining
+
+        [[2, 5, 6], [3, 9, 22]] => [[7, 1], [12, 13]]
+        """
         assert len(results) == len(stats)
         for (tot, remaining), (eaten, need, stock) in zip(results, stats):
             assert tot - eaten == min(need, stock)
@@ -4917,7 +5329,11 @@ class EvaluateOperators(PuzzleGenerator):
 
     @staticmethod
     def sat(ops: List[str], target=2021, nums=[4, 6, 2, 1, 1, 3, 9]):
-        """Find a permutation of the operators +-*/^% which when inserted between nums evaluates to target"""
+        """Find a permutation of the operators +-*/^% which when inserted between nums evaluates to target
+
+        target=3, nums=[7, 2, 3, 4, 5, 1, 6] => ["+", "*", "**", "%", "//", "-"]
+                                                # because 7 + 2 * 3 ** 4 % 5 // 1 - 6 == 3
+        """
         assert len(ops) == len(set(ops)) and set(ops) == {"**", "*", "+", "-", "//", "%"}
         expr = str(nums[0])
         for n, op in zip(nums[1:], ops):
@@ -4957,7 +5373,10 @@ class ReverseCase(PuzzleGenerator):
 
     @staticmethod
     def sat(rev: List[str], strs=["cat", "u8u", "12532", "", "191", "4tUn8", "ewrWQTEW", "i", "IoU"]):
-        """Reverse the case of all strings. For those strings which contain no letters, reverse the strings."""
+        """Reverse the case of all strings. For those strings which contain no letters, reverse the strings.
+
+        ["Test", "!@#"] => ["tEST", "#@!"]
+        """
         assert len(rev) == len(strs)
         return all(r.swapcase() == s != r or r[::-1] == s == s.swapcase() for r, s in zip(rev, strs))
 
@@ -4976,7 +5395,9 @@ class ZobristCollision(PuzzleGenerator):
 
     @staticmethod
     def sat(positions: List[List[int]]):
-        """Find a collision for the given Zobrist chess board hash: https://en.wikipedia.org/wiki/Zobrist_hashing"""
+        """Find a collision for the given Zobrist chess board hash: https://en.wikipedia.org/wiki/Zobrist_hashing
+
+        Each of the two positions should be encoded as a list of 64 integers 0-12"""
 
         table = [[(i * 429436219 + j * 100239120) % 63491564 for j in range(13)] for i in range(64)]
 
@@ -5017,7 +5438,10 @@ class EvenBetween(PuzzleGenerator):
     @staticmethod
     def sat(ab: List[int], s="3298832990329923299432996329983300033002"):
         """Find integers [a, b] that are at least 5 apart and such that concatenating the even numbers
-        between them gives the string s"""
+        between them gives the string s
+
+        "32343638" => [31, 38]
+        """
         return abs(ab[0] - ab[1]) > 4 and s == "".join(str(i) for i in range(min(ab), max(ab) + 1) if i % 2 == 0)
 
     @staticmethod
@@ -5044,3 +5468,5 @@ class EvenBetween(PuzzleGenerator):
 
 if __name__ == "__main__":
     PuzzleGenerator.debug_problems()
+
+

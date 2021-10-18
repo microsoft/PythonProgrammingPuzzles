@@ -25,10 +25,8 @@ class IsEven(PuzzleGenerator):
         return n % 2 == 0
 
     def gen(self, target_num_instances):
-        n = 0
-        while len(self.instances) < target_num_instances:
+        for n in range(target_num_instances):
             self.add(dict(n=n))
-            n += 1
 
 
 class Abbreviate(PuzzleGenerator):
@@ -128,10 +126,10 @@ class DecreasingCountComparison(PuzzleGenerator):
         return sum(s >= threshold for s in scores)
 
     def gen_random(self):
-        n = min(len(self.instances) + 1, 100)
+        n = self.random.randrange(1, 50)
         max_score = self.random.randrange(50)
         scores = sorted([self.random.randrange(max_score + 1) for _ in range(n)], reverse=True)
-        k = self.random.randrange(len(scores))
+        k = self.random.randrange(n)
         self.add(dict(scores=scores, k=k))
 
 
@@ -328,7 +326,7 @@ class SlidingOne(PuzzleGenerator):
     def gen(self, target_num_instances):
         for i in range(5):
             for j in range(5):
-                if len(self.instances) == target_num_instances:
+                if self.num_generated_so_far() == target_num_instances:
                     return
                 matrix = [[0] * 5 for _ in range(5)]
                 matrix[i][j] = 1
@@ -952,7 +950,7 @@ class HalfPairs(PuzzleGenerator):
 
     def gen(self, target_num_instances):
         target = 0
-        while len(self.instances) < target_num_instances:
+        while self.num_generated_so_far() < target_num_instances:
             self.add(dict(target=target))
             target += 1
 

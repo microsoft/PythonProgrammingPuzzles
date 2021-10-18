@@ -172,7 +172,7 @@ class SmallExponentBigSolution(PuzzleGenerator):
             for b in bs:
                 test = (self.sol(b, target) is not None)
                 self.add(dict(b=b, target=target), test=test)
-                if len(self.instances) >= target_num_instances:
+                if self.num_generated_so_far() >= target_num_instances:
                     return
         m = target_num_instances
         solved = {b: {pow(b, n, n) for n in range(1, 10 ** 5) if 1 < pow(b, n, n) < m} for b in range(2, 11)}
@@ -180,7 +180,7 @@ class SmallExponentBigSolution(PuzzleGenerator):
             for target in range(2, 100):
                 if target in targets and self.sol(b, target):
                     self.add(dict(b=b, target=target))
-                    if len(self.instances) >= target_num_instances:
+                    if self.num_generated_so_far() >= target_num_instances:
                         return
 
     def gen_random(self):
@@ -221,7 +221,7 @@ class ThreeCubes(PuzzleGenerator):
         targets += [t for t in range(target_num_instances // 2) if t % 9 not in {4, 5}]
         for target in targets:
             self.add(dict(target=target), test=self.sol(target) is not None)
-            if len(self.instances) >= target_num_instances:
+            if self.num_generated_so_far() >= target_num_instances:
                 return
 
     def gen_random(self):
@@ -266,7 +266,7 @@ class FourSquares(PuzzleGenerator):
         for i in range(target_num_instances // 2):
             n = abs(i ** 2 - 1)
             self.add(dict(n=n))
-            if len(self.instances) >= target_num_instances:
+            if self.num_generated_so_far() >= target_num_instances:
                 return
 
     def gen_random(self):
@@ -320,7 +320,7 @@ class Factoring(PuzzleGenerator):
         numbers = [16] + [int(v.split()[0]) for name, v in challenges]
         for n in numbers:
             self.add(dict(n=n), test=n < self.MAX_TEST)
-            if len(self.instances) >= target_num_instances:
+            if self.num_generated_so_far() >= target_num_instances:
                 return
 
     def gen_random(self):
@@ -425,7 +425,7 @@ class Znam(PuzzleGenerator):
 
     def gen(self, target_num_instances):
         k = 5
-        while len(self.instances) < target_num_instances:
+        while self.num_generated_so_far() < target_num_instances:
             self.add(dict(k=k), test=k < 18)
             k += 1
 
@@ -542,7 +542,7 @@ class CollatzDelay(PuzzleGenerator):
         nums = [1000, 2000, 2283, 2337, 2350, 2500, 3000, 4000] + list(range(target_num_instances))
 
         for t in nums:
-            if len(self.instances) < target_num_instances:
+            if self.num_generated_so_far() < target_num_instances:
                 self.add(dict(t=t, upper=t // 15 + self.random.randint(30, 100)), test=t <= 100)
 
 

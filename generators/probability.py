@@ -41,10 +41,8 @@ class BirthdayParadox(PuzzleGenerator):
 
     def gen(self, target_num_instances):
         self.safe_add(year_len=60182)  # Neptune year!
-        year_len = 2
-        while len(self.instances) < target_num_instances:
+        for year_len in range(2, target_num_instances):
             self.safe_add(year_len=year_len)
-            year_len += 1
 
 
 

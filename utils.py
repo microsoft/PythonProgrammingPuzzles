@@ -6,6 +6,12 @@ import os
 
 my_path = os.path.dirname(__file__)
 
+def check_hashseed(desired_seed = 0):
+    if os.environ.get('PYTHONHASHSEED') != desired_seed:
+        info(f"Ideally set PYTHONHASHSEED={desired_seed} for perfect reproducibility")
+        return False
+    return True
+
 
 def inv_dict(d):
     ans = {}
@@ -17,18 +23,21 @@ def inv_dict(d):
 
 
 def remove_docstring(f):
-    if '\n    """' in f:  # remove doc_string if present
-        i = f.index('\n    """')
-        j = f.index('"""\n', i + 8)
-        return f[:i + 1] + f[j + 4:]
-    return f
+    """Remove docstring"""
+    assert '\n    """' in f, f"No triple quote docstring (after four spaces) in: \n{f}"
+    i = f.index('\n    """')
+    j = f.index('"""', i + 8)
+    return f[:i + 1] + f[j + 4:]
 
 
 def get_docstring(f):
-    assert '\n    """' in f, f"Need triple quote docstring (after four spaces) in every sat:\n{f}"
+    assert '\n    """' in f, f"No triple quote docstring (after four spaces) in: \n{f}"
     i = f.index('\n    """')
-    j = f.index('"""\n', i + 8)
-    return f[i + 1:j + 3]
+    j = f.index('"""', i + 8)
+    docstring = f[i + 1:j + 3]
+    if not docstring.strip(' "'):
+        warn(f"Empty docstring in:\n{f}")
+    return docstring
 
 
 def flatten(it):

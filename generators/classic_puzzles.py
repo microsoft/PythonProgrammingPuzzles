@@ -239,7 +239,7 @@ class BooleanPythagoreanTriples(PuzzleGenerator):
 
     def gen(self, target_num_instances):
         for n in [7824] + list(range(target_num_instances)):
-            if len(self.instances) == target_num_instances:
+            if self.num_generated_so_far() == target_num_instances:
                 return
             self.add(dict(n=n), test=n <= 100)
 
@@ -410,7 +410,7 @@ class No3Colinear(PuzzleGenerator):
     def gen(self, target_num_instances):
         for easy in range(47):
             for side in range(47):
-                if len(self.instances) == target_num_instances:
+                if self.num_generated_so_far() == target_num_instances:
                     return
                 test = side < 5 or side == 10
                 num_points = 1 if side == 1 else 2 * side
@@ -556,7 +556,6 @@ class Sudoku(PuzzleGenerator):
             if i == 2 or i == 5:
                 ans += "\n"
 
-
     @staticmethod
     def gen_sudoku_puzzle(rand):
 
@@ -640,14 +639,14 @@ class Sudoku(PuzzleGenerator):
         done = False
         while not done:
             done = True
-            pi = list([i for i in range(81) if x[i]!="_"])
+            pi = list([i for i in range(81) if x[i] != "_"])
             rand.shuffle(pi)
             for i in pi:
                 old = x[i]
                 x[i] = "_"
                 ans = solve("".join(x))
                 assert ans
-                if len(ans)>1:
+                if len(ans) > 1:
                     x[i] = old
                 else:
                     done = False
@@ -657,11 +656,10 @@ class Sudoku(PuzzleGenerator):
 
         return "".join(x)
 
-
     def gen_random(self):
 
         puz = None
-        for attempt in range(10 if len(self.instances)<10 else 1):
+        for attempt in range(10 if self.num_generated_so_far() < 10 else 1):
             puz2 = Sudoku.gen_sudoku_puzzle(self.random)
             if puz is None or puz2.count("_") > puz.count("_"):
                 puz = puz2
@@ -698,8 +696,7 @@ class SquaringTheSquare(PuzzleGenerator):
 
 
 class NecklaceSplit(PuzzleGenerator):
-    """[Necklace Splitting Problem](https://en.wikipedia.org/wiki/Necklace_splitting_problem)
-    """
+    """[Necklace Splitting Problem](https://en.wikipedia.org/wiki/Necklace_splitting_problem)"""
 
     @staticmethod
     def sat(n: int, lace="bbrbrbbbbbbrrrrrrrbrrrrbbbrbrrbbbrbrrrbrrbrrbrbbrrrrrbrbbbrrrbbbrbbrbbbrbrbb"):

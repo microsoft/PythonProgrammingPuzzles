@@ -14,7 +14,7 @@ parser = argparse.ArgumentParser(
 parser.add_argument('--target_num_per_problem',
                     '-n',
                     type=int,
-                    default=3,
+                    default=5,
                     help='Target number of variants to generate per problem.')
 
 parser.add_argument('--solutions',
@@ -98,9 +98,7 @@ def save_readme(gen_modules, filename, sol_filename):
         puzzles = module_stuff['examples']
         if ai_sols:
             puzzles = sorted(puzzles,
-                             key=lambda f: (ai_sols.get(f['sat'])
-                                            or ai_sols.get(utils.remove_docstring(f['sat']))
-                                            or {}).get("num_sols", 0),
+                             key=lambda f: (ai_sols.get(f['sat']) or {}).get("num_sols", 0),
                              reverse=True)
         n = len(puzzles)
         link = f"[{sec_name}](#{anchor(sec_name)})"
@@ -112,9 +110,9 @@ def save_readme(gen_modules, filename, sol_filename):
             f = puzzle['sat']
             puzzle_text = f'* <a name="{anchor(puzzle["name"])}"></a>**{puzzle["name"]}** {puzzle["desc"].strip()}'
             puzzle_text += f' ({puzzle["n_instances"]} instance{"s" if puzzle["n_instances"] != 1 else ""})\n\n'
-            puzzle_text += f"```python\n{f}\n```\n"
+            puzzle_text += f"```python\n{f}\n\n{puzzle['sol_header']}\n```\n"
             if ai_sols:
-                sol_entry = ai_sols.get(f) or ai_sols.get(utils.remove_docstring(f))
+                sol_entry = ai_sols.get(f)
                 if sol_entry:
                     num_ai_sols = sol_entry['num_sols']
                     if num_ai_sols > 0:
@@ -200,11 +198,11 @@ def main(args):
                     "sat": i.src,
                     "ans_type": gen.ans_type,
                     "sol_header": i.sol_header,
-                    "docstring": i.docstring,
+                    "sol_docstring": gen.docstring,
                     "sol_bodies": i.sol_bodies,
                     "module": module_name,
                     "notes": gen.desc,
-                    "weight": gen.multiplier * downweight / len(gen.instances)
+                    # "weight": gen.multiplier * downweight / len(gen.instances)
                 }
                 for i in gen.instances]
             puzzles.extend(instances)
@@ -212,6 +210,7 @@ def main(args):
                 "name": gen.name,
                 "desc": gen.desc,
                 "sat": gen.instances[0].src,
+                "sol_header": f'{gen.instances[0].sol_header}\n{gen.docstring}',
                 "sols": gen.instances[0].sol_bodies,
                 "n_instances": len(instances)
             })

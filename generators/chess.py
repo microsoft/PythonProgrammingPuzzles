@@ -120,7 +120,7 @@ class KnightsTour(PuzzleGenerator):
     def gen(self, num_target_problems):
         count = 0
         for n in [9, 8, 7, 6, 5] + list(range(10, 100)):
-            if len(self.instances) == num_target_problems:
+            if self.num_generated_so_far() == num_target_problems:
                 return
             m = n
             self.add(dict(m=m, n=n))
@@ -170,7 +170,7 @@ class UncrossedKnightsPath(PuzzleGenerator):
 
     def gen(self, target_num_instances):
         for count, n in enumerate(self.nxn_records):
-            if len(self.instances) >= target_num_instances:
+            if self.num_generated_so_far() >= target_num_instances:
                 return
             self.add(dict(m=n, n=n, target=self.nxn_records[n]))
 
@@ -223,7 +223,7 @@ class UNSOLVED_UncrossedKnightsPath(PuzzleGenerator):
 
     def gen(self, target_num_instances):
         for n in self.unsolved_nxn_records:
-            if len(self.instances) >= target_num_instances:
+            if self.num_generated_so_far() >= target_num_instances:
                 return
             self.add(dict(m=n, n=n, target=self.unsolved_nxn_records[n] + 1))  # Note the +1 means breaking the record!
 

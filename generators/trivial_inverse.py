@@ -63,7 +63,7 @@ class StrSetLen(PuzzleGenerator):
 
     def gen(self, target_num_instances):
         for dups in range(target_num_instances):
-            if len(self.instances) == target_num_instances:
+            if self.num_generated_so_far() == target_num_instances:
                 return
             self.add(dict(dups=dups))
 

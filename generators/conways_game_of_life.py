@@ -132,7 +132,7 @@ class ReverseLifeStep(PuzzleGenerator):
         next_step = {z for z in visible if sum(z + d in live for d in deltas) in ([2, 3] if z in live else [3])}
 
         target = sorted([[int(z.real), int(z.imag)] for z in next_step])
-        self.add(dict(target=target), test=len(self.instances) < 10)
+        self.add(dict(target=target), test=self.num_generated_so_far() < 10)
 
 
 ########################################################################################################################

@@ -41,6 +41,19 @@ def type_check(typ, obj):
     return helper(nest_depth, obj)
 
 
+def test_puzzle(f: callable, x, ans_type: str):
+    """Checks if x is of the correct type and makes f return True (literally True, not an integer or whatever)
+
+    :param f: Puzzle
+    :param x: candidate answer
+    :param ans_tye:
+    :return:
+    """
+    if not type_check(x, ans_type):
+        raise TypeError
+    return f(x) is True
+
+
 class InterpreterError(Exception): pass
 
 
@@ -330,47 +343,47 @@ def encode(obj):  # small modifications to make json roundtrip work
 
 
 class Instance:
-    def __init__(self, src: str, docstring: str, sol_header: str, name: str):
+    def __init__(self, name: str, src: str, sol_header: str, sol_bodies: List[str]):
+        self.name = name  # instance name
         self.src = src
-        self.docstring = docstring
         self.sol_header = sol_header
-        self.name = name  # which PuzzleGenerator template did it come from?
-        self.sol_bodies = []
+        self.sol_bodies = sol_bodies
 
-    def add_sol(self, sol_body):
-        """Add solution to the list of solutions"""
-        if sol_body in self.sol_bodies:  # already added this solution
-            return
-        self.sol_bodies.append(sol_body)
-
-    def check_and_add_sol(self, sol_body: str, ans_type: str, multiplier: float):
-        """Check that the solution satisfies the given instance and add the solution to the instance.
-        Do a round-trip json encoding/decoding to mimic the actual test and deter strange attacks.
-        Ideally this could be done by running a protected process (like in evaluating programming
-        contest submissions) but that is much slower. Since this is a test we authored presumably it has
-        no evil code."""
-
-        if sol_body in self.sol_bodies:  # already added this solution
-            return
-        env = dict(List=List)
-        time0 = time.perf_counter()
-        my_exec(self.sol_header + " \n" + sol_body + "\n" + "answer = sol()", env, description=self.name)
-
-        sol_val = env["answer"]
-
-        assert sol_val is not None, "sol returned None"
-
-        assert type_check(ans_type, sol_val)
-
-        answer = decode(encode(sol_val))
-        assert answer == sol_val, "encode/decode round trip failed"
-
-        env2 = dict(answer=answer, List=List)  # in case we screwed up env
-        my_exec(self.src + "\n" + "assert sat(answer) is True", env2, description=self.name)
-        dur = time.perf_counter() - time0
-        if dur > DEFAULT_TIMEOUT * multiplier:
-            utils.warn(f"Took {dur}s to test {self.name} (multiplier={multiplier})")
-        self.add_sol(sol_body)
+    # zzzz
+    # def add_sol(self, sol_body):
+    #     """Add solution to the list of solutions"""
+    #     if sol_body in self.sol_bodies:  # already added this solution
+    #         return
+    #     self.sol_bodies.append(sol_body)
+    #
+    # def check_and_add_sol(self, sol_body: str, ans_type: str, multiplier: float):
+    #     """Check that the solution satisfies the given instance and add the solution to the instance.
+    #     Do a round-trip json encoding/decoding to mimic the actual test and deter strange attacks.
+    #     Ideally this could be done by running a protected process (like in evaluating programming
+    #     contest submissions) but that is much slower. Since this is a test we authored presumably it has
+    #     no evil code."""
+    #
+    #     if sol_body in self.sol_bodies:  # already added this solution
+    #         return
+    #     env = dict(List=List)
+    #     time0 = time.perf_counter()
+    #     my_exec(self.sol_header + " \n" + sol_body + "\n" + "answer = sol()", env, description=self.name)
+    #
+    #     sol_val = env["answer"]
+    #
+    #     assert sol_val is not None, "sol returned None"
+    #
+    #     assert type_check(ans_type, sol_val)
+    #
+    #     answer = decode(encode(sol_val))
+    #     assert answer == sol_val, "encode/decode round trip failed"
+    #
+    #     env2 = dict(answer=answer, List=List)  # in case we screwed up env
+    #     my_exec(self.src + "\n" + "assert sat(answer) is True", env2, description=self.name)
+    #     dur = time.perf_counter() - time0
+    #     if dur > DEFAULT_TIMEOUT * multiplier:
+    #         utils.warn(f"Took {dur}s to test {self.name} (multiplier={multiplier})")
+    #     self.add_sol(sol_body)
 
 
 def unindent(docstr):
@@ -503,7 +516,7 @@ class PuzzleGenerator:
         assert self.sat is not PuzzleGenerator.sat, f"Must override {self.name}.sat"
         self.sat_src, sat_spec = get_src_spec(self.sat)
         self.docstring = utils.get_docstring(self.sat_src)
-        sat_src = utils.remove_docstring(self.sat_src)
+        self.sat_src = utils.remove_docstring(self.sat_src)
         assert len(sat_spec.args) > 0, f"{self.name}.sat() takes no arguments!"
         self.ans_name, *self.arg_names = sat_spec.args
         assert self.ans_name in sat_spec.annotations, f"Missing type hint for {self.name}.sat({self.ans_name}: ???"
@@ -516,11 +529,11 @@ class PuzzleGenerator:
             self.desc = unindent(self.__doc__)
 
         self.random = BuilderRandom(seed=self.name)
-        self.instances = []
-        self._seen_problems = set()
-        # self._built_target = 0  # check if actually useful! zzzz
-        self.build_time = None
-        self._already_tested = None  # this is for cacheing tested solutions from the .json so we don't have to retest
+
+        # these are created at Build time
+        self._seen_inputs = None
+        self._inputs = None  # inputs to test during build
+        self.instances = None
 
         sol_names = [k for k in dir(self) if k.startswith("sol")]
         self.sols = [getattr(self, k) for k in sol_names]
@@ -533,7 +546,8 @@ class PuzzleGenerator:
 
         assert set(self.arg_names) == set(self.get_example()), f"Bad {self.name} example"
         for v, val in self.get_example().items():
-            assert homogeneous_type(val), f"Non-homogeneous type for example var {v} in {self.name}"
+            if not homogeneous_type(val):
+                utils.warn(f"Non-homogeneous type for example var {v} in {self.name}")
 
         # check that sat and sol's are @staticmethod's
         mro_dict = {}
@@ -542,45 +556,116 @@ class PuzzleGenerator:
         assert all(isinstance(mro_dict[k], staticmethod) for k in ["sat"] + sol_names), \
             f"{self.name} `sat` and `sol` must be defined with @staticmethod"
 
-    def build(self, target_num_instances, already_tested={}, max_random_attempts=100, force_trivial_test=False):
-        # if self._built_target == target_num_instances:
-        #     print(f"*** Not building, already built {target_num_instances} instances")  # zzzz
-        #     return
+    def test_input(self, name, inp, test: bool, already_tested={}):
+        """Check if the input has been tested already. If not, assert that the solution(s) satisfy the given
+        inputs. Do a round-trip json encoding/decoding to mimic the actual test.
+        Ideally this could be done by running a protected process (like in evaluating programming
+        contest submissions) but that is much slower. Since this is a test we authored presumably it has
+        no evil code.
 
+        Returns the new instance and number of solutions actually tested (that were not in cache)"""
+        num_tested = 0
+        new_sat_src = create_sat(self.sat_src, self.ans_name, self.ans_type, self.arg_names, inp)
+        sol_header = create_sol_header(inp)
+
+        instance = Instance(
+            name,
+            new_sat_src,
+            sol_header,
+            self.sol_bodies if test else []
+        )
+
+        for sol_body, sol_func in zip(instance.sol_bodies, self.sols):
+            if new_sat_src in already_tested and sol_body in already_tested[new_sat_src]:
+                continue  # skip
+            num_tested += 1
+            time0 = time.perf_counter()
+            env = dict(List=List)
+            if self.DEBUG:  # In debug mode just run the darn tests
+                answer = sol_func(**inp)
+            else:
+                try:
+                    my_exec(
+                        instance.sol_header + " \n" + sol_body + "\n" + "answer = sol()",
+                        env,
+                        description=instance.name
+                    )
+                except Exception:
+                    sol_func(**inp)
+                    utils.error("Strange, failed test in exec but passed without exec")
+                    raise
+
+                answer = env["answer"]
+
+            assert answer is not None, "sol returned None"
+            assert type_check(self.ans_type, answer), f"Solution returned wrong type for {self.name}"
+
+            if self.DEBUG:
+                assert self.sat(answer, **inp) is True, f"Puzzle {self.name} didn't return True on `{inp}`"
+            else:
+                assert answer == decode(encode(answer))
+                try:
+                    env2 = dict(answer=answer, List=List)  # in case we screwed up env
+                    my_exec(instance.src + "\n" + "assert sat(answer) is True", env2, description=self.name)
+                except Exception:
+                    assert self.sat(answer, **inp) is True, \
+                        f"Puzzle {instance.name} didn't return True on `{inp}`"
+                    utils.error("Strange, failed test in exec but passed without exec")
+                    raise
+
+            dur = time.perf_counter() - time0
+            if dur > DEFAULT_TIMEOUT * self.multiplier:
+                utils.warn(f"Took {dur}s to test {instance.name} (multiplier={self.multiplier})")
+
+        return instance, num_tested
+
+    def num_generated_so_far(self):
+        """
+        Call this function during gen/gen_random to see how many unique puzzle instances have been generated so far.
+        """
+        return len(self._inputs)
+
+    def build(self, target_num_instances, already_tested={}, max_random_attempts=100, force_trivial_test=False):
         self.check_for_trivial_solutions(force_trivial_test, already_tested)
-        self._already_tested = already_tested  # for checking if already tested in add method (hacky, sorry)
-        self._seen_problems = set()
-        # self._built_target = target_num_instances
+        self._seen_inputs = set()
+        self._inputs = []  # for recording the inputs to test
         self.random.reseed()
-        self._tested = 0
-        self.instances = []
         start_time = time.perf_counter()
         self.add(self.get_example())
 
-        if target_num_instances > len(self.instances):
-            self.gen(target_num_instances - len(self.instances))
+        if target_num_instances > len(self._inputs):
+            self.gen(target_num_instances - len(self._inputs))
 
-        while len(self.instances) < target_num_instances:
-            n = len(self.instances)
+        while len(self._inputs) < target_num_instances:
+            n = len(self._inputs)
             for _ in range(max_random_attempts):
                 self.gen_random()
-                if n != len(self.instances):  # added a problem
-                    assert len(self.instances) == n + 1, f"{self.name}.gen_random() added more than one instance"
+                if n != len(self._inputs):  # added a problem
+                    assert len(self._inputs) == n + 1, f"{self.name}.gen_random() generated more than one instance"
                     break
 
-            if len(self.instances) == n:  # failed max_random_attempts, give up
+            if len(self._inputs) == n:  # failed max_random_attempts, give up
                 break
 
-        self.instances = self.instances[:target_num_instances]
+        self._inputs = self._inputs[:target_num_instances]
 
-        if not self.instances:
-            utils.error(f"{self.name} did not generate any problem instances")
+        num_tested = 0
+        self.instances = []
 
-        self.build_time = time.perf_counter() - start_time
-        self._already_tested = None
+        for inp, test in self._inputs:
+            instance, n = self.test_input(f"{self.name}:{len(self.instances)}", inp, test, already_tested)
+            self.instances.append(instance)
+            num_tested += n
+        build_time = time.perf_counter() - start_time
+
         assert self._example_copy == self._example, f"Puzzle {self.name} changed inputs"
-        if self._tested:
-            utils.info(f"Tested {self._tested} instances of {self.name}")
+
+        if num_tested:
+            utils.info(f"Actually tested {num_tested:,}/{len(self.instances):,} "
+                       f"instances of {self.name} in {build_time:.1f}s")
+
+        self._seen_inputs = None
+        self._inputs = None  # for recording the inputs to test
 
     def check_for_trivial_solutions(self, force, already_tested):  # check for trivial solutions
         example = self.get_example()
@@ -645,83 +730,99 @@ class PuzzleGenerator:
     def gen_random(self):
         pass
 
-    def check_seen_input(self, inp):
-        """
-        Returns True if the input is a duplicate of a previous puzzle, and also makes sure that the types match
-        """
+    # def check_seen_input(self, inp):
+    #     """
+    #     Returns True if the input is a duplicate of a previous puzzle, and also makes sure that the types match
+    #     """
+    #     s = str(inp)
+    #     if s in self._seen_problems:
+    #         return True  # duplicate problem
+    #
+    #     self._seen_problems.add(s)
+    #
+    #     assert set(inp) == set(self.arg_names), f"Instance #{len(self.instances)} keys mismatch in {self.name}"
+    #     example = self.get_example()
+    #     for k in inp:
+    #         v1, v2 = example[k], inp[k]
+    #         assert same_types(v1, v2), f"Instance #{len(self.instances)} variable `{k}` type mismatch in {self.name}"
+    #
+    #     return False
+
+    def add(self, inp: dict, test=True):
         s = str(inp)
-        if s in self._seen_problems:
-            return True  # duplicate problem
+        if s in self._seen_inputs:
+            return  # duplicate problem
+        else:
+            self._seen_inputs.add(s)
 
-        self._seen_problems.add(s)
-
-        assert set(inp) == set(self.arg_names), f"Instance #{len(self.instances)} keys mismatch in {self.name}"
+        assert set(inp) == set(self.arg_names), f"Instance #{self.num_generated_so_far()} keys mismatch in {self.name}"
         example = self.get_example()
         for k in inp:
             v1, v2 = example[k], inp[k]
-            assert same_types(v1, v2), f"Instance #{len(self.instances)} variable `{k}` type mismatch in {self.name}"
+            if not same_types(v1, v2):
+                utils.warn(f"Instance #{self.num_generated_so_far()} variable `{k}` type mismatch in {self.name}")
 
-        return False
+        self._inputs.append((inp, test))
 
-    def add(self, inp: dict, test=True):
-        if self.DEBUG:
-            return self.add_debug(inp, test)
+    # zzzz
+    # def add(self, inp: dict, test=True):
+    #     if self.DEBUG:
+    #         return self.add_debug(inp, test)
+    #
+    #     if self.check_seen_input(inp):
+    #         return  # don't add duplicate problems
+    #
+    #     sol_header = create_sol_header(inp)
+    #
+    #     instance = Instance(
+    #         create_sat(self.sat_src, self.ans_name, self.ans_type, self.arg_names, inp),
+    #         self.docstring,
+    #         sol_header,
+    #         f"{self.name}_{len(self.instances)}"
+    #     )
+    #
+    #     if test:
+    #         for s, sol_body in zip(self.sols, self.sol_bodies):
+    #             if instance.src in self._already_tested and sol_body in self._already_tested[instance.src]:
+    #                 instance.add_sol(sol_body)
+    #             else:
+    #                 try:
+    #                     instance.check_and_add_sol(
+    #                         sol_body,
+    #                         ans_type=self.ans_type,
+    #                         multiplier=self.multiplier
+    #                     )
+    #                     self._tested += 1
+    #                 except Exception:  # failed to pass test, rerun test without for debugging with normal exception
+    #                     assert self.sat(s(**inp), **inp) is True, f"Puzzle {self.name} didn't return True on `{inp}`"
+    #                     utils.error("Strange, failed test in exec but passed without exec")
+    #                     raise
+    #
+    #     self.instances.append(instance)
 
-        if self.check_seen_input(inp):
-            return  # don't add duplicate problems
-
-        sol_header = create_sol_header(inp)
-
-        instance = Instance(
-            create_sat(self.sat_src, self.ans_name, self.ans_type, self.arg_names, inp),
-            self.docstring,
-            sol_header,
-            f"{self.name}_{len(self.instances)}"
-        )
-
-        if test:
-            for s, sol_body in zip(self.sols, self.sol_bodies):
-                if instance.src in self._already_tested and sol_body in self._already_tested[instance.src]:
-                    instance.add_sol(sol_body)
-                else:
-                    try:
-                        instance.check_and_add_sol(
-                            sol_body,
-                            ans_type=self.ans_type,
-                            multiplier=self.multiplier
-                        )
-                        self._tested += 1
-                    except Exception:  # failed to pass test, rerun test without for debugging with normal exception
-                        assert self.sat(s(**inp), **inp) is True, f"Puzzle {self.name} didn't return True on `{inp}`"
-                        utils.error("Strange, failed test in exec but passed without exec")
-                        raise
-
-        self.instances.append(instance)
-
-    def test(self, target_num_instances=100):
-        self.build(target_num_instances, force_trivial_test=True)
+    # zzzz
+    # def test(self, target_num_instances=100):
+    #     self.build(target_num_instances, force_trivial_test=True)
 
     def debug(self, target_num_instances=10000):
-        old_debug = self.DEBUG
         print(f"Debugging {self.name}")
+        old_debug = self.DEBUG
+        self.DEBUG = True
         self.build(target_num_instances, force_trivial_test=True)
-        solved = sum(i[1] for i in self.instances)
-        dur = self.build_time
-        utils.info(f"Tested {solved:,}/{len(self.instances):,} instances of "
-                   f"({self.name}: PuzzleGenerator) in {dur:0.2f}s")
         self.DEBUG = old_debug
 
-    def add_debug(self, inp: dict, test=True):
-        if self.check_seen_input(inp):
-            return  # don't add duplicate problems
-
-        if test:
-            for s in self.sols:
-                answer = s(**inp)
-                assert type_check(self.ans_type, answer), "Puzzle {self.name} got wrong type solution"
-                assert self.sat(answer, **inp) is True, f"Puzzle {self.name} didn't return True on `{inp}`"
-            self._tested += 1
-        self.instances.append(("DEBUG TEST", bool(test and self.sols)))  # for counting purposes
+    # zzzz
+    # def add_debug(self, inp: dict, test=True):
+    #     if self.check_seen_input(inp):
+    #         return  # don't add duplicate problems
+    #
+    #     if test:
+    #         for s in self.sols:
+    #             answer = s(**inp)
+    #             assert type_check(self.ans_type, answer), "Puzzle {self.name} got wrong type solution"
+    #             assert self.sat(answer, **inp) is True, f"Puzzle {self.name} didn't return True on `{inp}`"
+    #         self._tested += 1
+    #     self.instances.append(("DEBUG TEST", bool(test and self.sols)))  # for counting purposes
 
 
 def get_src_spec(f: Callable):

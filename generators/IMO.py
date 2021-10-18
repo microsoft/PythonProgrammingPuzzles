@@ -91,8 +91,6 @@ class ExponentialCoinMoves(PuzzleGenerator):
         for i in range(10):
             n = 2 ** i
             self.add(dict(n=n))
-            if len(self.instances) >= target_num_instances:
-                return
 
 
 class NoRelativePrimes(PuzzleGenerator):

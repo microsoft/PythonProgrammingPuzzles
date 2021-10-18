@@ -387,9 +387,9 @@ class Zarankiewicz(PuzzleGenerator):
                 return [[a, b] for a, b in edges]
 
     def gen(self, target_num_instances):
-        if len(self.instances) < target_num_instances:
+        if self.num_generated_so_far() < target_num_instances:
             self.add(dict(z=26, n=6, t=3), test=False)
-        if len(self.instances) < target_num_instances:
+        if self.num_generated_so_far() < target_num_instances:
             self.add(dict(z=13, n=4, t=3))
 
 
