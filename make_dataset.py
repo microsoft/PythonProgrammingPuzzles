@@ -223,7 +223,7 @@ def main(args):
     utils.save_json(puzzles, args.json, make_dirs_if_necessary=True, indent=2)
     save_readme(summaries, args.readme, args.solutions)
     utils.info(f"Elapsed time: {(time.perf_counter() - start_time) / 60:.2f} minutes")
-    utils.info(f"Saved {len(puzzles)} to {args.json} and {args.readme}")
+    utils.info(f"Saved {len(puzzles):,} to {args.json} and {args.readme}")
 
 
 if __name__ == "__main__":

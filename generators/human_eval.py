@@ -7,47 +7,20 @@ from puzzle_generator import PuzzleGenerator
 from typing import List
 
 """
-Some that came out especially nicely as puzzles:
-ParenthesesPermutation
-Derivative
-Frac/ClosestInteger
-HeronTriangle
-RomanNumerals
-ClosestPalindrome
-WildSort
-Intersperse
-SimplifyProductFraction
-Fib4
-MinSquaredDeviation
-DiffChars
-RotateString
-EvaluateOperators
-Grader
-Median
-TripleZeroSum
-PrimeFib
+Some came out especially nicely as puzzles:
+ParenthesesPermutation, Derivative, Frac, HeronTriangle, RomanNumerals, ClosestPalindrome, WildSort, Intersperse,
+SimplifyProductFraction, Fib4, DiffChars, RotateString, EvaluateOperators, Grader, TripleZeroSum, PrimeFib
 
-Some that weren't such natural puzzles:
-CircularShiftNum
-ReplaceMe
-MinSubArraySum
-Buckets
-OddEvenSum
-FindStrangeSum
-EvenSqure
-StrongestExtension
-HungryRabbits
-ReverseCase
-MatchBrackets
-ListTotal
-BelowThreshold
-RemoveVowels
+Some weren't such natural puzzles:
+CircularShiftNum, ReplaceMe, MinSubArraySum, Buckets, OddEvenSum, FindStrangeSum, EvenSqure, StrongestExtension
+HungryRabbits, ReverseCase, MatchBrackets, ListTotal, BelowThreshold, RemoveVowels
+
+In many cases, the original problem wasn't naturally a puzzle but it inspired a nice loosely-related puzzle:
+ZobristCollision, EvenBetween, MinSquaredDeviation, Median
 """
 
 
 # See https://github.com/microsoft/PythonProgrammingPuzzles/wiki/How-to-add-a-puzzle to learn about adding puzzles
-
-
 
 class FindCloseElements(PuzzleGenerator):
     """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#0"""
@@ -163,10 +136,10 @@ class FirstNegCumulative(PuzzleGenerator):
         Given a list of numbers which represent bank deposits and withdrawals, find the *first* negative balance.
 
         Sample Input:
-        [12, -5, 3, -99, 14, 88, -99]
+        [[12, -5, 3, -99, 14, 88, -99], [-1, 2, 5]]
 
         Sample Output:
-        -89
+        [-89, -1]
         """
         for i, bals in enumerate(balances):
             total = 0
@@ -1716,7 +1689,8 @@ class Fib4(PuzzleGenerator):
 
 class Median(PuzzleGenerator):
     """
-    One definition of the median is a number that minimizes the sum of absolute deviations.
+    One definition of the median is a number that minimizes the sum of absolute deviations. When there are an
+    even number of items, there is an interval of valid solutions.
 
     Inspired by [HumanEval](https://github.com/openai/human-eval) \\#47
     """
@@ -4018,8 +3992,11 @@ class ParenthesesPermutation(PuzzleGenerator):
     """
 
     @staticmethod
-    def sat(perm: str,
-            s="))(  )()()() )))(( ))))((( )))))(((( ))))))))((((((( ))))))((((( )))))))(((((( )))))))))(((((((  (((((((((("):
+    def sat(
+            perm: str,
+            s="))(  )()()() )))(( ))))((( )))))(((( ))))))))((((((( ))))))((((( " +
+              ")))))))(((((( )))))))))(((((((  (((((((((("
+    ):
         """The string s consists of groups of parentheses separated by spaces.
         Permute the groups such that the parentheses match.
 
@@ -5391,7 +5368,11 @@ class ReverseCase(PuzzleGenerator):
 
 
 class ZobristCollision(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#162"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#162
+
+    The original problem was to compute an MD5 hash. This puzzle is a problem in the space of hashing, but of a
+    different nature.
+    """
 
     @staticmethod
     def sat(positions: List[List[int]]):
@@ -5433,7 +5414,13 @@ class ZobristCollision(PuzzleGenerator):
 
 
 class EvenBetween(PuzzleGenerator):
-    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#163"""
+    """Inspired by [HumanEval](https://github.com/openai/human-eval) \\#163
+
+    The original problem was trivial to list the even single-digit numbers between two numbers:
+    `a=2, b=12` => `[4, 6, 8]`. In this puzzle, we consider the string of even numbers formed when counting from
+    `a` to `b`, e.g., `"1618202224262830"` when counting from `15` to `30`. The puzzle is, given such a string,
+    find `a` and `b`.
+    """
 
     @staticmethod
     def sat(ab: List[int], s="3298832990329923299432996329983300033002"):
@@ -5468,5 +5455,3 @@ class EvenBetween(PuzzleGenerator):
 
 if __name__ == "__main__":
     PuzzleGenerator.debug_problems()
-
-

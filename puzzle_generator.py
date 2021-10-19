@@ -721,7 +721,7 @@ class PuzzleGenerator:
                        f"has trivial solution `{t}`")
             break
         dur = time.perf_counter() - time0
-        if dur > 1.0:
+        if dur > 1.0 * self.multiplier:  # warn if above one second
             utils.warn(f"Took {dur:.1f}s to test for trivial solutions to `{self.name}`")
 
     def gen(self, target_num_instances):
@@ -730,23 +730,12 @@ class PuzzleGenerator:
     def gen_random(self):
         pass
 
-    # def check_seen_input(self, inp):
-    #     """
-    #     Returns True if the input is a duplicate of a previous puzzle, and also makes sure that the types match
-    #     """
-    #     s = str(inp)
-    #     if s in self._seen_problems:
-    #         return True  # duplicate problem
-    #
-    #     self._seen_problems.add(s)
-    #
-    #     assert set(inp) == set(self.arg_names), f"Instance #{len(self.instances)} keys mismatch in {self.name}"
-    #     example = self.get_example()
-    #     for k in inp:
-    #         v1, v2 = example[k], inp[k]
-    #         assert same_types(v1, v2), f"Instance #{len(self.instances)} variable `{k}` type mismatch in {self.name}"
-    #
-    #     return False
+    def testable(self, inp: dict):
+        """Override this to ensure that certain examples are not tested.
+        This is the only way to make sure the *example* is not tested.
+        For other instances, you can also avoid testing by calling .add(inp, test=False)
+        """
+        return True
 
     def add(self, inp: dict, test=True):
         s = str(inp)
@@ -762,7 +751,7 @@ class PuzzleGenerator:
             if not same_types(v1, v2):
                 utils.warn(f"Instance #{self.num_generated_so_far()} variable `{k}` type mismatch in {self.name}")
 
-        self._inputs.append((inp, test))
+        self._inputs.append((inp, test and self.testable(inp)))
 
     # zzzz
     # def add(self, inp: dict, test=True):
