@@ -52,9 +52,10 @@ through `type_check` from `puzzle_generator.py` before certifying correctness.
 def rename_src_var(orig, new, src, count=0):
     def helper(s):
         return re.sub(r'\b' + orig + r'\b(?!["\'])', new, s, count)
+
     if src.count('"""') >= 2:
         a = src.index('"""')
-        b = src.index('"""', a+1) + 3
+        b = src.index('"""', a + 1) + 3
         if count == 1:
             h = helper(src[:a])
             if h != src[:a]:
@@ -63,11 +64,14 @@ def rename_src_var(orig, new, src, count=0):
 
     return helper(src)
 
+
 def anchor(name):
     return name.strip().lower().replace(' ', '-')
 
+
 def indent(x, spaces=4):
-    return (" "*spaces + x.replace("\n", "\n" + " "*spaces))[:-spaces if x.endswith("\n") else None]
+    return (" " * spaces + x.replace("\n", "\n" + " " * spaces))[:-spaces if x.endswith("\n") else None]
+
 
 def save_readme(gen_modules, filename, sol_filename):
     ai_sols = run_name = run_desc = None
@@ -81,8 +85,8 @@ def save_readme(gen_modules, filename, sol_filename):
             f_name = f[len("def "):f.index("(")].strip()
             f2 = rename_src_var(f_name, "sat", f, 1)
             entry2 = ai_sols[f2] = entry.copy()
-            g = entry2["sol"]
-            g_name = g[len("def "):f.index("(")].strip()
+            # g = entry2["sol"]
+            g_name = "g" # g[len("def "):f.index("(")].strip()
             entry2["sol"] = rename_src_var(g_name, "sol", rename_src_var(f_name, "sat", entry2["sol"]))
             entry2["longest_sol"] = rename_src_var(g_name, "sol", rename_src_var(f_name, "sat", entry2["longest_sol"]))
 
@@ -90,6 +94,10 @@ def save_readme(gen_modules, filename, sol_filename):
     content = ""
     tot_puzzles = 0
     tot_instances = 0
+
+    def py(src):
+        return f"```python\n{src}\n```\n"
+
     for module_name, module_stuff in gen_modules.items():
         section = ""
         sec_name = module_name.split(".")[0]
@@ -108,37 +116,38 @@ def save_readme(gen_modules, filename, sol_filename):
         for i, puzzle in enumerate(puzzles):
             tot_puzzles += 1
             f = puzzle['sat']
-            puzzle_text = f'* <a name="{anchor(puzzle["name"])}"></a>**{puzzle["name"]}** {puzzle["desc"].strip()}'
+            puzzle_text = f'* <a name="{anchor(puzzle["name"])}"></a>**{puzzle["name"]}** {puzzle["notes"].strip()}'
             puzzle_text += f' ({puzzle["n_instances"]} instance{"s" if puzzle["n_instances"] != 1 else ""})\n\n'
-            puzzle_text += f"```python\n{f}\n\n{puzzle['sol_header']}\n```\n"
+            puzzle_text += py(f)
+            puzzle_text += "<details><summary>"
+            num_ai_sols = 0
             if ai_sols:
                 sol_entry = ai_sols.get(f)
                 if sol_entry:
                     num_ai_sols = sol_entry['num_sols']
-                    if num_ai_sols > 0:
-                        puzzle_text += "<details><summary>"
-                    puzzle_text += f"{num_ai_sols:,} AI solution{'s' if num_ai_sols != 1 else ''} from {run_name}"
-                    if num_ai_sols > 0:
-                        if num_ai_sols > 1:
-                            puzzle_text += " (shortest and longest ones below)"
-                        puzzle_text += "</summary>\n\n"
-                        puzzle_text += f"```python\n{sol_entry['sol']}\n```\n\n"
-                        if num_ai_sols > 1:
-                            puzzle_text += f"```python\n{sol_entry['longest_sol']}\n```\n\n"
-                        puzzle_text += "</details>\n\n"
+                    puzzle_text += f"{num_ai_sols:,} AI solution{'s' if num_ai_sols != 1 else ''}, "
                 else:
-                    puzzle_text += f"{run_name} was not run on this puzzle\n\n"
+                    puzzle_text += f"{run_name} was not run on this puzzle, "
+            sol_bodies = puzzle['sol_bodies']
+            n_sols = len(sol_bodies)
+            puzzle_text += f"{n_sols:,} hand-written solution{'s' if n_sols != 1 else ''} "
+            puzzle_text += "</summary>\n\n"
+            puzzle_text += "Solution header:\n"
+            puzzle_text += py(puzzle['sol_header'])
+            puzzle_text += "Solution docstring (*not* usually provided)\n\n"
+            puzzle_text += py(puzzle['sol_docstring'])
+            if num_ai_sols:
+                puzzle_text += f"Shortest solution from {run_name}:\n"
+                puzzle_text += py(sol_entry['sol'])
+                puzzle_text += f"Longest solution from {run_name}:\n"
+                puzzle_text += py(sol_entry['longest_sol'])
+            if n_sols:
+                for body in sol_bodies:
+                    puzzle_text += "Hand-written solution:\n"
+                    puzzle_text += py(body)
 
-            if len(puzzle['sols']) > 0:
-                puzzle_text += "<details><summary>"
-            puzzle_text += f"{len(puzzle['sols']):,} hand-written solution{'s' if len(puzzle['sols']) != 1 else ''} "
-            if len(puzzle['sols']) > 0:
-                puzzle_text += "</summary>\n\n"
-                for sol in puzzle['sols']:
-                    puzzle_text += f"```python\n{sol}\n```\n\n"
-                puzzle_text += "</details>\n\n"
-            else:
-                puzzle_text += "\n\n"
+            puzzle_text += "</details>\n\n"
+
             section += indent(puzzle_text, 4)[4:]
 
         content += section
@@ -179,7 +188,7 @@ def main(args):
 
     gens = puzzle_generator.PuzzleGenerator.subclass_descendents()
 
-    gens_by_module = utils.inv_dict({g: g.__module__.replace("generators.", "")+".py" for g in gens})
+    gens_by_module = utils.inv_dict({g: g.__module__.replace("generators.", "") + ".py" for g in gens})
 
     utils.info(f"Python version {sys.version}")
     utils.info(f"Generating from templates: {list(gens_by_module)}")
@@ -187,8 +196,8 @@ def main(args):
     summaries = {}
 
     for module_name, gens in gens_by_module.items():  # order determined by generators/__init__.py
+        module_multiplier = 0.2 if "trivial" in module_name else 1.0
         readme_examples = []
-        downweight = 1.0 / len(gens)  # this causes each module to be weighted equally except for multipliers
         for cls in gens:
             gen = cls()
             gen.build(args.target_num_per_problem, already_tested_cache)
@@ -202,18 +211,11 @@ def main(args):
                     "sol_bodies": i.sol_bodies,
                     "module": module_name,
                     "notes": gen.desc,
-                    # "weight": gen.multiplier * downweight / len(gen.instances)
+                    "weight": i.multiplier * module_multiplier
                 }
                 for i in gen.instances]
             puzzles.extend(instances)
-            readme_examples.append({
-                "name": gen.name,
-                "desc": gen.desc,
-                "sat": gen.instances[0].src,
-                "sol_header": f'{gen.instances[0].sol_header}\n{gen.docstring}',
-                "sols": gen.instances[0].sol_bodies,
-                "n_instances": len(instances)
-            })
+            readme_examples.append({** instances[0], "name": gen.name, "n_instances": len(instances)})
 
         summaries[module_name] = {
             "docstring": inspect.getmodule(gens[0]).__doc__,

@@ -20,7 +20,7 @@ class ExponentialCoinMoves(PuzzleGenerator):
 
     Inspired by [IMO 2010 Problem 5](https://www.imo-official.org/problems.aspx)"""
 
-    multiplier = 10  # worth 10 times normal so that it can run 10 times longer than normal
+    skip_example = True  # so that we can add a multiplier in gen method below
 
     @staticmethod
     def sat(states: List[List[int]], n=16385):
@@ -88,9 +88,10 @@ class ExponentialCoinMoves(PuzzleGenerator):
         return ans
 
     def gen(self, target_num_instances):
+        self.add(dict(n=2**14 + 1), multiplier=10) # n=16385 will be first instance because of skip_example
         for i in range(10):
             n = 2 ** i
-            self.add(dict(n=n))
+            self.add(dict(n=n), multiplier=1 if n <= 4 else n)
 
 
 class NoRelativePrimes(PuzzleGenerator):

@@ -1,5 +1,4 @@
-"""Classic puzzles
-"""
+"""Classic puzzles"""
 
 from puzzle_generator import PuzzleGenerator
 from typing import List

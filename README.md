@@ -115,7 +115,7 @@ A more challenging puzzle that requires [dynamic programming](https://en.wikiped
 [longest increasing subsequence](https://en.wikipedia.org/wiki/Longest_increasing_subsequence) problem
 which we can also describe with strings:
 ```python
-def f(x: List[int], length=20, s="Dynamic programming solves this classic job-interview puzzle!!!"):
+def sat(x: List[int], length=20, s="Dynamic programming solves this classic job-interview puzzle!!!"):
     """Find the indices of the longest substring with characters in sorted order"""
     return all(s[x[i]] <= s[x[i + 1]] and x[i + 1] > x[i] for i in range(length - 1))
 
@@ -179,7 +179,7 @@ During a Microsoft hackathon July 27-29, 2020, several people completed 30 user
 [Hackathon_puzzles.ipynb](/notebooks/Hackathon_puzzles.ipynb). These are of a somewhat
 different flavor as they are more often `hacks` like 
 ```python
-def f(x):
+def sat(x):
     return x > x
 ```
 where the type of `x` is clearly non-standard. The creators of these puzzles include github users: 

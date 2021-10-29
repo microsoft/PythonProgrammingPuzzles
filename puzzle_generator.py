@@ -343,47 +343,12 @@ def encode(obj):  # small modifications to make json roundtrip work
 
 
 class Instance:
-    def __init__(self, name: str, src: str, sol_header: str, sol_bodies: List[str]):
+    def __init__(self, name: str, src: str, sol_header: str, sol_bodies: List[str], multiplier: float):
         self.name = name  # instance name
         self.src = src
         self.sol_header = sol_header
         self.sol_bodies = sol_bodies
-
-    # zzzz
-    # def add_sol(self, sol_body):
-    #     """Add solution to the list of solutions"""
-    #     if sol_body in self.sol_bodies:  # already added this solution
-    #         return
-    #     self.sol_bodies.append(sol_body)
-    #
-    # def check_and_add_sol(self, sol_body: str, ans_type: str, multiplier: float):
-    #     """Check that the solution satisfies the given instance and add the solution to the instance.
-    #     Do a round-trip json encoding/decoding to mimic the actual test and deter strange attacks.
-    #     Ideally this could be done by running a protected process (like in evaluating programming
-    #     contest submissions) but that is much slower. Since this is a test we authored presumably it has
-    #     no evil code."""
-    #
-    #     if sol_body in self.sol_bodies:  # already added this solution
-    #         return
-    #     env = dict(List=List)
-    #     time0 = time.perf_counter()
-    #     my_exec(self.sol_header + " \n" + sol_body + "\n" + "answer = sol()", env, description=self.name)
-    #
-    #     sol_val = env["answer"]
-    #
-    #     assert sol_val is not None, "sol returned None"
-    #
-    #     assert type_check(ans_type, sol_val)
-    #
-    #     answer = decode(encode(sol_val))
-    #     assert answer == sol_val, "encode/decode round trip failed"
-    #
-    #     env2 = dict(answer=answer, List=List)  # in case we screwed up env
-    #     my_exec(self.src + "\n" + "assert sat(answer) is True", env2, description=self.name)
-    #     dur = time.perf_counter() - time0
-    #     if dur > DEFAULT_TIMEOUT * multiplier:
-    #         utils.warn(f"Took {dur}s to test {self.name} (multiplier={multiplier})")
-    #     self.add_sol(sol_body)
+        self.multiplier = multiplier
 
 
 def unindent(docstr):
@@ -454,8 +419,9 @@ class PuzzleGenerator:
             self.add({"a": a, "b": b})
         '''
 
-    multiplier = 1.0  # puzzle-specific weight multiplier, puzzles in same are also be further weighted
+
     DEBUG = False  # DEBUG = True while making a puzzle makes it run before any other problems
+    skip_example = False # skip the example in the default arguments to sat, so it's not the first instance
 
     @staticmethod
     def sat(ans, *other_inputs):  # must override
@@ -556,7 +522,7 @@ class PuzzleGenerator:
         assert all(isinstance(mro_dict[k], staticmethod) for k in ["sat"] + sol_names), \
             f"{self.name} `sat` and `sol` must be defined with @staticmethod"
 
-    def test_input(self, name, inp, test: bool, already_tested={}):
+    def test_input(self, name, inp, test: bool, multiplier: float, already_tested={}):
         """Check if the input has been tested already. If not, assert that the solution(s) satisfy the given
         inputs. Do a round-trip json encoding/decoding to mimic the actual test.
         Ideally this could be done by running a protected process (like in evaluating programming
@@ -572,7 +538,8 @@ class PuzzleGenerator:
             name,
             new_sat_src,
             sol_header,
-            self.sol_bodies if test else []
+            self.sol_bodies if test else [],
+            multiplier
         )
 
         for sol_body, sol_func in zip(instance.sol_bodies, self.sols):
@@ -614,8 +581,8 @@ class PuzzleGenerator:
                     raise
 
             dur = time.perf_counter() - time0
-            if dur > DEFAULT_TIMEOUT * self.multiplier:
-                utils.warn(f"Took {dur}s to test {instance.name} (multiplier={self.multiplier})")
+            if dur > DEFAULT_TIMEOUT * multiplier:
+                utils.warn(f"Took {dur}s to test {instance.name} (multiplier={multiplier})")
 
         return instance, num_tested
 
@@ -631,7 +598,8 @@ class PuzzleGenerator:
         self._inputs = []  # for recording the inputs to test
         self.random.reseed()
         start_time = time.perf_counter()
-        self.add(self.get_example())
+        if not self.skip_example:
+            self.add(self.get_example())
 
         if target_num_instances > len(self._inputs):
             self.gen(target_num_instances - len(self._inputs))
@@ -652,8 +620,8 @@ class PuzzleGenerator:
         num_tested = 0
         self.instances = []
 
-        for inp, test in self._inputs:
-            instance, n = self.test_input(f"{self.name}:{len(self.instances)}", inp, test, already_tested)
+        for inp, test, multiplier in self._inputs:
+            instance, n = self.test_input(f"{self.name}:{len(self.instances)}", inp, test, multiplier, already_tested)
             self.instances.append(instance)
             num_tested += n
         build_time = time.perf_counter() - start_time
@@ -721,7 +689,7 @@ class PuzzleGenerator:
                        f"has trivial solution `{t}`")
             break
         dur = time.perf_counter() - time0
-        if dur > 1.0 * self.multiplier:  # warn if above one second
+        if dur > 1.0:  # warn if above one second
             utils.warn(f"Took {dur:.1f}s to test for trivial solutions to `{self.name}`")
 
     def gen(self, target_num_instances):
@@ -730,14 +698,7 @@ class PuzzleGenerator:
     def gen_random(self):
         pass
 
-    def testable(self, inp: dict):
-        """Override this to ensure that certain examples are not tested.
-        This is the only way to make sure the *example* is not tested.
-        For other instances, you can also avoid testing by calling .add(inp, test=False)
-        """
-        return True
-
-    def add(self, inp: dict, test=True):
+    def add(self, inp: dict, test=True, multiplier=1.0):
         s = str(inp)
         if s in self._seen_inputs:
             return  # duplicate problem
@@ -751,47 +712,8 @@ class PuzzleGenerator:
             if not same_types(v1, v2):
                 utils.warn(f"Instance #{self.num_generated_so_far()} variable `{k}` type mismatch in {self.name}")
 
-        self._inputs.append((inp, test and self.testable(inp)))
+        self._inputs.append((inp, test, multiplier))
 
-    # zzzz
-    # def add(self, inp: dict, test=True):
-    #     if self.DEBUG:
-    #         return self.add_debug(inp, test)
-    #
-    #     if self.check_seen_input(inp):
-    #         return  # don't add duplicate problems
-    #
-    #     sol_header = create_sol_header(inp)
-    #
-    #     instance = Instance(
-    #         create_sat(self.sat_src, self.ans_name, self.ans_type, self.arg_names, inp),
-    #         self.docstring,
-    #         sol_header,
-    #         f"{self.name}_{len(self.instances)}"
-    #     )
-    #
-    #     if test:
-    #         for s, sol_body in zip(self.sols, self.sol_bodies):
-    #             if instance.src in self._already_tested and sol_body in self._already_tested[instance.src]:
-    #                 instance.add_sol(sol_body)
-    #             else:
-    #                 try:
-    #                     instance.check_and_add_sol(
-    #                         sol_body,
-    #                         ans_type=self.ans_type,
-    #                         multiplier=self.multiplier
-    #                     )
-    #                     self._tested += 1
-    #                 except Exception:  # failed to pass test, rerun test without for debugging with normal exception
-    #                     assert self.sat(s(**inp), **inp) is True, f"Puzzle {self.name} didn't return True on `{inp}`"
-    #                     utils.error("Strange, failed test in exec but passed without exec")
-    #                     raise
-    #
-    #     self.instances.append(instance)
-
-    # zzzz
-    # def test(self, target_num_instances=100):
-    #     self.build(target_num_instances, force_trivial_test=True)
 
     def debug(self, target_num_instances=10000):
         print(f"Debugging {self.name}")
@@ -800,18 +722,6 @@ class PuzzleGenerator:
         self.build(target_num_instances, force_trivial_test=True)
         self.DEBUG = old_debug
 
-    # zzzz
-    # def add_debug(self, inp: dict, test=True):
-    #     if self.check_seen_input(inp):
-    #         return  # don't add duplicate problems
-    #
-    #     if test:
-    #         for s in self.sols:
-    #             answer = s(**inp)
-    #             assert type_check(self.ans_type, answer), "Puzzle {self.name} got wrong type solution"
-    #             assert self.sat(answer, **inp) is True, f"Puzzle {self.name} didn't return True on `{inp}`"
-    #         self._tested += 1
-    #     self.instances.append(("DEBUG TEST", bool(test and self.sols)))  # for counting purposes
 
 
 def get_src_spec(f: Callable):

@@ -19,7 +19,7 @@ class Nim(PuzzleGenerator):
     them to determine winning states or beat a certain opponent.
     """
 
-    value_multiplier = 10  # harder than most problems, worth more
+    skip_example = True  # so we can add multiplier in gen method below
 
     @staticmethod
     def sat(moves: List[List[int]], initial_state=[5, 9, 3, 11, 18, 25, 1, 2, 4, 1]):
@@ -79,6 +79,9 @@ class Nim(PuzzleGenerator):
                 return moves
             bot_move()
 
+    def gen(self, target_num_instances):
+        self.add(self.get_example(), multiplier=10)
+
     def gen_random(self):
         def losing(h):  # return True if h is a losing state
             xor = 0
@@ -94,7 +97,7 @@ class Nim(PuzzleGenerator):
         for i in initial_state:
             prod *= i + 1
         if prod < 10 ** 6:
-            self.add(dict(initial_state=initial_state))
+            self.add(dict(initial_state=initial_state), multiplier=10 if prod > 1000 else 1)
 
 
 class Mastermind(PuzzleGenerator):
@@ -105,7 +108,7 @@ class Mastermind(PuzzleGenerator):
     them to provide a provable winning game tree.
     """
 
-    multiplier = 10  # hard puzzle, takes longer to test
+    skip_example = True  # so we can add multiplier in gen method below
 
     @staticmethod
     def sat(transcripts: List[str], max_moves=10):
@@ -191,8 +194,8 @@ class Mastermind(PuzzleGenerator):
         return transcripts
 
     def gen(self, target_num_instances):
-        for max_moves in [6, 8, 10]:
-            self.add(dict(max_moves=max_moves))
+        for max_moves in [10, 8, 6]:
+            self.add(dict(max_moves=max_moves), multiplier=30 - 2 * max_moves)
 
 
 class TicTacToeX(PuzzleGenerator):
@@ -315,17 +318,16 @@ class RockPaperScissors(PuzzleGenerator):
         return [1 / 3] * 3
 
 
-
 class Nash(PuzzleGenerator):
     """Computing a [Nash equilibrium](https://en.wikipedia.org/wiki/Nash_equilibrium) for a given
      [bimatrix game](https://en.wikipedia.org/wiki/Bimatrix_game) is known to be
      PPAD-hard in general. However, the challenge is be much easier for an approximate
      [eps-equilibrium](https://en.wikipedia.org/wiki/Epsilon-equilibrium) and of course for small games."""
 
-    multiplier = 10
+    skip_example = True  # so we can add multiplier in gen method below
 
     @staticmethod
-    def sat(strategies: List[List[float]], A = [[1.0, -1.0], [-1.3, 0.8]], B = [[-0.9, 1.1], [0.7, -0.8]], eps=0.01):
+    def sat(strategies: List[List[float]], A=[[1.0, -1.0], [-1.3, 0.8]], B=[[-0.9, 1.1], [0.7, -0.8]], eps=0.01):
         """
         Find an eps-Nash-equilibrium for a given two-player game with payoffs described by matrices A, B.
         For example, for the classic Prisoner dilemma:
@@ -373,13 +375,16 @@ class Nash(PuzzleGenerator):
             if sat(strategies, A, B, eps):
                 return strategies
 
+    def gen(self, target_num_instances):
+        self.add(self.get_example(), multiplier=5)
+
     def gen_random(self):
         m = self.random.randrange(2, 10)
         n = self.random.randrange(2, 10)
         A, B = [[[self.random.random() for _i in range(m)] for _j in range(n)] for _k in range(2)]
         eps = self.random.choice([0.5, 0.1, 0.01])
         solved = self.sol(A, B, eps) is not None
-        self.add(dict(A=A, B=B, eps=eps), test=solved)
+        self.add(dict(A=A, B=B, eps=eps), test=solved, multiplier=5)
 
 
 class ZeroSum(PuzzleGenerator):
@@ -390,7 +395,7 @@ class ZeroSum(PuzzleGenerator):
      more efficient algorithms would be needed."""
 
     @staticmethod
-    def sat(strategies: List[List[float]], A = [[0., -0.5, 1.], [0.75, 0., -1.], [-1., 0.4, 0.]], eps=0.01):
+    def sat(strategies: List[List[float]], A=[[0., -0.5, 1.], [0.75, 0., -1.], [-1., 0.4, 0.]], eps=0.01):
         """
         Compute minimax optimal strategies for a given zero-sum game up to error tolerance eps.
         For example, rock paper scissors has
@@ -407,7 +412,7 @@ class ZeroSum(PuzzleGenerator):
 
     @staticmethod
     def sol(A, eps):
-        MAX_ITER = 10**4
+        MAX_ITER = 10 ** 4
         m, n = len(A), len(A[0])
         a = [0 for _i in range(m)]
         b = [0 for _j in range(n)]
