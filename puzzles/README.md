@@ -3,7 +3,7 @@
 We ran OpenAI's recently released [codex](https://arxiv.org/abs/2107.03374) API (davinci-codex model) on the problems 
 for 1,024 attempts per problem. Within each module below, we sort the problem by difficulty from hardest (unsolved) 
 to easiest for codex. We used a 5-shot prompt based on the Tutorial (see our [paper](https://arxiv.org/abs/2106.05784)). 
-We report the success rate (fraction of the 10,000 generated solutions that satisfy the puzzle) and the shortest 
+We report the success rate (fraction of the 1,024 generated solutions that satisfy the puzzle) and the shortest 
 and longest valid solutions below.
 This document summarizes the dataset stored in the `puzzles.json` file in this directory. 
 These files are generated from the `generators/*.py` files.
