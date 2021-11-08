@@ -1,0 +1,212 @@
+[
+  {
+    "name": "Study_1_0",
+    "sat": "def sat(s: str):\n    return s.count('o') == 1000 and s.count('oo') == 0",
+    "sol_docstring": "    \"\"\"Find a string with 1000 'o's but no two adjacent 'o's.\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_2_0",
+    "sat": "def sat(s: str):\n    return s.count('o') == 1000 and s.count('oo') == 100 and s.count('ho') == 801",
+    "sol_docstring": "    \"\"\"Find a string with 1000 'o's, 100 pairs of adjacent 'o's and 801 copies of 'ho'.\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_3_0",
+    "sat": "def sat(li: List[int]):\n    return sorted(li) == list(range(999)) and all(li[i] != i for i in range(len(li)))",
+    "sol_docstring": "    \"\"\"Find a permutation of [0, 1, ..., 998] such that the ith element is *not* i, for all i=0, 1, ..., 998.\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_4_0",
+    "sat": "def sat(li: List[int]):\n    return len(li) == 10 and li.count(li[3]) == 2",
+    "sol_docstring": "    \"\"\"Find a list of length 10 where the fourth element occurs exactly twice.\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_5_0",
+    "sat": "def sat(li: List[int]):\n    return all([li.count(i) == i for i in range(10)])",
+    "sol_docstring": "    \"\"\"Find a list integers such that the integer i occurs i times, for i = 0, 1, 2, ..., 9.\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_6_0",
+    "sat": "def sat(i: int):\n    return i % 123 == 4 and i > 10 ** 10",
+    "sol_docstring": "    \"\"\"Find an integer greater than 10^10 which is 4 mod 123.\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_7_0",
+    "sat": "def sat(s: str):\n    return str(8 ** 2888).count(s) > 8 and len(s) == 3",
+    "sol_docstring": "    \"\"\"Find a three-digit pattern  that occurs more than 8 times in the decimal representation of 8^2888.\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_8_0",
+    "sat": "def sat(ls: List[str]):\n    return ls[1234] in ls[1235] and ls[1234] != ls[1235]",
+    "sol_docstring": "    \"\"\"Find a list of more than 1235 strings such that the 1234th string is a proper substring of the 1235th.\"\"\"",
+    "ans_type": "List[str]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_9_0",
+    "sat": "def sat(li: List[int]):\n    return [\"The quick brown fox jumps over the lazy dog\"[i] for i in li] == list(\n        \"The five boxing wizards jump quickly\")",
+    "sol_docstring": "    \"\"\"Find a way to rearrange the letters in the pangram \"The quick brown fox jumps over the lazy dog\" to\n    get the pangram \"The five boxing wizards jump quickly\". The answer should be represented as a list of index\n    mappings.\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_10_0",
+    "sat": "def sat(s: str):\n    return s in str(8 ** 1818) and s == s[::-1] and len(s) > 11",
+    "sol_docstring": "    \"\"\"Find a palindrome of length greater than 11 in the decimal representation of 8^1818.\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_11_0",
+    "sat": "def sat(ls: List[str]):\n    return min(ls) == max(ls) == str(len(ls))",
+    "sol_docstring": "    \"\"\"Find a list of strings whose length (viewed as a string) is equal to the lexicographically largest element\n    and is equal to the lexicographically smallest element.\"\"\"",
+    "ans_type": "List[str]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_12_0",
+    "sat": "def sat(li: List[int]):\n    return all(i + j == 9 for i, j in zip([4] + li, li)) and len(li) == 1000",
+    "sol_docstring": "    \"\"\"Find a list of 1,000 integers where every two adjacent integers sum to 9, and where the first\n    integer plus 4 is 9.\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_13_0",
+    "sat": "def sat(x: float):\n    return str(x - 3.1415).startswith(\"123.456\")",
+    "sol_docstring": "    \"\"\"Find a real number which, when you subtract 3.1415, has a decimal representation starting with 123.456.\"\"\"",
+    "ans_type": "float",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_14_0",
+    "sat": "def sat(li: List[int]):\n    return all([sum(li[:i]) == i for i in range(20)])",
+    "sol_docstring": "    \"\"\"Find a list of integers such that the sum of the first i integers is i, for i=0, 1, 2, ..., 19.\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_15_0",
+    "sat": "def sat(li: List[int]):\n    return all(sum(li[:i]) == 2 ** i - 1 for i in range(20))",
+    "sol_docstring": "    \"\"\"Find a list of integers such that the sum of the first i integers is 2^i -1, for i = 0, 1, 2, ..., 19.\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_16_0",
+    "sat": "def sat(s: str):\n    return float(s) + len(s) == 4.5",
+    "sol_docstring": "    \"\"\"Find a real number such that when you add the length of its decimal representation to it, you get 4.5.\n    Your answer should be the string form of the number in its decimal representation.\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_17_0",
+    "sat": "def sat(i: int):\n    return len(str(i + 1000)) > len(str(i + 1001))",
+    "sol_docstring": "    \"\"\"Find a number whose decimal representation is *a longer string* when you add 1,000 to it than when you add 1,001.\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_18_0",
+    "sat": "def sat(ls: List[str]):\n    return [s + t for s in ls for t in ls if s != t] == 'berlin berger linber linger gerber gerlin'.split()",
+    "sol_docstring": "    \"\"\"Find a list of strings that when you combine them in all pairwise combinations gives the six strings:\n    'berlin', 'berger', 'linber', 'linger', 'gerber', 'gerlin'\"\"\"",
+    "ans_type": "List[str]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_19_0",
+    "sat": "def sat(si: Set[int]):\n    return {i + j for i in si for j in si} == {0, 1, 2, 3, 4, 5, 6, 17, 18, 19, 20, 34}",
+    "sol_docstring": "    \"\"\"Find a set of integers whose pairwise sums make the set {0, 1, 2, 3, 4, 5, 6, 17, 18, 19, 20, 34}.\n    That is find set S such that, { i + j | i, j in S } = {0, 1, 2, 3, 4, 5, 6, 17, 18, 19, 20, 34}.\"\"\"",
+    "ans_type": "Set[int]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_20_0",
+    "sat": "def sat(li: List[int]):\n    return all(j in {i - 1, i + 1, 3 * i} for i, j in zip([0] + li, li + [128]))",
+    "sol_docstring": "    \"\"\"Find a list of integers, starting with 0 and ending with 128, such that each integer either differs from\n    the previous one by one or is thrice the previous one.\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_21_0",
+    "sat": "def sat(li: List[int]):\n    return all([li[i] != li[i + 1] for i in range(10)]) and len(set(li)) == 3",
+    "sol_docstring": "    \"\"\"Find a list integers containing exactly three distinct values, such that no integer repeats\n    twice consecutively among the first eleven entries. (So the list needs to have length greater than ten.)\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_22_0",
+    "sat": "def sat(s: str):\n    return s[::2] in s and len(set(s)) == 5",
+    "sol_docstring": "    \"\"\"Find a string s containing exactly five distinct characters which also contains as a substring every other\n    character of s (e.g., if the string s were 'parrotfish' every other character would be 'profs').\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_23_0",
+    "sat": "def sat(ls: List[str]):\n    return tuple(ls) in zip('dee', 'doo', 'dah!')",
+    "sol_docstring": "    \"\"\"Find a list of characters which are aligned at the same indices of the three strings 'dee', 'doo', and 'dah!'.\"\"\"",
+    "ans_type": "List[str]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_24_0",
+    "sat": "def sat(li: List[int]):\n    return li.count(17) == 3 and li.count(3) >= 2",
+    "sol_docstring": "    \"\"\"Find a list of integers with exactly three occurrences of seventeen and at least two occurrences of three.\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_25_0",
+    "sat": "def sat(s: str):\n    return sorted(s) == sorted('Permute me true') and s == s[::-1]",
+    "sol_docstring": "    \"\"\"Find a permutation of the string 'Permute me true' which is a palindrome.\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_26_0",
+    "sat": "def sat(ls: List[str]):\n    return \"\".join(ls) == str(8 ** 88) and all(len(s) == 8 for s in ls)",
+    "sol_docstring": "    \"\"\"Divide the decimal representation of 8^88 up into strings of length eight.\"\"\"",
+    "ans_type": "List[str]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_27_0",
+    "sat": "def sat(li: List[int]):\n    return li[li[0]] != li[li[1]] and li[li[li[0]]] == li[li[li[1]]]",
+    "sol_docstring": "    \"\"\"Consider a digraph where each node has exactly one outgoing edge. For each edge (u, v), call u the parent and\n    v the child. Then find such a digraph where the grandchildren of the first and second nodes differ but they\n    share the same great-grandchildren. Represented this digraph by the list of children indices.\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_28_0",
+    "sat": "def sat(si: Set[int]):\n    return all(i in range(1000) and abs(i - j) >= 10 for i in si for j in si if i != j) and len(si) == 100",
+    "sol_docstring": "    \"\"\"Find a set of one hundred integers between 0 and 999 which all differ by at least ten from one another.\"\"\"",
+    "ans_type": "Set[int]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_29_0",
+    "sat": "def sat(si: Set[int]):\n    return all(i in range(1000) and abs(i * i - j * j) >= 10 for i in si for j in si if i != j) and len(si) > 995",
+    "sol_docstring": "    \"\"\"Find a set of more than 995 integers between 0 and 999, inclusive, such that each pair of integers have\n    squares that differ by at least 10.\"\"\"",
+    "ans_type": "Set[int]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_30_0",
+    "sat": "def sat(li: List[int]):\n    return all([123 * li[i] % 1000 < 123 * li[i + 1] % 1000 and li[i] in range(1000) for i in range(20)])",
+    "sol_docstring": "    \"\"\"Define f(n) to be the residue of 123 times n mod 1000. Find a list of integers such that the first twenty one\n    are between 0 and 999, inclusive, and are strictly increasing in terms of f(n).\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol():"
+  }
+]

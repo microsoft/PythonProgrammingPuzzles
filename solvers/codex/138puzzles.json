@@ -1,0 +1,968 @@
+[
+  {
+    "name": "Nash_0",
+    "sat": "def sat(strategies: List[List[float]], A=[[-1.0, -3.0], [0.0, -2.0]], B=[[-1.0, 0.0], [-3.0, -2.0]], eps=0.01):\n    m, n = len(A), len(A[0])\n    p, q = strategies\n    assert len(B) == m and all(len(row) == n for row in A + B), \"inputs are a bimatrix game\"\n    assert len(p) == m and len(q) == n, \"solution is a pair of strategies\"\n    assert sum(p) == sum(q) == 1.0 and min(p + q) >= 0.0, \"strategies must be non-negative and sum to 1\"\n    v = sum(A[i][j] * p[i] * q[j] for i in range(m) for j in range(n))\n    w = sum(B[i][j] * p[i] * q[j] for i in range(m) for j in range(n))\n    return (all(sum(A[i][j] * q[j] for j in range(n)) <= v + eps for i in range(m)) and\n            all(sum(B[i][j] * p[i] for i in range(m)) <= w + eps for j in range(n)))",
+    "sol_docstring": "    \"\"\"Compute a [Nash equilibrium](https://en.wikipedia.org/wiki/Nash_equilibrium) for a given\n    [bimatrix game](https://en.wikipedia.org/wiki/Bimatrix_game). While this problem was known to be\n    PPAD-hard in general. In fact the challenge is be much easier for an approximate\n    [eps-equilibrium](https://en.wikipedia.org/wiki/Epsilon-equilibrium) and of course for small games.\"\"\"",
+    "ans_type": "List[List[float]]",
+    "sol_header": "def sol(A=[[-1.0, -3.0], [0.0, -2.0]], B=[[-1.0, 0.0], [-3.0, -2.0]], eps=0.01):"
+  },
+  {
+    "name": "ZeroSum_0",
+    "sat": "def sat(strategies: List[List[float]], A=[[0.0, -1.0, 1.0], [1.0, 0.0, -1.0], [-1.0, 1.0, 0.0]], eps=0.1):\n    m, n = len(A), len(A[0])\n    p, q = strategies\n    assert all(len(row) == n for row in A), \"inputs are a matrix\"\n    assert len(p) == m and len(q) == n, \"solution is a pair of strategies\"\n    assert sum(p) == sum(q) == 1.0 and min(p + q) >= 0.0, \"strategies must be non-negative and sum to 1\"\n    v = sum(A[i][j] * p[i] * q[j] for i in range(m) for j in range(n))\n    return (all(sum(A[i][j] * q[j] for j in range(n)) <= v + eps for i in range(m)) and\n            all(sum(A[i][j] * p[i] for i in range(m)) >= v - eps for j in range(n)))",
+    "sol_docstring": "    \"\"\"Compute minimax optimal strategies for a given\n    [zero-sum game](https://en.wikipedia.org/wiki/Zero-sum_game). This problem is known to be equivalent to\n    Linear Programming.\"\"\"",
+    "ans_type": "List[List[float]]",
+    "sol_header": "def sol(A=[[0.0, -1.0, 1.0], [1.0, 0.0, -1.0], [-1.0, 1.0, 0.0]], eps=0.1):"
+  },
+  {
+    "name": "BirthdayParadox_0",
+    "sat": "def sat(n: int, year_len=365):\n    prob = 1.0\n    for i in range(n):\n        prob *= (year_len - i) / year_len\n    return (prob - 0.5) ** 2 <= 1/year_len",
+    "sol_docstring": "    \"\"\"Find `n` such that the probability of two people having the same birthday in a group of `n` is near `1/2`.\n    The year length is year_len (365 is earth, while Neptune year is 60,182)\n    See [Birthday Problem](https://en.wikipedia.org/wiki/Birthday_problem (Mathematical Problems category))\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol(year_len=365):"
+  },
+  {
+    "name": "ExponentialProbability_0",
+    "sat": "def sat(p_stop: float, steps=10, target_prob=0.5):\n    prob = sum(p_stop*(1-p_stop)**t for t in range(steps))\n    return abs(prob - target_prob) < 1e-6",
+    "sol_docstring": "    \"\"\"Find stopping probability, so that the probability of stopping in `steps` or fewer time steps\n    is the given `target_prob`.\n    See [Exponential distribution](https://en.wikipedia.org/wiki/Exponential_distribution)\"\"\"",
+    "ans_type": "float",
+    "sol_header": "def sol(steps=10, target_prob=0.5):"
+  },
+  {
+    "name": "LZW_0",
+    "sat": "def sat(seq: List[int], compressed_len=17, text=\"Hellooooooooooooooooooooo world!\"):\n    index = [chr(i) for i in range(256)]\n    pieces = [\"\"]\n    for i in seq:\n        pieces.append((pieces[-1] + pieces[-1][0]) if i == len(index) else index[i])\n        index.append(pieces[-2] + pieces[-1][0])\n    return \"\".join(pieces) == text and len(seq) <= compressed_len",
+    "sol_docstring": "    \"\"\"Find a (short) compression that decompresses to the given string.\n    We have provided a simple version of the *decompression* algorithm of\n    [Lempel-Ziv-Welch](https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Welch)\n    so the solution is the *compression* algorithm.\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol(compressed_len=17, text=\"Hellooooooooooooooooooooo world!\"):"
+  },
+  {
+    "name": "PackingHam_0",
+    "sat": "def sat(words: List[str], num=100, bits=100, dist=34):\n    assert len(words) == num and all(len(word) == bits and set(word) <= {\"0\", \"1\"} for word in words)\n    return all(sum([a != b for a, b in zip(words[i], words[j])]) >= dist for i in range(num) for j in range(i))",
+    "sol_docstring": "    \"\"\"Pack a certain number of binary strings so that they have a minimum hamming distance between each other.\n    \n    This is a [classic problem](https://en.wikipedia.org/wiki/Sphere_packing#Other_spaces) in coding theory.\"\"\"",
+    "ans_type": "List[str]",
+    "sol_header": "def sol(num=100, bits=100, dist=34):"
+  },
+  {
+    "name": "FindRepeats_0",
+    "sat": "def sat(indices: List[int], a0=123):\n    assert a0 >= 0 and a0 % 3 == 0, \"Hint: a_0 is a multiple of 3.\"\n    s = [a0]\n    for i in range(max(indices)):\n        s.append(int(s[-1] ** 0.5) if int(s[-1] ** 0.5) ** 2 == s[-1] else s[-1] + 3)\n    return len(indices) == len(set(indices)) == 1000 and min(indices) >= 0 and len({s[i] for i in indices}) == 1",
+    "sol_docstring": "    \"\"\"Find a repeating integer in an infinite sequence of integers, specifically the indices for which the same value\n    occurs 1000 times. The sequence is defined by a starting value a_0 and each subsequent term is:\n    a_{n+1} = the square root of a_n if the a_n is a perfect square, and a_n + 3 otherwise.\n    \n    For a given a_0 (that is a multiple of 3), the goal is to find 1000 indices where the a_i's are all equal.\n    \n    Sample input:\n    9\n    \n    Sample output:\n    [0, 3, 6, ..., 2997]\n    \n    The sequence starting with a0=9 is [9, 3, 6, 9, 3, 6, 9, ...] thus a_n at where n is a multiple of 3 are\n    all equal in this case.\n    \n    Note: This problem is much easier than the IMO problem which also required a proof that it is impossible\n    for a_0 not divisible by 3.\n    \n    Inspired by [IMO 2017 Problem 1](https://www.imo-official.org/problems.aspx)\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol(a0=123):"
+  },
+  {
+    "name": "FindProductiveList_0",
+    "sat": "def sat(li: List[int], n=6):\n    assert n % 3 == 0, \"Hint: n is a multiple of 3\"\n    return len(li) == n and all(li[(i + 2) % n] == 1 + li[(i + 1) % n] * li[i] for i in range(n))",
+    "sol_docstring": "    \"\"\"Given n, find n integers such that li[i] * li[i+1] + 1 == li[i+2], for i = 0, 1, ..., n-1\n    where indices >= n \"wrap around\". Note: only n multiples of 3 are given since this is only possible for n\n    that are multiples of 3 (as proven in the IMO problem).\n    \n    Sample input:\n    6\n    \n    Sample output:\n    [_, _, _, _, _, _]\n    \n    (Sample output hidden because showing sample output would give away too much information.)\n    \n    Note: This problem is easier than the IMO problem because the hard part is proving that sequences do not\n    exists for non-multiples of 3.\n    \n    Inspired by [IMO 2010 Problem 5](https://www.imo-official.org/problems.aspx)\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol(n=6):"
+  },
+  {
+    "name": "HalfTag_0",
+    "sat": "def sat(li: List[int], n=3, tags=[0, 1, 2, 0, 0, 1, 1, 1, 2, 2, 0, 2]):\n    assert sorted(tags) == sorted(list(range(n)) * 4), \"hint: each tag occurs exactly four times\"\n    assert len(li) == len(set(li)) and min(li) >= 0\n    return sum(li) * 2 == sum(range(4 * n)) and sorted([tags[i] for i in li]) == [i // 2 for i in range(2 * n)]",
+    "sol_docstring": "    \"\"\"The input tags is a list of 4n integer tags each in range(n) with each tag occurring 4 times.\n    The goal is to find a subset (list) li of half the indices such that:\n    * The sum of the indices equals the sum of the sum of the missing indices.\n    * The tags of the chosen indices contains exactly each number in range(n) twice.\n    \n    Sample input:\n    n = 3\n    tags = [0, 1, 2, 0, 0, 1, 1, 1, 2, 2, 0, 2]\n    \n    Sample output:\n    [0, 3, 5, 6, 8, 11]\n    \n    Note the sum of the output is 33 = (0+1+2+...+11)/2 and the selected tags are [0, 0, 1, 1, 2, 2]\n    \n    Inspired by [IMO 2020 Problem 3](https://www.imo-official.org/problems.aspx)\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol(n=3, tags=[0, 1, 2, 0, 0, 1, 1, 1, 2, 2, 0, 2]):"
+  },
+  {
+    "name": "AllQuadraticRoots_0",
+    "sat": "def sat(roots: List[float], coeffs=[1.3, -0.5]):\n    b, c = coeffs\n    r1, r2 = roots\n    return abs(r1 + r2 + b) + abs(r1 * r2 - c) < 1e-6",
+    "sol_docstring": "    \"\"\"Find all (real) solutions for a [quadratic equation](https://en.wikipedia.org/wiki/Quadratic_formula)\n    x^2 + b x + c (i.e., factor into roots)\"\"\"",
+    "ans_type": "List[float]",
+    "sol_header": "def sol(coeffs=[1.3, -0.5]):"
+  },
+  {
+    "name": "SumOfDigits_0",
+    "sat": "def sat(x: str, s=679):\n    return s == sum([int(d) for d in x])",
+    "sol_docstring": "    \"\"\"Find a number that its digits sum to a specific value.\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol(s=679):"
+  },
+  {
+    "name": "FloatWithDecimalValue_0",
+    "sat": "def sat(z: float, v=9, d=0.0001):\n    return int(z * 1/d % 10) == v",
+    "sol_docstring": "    \"\"\"Create a float with a specific decimal.\"\"\"",
+    "ans_type": "float",
+    "sol_header": "def sol(v=9, d=0.0001):"
+  },
+  {
+    "name": "ArithmeticSequence_0",
+    "sat": "def sat(x: List[int], a=7, s=5, e=200):\n    return x[0] == a and x[-1] <= e and (x[-1] + s > e) and all([x[i] + s == x[i+1] for i in range(len(x)-1)])",
+    "sol_docstring": "    \"\"\"Create a list that is a subrange of an arithmetic sequence.\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol(a=7, s=5, e=200):"
+  },
+  {
+    "name": "GeometricSequence_0",
+    "sat": "def sat(x: List[int], a=8, r=2, l=50):\n    return x[0] == a and len(x) == l and all([x[i] * r == x[i+1] for i in range(len(x)-1)])",
+    "sol_docstring": "    \"\"\"Create a list that is a subrange of an gemoetric sequence.\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol(a=8, r=2, l=50):"
+  },
+  {
+    "name": "LineIntersection_0",
+    "sat": "def sat(e: List[int], a=2, b=-1, c=1, d=2021):\n    x = e[0] / e[1]\n    return abs(a * x + b - c * x - d) < 10 ** -5",
+    "sol_docstring": "    \"\"\"Find the intersection of two lines.\n    Solution should be a list of the (x,y) coordinates.\n    Accuracy of fifth decimal digit is required.\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol(a=2, b=-1, c=1, d=2021):"
+  },
+  {
+    "name": "IfProblem_0",
+    "sat": "def sat(x: int, a=324554, b=1345345):\n    if a < 50:\n        return x + a == b\n    else:\n        return x - 2 * a == b",
+    "sol_docstring": "    \"\"\"Simple if statement\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol(a=324554, b=1345345):"
+  },
+  {
+    "name": "IfProblemWithAnd_0",
+    "sat": "def sat(x: int, a=9384594, b=1343663):\n    if x > 0 and a > 50:\n        return x - a == b\n    else:\n        return x + a == b",
+    "sol_docstring": "    \"\"\"Simple if statement with and clause\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol(a=9384594, b=1343663):"
+  },
+  {
+    "name": "IfProblemWithOr_0",
+    "sat": "def sat(x: int, a=253532, b=1230200):\n    if x > 0 or a > 50:\n        return x - a == b\n    else:\n        return x + a == b",
+    "sol_docstring": "    \"\"\"Simple if statement with or clause\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol(a=253532, b=1230200):"
+  },
+  {
+    "name": "IfCases_0",
+    "sat": "def sat(x: int, a=4, b=54368639):\n    if a == 1:\n        return x % 2 == 0\n    elif a == -1:\n        return x % 2 == 1\n    else:\n        return x + a == b",
+    "sol_docstring": "    \"\"\"Simple if statement with multiple cases\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol(a=4, b=54368639):"
+  },
+  {
+    "name": "ListPosSum_0",
+    "sat": "def sat(x: List[int], n=5, s=19):\n    return len(x) == n and sum(x) == s and all([a > 0 for a in x])",
+    "sol_docstring": "    \"\"\"Construct a list of non-negative integers that sum up to some value\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol(n=5, s=19):"
+  },
+  {
+    "name": "ListDistinctSum_0",
+    "sat": "def sat(x: List[int], n=4, s=2021):\n    return len(x) == n and sum(x) == s and len(set(x)) == n",
+    "sol_docstring": "    \"\"\"Construct a list of distinct integers that sum up to some value\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol(n=4, s=2021):"
+  },
+  {
+    "name": "ConcatStrings_0",
+    "sat": "def sat(x: str, s=['a', 'b', 'c', 'd', 'e', 'f'], n=4):\n    return len(x) == n and all([x[i] == s[i] for i in range(n)])",
+    "sol_docstring": "    \"\"\"Concatenate list of characters\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol(s=['a', 'b', 'c', 'd', 'e', 'f'], n=4):"
+  },
+  {
+    "name": "SublistSum_0",
+    "sat": "def sat(x: List[int], t=677, a=43, e=125, s=10):\n    non_zero = [z for z in x if z != 0]\n    return t == sum([x[i] for i in range(a, e, s)]) and len(set(non_zero)) == len(non_zero) and all(\n        [x[i] != 0 for i in range(a, e, s)])",
+    "sol_docstring": "    \"\"\"Sum values of sublist by range specifications\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol(t=677, a=43, e=125, s=10):"
+  },
+  {
+    "name": "CumulativeSum_0",
+    "sat": "def sat(x: List[int], t=50, n=10):\n    assert all([v > 0 for v in x])\n    s = 0\n    i = 0\n    for v in sorted(x):\n        s += v\n        if s > t:\n            return i == n\n        i += 1\n    return i == n",
+    "sol_docstring": "    \"\"\"Number of values with cumulative sum less than target\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol(t=50, n=10):"
+  },
+  {
+    "name": "BasicStrCounts_0",
+    "sat": "def sat(s: str, s1=\"a\", s2=\"b\", count1=50, count2=30):\n    return s.count(s1) == count1 and s.count(s2) == count2 and s[:10] == s[-10:]",
+    "sol_docstring": "    \"\"\"Find a string that has `count1` occurrences of `s1` and `count1` occurrences of `s1` and starts and ends with\n    the same 10 characters\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol(s1=\"a\", s2=\"b\", count1=50, count2=30):"
+  },
+  {
+    "name": "ReverseCat_0",
+    "sat": "def sat(s: str, substrings=['foo', 'bar', 'baz']):\n    return all(sub in s and sub[::-1] in s for sub in substrings)",
+    "sol_docstring": "    \"\"\"Find a string that contains all the `substrings` reversed and forward\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol(substrings=['foo', 'bar', 'baz']):"
+  },
+  {
+    "name": "EngineerNumbers_0",
+    "sat": "def sat(ls: List[str], n=100, a=\"bar\", b=\"foo\"):\n    return len(ls) == len(set(ls)) == n and ls[0] == a and ls[-1] == b and ls == sorted(ls)",
+    "sol_docstring": "    \"\"\"Find a list of `n` strings starting with `a` and ending with `b`\"\"\"",
+    "ans_type": "List[str]",
+    "sol_header": "def sol(n=100, a=\"bar\", b=\"foo\"):"
+  },
+  {
+    "name": "PenultimateString_0",
+    "sat": "def sat(s: str, strings=['cat', 'dog', 'bird', 'fly', 'moose']):\n    return s in strings and sum(t > s for t in strings) == 1",
+    "sol_docstring": "    \"\"\"Find the alphabetically second to last last string in a list.\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol(strings=['cat', 'dog', 'bird', 'fly', 'moose']):"
+  },
+  {
+    "name": "PenultimateRevString_0",
+    "sat": "def sat(s: str, strings=['cat', 'dog', 'bird', 'fly', 'moose']):\n    return s[::-1] in strings and sum(t < s[::-1] for t in strings) == 1",
+    "sol_docstring": "    \"\"\"Find the reversed version of the alphabetically second string in a list.\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol(strings=['cat', 'dog', 'bird', 'fly', 'moose']):"
+  },
+  {
+    "name": "CenteredString_0",
+    "sat": "def sat(s: str, target=\"foobarbazwow\", length=6):\n    return target[(len(target) - length) // 2:(len(target) + length) // 2] == s",
+    "sol_docstring": "    \"\"\"Find a substring of length `length` centered within `target`.\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol(target=\"foobarbazwow\", length=6):"
+  },
+  {
+    "name": "Abbreviate_0",
+    "sat": "def sat(s: str, word=\"antidisestablishmentarianism\", max_len=10):\n    if len(word) <= max_len:\n        return word == s\n    return int(s[1:-1]) == len(word[1:-1]) and word[0] == s[0] and word[-1] == s[-1]",
+    "sol_docstring": "    \"\"\"Abbreviate strings longer than a given length by replacing everything but the first and last characters by\n    an integer indicating how many characters there were in between them.\n    \n    Inspired by [Codeforces Problem 71 A](https://codeforces.com/problemset/problem/71/A)\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol(word=\"antidisestablishmentarianism\", max_len=10):"
+  },
+  {
+    "name": "DecreasingCountComparison_0",
+    "sat": "def sat(n: int, scores=[100, 95, 80, 70, 65, 9, 9, 9, 4, 2, 1], k=6):\n    assert all(scores[i] >= scores[i + 1] for i in range(len(scores) - 1)), \"Hint: scores are non-decreasing\"\n    return all(s >= scores[k] and s > 0 for s in scores[:n]) and all(s < scores[k] or s <= 0 for s in scores[n:])",
+    "sol_docstring": "    \"\"\"Given a list of non-increasing integers and given an integer k, determine how many positive integers in the list\n    are at least as large as the kth.\n    \n    Inspired by [Codeforces Problem 158 A](https://codeforces.com/problemset/problem/158/A)\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol(scores=[100, 95, 80, 70, 65, 9, 9, 9, 4, 2, 1], k=6):"
+  },
+  {
+    "name": "IncDec_0",
+    "sat": "def sat(n: int, ops=['x++', '--x', '--x'], target=19143212):\n    for op in ops:\n        if op in [\"++x\", \"x++\"]:\n            n += 1\n        else:\n            assert op in [\"--x\", \"x--\"]\n            n -= 1\n    return n == target",
+    "sol_docstring": "    \"\"\"This straightforward problem is a little harder than the Codeforces one.\n    Given a sequence of operations \"++x\",\n    \"x++\", \"--x\", \"x--\", and a target value, find initial value so that the final value is the target value.\n    \n    Sample Input:\n    ops = [\"x++\", \"--x\", \"--x\"]\n    target = 12\n    \n    Sample Output:\n    13\n    \n    Inspired by [Codeforces Problem 282 A](https://codeforces.com/problemset/problem/282/A)\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol(ops=['x++', '--x', '--x'], target=19143212):"
+  },
+  {
+    "name": "SlidingOne_0",
+    "sat": "def sat(s: str, matrix=[[0, 0, 0, 0, 0], [0, 0, 0, 0, 1], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]], max_moves=3):\n    for c in s:\n        if c in \"01234\":\n            i = \"01234\".index(c)\n            matrix[i], matrix[i + 1] = matrix[i + 1], matrix[i]\n        if c in \"abcde\":\n            j = \"abcde\".index(c)\n            for row in matrix:\n                row[j], row[j + 1] = row[j + 1], row[j]\n\n    return len(s) <= max_moves and matrix[2][2] == 1",
+    "sol_docstring": "    \"\"\"We are given a 5x5 bimatrix with a single 1 like:\n    0 0 0 0 0\n    0 0 0 0 1\n    0 0 0 0 0\n    0 0 0 0 0\n    0 0 0 0 0\n    \n    Find a (minimal) sequence of row and column swaps to move the 1 to the center. A move is a string\n    in \"0\"-\"4\" indicating a row swap and \"a\"-\"e\" indicating a column swap\n    \n    Inspired by [Codeforces Problem 263 A](https://codeforces.com/problemset/problem/263/A)\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol(matrix=[[0, 0, 0, 0, 0], [0, 0, 0, 0, 1], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]], max_moves=3):"
+  },
+  {
+    "name": "SortPlusPlus_0",
+    "sat": "def sat(s: str, inp=\"1+1+3+1+3+2+2+1+3+1+2\"):\n    return all(s.count(c) == inp.count(c) for c in inp + s) and all(s[i - 2] <= s[i] for i in range(2, len(s), 2))",
+    "sol_docstring": "    \"\"\"Sort numbers in a sum of digits, e.g., 1+3+2+1 -> 1+1+2+3\n    \n    Inspired by [Codeforces Problem 339 A](https://codeforces.com/problemset/problem/339/A)\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol(inp=\"1+1+3+1+3+2+2+1+3+1+2\"):"
+  },
+  {
+    "name": "FindHomogeneousSubstring_0",
+    "sat": "def sat(n: int, s=\"0000111111100000\", k=5):\n    return s[n:n + k] == s[n] * k",
+    "sol_docstring": "    \"\"\"You are given a string consisting of 0's and 1's. Find an index after which the subsequent k characters are\n    all 0's or all 1's.\n    \n    Sample Input:\n    s = 01010000111111100000, k = 5\n    \n    Sample Output:\n    8\n    (or 9 or 10 or 15)\n    \n    Inspired by [Codeforces Problem 96 A](https://codeforces.com/problemset/problem/96/A)\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol(s=\"0000111111100000\", k=5):"
+  },
+  {
+    "name": "FivePowers_0",
+    "sat": "def sat(s: str, n=7):\n    return int(str(5 ** n)[:-2] + s) == 5 ** n",
+    "sol_docstring": "    \"\"\"What are the last two digits of 5^n?\n    \n    Inspired by [Codeforces Problem 630 A](https://codeforces.com/problemset/problem/630/A)\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol(n=7):"
+  },
+  {
+    "name": "CombinationLock_0",
+    "sat": "def sat(states: List[str], start=\"012\", combo=\"329\", target_len=6):\n    assert all(len(s) == len(start) for s in states) and all(c in \"0123456789\" for s in states for c in s)\n    for a, b in zip([start] + states, states + [combo]):\n        assert sum(i != j for i, j in zip(a, b)) == 1\n        assert all(abs(int(i) - int(j)) in {0, 1, 9} for i, j in zip(a, b))\n\n    return len(states) <= target_len",
+    "sol_docstring": "    \"\"\"Shortest Combination Lock Path\n    \n    Given a starting a final lock position, find the (minimal) intermediate states, where each transition\n    involves increasing or decreasing a single digit (mod 10)\n    e.g.\n    start = \"120\"\n    combo = \"293\"\n    \n    output: ['220', '210', '200', '290', '291', '292']\n    \n    Inspired by [Codeforces Problem 540 A](https://codeforces.com/problemset/problem/540/A)\"\"\"",
+    "ans_type": "List[str]",
+    "sol_header": "def sol(start=\"012\", combo=\"329\", target_len=6):"
+  },
+  {
+    "name": "CombinationLockObfuscated_0",
+    "sat": "def sat(states: List[str], start=\"012\", combo=\"329\", target_len=6):\n    return all(sum((int(a[i]) - int(b[i])) ** 2 % 10 for i in range(len(start))) == 1\n               for a, b in zip([start] + states, states[:target_len] + [combo]))",
+    "sol_docstring": "    \"\"\"An obfuscated version of CombinationLock above\"\"\"",
+    "ans_type": "List[str]",
+    "sol_header": "def sol(start=\"012\", combo=\"329\", target_len=6):"
+  },
+  {
+    "name": "InvertPermutation_0",
+    "sat": "def sat(s: str, perm=\"qwertyuiopasdfghjklzxcvbnm\", target=\"hello are you there?\"):\n    return \"\".join((perm[(perm.index(c) + 1) % len(perm)] if c in perm else c) for c in s) == target",
+    "sol_docstring": "    \"\"\"Find a string that, when a given permutation of characters is applied, has a given result.\n    \n    Inspired by [Codeforces Problem 474 A](https://codeforces.com/problemset/problem/474/A)\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol(perm=\"qwertyuiopasdfghjklzxcvbnm\", target=\"hello are you there?\"):"
+  },
+  {
+    "name": "OnesAndTwos_0",
+    "sat": "def sat(seq: List[int], n=10000, length=5017):\n    return set(seq) <= {1, 2} and sum(seq) == n and len(seq) == length",
+    "sol_docstring": "    \"\"\"Find a sequence of 1's and 2's of a given length that that adds up to n\n    \n    Inspired by [Codeforces Problem 476 A](https://codeforces.com/problemset/problem/476/A)\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol(n=10000, length=5017):"
+  },
+  {
+    "name": "MinConsecutiveSum_0",
+    "sat": "def sat(start: int, k=3, upper=6, seq=[17, 1, 2, 65, 18, 91, -30, 100, 3, 1, 2]):\n    return 0 <= start <= len(seq) - k and sum(seq[start:start + k]) <= upper",
+    "sol_docstring": "    \"\"\"Find a sequence of k consecutive indices whose sum is minimal\n    \n    Inspired by [Codeforces Problem 363 B](https://codeforces.com/problemset/problem/363/B)\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol(k=3, upper=6, seq=[17, 1, 2, 65, 18, 91, -30, 100, 3, 1, 2]):"
+  },
+  {
+    "name": "MaxConsecutiveSum_0",
+    "sat": "def sat(start: int, k=3, lower=150, seq=[3, 1, 2, 65, 18, 91, -30, 100, 0, 19, 52]):\n    return 0 <= start <= len(seq) - k and sum(seq[start:start + k]) >= lower",
+    "sol_docstring": "    \"\"\"Find a sequence of k consecutive indices whose sum is maximal\n    \n    Inspired by [Codeforces Problem 363 B](https://codeforces.com/problemset/problem/363/B)\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol(k=3, lower=150, seq=[3, 1, 2, 65, 18, 91, -30, 100, 0, 19, 52]):"
+  },
+  {
+    "name": "MaxConsecutiveProduct_0",
+    "sat": "def sat(start: int, k=3, lower=100000, seq=[91, 1, 2, 64, 18, 91, -30, 100, 3, 65, 18]):\n    prod = 1\n    for i in range(start, start + k):\n        prod *= seq[i]\n    return prod >= lower",
+    "sol_docstring": "    \"\"\"Find a sequence of k consecutive indices whose product is maximal, possibly looping around\n    \n    Inspired by [Codeforces Problem 363 B](https://codeforces.com/problemset/problem/363/B)\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol(k=3, lower=100000, seq=[91, 1, 2, 64, 18, 91, -30, 100, 3, 65, 18]):"
+  },
+  {
+    "name": "MinRotations_0",
+    "sat": "def sat(rotations: List[int], target=\"dad\", upper=9):\n    s = \"abcdefghijklmnopqrstuvwxyz\"\n    assert len(rotations) == len(target)\n    for r, c in zip(rotations, target):\n        s = s[r:] + s[:r]\n        assert s[0] == c\n\n    return sum(abs(r) for r in rotations) <= upper",
+    "sol_docstring": "    \"\"\"We begin with the string `\"a...z\"`\n    \n    An `r`-rotation of a string means shifting it to the right (positive) or left (negative) by `r` characters and\n    cycling around. Given a target string of length n, find the n rotations that put the consecutive characters\n    of that string at the beginning of the r-rotation, with minimal sum of absolute values of the `r`'s.\n    \n    For example if the string was `'fab'`, the minimal rotations would be `[5, -5, 1]` with a total of `11`.\n    \n    Inspired by [Codeforces Problem 731 A](https://codeforces.com/problemset/problem/731/A)\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol(target=\"dad\", upper=9):"
+  },
+  {
+    "name": "KnightsTour_0",
+    "sat": "def sat(tour: List[List[int]], m=8, n=8):\n    assert all({abs(i1 - i2), abs(j1 - j2)} == {1, 2} for [i1, j1], [i2, j2] in zip(tour, tour[1:])), 'legal moves'\n    return sorted(tour) == [[i, j] for i in range(m) for j in range(n)]  # cover every square once",
+    "sol_docstring": "    \"\"\"Knights Tour\n    \n    Find an (open) tour of knight moves on an m x n chess-board that visits each square once.\n    \n    See Wikipedia entry on [Knight's tour](https://en.wikipedia.org/w/index.php?title=Knight%27s_tour)\"\"\"",
+    "ans_type": "List[List[int]]",
+    "sol_header": "def sol(m=8, n=8):"
+  },
+  {
+    "name": "GCD_0",
+    "sat": "def sat(n: int, a=15482, b=23223, lower_bound=5):\n    return a % n == 0 and b % n == 0 and n >= lower_bound",
+    "sol_docstring": "    \"\"\"[Greatest Common Divisor](https://en.wikipedia.org/w/index.php?title=Greatest_common_divisor&oldid=990943381)\n    (GCD)\n    \n    Find the greatest common divisor of two integers.\n    \n    See also the [Euclidean algorithm](https://en.wikipedia.org/wiki/Euclidean_algorithm)\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol(a=15482, b=23223, lower_bound=5):"
+  },
+  {
+    "name": "GCD_multi_0",
+    "sat": "def sat(n: int, nums=[77410, 23223, 54187], lower_bound=2):\n    return all(i % n == 0 for i in nums) and n >= lower_bound",
+    "sol_docstring": "    \"\"\"[Greatest Common Divisor](https://en.wikipedia.org/w/index.php?title=Greatest_common_divisor&oldid=990943381)\n    (GCD)\n    \n    Find the greatest common divisor of a *list* of integers.\n    \n    See also the [Euclidean algorithm](https://en.wikipedia.org/wiki/Euclidean_algorithm)\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol(nums=[77410, 23223, 54187], lower_bound=2):"
+  },
+  {
+    "name": "LCM_multi_0",
+    "sat": "def sat(n: int, nums=[15, 27, 102], upper_bound=5000):\n    return all(n % i == 0 for i in nums) and n <= upper_bound",
+    "sol_docstring": "    \"\"\"[Least Common Multiple](https://en.wikipedia.org/wiki/Least_common_multiple)\n    (LCM)\n    \n    Find the least common multiple of a list of integers.\n    \n    See also the [Euclidean algorithm](https://en.wikipedia.org/wiki/Euclidean_algorithm)\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol(nums=[15, 27, 102], upper_bound=5000):"
+  },
+  {
+    "name": "SmallExponentBigSolution_0",
+    "sat": "def sat(n: int, b=2, target=5):\n    return (b ** n) % n == target",
+    "sol_docstring": "    \"\"\"Small exponent, big solution\n    \n    Solve for n: b^n = target (mod n)\n    \n    Problems have small b and target but solution is typically a large n.\n    Some of them are really hard, for example, for `b=2, target=3`, the smallest solution is `n=4700063497`\n    \n    See [Richard K. Guy \"The strong law of small numbers\", (problem 13)](https://doi.org/10.2307/2322249)\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol(b=2, target=5):"
+  },
+  {
+    "name": "ThreeCubes_0",
+    "sat": "def sat(nums: List[int], target=10):\n    assert target % 9 not in [4, 5], \"Hint\"\n    return len(nums) == 3 and sum([i ** 3 for i in nums]) == target",
+    "sol_docstring": "    \"\"\"Sum of three cubes\n    \n    Given `n`, find integers `a`, `b`, `c` such that `a**3 + b**3 + c**3 = n`. This is unsolvable for `n % 9 in {4, 5}`.\n    Conjectured to be true for all other n, i.e., `n % 9 not in {4, 5}`.\n    `a`, `b`, `c` may be positive or negative\n    \n    See [wikipedia entry](https://en.wikipedia.org/wiki/Sums_of_three_cubes) or\n    [Andrew R. Booker, Andrew V. Sutherland (2020). \"On a question of Mordell.\"](https://arxiv.org/abs/2007.01209)\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol(target=10):"
+  },
+  {
+    "name": "FourSquares_0",
+    "sat": "def sat(nums: List[int], n=12345):\n    return len(nums) <= 4 and sum(i ** 2 for i in nums) == n",
+    "sol_docstring": "    \"\"\"Sum of four squares\n    \n    [Lagrange's Four Square Theorem](https://en.wikipedia.org/w/index.php?title=Lagrange%27s_four-square_theorem)\n    \n    Given a non-negative integer `n`, a classic theorem of Lagrange says that `n` can be written as the sum of four\n    integers. The problem here is to find them. This is a nice problem and we give an elementary solution\n    that runs in time \tilde{O}(n),\n    which is not \"polynomial time\" because it is not polynomial in log(n), the length of n. A poly-log(n)\n    algorithm using quaternions is described in the book:\n    [\"Randomized algorithms in number theory\" by Michael O. Rabin and Jeffery O. Shallit (1986)](https://doi.org/10.1002/cpa.3160390713)\n    \n    The first half of the problems involve small numbers and the second half involve some numbers up to 50 digits.\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol(n=12345):"
+  },
+  {
+    "name": "Factoring_0",
+    "sat": "def sat(i: int, n=62710561):\n    return 1 < i < n and n % i == 0",
+    "sol_docstring": "    \"\"\"[Factoring](https://en.wikipedia.org/w/index.php?title=Integer_factorization) and\n    [RSA challenge](https://en.wikipedia.org/w/index.php?title=RSA_numbers)\n    \n    The factoring problems require one to find any nontrivial factor of n, which is equivalent to factoring by a\n    simple repetition process. Problems range from small (single-digit n) all the way to the \"RSA challenges\"\n    which include several *unsolved* factoring problems put out by the RSA company. The challenge was closed in 2007,\n    with hundreds of thousands of dollars in unclaimed prize money for factoring their given numbers. People\n    continue to work on them, nonetheless, and only the first 22/53 have RSA challenges have been solved thusfar.\n    \n    From Wikipedia:\n    \n    RSA-2048 has 617 decimal digits (2,048 bits). It is the largest of the RSA numbers and carried the largest\n    cash prize for its factorization, $200,000. The RSA-2048 may not be factorizable for many years to come,\n    unless considerable advances are made in integer factorization or computational power in the near future.\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol(n=62710561):"
+  },
+  {
+    "name": "CollatzDelay_0",
+    "sat": "def sat(n: int, t=100, upper=10):\n    m = n\n    for i in range(t):\n        if n <= 1:\n            return False\n        n = 3 * n + 1 if n % 2 else n // 2\n    return n == 1 and m <= 2 ** upper",
+    "sol_docstring": "    \"\"\"Collatz Delay\n    \n    Find `0 < n < upper` so that it takes exactly `t` steps to reach 1 in the Collatz process. For instance,\n    the number `n=9780657630` takes 1,132 steps and the number `n=93,571,393,692,802,302` takes\n    2,091 steps, according to the [Wikipedia article](https://en.wikipedia.org/wiki/Collatz_conjecture)\n    \n    Now, this problem can be solved trivially by taking exponentially large `n = 2 ** t` so we also bound the\n    number of bits of the solution to be upper.\n    \n    See [this webpage](http://www.ericr.nl/wondrous/delrecs.html) for up-to-date records.\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol(t=100, upper=10):"
+  },
+  {
+    "name": "Tutorial1_0",
+    "sat": "def sat(s: str):\n    return \"Hello \" + s == \"Hello world\"",
+    "sol_docstring": "    \"\"\"Find a string that when concatenated onto 'Hello ' gives 'Hello world'.\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Tutorial2_0",
+    "sat": "def sat(s: str):\n    return \"Hello \" + s[::-1] == \"Hello world\"",
+    "sol_docstring": "    \"\"\"Find a string that when reversed and concatenated onto 'Hello ' gives 'Hello world'.\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Tutorial3_0",
+    "sat": "def sat(x: List[int]):\n    return len(x) == 2 and sum(x) == 3",
+    "sol_docstring": "    \"\"\"Find a list of two integers whose sum is 3.\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Tutorial4_0",
+    "sat": "def sat(s: List[str]):\n    return len(set(s)) == 1000 and all((x.count(\"a\") > x.count(\"b\")) and ('b' in x) for x in s)",
+    "sol_docstring": "    \"\"\"Find a list of 1000 distinct strings which each have more 'a's than 'b's and at least one 'b'.\"\"\"",
+    "ans_type": "List[str]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Tutorial5_0",
+    "sat": "def sat(n: int):\n    return str(n * n).startswith(\"123456789\")",
+    "sol_docstring": "    \"\"\"Find an integer whose perfect square begins with 123456789 in its decimal representation.\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "HelloWorld_0",
+    "sat": "def sat(s: str):\n    return s + 'world' == 'Hello world'",
+    "sol_docstring": "    \"\"\"Trivial example, no solutions provided\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "BackWorlds_0",
+    "sat": "def sat(s: str):\n    return s[::-1] + 'world' == 'Hello world'",
+    "sol_docstring": "    \"\"\"Two solutions, no inputs\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "StrAdd_0",
+    "sat": "def sat(st: str, a=\"world\", b=\"Hello world\"):\n    return st + a == b",
+    "sol_docstring": "    \"\"\"Solve simple string addition problem.\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol(a=\"world\", b=\"Hello world\"):"
+  },
+  {
+    "name": "StrSetLen_0",
+    "sat": "def sat(s: str, dups=2021):\n    return len(set(s)) == len(s) - dups",
+    "sol_docstring": "    \"\"\"Find a string with `dups` duplicate chars\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol(dups=2021):"
+  },
+  {
+    "name": "StrMul_0",
+    "sat": "def sat(s: str, target=\"foofoofoofoo\", n=2):\n    return s * n == target",
+    "sol_docstring": "    \"\"\"Find a string which when repeated `n` times gives `target`\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol(target=\"foofoofoofoo\", n=2):"
+  },
+  {
+    "name": "StrMul2_0",
+    "sat": "def sat(n: int, target=\"foofoofoofoo\", s=\"foofoo\"):\n    return s * n == target",
+    "sol_docstring": "    \"\"\"Find `n` such that `s` repeated `n` times gives `target`\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol(target=\"foofoofoofoo\", s=\"foofoo\"):"
+  },
+  {
+    "name": "StrLen_0",
+    "sat": "def sat(s: str, n=1000):\n    return len(s) == n",
+    "sol_docstring": "    \"\"\"Find a string of length `n`\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol(n=1000):"
+  },
+  {
+    "name": "StrAt_0",
+    "sat": "def sat(i: int, s=\"cat\", target=\"a\"):\n    return s[i] == target",
+    "sol_docstring": "    \"\"\"Find the index of `target` in string `s`\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol(s=\"cat\", target=\"a\"):"
+  },
+  {
+    "name": "StrNegAt_0",
+    "sat": "def sat(i: int, s=\"cat\", target=\"a\"):\n    return s[i] == target and i < 0",
+    "sol_docstring": "    \"\"\"Find the index of `target` in `s` using a negative index.\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol(s=\"cat\", target=\"a\"):"
+  },
+  {
+    "name": "StrSlice_0",
+    "sat": "def sat(inds: List[int], s=\"hello world\", target=\"do\"):\n    i, j, k = inds\n    return s[i:j:k] == target",
+    "sol_docstring": "    \"\"\"Find the three slice indices that give the specific `target` in string `s`\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol(s=\"hello world\", target=\"do\"):"
+  },
+  {
+    "name": "StrIndex_0",
+    "sat": "def sat(s: str, big_str=\"foobar\", index=2):\n    return big_str.index(s) == index",
+    "sol_docstring": "    \"\"\"Find a string whose *first* index in `big_str` is `index`\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol(big_str=\"foobar\", index=2):"
+  },
+  {
+    "name": "StrIndex2_0",
+    "sat": "def sat(big_str: str, sub_str=\"foobar\", index=2):\n    return big_str.index(sub_str) == index",
+    "sol_docstring": "    \"\"\"Find a string whose *first* index of `sub_str` is `index`\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol(sub_str=\"foobar\", index=2):"
+  },
+  {
+    "name": "StrIn_0",
+    "sat": "def sat(s: str, a=\"hello\", b=\"yellow\", length=4):\n    return len(s) == length and s in a and s in b",
+    "sol_docstring": "    \"\"\"Find a string of length `length` that is in both strings `a` and `b`\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol(a=\"hello\", b=\"yellow\", length=4):"
+  },
+  {
+    "name": "ListSetLen_0",
+    "sat": "def sat(li: List[int], dups=42155):\n    return len(set(li)) == len(li) - dups",
+    "sol_docstring": "    \"\"\"Find a list with a certain number of duplicate items\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol(dups=42155):"
+  },
+  {
+    "name": "ListMul_0",
+    "sat": "def sat(li: List[int], target=[17, 9, -1, 17, 9, -1], n=2):\n    return li * n == target",
+    "sol_docstring": "    \"\"\"Find a list that when multiplied n times gives the target list\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol(target=[17, 9, -1, 17, 9, -1], n=2):"
+  },
+  {
+    "name": "ListLen_0",
+    "sat": "def sat(li: List[int], n=85012):\n    return len(li) == n",
+    "sol_docstring": "    \"\"\"Find a list of a given length n\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol(n=85012):"
+  },
+  {
+    "name": "ListAt_0",
+    "sat": "def sat(i: int, li=[17, 31, 91, 18, 42, 1, 9], target=18):\n    return li[i] == target",
+    "sol_docstring": "    \"\"\"Find the index of an item in a list. Any such index is fine.\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol(li=[17, 31, 91, 18, 42, 1, 9], target=18):"
+  },
+  {
+    "name": "ListNegAt_0",
+    "sat": "def sat(i: int, li=[17, 31, 91, 18, 42, 1, 9], target=91):\n    return li[i] == target and i < 0",
+    "sol_docstring": "    \"\"\"Find the index of an item in a list using negative indexing.\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol(li=[17, 31, 91, 18, 42, 1, 9], target=91):"
+  },
+  {
+    "name": "ListSlice_0",
+    "sat": "def sat(inds: List[int], li=[42, 18, 21, 103, -2, 11], target=[-2, 21, 42]):\n    i, j, k = inds\n    return li[i:j:k] == target",
+    "sol_docstring": "    \"\"\"Find three slice indices to achieve a given list slice\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol(li=[42, 18, 21, 103, -2, 11], target=[-2, 21, 42]):"
+  },
+  {
+    "name": "ListIndex_0",
+    "sat": "def sat(item: int, li=[17, 2, 3, 9, 11, 11], index=4):\n    return li.index(item) == index",
+    "sol_docstring": "    \"\"\"Find the item whose first index in `li` is `index`\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol(li=[17, 2, 3, 9, 11, 11], index=4):"
+  },
+  {
+    "name": "ListIndex2_0",
+    "sat": "def sat(li: List[int], i=29, index=10412):\n    return li.index(i) == index",
+    "sol_docstring": "    \"\"\"Find a list that contains `i` first at index `index`\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol(i=29, index=10412):"
+  },
+  {
+    "name": "ListIn_0",
+    "sat": "def sat(s: str, a=['cat', 'dot', 'bird'], b=['tree', 'fly', 'dot']):\n    return s in a and s in b",
+    "sol_docstring": "    \"\"\"Find an item that is in both lists `a` and `b`\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol(a=['cat', 'dot', 'bird'], b=['tree', 'fly', 'dot']):"
+  },
+  {
+    "name": "IntNeg_0",
+    "sat": "def sat(x: int, a=93252338):\n    return -x == a",
+    "sol_docstring": "    \"\"\"Solve unary negation problem\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol(a=93252338):"
+  },
+  {
+    "name": "IntSum_0",
+    "sat": "def sat(x: int, a=1073258, b=72352549):\n    return a + x == b",
+    "sol_docstring": "    \"\"\"Solve sum problem\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol(a=1073258, b=72352549):"
+  },
+  {
+    "name": "IntSub_0",
+    "sat": "def sat(x: int, a=-382, b=14546310):\n    return x - a == b",
+    "sol_docstring": "    \"\"\"Solve subtraction problem\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol(a=-382, b=14546310):"
+  },
+  {
+    "name": "IntSub2_0",
+    "sat": "def sat(x: int, a=8665464, b=-93206):\n    return a - x == b",
+    "sol_docstring": "    \"\"\"Solve subtraction problem\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol(a=8665464, b=-93206):"
+  },
+  {
+    "name": "IntMul_0",
+    "sat": "def sat(n: int, a=14302, b=5):\n    return b * n + (a % b) == a",
+    "sol_docstring": "    \"\"\"Solve multiplication problem\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol(a=14302, b=5):"
+  },
+  {
+    "name": "IntDiv_0",
+    "sat": "def sat(n: int, a=3, b=23463462):\n    return b // n == a",
+    "sol_docstring": "    \"\"\"Solve division problem\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol(a=3, b=23463462):"
+  },
+  {
+    "name": "IntDiv2_0",
+    "sat": "def sat(n: int, a=345346363, b=10):\n    return n // b == a",
+    "sol_docstring": "    \"\"\"Find `n` that when divided by `b` is `a`\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol(a=345346363, b=10):"
+  },
+  {
+    "name": "IntSquareRoot_0",
+    "sat": "def sat(x: int, a=10201202001):\n    return x ** 2 == a",
+    "sol_docstring": "    \"\"\"Compute square root of number.\n    The target has a round (integer) square root.\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol(a=10201202001):"
+  },
+  {
+    "name": "IntNegSquareRoot_0",
+    "sat": "def sat(n: int, a=10000200001):\n    return a == n * n and n < 0",
+    "sol_docstring": "    \"\"\"Compute negative square root of number.\n    The target has a round (integer) square root.\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol(a=10000200001):"
+  },
+  {
+    "name": "FloatSquareRoot_0",
+    "sat": "def sat(x: float, a=1020):\n    return abs(x ** 2 - a) < 10 ** -3",
+    "sol_docstring": "    \"\"\"Compute square root of number.\n    The target might not have a round solution.\n    Accuracy of third decimal digit is required.\"\"\"",
+    "ans_type": "float",
+    "sol_header": "def sol(a=1020):"
+  },
+  {
+    "name": "FloatNegSquareRoot_0",
+    "sat": "def sat(x: float, a=1020):\n    return abs(x ** 2 - a) < 10 ** -3 and x < 0",
+    "sol_docstring": "    \"\"\"Compute (negative) square root of number.\n    The target might not have a round solution.\n    Accuracy of third decimal digit is required.\"\"\"",
+    "ans_type": "float",
+    "sol_header": "def sol(a=1020):"
+  },
+  {
+    "name": "LongestMonotonicSubstringTricky_0",
+    "sat": "def sat(x: List[int], length=20, s=\"Dynamic programming solves this puzzle!!!\"):\n    return all(s[x[i]] <= s[x[i + 1]] and x[i + 1] > x[i] for i in range(length - 1))",
+    "sol_docstring": "    \"\"\"Find the indices of the longest substring with characters in sorted order, with a twist!\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol(length=20, s=\"Dynamic programming solves this puzzle!!!\"):"
+  },
+  {
+    "name": "ClockAngle_0",
+    "sat": "def sat(hands: List[int], target_angle=45):\n    hour, min = hands\n    return hour in range(1, 13) and min in range(60) and ((60 * hour + min) - 12 * min) % 720 == 2 * target_angle",
+    "sol_docstring": "    \"\"\"[Clock Angle Problem](https://en.wikipedia.org/wiki/Clock_angle_problem)\n    \n    Easy variant checks if angle at li = [hour, min] is a given number of degrees.\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol(target_angle=45):"
+  },
+  {
+    "name": "MonkeyAndCoconuts_0",
+    "sat": "def sat(n: int):\n    for i in range(5):\n        assert n % 5 == 1\n        n -= 1 + (n - 1) // 5\n    return n > 0 and n % 5 == 1",
+    "sol_docstring": "    \"\"\"[The Monkey and the Coconuts](https://en.wikipedia.org/wiki/The_monkey_and_the_coconuts)\n    \n    Find the number of coconuts to solve the following riddle quoted from\n    [Wikipedia article](https://en.wikipedia.org/wiki/The_monkey_and_the_coconuts):\n        There is a pile of coconuts, owned by five men.\n        One man divides the pile into five equal piles, giving the one left over coconut to a passing monkey,\n        and takes away his own share. The second man then repeats the procedure, dividing the remaining pile\n        into five and taking away his share, as do the third, fourth, and fifth, each of them finding one\n        coconut left over when dividing the pile by five, and giving it to a monkey. Finally, the group\n         divide the remaining coconuts into five equal piles: this time no coconuts are left over.\n        How many coconuts were there in the original pile?\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "PostageStamp_0",
+    "sat": "def sat(stamps: List[int], target=80, max_stamps=4, options=[10, 32, 8]):\n    return set(stamps) <= set(options) and len(stamps) <= max_stamps and sum(stamps) == target",
+    "sol_docstring": "    \"\"\"[Postage stamp problem](https://en.wikipedia.org/wiki/Postage_stamp_problem)\n    \n    In this problem version, one must find a selection of stamps to achieve a given value.\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol(target=80, max_stamps=4, options=[10, 32, 8]):"
+  },
+  {
+    "name": "NecklaceSplit_0",
+    "sat": "def sat(n: int, lace=\"bbbbrrbrbrbbrrrr\"):\n    sub = lace[n: n + len(lace) // 2]\n    return n >= 0 and lace.count(\"r\") == 2 * sub.count(\"r\") and lace.count(\"b\") == 2 * sub.count(\"b\")",
+    "sol_docstring": "    \"\"\"[Necklace Splitting Problem](https://en.wikipedia.org/wiki/Necklace_splitting_problem)\n    \n    Split a specific red/blue necklace in half at n so that each piece has an equal number of reds and blues.\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol(lace=\"bbbbrrbrbrbbrrrr\"):"
+  },
+  {
+    "name": "PandigitalSquare_0",
+    "sat": "def sat(n: int):\n    return sorted([int(s) for s in str(n * n)]) == list(range(10))",
+    "sol_docstring": "    \"\"\"[Pandigital](https://en.wikipedia.org/wiki/Pandigital_number) Square\n    \n    Find an integer whose square has all digits 0-9 once.\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "AllPandigitalSquares_0",
+    "sat": "def sat(nums: List[int]):\n    return [sorted([int(s) for s in str(n * n)]) for n in set(nums)] == [list(range(10))] * 174",
+    "sol_docstring": "    \"\"\"All [Pandigital](https://en.wikipedia.org/wiki/Pandigital_number) Squares\n    \n    Find all 174 integers whose 10-digit square has all digits 0-9\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "VerbalArithmetic_0",
+    "sat": "def sat(li: List[int], words=['SEND', 'MORE', 'MONEY']):\n    assert len(li) == len(words) and all(i > 0 and len(str(i)) == len(w) for i, w in zip(li, words))\n    assert len({c for w in words for c in w}) == len({(d, c) for i, w in zip(li, words) for d, c in zip(str(i), w)})\n    return sum(li[:-1]) == li[-1]",
+    "sol_docstring": "    \"\"\"Find a substitution of digits for characters to make the numbers add up, like this:\n    SEND + MORE = MONEY\n    \n    The first digit in any cannot be 0.\n    See [Wikipedia article](https://en.wikipedia.org/wiki/Verbal_arithmetic)\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol(words=['SEND', 'MORE', 'MONEY']):"
+  },
+  {
+    "name": "AnyEdge_0",
+    "sat": "def sat(e: List[int], edges=[[0, 217], [40, 11], [17, 29], [11, 12], [31, 51]]):\n    return e in edges",
+    "sol_docstring": "    \"\"\"Find any edge in a given [graph](https://en.wikipedia.org/w/index.php?title=Graph_(discrete_mathematics)).\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol(edges=[[0, 217], [40, 11], [17, 29], [11, 12], [31, 51]]):"
+  },
+  {
+    "name": "UnweightedShortestPath_0",
+    "sat": "def sat(path: List[int], edges=[[0, 11], [0, 22], [11, 22], [11, 33], [22, 33]], u=0, v=33, bound=3):\n    assert path[0] == u and path[-1] == v and all([i, j] in edges for i, j in zip(path, path[1:]))\n    return len(path) <= bound",
+    "sol_docstring": "    \"\"\"Unweighted Shortest Path\n    \n    Find a path from node u to node v, of a bounded length, in a given digraph on vertices 0, 1,..., n.\n    \n    See (Dijkstra's algorithm)[https://en.wikipedia.org/w/index.php?title=Dijkstra%27s_algorithm]\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol(edges=[[0, 11], [0, 22], [11, 22], [11, 33], [22, 33]], u=0, v=33, bound=3):"
+  },
+  {
+    "name": "AnyPath_0",
+    "sat": "def sat(path: List[int], edges=[[0, 1], [0, 2], [1, 2], [1, 3], [2, 3]]):\n    for i in range(len(path) - 1):\n        assert [path[i], path[i + 1]] in edges\n    assert path[0] == 0\n    assert path[-1] == max(max(edge) for edge in edges)\n    return True",
+    "sol_docstring": "    \"\"\"Any Path\n    \n    Find any path from node 0 to node n in a given graph on vertices 0, 1,..., n.\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol(edges=[[0, 1], [0, 2], [1, 2], [1, 3], [2, 3]]):"
+  },
+  {
+    "name": "EvenPath_0",
+    "sat": "def sat(path: List[int], edges=[[0, 2], [0, 1], [2, 1], [2, 3], [1, 3]]):\n    assert path[0] == 0 and path[-1] == max(max(e) for e in edges)\n    assert all([[a, b] in edges for a, b in zip(path, path[1:])])\n    return len(path) % 2 == 0",
+    "sol_docstring": "    \"\"\"Even Path\n    \n    Find any path with an even number of nodes from node 0 to node n in a given graph on vertices 0, 1,..., n.\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol(edges=[[0, 2], [0, 1], [2, 1], [2, 3], [1, 3]]):"
+  },
+  {
+    "name": "OddPath_0",
+    "sat": "def sat(p: List[int], edges=[[0, 1], [0, 2], [1, 2], [3, 1], [2, 3]]):\n    return p[0] == 0 and p[-1] == 1 == len(p) % 2 and all([[a, b] in edges for a, b in zip(p, p[1:])])",
+    "sol_docstring": "    \"\"\"Odd Path\n    \n    *** Note the change to go from node 0 to node 1 ***\n    \n    Find any path with an odd number of nodes from node 0 to node 1 in a given graph on vertices 0, 1,..., n.\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol(edges=[[0, 1], [0, 2], [1, 2], [3, 1], [2, 3]]):"
+  },
+  {
+    "name": "Zarankiewicz_0",
+    "sat": "def sat(edges: List[List[int]]):\n    assert len(edges) == len({(a, b) for a, b in edges}) == 13  # weights\n    assert all(i in range(4) for li in edges for i in li)  # 4 nodes on each side\n    for i in range(4):\n        v = [m for m in range(4) if m != i]\n        for j in range(4):\n            u = [m for m in range(4) if m != j]\n            if all([m, n] in edges for m in v for n in u):\n                return False\n    return True",
+    "sol_docstring": "    \"\"\"[Zarankiewicz problem](https://en.wikipedia.org/wiki/Zarankiewicz_problem)\n    \n    Find a bipartite graph with 4 vertices on each side, 13 edges, and no K_3,3 subgraph.\"\"\"",
+    "ans_type": "List[List[int]]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "GraphIsomorphism_0",
+    "sat": "def sat(bi: List[int], g1=[[0, 1], [1, 2], [2, 3], [3, 4]], g2=[[0, 4], [4, 1], [1, 2], [2, 3]]):\n    return len(bi) == len(set(bi)) and {(i, j) for i, j in g1} == {(bi[i], bi[j]) for i, j in g2}",
+    "sol_docstring": "    \"\"\"In the classic [Graph Isomorphism](https://en.wikipedia.org/wiki/Graph_isomorphism) problem,\n    one is given two graphs which are permutations of one another and\n    the goal is to find the permutation. It is unknown wheter or not there exists a polynomial-time algorithm\n    for this problem, though an unpublished quasi-polynomial-time algorithm has been announced by Babai.\n    \n    Each graph is specified by a list of edges where each edge is a pair of integer vertex numbers.\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol(g1=[[0, 1], [1, 2], [2, 3], [3, 4]], g2=[[0, 4], [4, 1], [1, 2], [2, 3]]):"
+  },
+  {
+    "name": "Study_1_0",
+    "sat": "def sat(s: str):\n    return s.count('o') == 1000 and s.count('oo') == 0",
+    "sol_docstring": "    \"\"\"Find a string with 1000 'o's but no two adjacent 'o's.\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_2_0",
+    "sat": "def sat(s: str):\n    return s.count('o') == 1000 and s.count('oo') == 100 and s.count('ho') == 801",
+    "sol_docstring": "    \"\"\"Find a string with 1000 'o's, 100 pairs of adjacent 'o's and 801 copies of 'ho'.\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_3_0",
+    "sat": "def sat(li: List[int]):\n    return sorted(li) == list(range(999)) and all(li[i] != i for i in range(len(li)))",
+    "sol_docstring": "    \"\"\"Find a permutation of [0, 1, ..., 998] such that the ith element is *not* i, for all i=0, 1, ..., 998.\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_4_0",
+    "sat": "def sat(li: List[int]):\n    return len(li) == 10 and li.count(li[3]) == 2",
+    "sol_docstring": "    \"\"\"Find a list of length 10 where the fourth element occurs exactly twice.\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_5_0",
+    "sat": "def sat(li: List[int]):\n    return all([li.count(i) == i for i in range(10)])",
+    "sol_docstring": "    \"\"\"Find a list integers such that the integer i occurs i times, for i = 0, 1, 2, ..., 9.\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_6_0",
+    "sat": "def sat(i: int):\n    return i % 123 == 4 and i > 10 ** 10",
+    "sol_docstring": "    \"\"\"Find an integer greater than 10^10 which is 4 mod 123.\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_7_0",
+    "sat": "def sat(s: str):\n    return str(8 ** 2888).count(s) > 8 and len(s) == 3",
+    "sol_docstring": "    \"\"\"Find a three-digit pattern  that occurs more than 8 times in the decimal representation of 8^2888.\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_8_0",
+    "sat": "def sat(ls: List[str]):\n    return ls[1234] in ls[1235] and ls[1234] != ls[1235]",
+    "sol_docstring": "    \"\"\"Find a list of more than 1235 strings such that the 1234th string is a proper substring of the 1235th.\"\"\"",
+    "ans_type": "List[str]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_9_0",
+    "sat": "def sat(li: List[int]):\n    return [\"The quick brown fox jumps over the lazy dog\"[i] for i in li] == list(\n        \"The five boxing wizards jump quickly\")",
+    "sol_docstring": "    \"\"\"Find a way to rearrange the letters in the pangram \"The quick brown fox jumps over the lazy dog\" to\n    get the pangram \"The five boxing wizards jump quickly\". The answer should be represented as a list of index\n    mappings.\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_10_0",
+    "sat": "def sat(s: str):\n    return s in str(8 ** 1818) and s == s[::-1] and len(s) > 11",
+    "sol_docstring": "    \"\"\"Find a palindrome of length greater than 11 in the decimal representation of 8^1818.\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_11_0",
+    "sat": "def sat(ls: List[str]):\n    return min(ls) == max(ls) == str(len(ls))",
+    "sol_docstring": "    \"\"\"Find a list of strings whose length (viewed as a string) is equal to the lexicographically largest element\n    and is equal to the lexicographically smallest element.\"\"\"",
+    "ans_type": "List[str]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_12_0",
+    "sat": "def sat(li: List[int]):\n    return all(i + j == 9 for i, j in zip([4] + li, li)) and len(li) == 1000",
+    "sol_docstring": "    \"\"\"Find a list of 1,000 integers where every two adjacent integers sum to 9, and where the first\n    integer plus 4 is 9.\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_13_0",
+    "sat": "def sat(x: float):\n    return str(x - 3.1415).startswith(\"123.456\")",
+    "sol_docstring": "    \"\"\"Find a real number which, when you subtract 3.1415, has a decimal representation starting with 123.456.\"\"\"",
+    "ans_type": "float",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_14_0",
+    "sat": "def sat(li: List[int]):\n    return all([sum(li[:i]) == i for i in range(20)])",
+    "sol_docstring": "    \"\"\"Find a list of integers such that the sum of the first i integers is i, for i=0, 1, 2, ..., 19.\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_15_0",
+    "sat": "def sat(li: List[int]):\n    return all(sum(li[:i]) == 2 ** i - 1 for i in range(20))",
+    "sol_docstring": "    \"\"\"Find a list of integers such that the sum of the first i integers is 2^i -1, for i = 0, 1, 2, ..., 19.\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_16_0",
+    "sat": "def sat(s: str):\n    return float(s) + len(s) == 4.5",
+    "sol_docstring": "    \"\"\"Find a real number such that when you add the length of its decimal representation to it, you get 4.5.\n    Your answer should be the string form of the number in its decimal representation.\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_17_0",
+    "sat": "def sat(i: int):\n    return len(str(i + 1000)) > len(str(i + 1001))",
+    "sol_docstring": "    \"\"\"Find a number whose decimal representation is *a longer string* when you add 1,000 to it than when you add 1,001.\"\"\"",
+    "ans_type": "int",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_18_0",
+    "sat": "def sat(ls: List[str]):\n    return [s + t for s in ls for t in ls if s != t] == 'berlin berger linber linger gerber gerlin'.split()",
+    "sol_docstring": "    \"\"\"Find a list of strings that when you combine them in all pairwise combinations gives the six strings:\n    'berlin', 'berger', 'linber', 'linger', 'gerber', 'gerlin'\"\"\"",
+    "ans_type": "List[str]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_19_0",
+    "sat": "def sat(si: Set[int]):\n    return {i + j for i in si for j in si} == {0, 1, 2, 3, 4, 5, 6, 17, 18, 19, 20, 34}",
+    "sol_docstring": "    \"\"\"Find a set of integers whose pairwise sums make the set {0, 1, 2, 3, 4, 5, 6, 17, 18, 19, 20, 34}.\n    That is find set S such that, { i + j | i, j in S } = {0, 1, 2, 3, 4, 5, 6, 17, 18, 19, 20, 34}.\"\"\"",
+    "ans_type": "Set[int]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_20_0",
+    "sat": "def sat(li: List[int]):\n    return all(j in {i - 1, i + 1, 3 * i} for i, j in zip([0] + li, li + [128]))",
+    "sol_docstring": "    \"\"\"Find a list of integers, starting with 0 and ending with 128, such that each integer either differs from\n    the previous one by one or is thrice the previous one.\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_21_0",
+    "sat": "def sat(li: List[int]):\n    return all([li[i] != li[i + 1] for i in range(10)]) and len(set(li)) == 3",
+    "sol_docstring": "    \"\"\"Find a list integers containing exactly three distinct values, such that no integer repeats\n    twice consecutively among the first eleven entries. (So the list needs to have length greater than ten.)\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_22_0",
+    "sat": "def sat(s: str):\n    return s[::2] in s and len(set(s)) == 5",
+    "sol_docstring": "    \"\"\"Find a string s containing exactly five distinct characters which also contains as a substring every other\n    character of s (e.g., if the string s were 'parrotfish' every other character would be 'profs').\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_23_0",
+    "sat": "def sat(ls: List[str]):\n    return tuple(ls) in zip('dee', 'doo', 'dah!')",
+    "sol_docstring": "    \"\"\"Find a list of characters which are aligned at the same indices of the three strings 'dee', 'doo', and 'dah!'.\"\"\"",
+    "ans_type": "List[str]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_24_0",
+    "sat": "def sat(li: List[int]):\n    return li.count(17) == 3 and li.count(3) >= 2",
+    "sol_docstring": "    \"\"\"Find a list of integers with exactly three occurrences of seventeen and at least two occurrences of three.\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_25_0",
+    "sat": "def sat(s: str):\n    return sorted(s) == sorted('Permute me true') and s == s[::-1]",
+    "sol_docstring": "    \"\"\"Find a permutation of the string 'Permute me true' which is a palindrome.\"\"\"",
+    "ans_type": "str",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_26_0",
+    "sat": "def sat(ls: List[str]):\n    return \"\".join(ls) == str(8 ** 88) and all(len(s) == 8 for s in ls)",
+    "sol_docstring": "    \"\"\"Divide the decimal representation of 8^88 up into strings of length eight.\"\"\"",
+    "ans_type": "List[str]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_27_0",
+    "sat": "def sat(li: List[int]):\n    return li[li[0]] != li[li[1]] and li[li[li[0]]] == li[li[li[1]]]",
+    "sol_docstring": "    \"\"\"Consider a digraph where each node has exactly one outgoing edge. For each edge (u, v), call u the parent and\n    v the child. Then find such a digraph where the grandchildren of the first and second nodes differ but they\n    share the same great-grandchildren. Represented this digraph by the list of children indices.\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_28_0",
+    "sat": "def sat(si: Set[int]):\n    return all(i in range(1000) and abs(i - j) >= 10 for i in si for j in si if i != j) and len(si) == 100",
+    "sol_docstring": "    \"\"\"Find a set of one hundred integers between 0 and 999 which all differ by at least ten from one another.\"\"\"",
+    "ans_type": "Set[int]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_29_0",
+    "sat": "def sat(si: Set[int]):\n    return all(i in range(1000) and abs(i * i - j * j) >= 10 for i in si for j in si if i != j) and len(si) > 995",
+    "sol_docstring": "    \"\"\"Find a set of more than 995 integers between 0 and 999, inclusive, such that each pair of integers have\n    squares that differ by at least 10.\"\"\"",
+    "ans_type": "Set[int]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "Study_30_0",
+    "sat": "def sat(li: List[int]):\n    return all([123 * li[i] % 1000 < 123 * li[i + 1] % 1000 and li[i] in range(1000) for i in range(20)])",
+    "sol_docstring": "    \"\"\"Define f(n) to be the residue of 123 times n mod 1000. Find a list of integers such that the first twenty one\n    are between 0 and 999, inclusive, and are strictly increasing in terms of f(n).\"\"\"",
+    "ans_type": "List[int]",
+    "sol_header": "def sol():"
+  },
+  {
+    "name": "RockPaperScissors_0",
+    "sat": "def sat(probs: List[float]):\n    assert len(probs) == 3 and abs(sum(probs) - 1) < 1e-6\n    return max(probs[(i + 2) % 3] - probs[(i + 1) % 3] for i in range(3)) < 1e-6",
+    "sol_docstring": "    \"\"\"Find optimal strategy for Rock-Paper-Scissors zero-sum game\n    \n    Can the computer figure out that 1/3, 1/3, 1/3 achieves the maximal expected value of 0\"\"\"",
+    "ans_type": "List[float]",
+    "sol_header": "def sol():"
+  }
+]
