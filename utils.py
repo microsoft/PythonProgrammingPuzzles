@@ -43,17 +43,25 @@ def get_docstring(f):
 def flatten(it):
     return (e for a in it for e in (flatten(a) if isinstance(a, (tuple, list)) else (a,)))
 
-
-def save_json(obj, filename, make_dirs_if_necessary=False, **kwargs):
+def save_json(obj, filename, make_dirs_if_necessary=False, indent=2, **kwargs):
+    """Saves compressed file if filename ends with '.gz'"""
     import json
     if make_dirs_if_necessary:
         os.makedirs(os.path.dirname(filename), exist_ok=True)
+    if filename.endswith(".gz"):
+        import gzip
+        with gzip.open(filename, "wt") as f:
+            return json.dump(obj, f, indent=indent, **kwargs)
     with open(filename, "w", encoding="utf8") as f:
-        return json.dump(obj, f, **kwargs)
-
+        return json.dump(obj, f, indent=indent, **kwargs)
 
 def load_json(filename):
+    """Loads compressed file if filename ends with '.gz'"""
     import json
+    if filename.endswith(".gz"):
+        import gzip
+        with gzip.open(filename, "rt") as f:
+            return json.load(f)
     with open(filename, "r", encoding="utf8") as f:
         return json.load(f)
 

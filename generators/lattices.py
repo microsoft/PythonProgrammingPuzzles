@@ -83,7 +83,10 @@ class LearnParityWithNoise(PuzzleGenerator):
 
     The fastest known algorithm to this
     [Parity learning problem](https://en.wikipedia.org/w/index.php?title=Parity_learning)
-    runs in time $2^(d/(log d))$"""
+    runs in time $2^(d/(log d))$
+
+    The example puzzle has small dimension so is easily solvable, but other instances are much harder.
+    """
 
     @staticmethod
     def sat(inds: List[int], vecs=[26, 5, 32, 3, 15, 18, 31, 13, 24, 25, 34, 5, 15, 24, 16, 13, 0, 27, 37]):

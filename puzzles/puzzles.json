@@ -18683,7 +18683,7 @@
       "    # brute force\n    d = 0  # decode vectors into arrays\n    m = max(vecs)\n    while m:\n        m >>= 1\n        d += 1\n    vecs = [[(n >> i) & 1 for i in range(d)] for n in vecs]\n\n    import random\n    rand = random.Random(0)\n    target = (len(vecs) * 3) // 4\n    max_attempts = 10 ** 5\n    for _ in range(max_attempts):\n        ans = [i for i in range(d) if rand.randrange(2)]\n        if sum(sum(v[i] for i in ans) % 2 for v in vecs) >= len(vecs) * 3 / 4:\n            return ans"
     ],
     "module": "lattices.py",
-    "notes": "Learn parity with noise (*unsolved*)\n\nThe fastest known algorithm to this\n[Parity learning problem](https://en.wikipedia.org/w/index.php?title=Parity_learning)\nruns in time $2^(d/(log d))$",
+    "notes": "Learn parity with noise (*unsolved*)\n\nThe fastest known algorithm to this\n[Parity learning problem](https://en.wikipedia.org/w/index.php?title=Parity_learning)\nruns in time $2^(d/(log d))$\n\nThe example puzzle has small dimension so is easily solvable, but other instances are much harder.",
     "weight": 1.0
   },
   {
@@ -18694,7 +18694,7 @@
     "sol_docstring": "    \"\"\"\n    Learning parity with noise: Given binary vectors, find the secret set $S$ of indices such that, for at least\n    3/4 of the vectors, $$sum_{i \\in S} x_i = 1 (mod 2)$$\n    \"\"\"",
     "sol_bodies": [],
     "module": "lattices.py",
-    "notes": "Learn parity with noise (*unsolved*)\n\nThe fastest known algorithm to this\n[Parity learning problem](https://en.wikipedia.org/w/index.php?title=Parity_learning)\nruns in time $2^(d/(log d))$",
+    "notes": "Learn parity with noise (*unsolved*)\n\nThe fastest known algorithm to this\n[Parity learning problem](https://en.wikipedia.org/w/index.php?title=Parity_learning)\nruns in time $2^(d/(log d))$\n\nThe example puzzle has small dimension so is easily solvable, but other instances are much harder.",
     "weight": 1000.0
   },
   {
@@ -18707,7 +18707,7 @@
       "    # brute force\n    d = 0  # decode vectors into arrays\n    m = max(vecs)\n    while m:\n        m >>= 1\n        d += 1\n    vecs = [[(n >> i) & 1 for i in range(d)] for n in vecs]\n\n    import random\n    rand = random.Random(0)\n    target = (len(vecs) * 3) // 4\n    max_attempts = 10 ** 5\n    for _ in range(max_attempts):\n        ans = [i for i in range(d) if rand.randrange(2)]\n        if sum(sum(v[i] for i in ans) % 2 for v in vecs) >= len(vecs) * 3 / 4:\n            return ans"
     ],
     "module": "lattices.py",
-    "notes": "Learn parity with noise (*unsolved*)\n\nThe fastest known algorithm to this\n[Parity learning problem](https://en.wikipedia.org/w/index.php?title=Parity_learning)\nruns in time $2^(d/(log d))$",
+    "notes": "Learn parity with noise (*unsolved*)\n\nThe fastest known algorithm to this\n[Parity learning problem](https://en.wikipedia.org/w/index.php?title=Parity_learning)\nruns in time $2^(d/(log d))$\n\nThe example puzzle has small dimension so is easily solvable, but other instances are much harder.",
     "weight": 1.0
   },
   {
@@ -18720,7 +18720,7 @@
       "    # brute force\n    d = 0  # decode vectors into arrays\n    m = max(vecs)\n    while m:\n        m >>= 1\n        d += 1\n    vecs = [[(n >> i) & 1 for i in range(d)] for n in vecs]\n\n    import random\n    rand = random.Random(0)\n    target = (len(vecs) * 3) // 4\n    max_attempts = 10 ** 5\n    for _ in range(max_attempts):\n        ans = [i for i in range(d) if rand.randrange(2)]\n        if sum(sum(v[i] for i in ans) % 2 for v in vecs) >= len(vecs) * 3 / 4:\n            return ans"
     ],
     "module": "lattices.py",
-    "notes": "Learn parity with noise (*unsolved*)\n\nThe fastest known algorithm to this\n[Parity learning problem](https://en.wikipedia.org/w/index.php?title=Parity_learning)\nruns in time $2^(d/(log d))$",
+    "notes": "Learn parity with noise (*unsolved*)\n\nThe fastest known algorithm to this\n[Parity learning problem](https://en.wikipedia.org/w/index.php?title=Parity_learning)\nruns in time $2^(d/(log d))$\n\nThe example puzzle has small dimension so is easily solvable, but other instances are much harder.",
     "weight": 1.0
   },
   {
@@ -18733,7 +18733,7 @@
       "    # brute force\n    d = 0  # decode vectors into arrays\n    m = max(vecs)\n    while m:\n        m >>= 1\n        d += 1\n    vecs = [[(n >> i) & 1 for i in range(d)] for n in vecs]\n\n    import random\n    rand = random.Random(0)\n    target = (len(vecs) * 3) // 4\n    max_attempts = 10 ** 5\n    for _ in range(max_attempts):\n        ans = [i for i in range(d) if rand.randrange(2)]\n        if sum(sum(v[i] for i in ans) % 2 for v in vecs) >= len(vecs) * 3 / 4:\n            return ans"
     ],
     "module": "lattices.py",
-    "notes": "Learn parity with noise (*unsolved*)\n\nThe fastest known algorithm to this\n[Parity learning problem](https://en.wikipedia.org/w/index.php?title=Parity_learning)\nruns in time $2^(d/(log d))$",
+    "notes": "Learn parity with noise (*unsolved*)\n\nThe fastest known algorithm to this\n[Parity learning problem](https://en.wikipedia.org/w/index.php?title=Parity_learning)\nruns in time $2^(d/(log d))$\n\nThe example puzzle has small dimension so is easily solvable, but other instances are much harder.",
     "weight": 1.0
   },
   {

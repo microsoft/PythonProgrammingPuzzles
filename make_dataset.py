@@ -19,8 +19,9 @@ parser.add_argument('--target_num_per_problem',
 
 parser.add_argument('--solutions',
                     '-s',
+                    nargs='*',
                     default='',
-                    help='Filename of AI solutions to add to README, if any.')
+                    help='Filename(s) of AI solutions to add to README, if any.')
 
 parser.add_argument('--json',
                     '-j',
@@ -50,6 +51,9 @@ through `type_check` from `puzzle_generator.py` before certifying correctness.
 
 
 def rename_src_var(orig, new, src, count=0):
+    if orig == new:
+        return
+
     def helper(s):
         return re.sub(r'\b' + orig + r'\b(?!["\'])', new, s, count)
 
@@ -73,22 +77,38 @@ def indent(x, spaces=4):
     return (" " * spaces + x.replace("\n", "\n" + " " * spaces))[:-spaces if x.endswith("\n") else None]
 
 
-def save_readme(gen_modules, filename, sol_filename):
-    ai_sols = run_name = run_desc = None
-    if sol_filename:
+def save_readme(gen_modules, filename, sol_filenames):
+    ai_sols = {}
+    for sol_filename in sol_filenames:
         sols_js = utils.load_json(sol_filename)
-        run_name = sols_js["run_name"]
-        run_desc = sols_js["run_desc"]
-        ai_sols = {}
-        for f, entry in sols_js["sols"].items():
-            assert f.startswith("def ")
-            f_name = f[len("def "):f.index("(")].strip()
-            f2 = rename_src_var(f_name, "sat", f, 1)
-            entry2 = ai_sols[f2] = entry.copy()
-            # g = entry2["sol"]
-            g_name = "g" # g[len("def "):f.index("(")].strip()
-            entry2["sol"] = rename_src_var(g_name, "sol", rename_src_var(f_name, "sat", entry2["sol"]))
-            entry2["longest_sol"] = rename_src_var(g_name, "sol", rename_src_var(f_name, "sat", entry2["longest_sol"]))
+        for experiment in sols_js:
+            if "short" in experiment["experiment"]:
+                continue # skip short experiments
+            for s_s in experiment["sat_sols"]:
+                f = s_s["sat"]
+                assert f.startswith("def ")
+                f_name = f[len("def "):f.index("(")].strip()
+                f2 = rename_src_var(f_name, "sat", f, 1)
+                if f2 not in ai_sols:
+                    ai_sols[f2] = dict(n_sols=0, n_attempts=0, sols=set())
+                if "failures" in s_s: # bootstrap
+                    ai_sols[f2]["n_attempts"] += s_s["failures"]
+                    if s_s.get("sol"):
+                        ai_sols[f2]["n_sols"] += 1
+                        ai_sols[f2]["n_attempts"] += 1
+                    cur_sols = [s_s.get("sol")]
+                else:
+                    ai_sols[f2]["n_attempts"] += experiment["n"]
+                    ai_sols[f2]["n_sols"] += s_s["n_sols"]
+                    cur_sols = [s_s[k] for k in s_s if k.endswith("_sol")]
+                    if "example_sols" in s_s:
+                        cur_sols += s_s["example_sols"]
+                ai_sols[f2]["sols"].update(rename_src_var(f_name, "sat", sol) for sol in cur_sols if sol)
+
+    for entry in ai_sols.values():
+        entry["sol"] = (min(entry["sols"], key=len) if entry["sols"] else "")
+        entry['longest_sol'] = (max(entry["sols"], key=len) if len(entry["sols"]) > 1 else "")
+        entry["success_rate"] = entry["n_sols"]/entry["n_attempts"]
 
     table = ""
     content = ""
@@ -106,7 +126,7 @@ def save_readme(gen_modules, filename, sol_filename):
         puzzles = module_stuff['examples']
         if ai_sols:
             puzzles = sorted(puzzles,
-                             key=lambda f: (ai_sols.get(f['sat']) or {}).get("num_sols", 0),
+                             key=lambda f: ai_sols[f['sat']]["success_rate"] if f['sat'] in ai_sols else 0,
                              reverse=True)
         n = len(puzzles)
         link = f"[{sec_name}](#{anchor(sec_name)})"
@@ -124,10 +144,10 @@ def save_readme(gen_modules, filename, sol_filename):
             if ai_sols:
                 sol_entry = ai_sols.get(f)
                 if sol_entry:
-                    num_ai_sols = sol_entry['num_sols']
-                    puzzle_text += f"{num_ai_sols:,} AI solution{'s' if num_ai_sols != 1 else ''}, "
+                    num_ai_sols = sol_entry['n_sols']
+                    puzzle_text += f"{sol_entry['success_rate']*100:.2g}% Codex success rate, "
                 else:
-                    puzzle_text += f"{run_name} was not run on this puzzle, "
+                    puzzle_text += f"Codex was not run on this puzzle, "
             sol_bodies = puzzle['sol_bodies']
             n_sols = len(sol_bodies)
             puzzle_text += f"{n_sols:,} hand-written solution{'s' if n_sols != 1 else ''} "
@@ -137,10 +157,14 @@ def save_readme(gen_modules, filename, sol_filename):
             puzzle_text += "Solution docstring (*not* usually provided)\n\n"
             puzzle_text += py(puzzle['sol_docstring'])
             if num_ai_sols:
-                puzzle_text += f"Shortest solution from {run_name}:\n"
-                puzzle_text += py(sol_entry['sol'])
-                puzzle_text += f"Longest solution from {run_name}:\n"
-                puzzle_text += py(sol_entry['longest_sol'])
+                if sol_entry['longest_sol']:
+                    puzzle_text += f"Shortest Codex solution:\n"
+                    puzzle_text += py(sol_entry['sol'])
+                    puzzle_text += f"Longest Codex solution:\n"
+                    puzzle_text += py(sol_entry['longest_sol'])
+                else:
+                    puzzle_text += f"Codex solution:\n"
+                    puzzle_text += py(sol_entry['sol'])
             if n_sols:
                 for body in sol_bodies:
                     puzzle_text += "Hand-written solution:\n"
@@ -155,14 +179,14 @@ def save_readme(gen_modules, filename, sol_filename):
     table += f"\nTotal ({tot_puzzles:,} problems, {tot_instances:,} instances)\n"
 
     content = TOP.format(table) + content
-    if run_name:
+    if ai_sols:
         content = content.replace(
             "Summary of Puzzles",
-            f"Summary of Puzzles and {run_name} solutions\n{run_desc}",
+            f"Summary of Puzzles and Codex solutions",
             1
         ).replace(
             "----",
-            f"----\n\nThe puzzles in each module are sorted by number of {run_name} solutions\n\n",
+            f"----\n\nThe puzzles in each module are sorted by percent of Codex correct solutions\n\n",
             1
         )
 
