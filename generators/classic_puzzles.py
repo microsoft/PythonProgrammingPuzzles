@@ -1,6 +1,7 @@
 """Classic puzzles"""
+# TODO: add tags
 
-from puzzle_generator import PuzzleGenerator
+from puzzle_generator import PuzzleGenerator, Tags
 from typing import List
 
 
@@ -938,6 +939,7 @@ class VerbalArithmetic(PuzzleGenerator):  # updated because the answer was given
 
     @staticmethod
     def sol(words):
+        print("solving", words)
         pi = list(range(10))  # permutation
         letters = []
         order = {}

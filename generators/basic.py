@@ -1,12 +1,15 @@
 """Problems testing basic knowledge -- easy to solve if you understand what is being asked"""
 
-from puzzle_generator import PuzzleGenerator
+from puzzle_generator import PuzzleGenerator, Tags
 from typing import List
 
 
 # See https://github.com/microsoft/PythonProgrammingPuzzles/wiki/How-to-add-a-puzzle to learn about adding puzzles
 
 class SumOfDigits(PuzzleGenerator):
+
+    tags = [Tags.math]
+
     @staticmethod
     def sat(x: str, s=679):
         """Find a number that its digits sum to a specific value."""
@@ -22,6 +25,9 @@ class SumOfDigits(PuzzleGenerator):
 
 
 class FloatWithDecimalValue(PuzzleGenerator):
+
+    tags = [Tags.math]
+
     @staticmethod
     def sat(z: float, v=9, d=0.0001):
         """Create a float with a specific decimal."""
@@ -44,6 +50,9 @@ class FloatWithDecimalValue(PuzzleGenerator):
 
 
 class ArithmeticSequence(PuzzleGenerator):
+
+    tags = [Tags.math]
+
     @staticmethod
     def sat(x: List[int], a=7, s=5, e=200):
         """Create a list that is a subrange of an arithmetic sequence."""
@@ -61,6 +70,9 @@ class ArithmeticSequence(PuzzleGenerator):
 
 
 class GeometricSequence(PuzzleGenerator):
+
+    tags = [Tags.math]
+
     @staticmethod
     def sat(x: List[int], a=8, r=2, l=50):
         """Create a list that is a subrange of an gemoetric sequence."""
@@ -78,6 +90,9 @@ class GeometricSequence(PuzzleGenerator):
 
 
 class LineIntersection(PuzzleGenerator):
+
+    tags = [Tags.math]
+
     @staticmethod
     def sat(e: List[int], a=2, b=-1, c=1, d=2021):
         """
@@ -103,6 +118,9 @@ class LineIntersection(PuzzleGenerator):
 
 
 class IfProblem(PuzzleGenerator):
+
+    tags = [Tags.trivial]
+
     @staticmethod
     def sat(x: int, a=324554, b=1345345):
         """Satisfy a simple if statement"""
@@ -125,6 +143,9 @@ class IfProblem(PuzzleGenerator):
 
 
 class IfProblemWithAnd(PuzzleGenerator):
+
+    tags = [Tags.trivial]
+
     @staticmethod
     def sat(x: int, a=9384594, b=1343663):
         """Satisfy a simple if statement with an and clause"""
@@ -148,6 +169,8 @@ class IfProblemWithAnd(PuzzleGenerator):
 
 class IfProblemWithOr(PuzzleGenerator):
 
+    tags = [Tags.trivial]
+
     @staticmethod
     def sat(x: int, a=253532, b=1230200):
         """Satisfy a simple if statement with an or clause"""
@@ -170,6 +193,8 @@ class IfProblemWithOr(PuzzleGenerator):
 
 
 class IfCases(PuzzleGenerator):
+
+    tags = [Tags.trivial]
 
     @staticmethod
     def sat(x: int, a=4, b=54368639):
@@ -198,6 +223,9 @@ class IfCases(PuzzleGenerator):
 
 
 class ListPosSum(PuzzleGenerator):
+
+    tags = [Tags.trivial]
+
     @staticmethod
     def sat(x: List[int], n=5, s=19):
         """Find a list of n non-negative integers that sum up to s"""
@@ -216,6 +244,9 @@ class ListPosSum(PuzzleGenerator):
 
 
 class ListDistinctSum(PuzzleGenerator):
+
+    tags = [Tags.math]
+
     @staticmethod
     def sat(x: List[int], n=4, s=2021):
         """Construct a list of n distinct integers that sum up to s"""
@@ -244,6 +275,9 @@ class ListDistinctSum(PuzzleGenerator):
 
 
 class ConcatStrings(PuzzleGenerator):
+
+    tags = [Tags.trivial, Tags.strings]
+
     @staticmethod
     def sat(x: str, s=["a", "b", "c", "d", "e", "f"], n=4):
         """Concatenate the list of characters in s"""
@@ -261,6 +295,8 @@ class ConcatStrings(PuzzleGenerator):
 
 
 class SublistSum(PuzzleGenerator):
+
+    tags = [Tags.math]
 
     @staticmethod
     def sat(x: List[int], t=677, a=43, e=125, s=10):
@@ -292,6 +328,8 @@ class SublistSum(PuzzleGenerator):
 
 class CumulativeSum(PuzzleGenerator):
 
+    tags = [Tags.math, Tags.trivial]
+
     @staticmethod
     def sat(x: List[int], t=50, n=10):
         """Find how many values have cumulative sum less than target"""
@@ -316,6 +354,9 @@ class CumulativeSum(PuzzleGenerator):
 
 
 class BasicStrCounts(PuzzleGenerator):
+
+    tags = [Tags.strings]
+
     @staticmethod
     def sat(s: str, s1='a', s2='b', count1=50, count2=30):
         """
@@ -347,6 +388,9 @@ class BasicStrCounts(PuzzleGenerator):
 
 
 class ZipStr(PuzzleGenerator):
+
+    tags = [Tags.strings, Tags.trivial]
+
     @staticmethod
     def sat(s: str, substrings=["foo", "bar", "baz", "oddball"]):
         """
@@ -365,6 +409,9 @@ class ZipStr(PuzzleGenerator):
 
 
 class ReverseCat(PuzzleGenerator):
+
+    tags = [Tags.trivial, Tags.strings]
+
     @staticmethod
     def sat(s: str, substrings=["foo", "bar", "baz"]):
         """
@@ -382,6 +429,9 @@ class ReverseCat(PuzzleGenerator):
 
 
 class EngineerNumbers(PuzzleGenerator):
+
+    tags = [Tags.trivial, Tags.strings]
+
     @staticmethod
     def sat(ls: List[str], n=100, a='bar', b='foo'):
         """
@@ -401,6 +451,9 @@ class EngineerNumbers(PuzzleGenerator):
 
 
 class PenultimateString(PuzzleGenerator):
+
+    tags = [Tags.trivial, Tags.strings]
+
     @staticmethod
     def sat(s: str, strings=["cat", "dog", "bird", "fly", "moose"]):
         """Find the alphabetically second to last last string in a list."""
@@ -417,6 +470,9 @@ class PenultimateString(PuzzleGenerator):
 
 
 class PenultimateRevString(PuzzleGenerator):
+
+    tags = [Tags.trivial, Tags.strings]
+
     @staticmethod
     def sat(s: str, strings=["cat", "dog", "bird", "fly", "moose"]):
         """Find the reversed version of the alphabetically second string in a list."""
@@ -433,6 +489,9 @@ class PenultimateRevString(PuzzleGenerator):
 
 
 class CenteredString(PuzzleGenerator):
+
+    tags = [Tags.trivial, Tags.strings]
+
     @staticmethod
     def sat(s: str, target="foobarbazwow", length=6):
         """Find a substring of the given length centered within the target string."""
@@ -449,6 +508,9 @@ class CenteredString(PuzzleGenerator):
 
 
 class SubstrCount(PuzzleGenerator):
+
+    tags = [Tags.brute_force, Tags.strings]
+
     @staticmethod
     def sat(substring: str, string="moooboooofasd", count=2):
         """Find a substring with a certain count in a given string"""
@@ -478,6 +540,9 @@ class SubstrCount(PuzzleGenerator):
 
 
 class CompleteParens(PuzzleGenerator):
+
+    tags = []
+
     @staticmethod
     def sat(t: str, s="))(Add)some))parens()to()(balance(()(()(me!)(((("):
         """Add parentheses to the beginning and end of s to make all parentheses balanced"""

@@ -2,7 +2,7 @@
 Puzzles used in our user study (the user study didn't have docstrings), see [Programming Puzzles](https://arxiv.org/abs/2106.05784).
 """
 
-from puzzle_generator import PuzzleGenerator
+from puzzle_generator import PuzzleGenerator, Tags
 from typing import List
 
 

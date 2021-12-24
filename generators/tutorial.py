@@ -2,7 +2,7 @@
 A few example puzzles that were presented with solutions to participants of the study.
 """
 
-from puzzle_generator import PuzzleGenerator
+from puzzle_generator import PuzzleGenerator, Tags
 from typing import List
 
 

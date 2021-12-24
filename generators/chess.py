@@ -1,6 +1,6 @@
 """Classic chess puzzles"""
 
-from puzzle_generator import PuzzleGenerator
+from puzzle_generator import PuzzleGenerator, Tags
 from typing import List
 
 
@@ -17,6 +17,8 @@ class EightQueensOrFewer(PuzzleGenerator):
 
     Hint: a brute force approach works on this puzzle.
     """
+
+    tags = [Tags.games, Tags.brute_force, Tags.famous]
 
     @staticmethod
     def sat(squares: List[List[int]], m=8, n=8):
@@ -48,6 +50,8 @@ class MoreQueens(PuzzleGenerator):
 
     A brute force approach will not work on many of these problems.
     """
+
+    tags = [Tags.games, Tags.graphs, Tags.famous]
 
     @staticmethod
     def sat(squares: List[List[int]], m=9, n=9):
@@ -88,6 +92,8 @@ class KnightsTour(PuzzleGenerator):
     """
     See Wikipedia entry on [Knight's tour](https://en.wikipedia.org/w/index.php?title=Knight%27s_tour)
     """
+
+    tags = [Tags.games, Tags.graphs, Tags.hard, Tags.famous]
 
     @staticmethod
     def sat(tour: List[List[int]], m=8, n=8):
@@ -140,6 +146,8 @@ class UncrossedKnightsPath(PuzzleGenerator):
     A more precise description is in this
     [Wikipedia article](https://en.wikipedia.org/w/index.php?title=Longest_uncrossed_knight%27s_path)."""
 
+    tags = [Tags.games, Tags.hard, Tags.famous]
+
     nxn_records = {3: 2, 4: 5, 5: 10, 6: 17, 7: 24, 8: 35, 9: 47, 10: 61, 11: 76, 12: 94, 13: 113, 14: 135, 15: 158,
                    16: 183, 17: 211, 18: 238, 19: 268, 20: 302, 21: 337, 22: 375, 23: 414}
 
@@ -191,6 +199,8 @@ class UNSOLVED_UncrossedKnightsPath(PuzzleGenerator):
 
     A more precise description is in this
     [Wikipedia article](https://en.wikipedia.org/w/index.php?title=Longest_uncrossed_knight%27s_path)."""
+
+    tags = [Tags.unsolved, Tags.games, Tags.famous]
 
     unsolved_nxn_records = {10: 61, 11: 76, 12: 94, 13: 113, 14: 135, 15: 158,
                             16: 183, 17: 211, 18: 238, 19: 268, 20: 302, 21: 337, 22: 375, 23: 414}

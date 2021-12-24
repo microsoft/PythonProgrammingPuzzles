@@ -11,6 +11,7 @@ import re
 import sys
 import traceback
 import time
+import abc
 
 import utils
 
@@ -371,6 +372,27 @@ def get_body(function_src):
     return function_src[match.end():]
 
 
+class Tags(abc.ABC):
+    brute_force = "brute_force"  # can be solved by brute force
+    codeforces = "codeforces" # inspired by a codeforces.com problem
+    data_structures = "data_structures"  # needs fancy data structures to solve
+    dp = "dp"  # dynamic programming
+    famous = "famous"  # roughly at the level that there is a Wikipedia page about the topic
+    games = "games"  # puzzle describes a game
+    graphs = "graphs"  # solution can use graph algorithms like depth-first search, etc.
+    greedy = "greedy"  # solution can use a greedy algorithm
+    hard = "hard"  # challenging
+    human_eval = "human_eval" # inspired by a problem from the Human Eval dataset
+    unsolved = "unsolved"  # unsolved, involves open some unsolved puzzles
+    math = "math"  # mainly mathematical reasoning
+    strings = "strings" # involves constructing a string
+    # trees = "trees"  #  will we use this?
+    trivial = "trivial"  # trivial *solution* even if it may require some work to understand what the puzzle is asking
+
+
+Tags._all_tags = {getattr(Tags, k) for k in dir(Tags) if not k.startswith("_")}
+
+
 class PuzzleGenerator:
     '''PuzzleGenerator is an abstract class for a puzzle generator which builds 1 or more instances.
     Each problem MUST OVERRIDE sat. Examples from templates/hello.py:
@@ -419,9 +441,10 @@ class PuzzleGenerator:
             self.add({"a": a, "b": b})
         '''
 
+    tags = []  # add tags, e.g., tags = [Tags.trivial, Tags.math]
 
     DEBUG = False  # DEBUG = True while making a puzzle makes it run before any other problems
-    skip_example = False # skip the example in the default arguments to sat, so it's not the first instance
+    skip_example = False  # skip the example in the default arguments to sat, so it's not the first instance
 
     @staticmethod
     def sat(ans, *other_inputs):  # must override
@@ -479,6 +502,8 @@ class PuzzleGenerator:
 
     def __init__(self):
         self.name = self.__class__.__name__
+        assert len(self.tags) == len(set(self.tags)), "duplicate tags in {self.name}"
+        assert all(t in Tags._all_tags for t in self.tags), f"invalid tag(s) in {self.name}"
         assert self.sat is not PuzzleGenerator.sat, f"Must override {self.name}.sat"
         self.sat_src, sat_spec = get_src_spec(self.sat)
         self.docstring = utils.get_docstring(self.sat_src)
@@ -714,14 +739,12 @@ class PuzzleGenerator:
 
         self._inputs.append((inp, test, multiplier))
 
-
     def debug(self, target_num_instances=10000):
         print(f"Debugging {self.name}")
         old_debug = self.DEBUG
         self.DEBUG = True
         self.build(target_num_instances, force_trivial_test=True)
         self.DEBUG = old_debug
-
 
 
 def get_src_spec(f: Callable):

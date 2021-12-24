@@ -2,7 +2,7 @@
 [International Mathematical Olympiad](https://en.wikipedia.org/wiki/International_Mathematical_Olympiad)
 [problems](https://www.imo-official.org/problems.aspx)"""
 
-from puzzle_generator import PuzzleGenerator
+from puzzle_generator import PuzzleGenerator, Tags
 from typing import List
 
 

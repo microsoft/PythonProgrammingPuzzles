@@ -1832,6 +1832,7 @@ Classic puzzles
     ```
     Hand-written solution:
     ```python
+        print("solving", words)
         pi = list(range(10))  # permutation
         letters = []
         order = {}

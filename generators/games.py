@@ -2,7 +2,7 @@
 Some two-player game problems and hard game theory problems
 """
 
-from puzzle_generator import PuzzleGenerator
+from puzzle_generator import PuzzleGenerator, Tags
 from typing import List
 
 
@@ -20,6 +20,8 @@ class Nim(PuzzleGenerator):
     """
 
     skip_example = True  # so we can add multiplier in gen method below
+
+    tags = [Tags.games, Tags.famous]
 
     @staticmethod
     def sat(moves: List[List[int]], initial_state=[5, 9, 3, 11, 18, 25, 1, 2, 4, 1]):
@@ -109,6 +111,7 @@ class Mastermind(PuzzleGenerator):
     """
 
     skip_example = True  # so we can add multiplier in gen method below
+    tags = [Tags.games, Tags.famous]
 
     @staticmethod
     def sat(transcripts: List[str], max_moves=10):
@@ -201,6 +204,8 @@ class Mastermind(PuzzleGenerator):
 class TicTacToeX(PuzzleGenerator):
     """Since we don't have interaction, this problem asks for a full tie-guranteeing strategy."""
 
+    tags = [Tags.games, Tags.famous]
+
     @staticmethod
     def sat(good_boards: List[str]):
         """
@@ -253,6 +258,8 @@ class TicTacToeX(PuzzleGenerator):
 
 class TicTacToeO(PuzzleGenerator):
     """Same as above but for 2nd player"""
+
+    tags = [Tags.games, Tags.famous]
 
     @staticmethod
     def sat(good_boards: List[str]):
@@ -313,6 +320,8 @@ class RockPaperScissors(PuzzleGenerator):
         assert len(probs) == 3 and abs(sum(probs) - 1) < 1e-6
         return max(probs[(i + 2) % 3] - probs[(i + 1) % 3] for i in range(3)) < 1e-6
 
+    tags = [Tags.games, Tags.famous]
+
     @staticmethod
     def sol():
         return [1 / 3] * 3
@@ -325,6 +334,8 @@ class Nash(PuzzleGenerator):
      [eps-equilibrium](https://en.wikipedia.org/wiki/Epsilon-equilibrium) and of course for small games."""
 
     skip_example = True  # so we can add multiplier in gen method below
+
+    tags = [Tags.games, Tags.famous, Tags.math]
 
     @staticmethod
     def sat(strategies: List[List[float]], A=[[1.0, -1.0], [-1.3, 0.8]], B=[[-0.9, 1.1], [0.7, -0.8]], eps=0.01):
@@ -393,6 +404,8 @@ class ZeroSum(PuzzleGenerator):
      Linear Programming. Note that the provided instances are all quite easy---harder solutions could readily
      be made by decreasing the accuracy tolerance `eps` at which point the solution we provided would fail and
      more efficient algorithms would be needed."""
+
+    tags = [Tags.games, Tags.famous]
 
     @staticmethod
     def sat(strategies: List[List[float]], A=[[0., -0.5, 1.], [0.75, 0., -1.], [-1., 0.4, 0.]], eps=0.01):

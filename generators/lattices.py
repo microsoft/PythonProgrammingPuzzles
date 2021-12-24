@@ -1,6 +1,6 @@
 """Lattice problems with and without noise"""
 
-from puzzle_generator import PuzzleGenerator
+from puzzle_generator import PuzzleGenerator, Tags
 from typing import List
 
 

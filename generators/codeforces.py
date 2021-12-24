@@ -1,6 +1,7 @@
 """Problems inspired by the popular programming competition site [codeforces.com](https://codeforces.com)"""
+# TODO: add tags
 
-from puzzle_generator import PuzzleGenerator
+from puzzle_generator import PuzzleGenerator, Tags
 from typing import List
 
 

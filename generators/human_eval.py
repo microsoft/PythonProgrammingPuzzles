@@ -3,7 +3,7 @@ in the [codex paper](https://arxiv.org/abs/2107.03374), specifically,
 [this](https://github.com/openai/human-eval/blob/fa06031e684fbe1ee429c7433809460c159b66ad/data/HumanEval.jsonl.gz)
 version released 7/7/21."""
 
-from puzzle_generator import PuzzleGenerator
+from puzzle_generator import PuzzleGenerator, Tags
 from typing import List
 
 """

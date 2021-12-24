@@ -2,7 +2,7 @@
 Problems inspired by the [International Collegiate Programming Contest](https://icpc.global) (ICPC).
 """
 
-from puzzle_generator import PuzzleGenerator
+from puzzle_generator import PuzzleGenerator, Tags
 from typing import List
 
 

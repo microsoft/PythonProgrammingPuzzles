@@ -1,6 +1,6 @@
 """Conway's Game of Life problems (see https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)"""
 
-from puzzle_generator import PuzzleGenerator
+from puzzle_generator import PuzzleGenerator, Tags
 from typing import List
 
 
@@ -16,6 +16,8 @@ class Oscillators(PuzzleGenerator):
     [discussion](https://en.wikipedia.org/wiki/Oscillator_%28cellular_automaton%29#:~:text=Game%20of%20Life )
     in Wikipedia article on Cellular Automaton Oscillators.
     """
+
+    tags = [Tags.games, Tags.famous]
 
     @staticmethod
     def sat(init: List[List[int]], period=3):
@@ -84,6 +86,8 @@ class Oscillators(PuzzleGenerator):
 class ReverseLifeStep(PuzzleGenerator):
     """Unsolvable for "Garden of Eden" positions, but we only generate solvable examples"""
 
+    tags = [Tags.games, Tags.famous]
+
     @staticmethod
     def sat(position: List[List[int]], target=[[1, 3], [1, 4], [2, 5]]):
         """
@@ -145,6 +149,8 @@ class Spaceship(PuzzleGenerator):
     with a certain period.
 
     This is an *unsolved* problem for periods 33, 34."""
+
+    tags = [Tags.games, Tags.famous]
 
     @staticmethod
     def sat(init: List[List[int]], period=4):

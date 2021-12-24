@@ -1,6 +1,6 @@
 """Puzzles relating to de/compression."""
 
-from puzzle_generator import PuzzleGenerator
+from puzzle_generator import PuzzleGenerator, Tags
 from typing import List
 
 
@@ -41,6 +41,9 @@ class LZW(PuzzleGenerator):
     [Lempel-Ziv-Welch](https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Welch)
     so the solution is the *compression* algorithm.
     """
+
+    tags = [Tags.strings, Tags.famous]
+
 
     # _compress_LZW("Hellooooooooooooooooooooo world!") is length-17
 
@@ -138,6 +141,8 @@ class PackingHam(PuzzleGenerator):
     This packing problem a [classic problem](https://en.wikipedia.org/wiki/Sphere_packing#Other_spaces)
     in coding theory.
     """
+
+    tags = [Tags.strings, Tags.famous]
 
     @staticmethod
     def sat(words: List[str], num=100, bits=100, dist=34):

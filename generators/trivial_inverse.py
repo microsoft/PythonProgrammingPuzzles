@@ -2,7 +2,7 @@
 For instance, for the len function you can ask for a string of len(s)==100 etc.
 """
 
-from puzzle_generator import PuzzleGenerator
+from puzzle_generator import PuzzleGenerator, Tags
 from typing import List
 
 

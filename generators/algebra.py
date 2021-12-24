@@ -1,6 +1,6 @@
 """Roots of polynomials"""
 
-from puzzle_generator import PuzzleGenerator
+from puzzle_generator import PuzzleGenerator, Tags
 from typing import List
 
 
@@ -9,6 +9,8 @@ from typing import List
 
 class QuadraticRoot(PuzzleGenerator):
     """See [quadratic equations](https://en.wikipedia.org/wiki/Quadratic_formula)"""
+
+    tags = [Tags.math, Tags.famous]
 
     @staticmethod
     def sat(x: float, coeffs=[2.5, 1.3, -0.5]):
@@ -47,6 +49,8 @@ class QuadraticRoot(PuzzleGenerator):
 class AllQuadraticRoots(PuzzleGenerator):
     """See [quadratic equations](https://en.wikipedia.org/wiki/Quadratic_formula)."""
 
+    tags = [Tags.math, Tags.famous]
+
     @staticmethod
     def sat(roots: List[float], coeffs=[1.3, -0.5]):
         """Find all (real) solutions to: x^2 + b x + c (i.e., factor into roots), here coeffs = [b, c]"""
@@ -69,6 +73,8 @@ class AllQuadraticRoots(PuzzleGenerator):
 
 class CubicRoot(PuzzleGenerator):
     """See [cubic equation](https://en.wikipedia.org/wiki/Cubic_formula)."""
+
+    tags = [Tags.math, Tags.famous]
 
     @staticmethod
     def sat(x: float, coeffs=[2.0, 1.0, 0.0, 8.0]):
@@ -103,6 +109,8 @@ class CubicRoot(PuzzleGenerator):
 
 class AllCubicRoots(PuzzleGenerator):
     """See [cubic equation](https://en.wikipedia.org/wiki/Cubic_formula)."""
+
+    tags = [Tags.math, Tags.famous]
 
     @staticmethod
     def sat(roots: List[float], coeffs=[1.0, -2.0, -1.0]):
