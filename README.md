@@ -241,6 +241,11 @@ You can try out the notebook at (link to be added).
     * Conway's 99-graph problem (**open**)
     * Finding a cycle in the Collatz process (**open**)
 
+## Train-test split
+The file [`split.json`](/notebooks/split.json) contains a suggested train-test split. This split was hand-selected
+by the puzzle authors, who are familiar with all puzzles, so that: there is minimal overlap between related puzzles 
+in the two splits. In particular, for pairs of related puzzles, either both were placed in the training set or the test
+set.
 
 ## Contributing
 
