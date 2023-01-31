@@ -3,6 +3,6 @@ orderedset
 numpy
 astor
 sklearn
-torch==1.8.1
+torch==1.13.1
 transformers==2.11.0
 tensorboardX
