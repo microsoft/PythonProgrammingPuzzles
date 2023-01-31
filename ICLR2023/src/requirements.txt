@@ -1,0 +1,10 @@
+tqdm
+orderedset
+numpy
+astor
+sklearn
+fire
+strictfire
+pebble
+deepspeed == 0.6.1
+transformers == 4.12.5
