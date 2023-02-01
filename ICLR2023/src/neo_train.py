@@ -1,5 +1,3 @@
-"""Matt seems to have downloaded this (c) 2020 file from HuggingFace -- couldn't find the exact source url."""
-
 #!/usr/bin/env python
 # coding=utf-8
 # Copyright 2020 The HuggingFace Inc. team. All rights reserved.
