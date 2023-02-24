@@ -164,7 +164,7 @@ portalocker==1.7.1
 preshed==3.0.5
 promise==2.3
 prompt-toolkit==3.0.20
-protobuf==3.17.3
+protobuf==3.18.3
 psb2==1.0.0
 psutil==5.8.0
 ptyprocess==0.7.0
