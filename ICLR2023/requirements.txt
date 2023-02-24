@@ -186,7 +186,7 @@ python-dateutil==2.8.2
 python-debian==0.1.32
 python-gnupg==0.4.7
 pytz==2021.1
-pyxdg==0.25
+pyxdg==0.26
 PyYAML==5.4.1
 pyzmq==22.3.0
 regex==2021.8.28
