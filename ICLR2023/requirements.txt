@@ -121,7 +121,7 @@ keyrings.alt==3.0
 kiwisolver==1.3.2
 language-selector==0.1
 libtmux==0.10.1
-Mako==1.1.5
+Mako==1.2.2
 MarkupSafe==2.0.1
 marshmallow==3.10.0
 matplotlib==3.4.3
