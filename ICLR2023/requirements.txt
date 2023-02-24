@@ -176,7 +176,7 @@ pycrypto==2.6.1
 pydantic==1.8.2
 Pygments==2.10.0
 PyGObject==3.26.1
-PyJWT==1.5.3
+PyJWT==2.4.0
 pyOpenSSL==17.5.0
 pyparsing==2.4.7
 pyperclip==1.8.2
