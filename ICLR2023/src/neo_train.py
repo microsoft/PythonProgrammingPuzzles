@@ -15,21 +15,25 @@
 # limitations under the License.
 """
 Fine-tuning the library models for causal language modeling (GPT, GPT-2, CTRL, ...) on a text file or a dataset.
+
 Here is the full list of checkpoints on the hub that can be fine-tuned by this script:
 https://huggingface.co/models?filter=causal-lm
 """
 # You can also adapt this script on your own causal language modeling task. Pointers for this are left as comments.
 
+"""This file is based on: https://github.com/huggingface/transformers/blob/1b5ce1e63b7bd4382cd1b4fdcca72d50f8b29494/examples/language-modeling/run_clm.py
+
+There were only two lines changed, both have the comment # CHANGED: added
+"""
+
 import logging
 import math
 import os
-
 import sys
 from dataclasses import dataclass, field
 from typing import Optional
-from pathlib import Path
 
-from datasets import load_dataset, Dataset
+from datasets import load_dataset
 
 import transformers
 from transformers import (
@@ -73,36 +77,25 @@ class ModelArguments:
     )
     model_type: Optional[str] = field(
         default=None,
-        metadata={
-            "help": "If training from scratch, pass a model type from the list: "
-            + ", ".join(MODEL_TYPES)
-        },
+        metadata={"help": "If training from scratch, pass a model type from the list: " + ", ".join(MODEL_TYPES)},
     )
     config_name: Optional[str] = field(
-        default=None,
-        metadata={"help": "Pretrained config name or path if not the same as model_name"},
+        default=None, metadata={"help": "Pretrained config name or path if not the same as model_name"}
     )
     tokenizer_name: Optional[str] = field(
-        default=None,
-        metadata={"help": "Pretrained tokenizer name or path if not the same as model_name"},
+        default=None, metadata={"help": "Pretrained tokenizer name or path if not the same as model_name"}
     )
     cache_dir: Optional[str] = field(
         default=None,
-        metadata={
-            "help": "Where do you want to store the pretrained models downloaded from huggingface.co"
-        },
+        metadata={"help": "Where do you want to store the pretrained models downloaded from huggingface.co"},
     )
     use_fast_tokenizer: bool = field(
         default=True,
-        metadata={
-            "help": "Whether to use one of the fast tokenizer (backed by the tokenizers library) or not."
-        },
+        metadata={"help": "Whether to use one of the fast tokenizer (backed by the tokenizers library) or not."},
     )
     model_revision: str = field(
         default="main",
-        metadata={
-            "help": "The specific model version to use (can be a branch name, tag name or commit id)."
-        },
+        metadata={"help": "The specific model version to use (can be a branch name, tag name or commit id)."},
     )
     use_auth_token: bool = field(
         default=False,
@@ -120,23 +113,15 @@ class DataTrainingArguments:
     """
 
     dataset_name: Optional[str] = field(
-        default=None,
-        metadata={"help": "The name of the dataset to use (via the datasets library)."},
+        default=None, metadata={"help": "The name of the dataset to use (via the datasets library)."}
     )
     dataset_config_name: Optional[str] = field(
-        default=None,
-        metadata={
-            "help": "The configuration name of the dataset to use (via the datasets library)."
-        },
+        default=None, metadata={"help": "The configuration name of the dataset to use (via the datasets library)."}
     )
-    train_file: Optional[str] = field(
-        default=None, metadata={"help": "The input training data file (a text file)."}
-    )
+    train_file: Optional[str] = field(default=None, metadata={"help": "The input training data file (a text file)."})
     validation_file: Optional[str] = field(
         default=None,
-        metadata={
-            "help": "An optional input evaluation data file to evaluate the perplexity on (a text file)."
-        },
+        metadata={"help": "An optional input evaluation data file to evaluate the perplexity on (a text file)."},
     )
     max_train_samples: Optional[int] = field(
         default=None,
@@ -181,18 +166,10 @@ class DataTrainingArguments:
         else:
             if self.train_file is not None:
                 extension = self.train_file.split(".")[-1]
-                assert extension in [
-                    "csv",
-                    "json",
-                    "txt",
-                ], "`train_file` should be a csv, a json or a txt file."
+                assert extension in ["csv", "json", "txt"], "`train_file` should be a csv, a json or a txt file."
             if self.validation_file is not None:
                 extension = self.validation_file.split(".")[-1]
-                assert extension in [
-                    "csv",
-                    "json",
-                    "txt",
-                ], "`validation_file` should be a csv, a json or a txt file."
+                assert extension in ["csv", "json", "txt"], "`validation_file` should be a csv, a json or a txt file."
 
 
 def main():
@@ -204,19 +181,13 @@ def main():
     if len(sys.argv) == 2 and sys.argv[1].endswith(".json"):
         # If we pass only one argument to the script and it's the path to a json file,
         # let's parse it to get our arguments.
-        model_args, data_args, training_args = parser.parse_json_file(
-            json_file=os.path.abspath(sys.argv[1])
-        )
+        model_args, data_args, training_args = parser.parse_json_file(json_file=os.path.abspath(sys.argv[1]))
     else:
         model_args, data_args, training_args = parser.parse_args_into_dataclasses()
 
     # Detecting last checkpoint.
     last_checkpoint = None
-    if (
-        os.path.isdir(training_args.output_dir)
-        and training_args.do_train
-        and not training_args.overwrite_output_dir
-    ):
+    if os.path.isdir(training_args.output_dir) and training_args.do_train and not training_args.overwrite_output_dir:
         last_checkpoint = get_last_checkpoint(training_args.output_dir)
         if last_checkpoint is None and len(os.listdir(training_args.output_dir)) > 0:
             raise ValueError(
@@ -288,8 +259,6 @@ def main():
         )
         if extension == "txt":
             extension = "text"
-        print(extension)
-        print(data_files)
         datasets = load_dataset(extension, data_files=data_files)
     # See more about loading any type of standard or custom dataset (from files, python dict, pandas DataFrame, etc) at
     # https://huggingface.co/docs/datasets/loading_datasets.html.
@@ -313,12 +282,8 @@ def main():
         config = CONFIG_MAPPING[model_args.model_type]()
         logger.warning("You are instantiating a new config instance from scratch.")
 
-    # Things that were changed from the huggingface file
-
-    config.gradient_checkpointing = True
-    config.use_cache = False
-
-    #
+    config.gradient_checkpointing = True  # CHANGED: added
+    config.use_cache = False              # CHANGED: added
 
     tokenizer_kwargs = {
         "cache_dir": model_args.cache_dir,
@@ -445,9 +410,7 @@ def main():
     if training_args.do_train:
         if last_checkpoint is not None:
             checkpoint = last_checkpoint
-        elif model_args.model_name_or_path is not None and os.path.isdir(
-            model_args.model_name_or_path
-        ):
+        elif model_args.model_name_or_path is not None and os.path.isdir(model_args.model_name_or_path):
             checkpoint = model_args.model_name_or_path
         else:
             checkpoint = None
@@ -457,9 +420,7 @@ def main():
         metrics = train_result.metrics
 
         max_train_samples = (
-            data_args.max_train_samples
-            if data_args.max_train_samples is not None
-            else len(train_dataset)
+            data_args.max_train_samples if data_args.max_train_samples is not None else len(train_dataset)
         )
         metrics["train_samples"] = min(max_train_samples, len(train_dataset))
 
@@ -473,11 +434,7 @@ def main():
 
         metrics = trainer.evaluate()
 
-        max_val_samples = (
-            data_args.max_val_samples
-            if data_args.max_val_samples is not None
-            else len(eval_dataset)
-        )
+        max_val_samples = data_args.max_val_samples if data_args.max_val_samples is not None else len(eval_dataset)
         metrics["eval_samples"] = min(max_val_samples, len(eval_dataset))
         perplexity = math.exp(metrics["eval_loss"])
         metrics["perplexity"] = perplexity
