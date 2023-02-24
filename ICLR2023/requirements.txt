@@ -102,7 +102,7 @@ idna==2.6
 incremental==16.10.1
 ipdb==0.13.9
 ipykernel==6.4.1
-ipython==7.27.0
+ipython==8.10.0
 ipython-genutils==0.2.0
 isodate==0.6.0
 itsdangerous==2.0.1
