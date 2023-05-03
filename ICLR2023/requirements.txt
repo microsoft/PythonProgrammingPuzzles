@@ -86,7 +86,7 @@ fastcore==1.3.26
 fastdownload==0.0.5
 fastprogress==1.0.0
 filelock==3.0.12
-Flask==2.0.1
+Flask==2.3.2
 Flask-Cors==3.0.10
 Flask-Executor==0.9.4
 Flask-FontAwesome==0.1.5
