@@ -7,4 +7,4 @@ fire
 strictfire
 pebble
 deepspeed == 0.6.1
-transformers == 4.12.5
+transformers == 4.30.0
