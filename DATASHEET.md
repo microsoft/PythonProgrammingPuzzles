@@ -59,7 +59,7 @@ If so, please provide a description. If not, you may skip the remainder of the q
 * Any other comments?
 ### Uses
 * Has the dataset been used for any tasks already? If so, please provide a description. *See upcoming arXiv paper.*
-* Is there a repository that links to any or all papers or systems that use the dataset? If so, please provide a link or other access point. *Relevent papers will be linked to in GitHub*
+* Is there a repository that links to any or all papers or systems that use the dataset? If so, please provide a link or other access point. *Relevant papers will be linked to in GitHub*
 * What (other) tasks could the dataset be used for? *Dataset could be used to teach or evaluate human programmers in Python as well as computers*
 * Is there anything about the composition of the dataset or the way it was collected and preprocessed/cleaned/labeled
 that might impact future uses? For example, is there anything that a future user might need to know to avoid uses that 
