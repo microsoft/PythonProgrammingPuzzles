@@ -174,7 +174,7 @@ pyasn1-modules==0.2.1
 pycparser==2.20
 pycrypto==2.6.1
 pydantic==1.8.2
-Pygments==2.10.0
+Pygments==2.15.0
 PyGObject==3.26.1
 PyJWT==2.4.0
 pyOpenSSL==17.5.0
