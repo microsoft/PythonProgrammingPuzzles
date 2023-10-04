@@ -158,7 +158,7 @@ Pebble==4.6.3
 petname==2.6
 pexpect==4.8.0
 pickleshare==0.7.5
-Pillow==9.3.0
+Pillow==10.0.1
 platformdirs==2.3.0
 portalocker==1.7.1
 preshed==3.0.5
