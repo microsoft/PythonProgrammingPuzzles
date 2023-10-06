@@ -236,7 +236,7 @@ typer==0.3.2
 typing-extensions==3.10.0.2
 ufw==0.36
 unattended-upgrades==0.1
-urllib3==1.26.6
+urllib3==1.26.17
 virtualenv==15.1.0
 WALinuxAgent==2.2.45
 wasabi==0.8.2
