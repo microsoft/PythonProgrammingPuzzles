@@ -93,7 +93,7 @@ Flask-FontAwesome==0.1.5
 frozenlist==1.2.0
 fsspec==2021.11.0
 gitdb==4.0.7
-GitPython==3.1.35
+GitPython==3.1.37
 httplib2==0.19.0
 huggingface-hub==0.1.2
 humanize==3.11.0
