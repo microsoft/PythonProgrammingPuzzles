@@ -242,7 +242,7 @@ WALinuxAgent==2.2.45
 wasabi==0.8.2
 wcwidth==0.2.5
 websocket-client==1.2.1
-Werkzeug==2.2.3
+Werkzeug==3.0.1
 xdg==5.1.1
 xxhash==2.0.2
 yarl==1.7.2
