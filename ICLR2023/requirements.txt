@@ -168,7 +168,7 @@ protobuf==3.18.3
 psb2==1.0.0
 psutil==5.8.0
 ptyprocess==0.7.0
-pyarrow==1.0.1
+pyarrow==14.0.1
 pyasn1==0.4.2
 pyasn1-modules==0.2.1
 pycparser==2.20
