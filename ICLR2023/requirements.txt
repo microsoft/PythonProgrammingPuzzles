@@ -64,7 +64,7 @@ configobj==5.0.6
 configparser==5.0.2
 constantly==15.1.0
 contextlib2==21.6.0
-cryptography==41.0.4
+cryptography==41.0.6
 cycler==0.10.0
 cymem==2.0.5
 datasets==1.15.1
