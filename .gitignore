@@ -130,3 +130,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Claude settings
+.claude/*
+
+# Poetry lock file is NOT ignored (keep it in version control)
+# poetry.lock
